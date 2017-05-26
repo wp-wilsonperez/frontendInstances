@@ -1,0 +1,263 @@
+<div class="row">
+    <div class="col">
+        <div widget class="card">
+            <div class="card-header">
+                <span class="text-uppercase">Listado de Usuarios</span>
+                <div class="widget-controls"> 
+             
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>                          
+                   
+                </div>        
+            </div>
+            <div class="card-block widget-body">
+
+                 <div *ngIf="toast" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}}</strong> 
+                </div>
+                   <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}} </strong> 
+                    </div>
+                
+
+                <div class="w-200 pull-right bottom-15">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input class="form-control" [(ngModel)]="searchTxt" id="table-search-input" (input)="getItems($event)" type="text" placeholder="Buscar nombre...">
+                    </div>
+                </div> 
+                <div class="table-responsive datatable">
+                    <table class="table table-striped table-hover table-sm" [mfData]="userData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                        <thead>
+                            <tr>
+                                  <th> <mfDefaultSorter by="userImg"></mfDefaultSorter></th>
+                                <th> <mfDefaultSorter by="cedula">Cedula</mfDefaultSorter></th>                              
+                                <th><mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="lastName">Apellido</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="description">Correo</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="date">Telefono</mfDefaultSorter></th>
+                                <th>Acciones</th>      
+                            </tr>
+                        </thead>
+                        <tbody>                           
+                            <tr *ngFor="let user of usersData">
+
+                                 <td class="avatar"> 
+
+                                                <img *ngIf="user.userImg != null" src="http://localhost:3000/uploads/user/{{user.userImg}}" alt="" class="img-circle-list user-img"> 
+                                                <img *ngIf="user.userImg == null" src="../../../assets/img/users/user.png" class="img-circle-list user-img" alt="">
+                                     
+                                     </td>
+
+                                  
+                                <td><strong>  {{user.cedula}}   </strong></td>
+                                <td>{{user.name}}</td>
+                                <td>
+                                    {{user.lastName}}
+                                </td>
+                                <td>
+                                     {{user.mail}}
+                                </td>
+                                <td>
+                                    {{user.phone}}
+                                </td>
+                                <td class="row col  bottom-15">
+                                  
+                                      <div class="d-inline-block">
+                                                <div class="row">
+                              
+                                                    <button type="button" (click)="userDetail(user)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+
+                                                            <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header state modal-primary">                                    
+                                                                                        <h4 class="modal-title" id="modal-primary-label"><i class="fa fa-user"></i>Editar Usuario</h4>
+                                                                                        <button  type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                      
+                                                                                                        <div class="">
+                                                                                                            <div widget class="card">
+                                                                                                        
+                                                                                                                <div class="card-block widget-body">
+                                                                                                                            <div class="row mbm-20">
+                                                                                                                                <div class="col-lg-12 col-12 bottom-30">
+                                                                                                                                    <div class="clearfix">
+                                                                                                                                        <ul class="nav nav-tabs top pull-left w-100p">
+                                                                                                                                            <li class="nav-item">
+                                                                                                                                                <a class="nav-link active" data-toggle="tab" href="#ta">Datos Personales</a>
+                                                                                                                                            </li>
+                                                                                                                                            <li class="nav-item">
+                                                                                                                                                <a class="nav-link" data-toggle="tab" href="#tb">Imagen</a>
+                                                                                                                                            </li>
+                                                                                                                                            <li class="nav-item dropdown">
+                                                                                                                                                <a class="nav-link" data-toggle="tab" href="#tc" >Rol</a>
+
+                                                                                                                                                
+                                                                                                                                            </li>                          
+                                                                                                                                        </ul>
+                                                                                                                                    </div>
+                                                                                                                                    <div class="tab-content top">
+                                                                                                                                        <div class="tab-pane active" id="ta">
+                                                                                                                                        <form [formGroup]="editForm" class="row">
+
+                                                                                                                                            <div class="form-group col-md-5" [ngClass]="{'has-danger' :  editForm.get('name').hasError('required'), 'has-success' : !editForm.get('name').hasError('required') }">
+                                                                                                                                                <label class="form-control-label">Nombre</label>
+                                                                                                                                                <div class="input-group">
+                                                                                                                                                        <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                                                                                                                        <input [(ngModel)]="editName" formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('name').hasError('required'), 'form-control-success' :  !editForm.get('name').hasError('required') }" type="text"> 
+                                                                                                                                                </div>
+                                                                                                                                            
+                                                                                                                                                <span class="help-block text-danger" *ngIf="editForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
+                                                                                                                                            </div>
+
+                                                                                                                                            <div class="form-group col-md-5" [ngClass]="{'has-danger' : editForm.get('lastName').hasError('required'), 'has-success' : !editForm.get('lastName').hasError('required') }">
+                                                                                                                                                <label class="form-control-label">Apellido</label>
+                                                                                                                                                <div class="input-group">  
+                                                                                                                                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                                                                                                                    <input formControlName="lastName" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('lastName').hasError('required'), 'form-control-success' :  !editForm.get('lastName').hasError('required') }" type="text"> 
+                                                                                                                                                </div>
+                                                                                                                                            
+                                                                                                                                                <span class="help-block text-danger" *ngIf="editForm.get('lastName').hasError('required')">Apellido no puede estar vacio</span>                             
+                                                                                                                                            </div>
+
+
+                                                                                                                                            
+                                                                                                                                            <div class="form-group col-md-5" [ngClass]="{'has-danger' : (editForm.get('cedula').hasError('required')) || (editForm.get('cedula').hasError('minlength')) || (editForm.get('cedula').hasError('invalidNumber')) || (editForm.get('cedula').hasError('invalidCedula')), 
+                                                                                                                                                                                        'has-success' : !editForm.get('cedula').hasError('required') && !editForm.get('cedula').hasError('minlength') && !editForm.get('cedula').hasError('invalidNumber') && !editForm.get('cedula').hasError('invalidCedula') }">
+                                                                                                                                                <label class="form-control-label">Cedula</label> 
+                                                                                                                                                <div class="input-group"> 
+                                                                                                                                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
+                                                                                                                                                    <input formControlName="cedula" class="form-control" [ngClass]="{'form-control-danger' : ( editForm.get('cedula').hasError('required')) || (editForm.get('cedula').hasError('minlength')) || (editForm.get('cedula').hasError('invalidNumber')) || (editForm.get('cedula').hasError('invalidCedula')),                                                                                                        
+                                                                                                                                                    'form-control-success' : !editForm.get('cedula').hasError('required') && !editForm.get('cedula').hasError('minlength') && !editForm.get('cedula').hasError('invalidNumber') && !editForm.get('cedula').hasError('invlidCedula')}" type="text" maxlength="10">
+                                                                                                                                                </div>
+                                                                                                                                                <span class="help-block text-danger" *ngIf="editForm.get('cedula').hasError('required')">Cedula es Necesaria</span>                              
+                                                                                                                                                <span class="help-block text-danger" *ngIf="editForm.get('cedula').hasError('minlength')">La cedula debe tener  10 caracteres</span>                            
+                                                                                                                                                <span class="help-block text-danger" *ngIf=" editForm.get('cedula').hasError('invalidNumber')">La cedula debe tener solo numeros</span> 
+                                                                                                                                                <span class="help-block text-danger" *ngIf="editForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
+                                                                                                                                            </div>
+
+                                                                                                                                            <div class="form-group col-md-5" [ngClass]="{'has-danger' :  editForm.get('mail').hasError('required'), 'has-success' : !editForm.get('mail').hasError('required') }">
+                                                                                                                                                <label class="form-control-label">Email</label>
+                                                                                                                                                <div class="input-group">
+                                                                                                                                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                                                                                                                    
+                                                                                                                                                    <input formControlName="mail" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('mail').hasError('required'), 'form-control-success' :  !editForm.get('mail').hasError('required') }" type="text"> 
+                                                                                                                                                </div>
+                                                                                                                                                <span class="help-block text-danger" *ngIf="editForm.get('mail').hasError('required')">Email esta vacio</span>                             
+                                                                                                                                            </div>
+
+                                                                                                                                            <div class="form-group col-md-5" [ngClass]="{'has-danger' :  editForm.get('phone').hasError('required'), 'has-success' : !editForm.get('phone').hasError('required') }">
+                                                                                                                                                <label class="form-control-label">Telefono</label>
+                                                                                                                                                <div class="input-group">
+                                                                                                                                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                                                                                                                    
+                                                                                                                                                    <input formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('phone').hasError('required'), 'form-control-success' :  !editForm.get('phone').hasError('required') }" type="text"> 
+                                                                                                                                                </div>
+                                                                                                                                                <span class="help-block text-danger" *ngIf="editForm.get('phone').hasError('required')">Telefono esta vacio</span>                             
+                                                                                                                                            </div>
+
+                                                                                                                                        
+                                                                                                                                            
+                                                                                                                                            <div class="form-group col-md-5">
+                                                                                                                                                <label for="input-12">Fecha de Nacimiento</label>
+                                                                                                                                                <input formControlName="dateBirthday"  class="form-control" type="date" max="{{today}}" class="form-control">
+                                                                                                                                            </div>                     
+                                                                                                                                        </form>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="tab-pane" id="tb">
+                                                                                                                                           <div class="col-md-4">
+                                                                                                                                                    <div class="form-group img_user">                    
+                                                                                                                                                        <h6>Imagen de Perfil</h6>
+                                                                                                                                                        <az-image-uploader></az-image-uploader>
+                                                                                                                                                    </div>
+                                                                                                                                                </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="tab-pane" id="tc">
+                                                                                                                                           <div class="form-group col-md-12">
+                                                                                                                                                    <label for="exampleSelect1">Rol de Usuario</label>
+
+                                                                                                                                                            <select class="form-control">
+                                                                                                                                                                <option *ngFor="let rol of roles" value="{{rol._id}}">{{rol.name}}</option>
+                                                                                                                                                            
+                                                                                                                                                            </select>
+                                                                                                                                                    
+                                                                                                                                                        
+                                                                                                                                                    
+                                                                                                                                                  
+                                                                                                                                                </div>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="tab-pane" id="tdropdown1">
+                                                                                                                                            <p>Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar.</p>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="tab-pane" id="tdropdown2">
+                                                                                                                                        <p>Aliquam pulvinar lacinia euismod. Sed ante nisi, volutpat a ex vel, dapibus lacinia lacus. Nam pellentesque, ligula nec aliquet fermentum, lectus justo luctus mi.</p>
+                                                                                                                                        </div>
+                                                                                                                                    </div>                   
+                                                                                                                                </div>
+
+                                                                                                                            </div>
+                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                        
+
+                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                            </div>
+                                                                                                                                    </div>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                    <div class="modal-footer">
+                                                                                                                                                                                                        <button (click)="editUser()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
+                                                                                                                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                </div>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                        </div>
+                                                                                                                                                                                <button (click)="idAssign(user._id)" type="button" class="btn btn-danger" data-toggle="modal" data-target="#primary-modal">Borrar</button>
+
+                                                                                                                                                                                                        <div class="modal fade" id="primary-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                                                                                                                                                            <div class="modal-dialog" role="document">
+                                                                                                                                                                                                                <div class="modal-content">
+                                                                                                                                                                                                                    <div class="modal-header state modal-primary">                                    
+                                                                                                                                                                                                                        <h4 class="modal-title" id="modal-primary-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                                                                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                    <div class="modal-body">
+                                                                                                                                                                                                                        Se borrara el usuario y todos los datos relacionados
+                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                    <div class="modal-footer">
+                                                                                                                                                                                                                        <button (click)="borrar(user._id)" type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                                                                                                                                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                </div>
+                                                                                                                                                                
+                                                                                                                                                            </div>
+                                                                                                                                                </td>
+                                                                                                                                                </tr>
+                                                                                                                                        
+                                                                                                                                        </tbody>
+                                                                                                                                        <tfoot>
+                                                                                                                                            <tr>
+                                                                                                                                                <td colspan="12">
+                                                                                                                                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
+                                                                                                                                        </tfoot>
+                                                                                                                                    </table>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>

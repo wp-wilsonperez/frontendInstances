@@ -1,0 +1,227 @@
+<div class="row">
+    <div class="col-12">
+        <div widget class="card">
+            <div class="card-header">
+                <span> Nuevo Usuario</span>
+                <div class="widget-controls"> 
+            
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>                          
+           
+                </div>        
+            </div>
+            <div class="card-block widget-body">
+                <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Verificar campos en rojo</strong>
+                  
+                </div>
+                    <div *ngIf="permission" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}}</strong> 
+                </div>
+                <div class="row">
+                    <div *ngFor="let step of steps; let last = last" class="col-md-3 col-sm-6 col-12 step" [class.active]="step.active" [class.valid]="step.valid" [ngClass]="{'last' : last }">
+                        <div class="step-icon">
+                            <i class="fa {{ step.icon }}" aria-hidden="true"></i>
+                        </div> 
+                        <span class="step-name" [class.active]="step.active" [class.valid]="step.valid">{{step.name}}</span>    
+                    </div> 
+                </div>               
+             
+                <div *ngFor="let step of steps" [hidden]="!step.active" class="col form-wizard">
+                    <div class="row form-title">
+                        <h4><i class="fa {{ step.icon }}"></i> {{step.name}}</h4>
+                    </div>
+                        
+                    <form *ngIf="step.name=='Informacion de Cuenta'" [formGroup]="accountForm" class="row">
+                             <div class="form-group col-md-12" [ngClass]="{'has-danger' : (accountForm.get('email').value != '' && accountForm.get('email').hasError('required')) || (accountForm.get('email').value != '' && accountForm.get('email').hasError('invalidEmail')), 
+                                                            'has-success' : !accountForm.get('email').hasError('required') && !accountForm.get('email').hasError('invalidEmail')}">
+                            <label class="form-control-label">Email</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                                <input formControlName="email" class="form-control" [ngClass]="{'form-control-danger' : (accountForm.get('email').value != '' && accountForm.get('email').hasError('required')) || (accountForm.get('email').value != '' && accountForm.get('email').hasError('invalidEmail')), 
+                                                                                                'form-control-success' :  !accountForm.get('email').hasError('required') && !accountForm.get('email').hasError('invalidEmail')}" type="text">                      
+                            </div>
+                            <span class="help-block text-danger" *ngIf="accountForm.get('email').value != '' && accountForm.get('email').hasError('required')">Email is required</span>                              
+                            <span class="help-block text-danger" *ngIf="accountForm.get('email').value != '' && accountForm.get('email').hasError('invalidEmail')">Email Invlido</span>
+                        </div>
+                
+
+                        <div class="form-group col-md-12" [ngClass]="{'has-danger' : (accountForm.get('password').value != '' && accountForm.get('password').hasError('required')) || (accountForm.get('password').value != ''&& accountForm.get('password').hasError('minlength')), 
+                                                                     'has-success' : !accountForm.get('password').hasError('required') && !accountForm.get('password').hasError('minlength')}">
+                            <label class="form-control-label">Contrasena</label> 
+                            <div class="input-group"> 
+                                <div class="input-group-addon"><i class="fa fa-key"></i></div>                       
+                                <input formControlName="password" class="form-control" [ngClass]="{'form-control-danger' : (accountForm.get('password').value != '' && accountForm.get('password').hasError('required')) || (accountForm.get('password').value != '' && accountForm.get('password').hasError('minlength')),                                                                                                        
+                                'form-control-success' : !accountForm.get('password').hasError('required') && !accountForm.get('password').hasError('minlength')}" type="password">
+                            </div>
+                            <span class="help-block text-danger" *ngIf="accountForm.get('password').value != '' && accountForm.get('password').hasError('required')">Contrasena es Necesaria</span>                              
+                            <span class="help-block text-danger" *ngIf="accountForm.get('password').value != '' && accountForm.get('password').hasError('minlength')">La contrasena debe tener minimo 6 caracteres</span>                            
+                        </div>
+
+                        <div class="form-group col-md-12" [ngClass]="{'has-danger' : (accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('required')) || (accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('mismatchedPasswords')), 
+                                                                     'has-success' : !accountForm.get('confirmPassword').hasError('required') && !accountForm.get('confirmPassword').hasError('mismatchedPasswords')}">
+                            <label class="form-control-label">Confirmar Contrasena</label>                              
+                            <div class="input-group"> 
+                                <div class="input-group-addon"><i class="fa fa-key"></i></div>     
+                                <input formControlName="confirmPassword" class="form-control" [ngClass]="{'form-control-danger' : (accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('required')) || (accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('mismatchedPasswords')), 
+                                                                                                          'form-control-success' : !accountForm.get('confirmPassword').hasError('required') && !accountForm.get('confirmPassword').hasError('mismatchedPasswords')}" type="password" >
+                            </div>
+                            <span class="help-block text-danger" *ngIf="accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('required')">Contrasena no puede ser vacio</span>                              
+                            <span class="help-block text-danger" *ngIf="accountForm.get('confirmPassword').value != '' && accountForm.get('confirmPassword').hasError('mismatchedPasswords')">Contrasenas no son iguales</span> 
+                        </div>
+
+                   
+                    </form>
+
+
+
+                    <form *ngIf="step.name=='Informacion Personal'" [formGroup]="personalForm" class="row">
+                        <div class="col-md-8">
+                        <div class="form-group " [ngClass]="{'has-danger' : personalForm.get('name').value != '' && personalForm.get('name').hasError('required'), 'has-success' : !personalForm.get('name').hasError('required') }">
+                            <label class="form-control-label">Nombre</label>
+                            <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                     <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('name').hasError('required'), 'form-control-success' :  !personalForm.get('name').hasError('required') }" type="text"> 
+                            </div>
+                           
+                            <span class="help-block text-danger" *ngIf="personalForm.get('name').value != '' && personalForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
+                        </div>
+
+                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('lastName').hasError('required'), 'has-success' : !personalForm.get('lastName').hasError('required') }">
+                            <label class="form-control-label">Apellido</label>
+                            <div class="input-group">  
+                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                  <input formControlName="lastName" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('lastName').hasError('required'), 'form-control-success' :  !personalForm.get('lastName').hasError('required') }" type="text"> 
+                            </div>
+                          
+                            <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('lastName').hasError('required')">Apellido no puede estar vacio</span>                             
+                        </div>
+                                           
+                        <div class="form-group" [ngClass]="{'has-danger' : (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('required')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('minlength')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidNumber')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidCedula')), 
+                                                                     'has-success' : !personalForm.get('cedula').hasError('required') && !personalForm.get('cedula').hasError('minlength') && !personalForm.get('cedula').hasError('invalidNumber') && !personalForm.get('cedula').hasError('invalidCedula') }">
+                            <label class="form-control-label">Cedula</label> 
+                            <div class="input-group"> 
+                                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
+                                <input formControlName="cedula" class="form-control" [ngClass]="{'form-control-danger' : (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('required')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('minlength')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidNumber')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidCedula')),                                                                                                        
+                                'form-control-success' : !personalForm.get('cedula').hasError('required') && !personalForm.get('cedula').hasError('minlength') && !personalForm.get('cedula').hasError('invalidNumber') && !personalForm.get('cedula').hasError('invlidCedula')}" type="text" maxlength="10">
+                            </div>
+                            <span class="help-block text-danger" *ngIf="personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('required')">Cedula es Necesaria</span>                              
+                            <span class="help-block text-danger" *ngIf="personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('minlength')">La cedula debe tener  10 caracteres</span>                            
+                            <span class="help-block text-danger" *ngIf="personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidNumber')">La cedula debe tener solo numeros</span> 
+                            <span class="help-block text-danger" *ngIf="personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
+                        </div>
+
+                        <div class="form-group" [ngClass]="{'has-danger' : personalForm.get('telefono').value != '' && personalForm.get('telefono').hasError('required') || (personalForm.get('telefono').value != '' && personalForm.get('telefono').hasError('invalidPhone')), 'has-success' : !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidPhone') }">
+                            <label class="form-control-label">Telefono</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                
+                                <input maxlength="10" formControlName="telefono" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('invalidPhone') || personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('required') , 'form-control-success' :  !personalForm.get('telefono').hasError('required') && !personalForm.get('telefono').hasError('invalidPhone') }"> 
+                            </div>
+                            <span class="help-block text-danger" *ngIf="personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('required')">Telefono esta vacio</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('invalidPhone')">Telefono Invalido</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('telefono').value != '' &&  personalForm.get('telefono').hasError('minLength')">Telefono  debe tener minimo 6 caracteres</span>                             
+                        </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group img_user">                    
+                                <h6>Imagen de Perfil</h6>
+                                <az-image-uploader></az-image-uploader>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="input-12">Fecha de Nacimiento</label>
+                            <input formControlName="birthDate"  class="form-control" type="date" max="2020-12-31" class="form-control">
+                        </div>
+
+                        
+                        
+                        <div class="form-group col-md-12" [ngClass]="{'has-danger' : step.hasError && personalForm.get('direccion').hasError('required'),
+                                                                      'has-success': !personalForm.get('direccion').hasError('required')}">
+                            <label class="form-control-label">Direccion</label>
+                            <textarea [ngClass]="{'form-control-danger': personalForm.get('direccion').hasError('required') , 'form-control-success': !personalForm.get('direccion').hasError('required')}" formControlName="direccion" class="form-control"></textarea>
+                              <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('direccion').hasError('required')">Direccion no puede estar Vacia</span>                             
+                        </div> 
+                        
+         
+                    
+
+                  
+        
+                                           
+                    </form>
+
+                    <form *ngIf="step.name=='Roles'" [formGroup]="rolForm" class="row">
+
+                        <div class="form-group col-md-12">
+                             <label for="exampleSelect1">Rol de Usuario</label>
+                                <select formControlName="idRol" class="form-control">
+                                    <option *ngFor="let rol of roles" value="{{rol._id}}">{{rol.name}}</option>
+                                  
+                                </select>
+                                 <span class="help-block text-danger" *ngIf="step.hasError && rolForm.get('idRol').hasError('required')">Rol no puede estar Vacio</span>                              
+                            
+                        </div>
+             
+
+                      
+
+                   
+
+                     
+                    </form>
+                   
+                    <div *ngIf="step.name=='Confirmar la Creacion'" class="row">
+
+                        <div class="col-2"><strong class="text-truncate">Nombre Completo:</strong></div>
+                        <div class="col-10"><i>{{details.fullname}}</i></div>
+
+                        <div class="col-2 " *ngIf="errorList.cedula == undefined"><strong class="text-truncate">Cedula:</strong></div>
+                        <div class="col-10" *ngIf="errorList.cedula == undefined"><i>{{details.cedula}}</i></div>
+
+                        <div class="col-2 text-danger " *ngIf="errorList.cedula != undefined"><strong class="text-truncate">Cedula:</strong></div>
+                        <div class="col-10 text-danger " *ngIf="errorList.cedula != undefined"><i>{{details.cedula}} (Cedula ya registrada  ) </i></div>
+
+
+
+                        <div class="col-2" *ngIf="errorList.mail == undefined"><strong class="text-truncate">Email:</strong></div>
+                        <div class="col-10" *ngIf="errorList.mail == undefined"><i>{{details.email}}</i></div>
+
+                         <div class="col-2 text-danger"  *ngIf="errorList.mail != undefined"><strong class="text-truncate">Email:</strong></div>
+                        <div class="col-10 text-danger"  *ngIf="errorList.mail != undefined"><i>{{details.email}} (Email ya registrado)</i></div>
+
+
+
+
+                        <div class="col-2"><strong class="text-truncate">Telefono:</strong></div>
+                        <div class="col-10"><i>{{details.telefono}}</i></div>
+                        <div class="col-2"><strong class="text-truncate">Fecha de Nacimiento:</strong></div>
+                        <div class="col-10"><i>{{details.birthDate}}</i></div>
+                        <div class="col-2"><strong class="text-truncate">Direccion</strong></div>
+                        <div class="col-10"><i>{{details.direccion}} &nbsp;</i></div>
+       
+                    </div>
+
+                </div> 
+
+                <div class="row"> 
+                    <div class="col-12">
+                        <button *ngIf="!steps[0].active" class="btn btn-primary pull-left" (click)="prev()"><i class="fa fa-chevron-left arrow"></i>&nbsp; Atras</button>
+                        <button *ngIf="!steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="next()">Siguiente &nbsp;<i class="fa fa-chevron-right arrow"></i></button>
+                        <button *ngIf="steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="saveUser()">Confirmar &nbsp;<i class="fa fa-check arrow"></i></button>
+                    </div> 
+                </div>         
+
+            </div>
+        </div>
+    </div>
+</div>
