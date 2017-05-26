@@ -6,6 +6,7 @@ import { Http, Response } from '@angular/http';
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import { ValidationService } from './validation.service';
+import {config} from './../../../../config/project-config';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -38,7 +39,7 @@ export class BranchComponent {
      public  imageComponent: ImageUploaderComponent;
 
     constructor(private formBuilder: FormBuilder,public http:Http,public router:Router,public local:UserSessionService) {   
-        this. cities = [];
+
         this.steps = [
           {name: 'Informacion General', icon: 'fa-info-circle', active: true, valid: false, hasError:false },
           {name: 'Ciudad', icon: 'fa fa-building', active: false, valid: false, hasError:false },
@@ -61,6 +62,8 @@ export class BranchComponent {
         })
 
         this.userSession = this.local.getUser();
+        this.loadCities();
+
           
 
     
@@ -113,6 +116,12 @@ export class BranchComponent {
             console.log(files[0]);
             this.imagen = files[0];
             
+  }
+  loadCities(){
+      this.http.get(config.url+'city/list?access_token='+this.userSession.token).toPromise().then(result=>{
+          console.log(result.json());
+          
+      })
   }
 
     saveUser(){
