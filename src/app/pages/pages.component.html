@@ -1,0 +1,34 @@
+<az-navbar></az-navbar>
+<div class="container-fluid">         
+    <div class="row"> 
+        <az-menu></az-menu>
+        <div class="main-wrapper"  [ngClass]="{'menu-collapsed': isMenuCollapsed}"> 
+            <div class="az-overlay" *ngIf="!isMenuCollapsed" (click)="hideMenu()"></div>
+
+            <div class="main">
+                <az-breadcrumb></az-breadcrumb>
+                <router-outlet></router-outlet>
+            </div> 
+
+          
+
+
+            <footer class="footer text-center clearfix">
+                <div class="footer-main pull-left  clearfix">
+                    <div class="copyright pull-left">&copy; <a class="font-weight-bold" href="http://themeseason.com">YTODOSEGURO</a> 2017</div>
+                    <ul class="share clearfix pull-left">
+                        <li><a href="https://www.facebook.com/cintanegranet" target="_blank"><i class="socicon socicon-facebook transition"></i></a></li>
+                        <li><a href="https://twitter.com/cintanegranet" target="_blank"><i class="socicon socicon-twitter transition"></i></a></li>                                   
+                    </ul>
+                </div>
+
+
+                <div class="pull-right created">Creado con <i class="fa fa-heart"></i><a href="http://www.cintanegra.net" target="_blank" title="Cintanegra"><img style="width: 16px" src="assets/img/footer/logo-footer.png"/></a></div>
+                
+            </footer>
+
+            <az-back-top position="200"></az-back-top>
+
+        </div>
+    </div>
+</div>

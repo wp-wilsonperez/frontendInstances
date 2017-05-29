@@ -1,0 +1,41 @@
+<nav class="nav az-navbar fixed-top">
+    <a class="navbar-brand" routerLink="/pages/dashboard">
+        <img src="assets/img/logo/az_logo_full.png" alt="" class="hidden-sm-down"> 
+        <img src="assets/img/logo/az_logo.png" alt="" class="hidden-md-up"> 
+    </a>
+    <div id="lines" class="transition" (click)="toggleMenu()"></div>
+    
+    <form role="search" class="app-search hidden-sm-down">
+        <input type="text" placeholder="Buscar..." class="form-control">
+        <a href="javascript:void(0)"><i class="fa fa-search"></i></a>
+    </form>
+
+    <ul class="nav right-section">
+        <li class="nav-item">
+           <az-messages></az-messages>
+        </li>
+        <li class="nav-item">
+          <div class="dropdown float-right user-menu">
+              <a class="dropdown-toggle user-link" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  <img src="http://localhost:3001/uploads/user/{{userInfo.userImg}}" alt="user-img" class="img-circle user-img">
+                  <span class="hidden-md-down">{{userInfo.name}} {{userInfo.lastName}}</span>
+              </a>
+
+              <ul class="dropdown-menu">
+                  <li class="user-info">
+                      <img src="http://localhost:3001/uploads/user/{{userInfo.userImg}}" alt="user-img" class="img-circle user-img">                    
+                      <p>
+                          {{userInfo.name}} {{userInfo.lastName}}
+                          <small>Cedula : {{userInfo.cedula}}</small>
+                      </p>
+                  </li>
+                  <a class="dropdown-item" routerLink="profile"><i class="fa fa-user"></i>Perfil</a>
+       
+                  <a class="dropdown-item" routerLink="/"><i class="fa fa-lock"></i>Bloquear Sistema</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" (click)="closeSession()"><i class="fa fa-power-off"></i>Cerrar Sesión</a>
+              </ul>
+          </div>
+        </li>
+    </ul>
+</nav>

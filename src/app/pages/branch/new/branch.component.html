@@ -1,0 +1,202 @@
+<div class="row">
+    <div class="col-12">
+        <div widget class="card">
+            <div class="card-header">
+                <span> Nueva Sucursal</span>
+                <div class="widget-controls"> 
+            
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>                          
+           
+                </div>        
+            </div>
+            <div class="card-block widget-body">
+                <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Verificar campos en rojo</strong>
+                  
+                </div>
+                    <div *ngIf="permission" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}}</strong> 
+                </div>
+                <div class="row">
+                    <div *ngFor="let step of steps; let last = last" class="col-md-4 col-sm-6 col-12 step" [class.active]="step.active" [class.valid]="step.valid" [ngClass]="{'last' : last }">
+                        <div class="step-icon">
+                            <i class="fa {{ step.icon }}" aria-hidden="true"></i>
+                        </div> 
+                        <span class="step-name" [class.active]="step.active" [class.valid]="step.valid">{{step.name}}</span>    
+                    </div> 
+                </div>               
+             
+                <div *ngFor="let step of steps" [hidden]="!step.active" class="col form-wizard">
+                    <div class="row form-title">
+                        <div class="col-md-8">
+                                 <h4><i class="fa {{ step.icon }}"></i> {{step.name}}</h4>
+                        </div>
+                         <div class="col-md-4">
+                               <button data-toggle="modal" data-target="#new-city" *ngIf="step.name == 'Ciudad' " class="btn btn-primary btn-rounded pull-right" ><i class="fa fa-plus"></i></button>
+                        </div>
+                        
+                       
+
+                        
+                        
+                    </div>
+                    
+                    
+                    <form *ngIf="step.name=='Informacion General'" [formGroup]="personalForm" class="row">
+                          
+              
+
+                        <div class="form-group  col-md-6" [ngClass]="{'has-danger' : personalForm.get('name').value != '' && personalForm.get('name').hasError('required'), 'has-success' : !personalForm.get('name').hasError('required') }">
+                            <label class="form-control-label">Nombre</label>
+                            <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                     <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('name').hasError('required'), 'form-control-success' :  !personalForm.get('name').hasError('required') }" type="text"> 
+                            </div>
+                           
+                            <span class="help-block text-danger" *ngIf="personalForm.get('name').value != '' && personalForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
+                        </div>
+
+
+                         <div class="form-group  col-md-6" [ngClass]="{'has-danger' : personalForm.get('phone').value != '' && personalForm.get('phone').hasError('required') || personalForm.get('phone').value != '' && personalForm.get('phone').hasError('invalidPhone') , 
+                                                                        'has-success' : !personalForm.get('phone').hasError('required') && !personalForm.get('phone').hasError('invalidPhone')  }">
+                            <label class="form-control-label">Telefono</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                
+                                <input maxlength="8" formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('invalidPhone') || personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('required') , 'form-control-success' :  !personalForm.get('phone').hasError('required') && !personalForm.get('phone').hasError('invalidPhone') }"> 
+                            </div>
+                            <span class="help-block text-danger" *ngIf="personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('required')">Telefono esta vacio</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('invalidPhone')">Telefono Invalido</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('minLength')">Telefono  debe tener minimo 6 caracteres</span>                             
+                        </div>
+
+
+
+                        <div class="form-group  col-md-6" [ngClass]="{'has-danger' : personalForm.get('movil').value != '' && personalForm.get('movil').hasError('required') || personalForm.get('movil').value != '' && personalForm.get('movil').hasError('invalidMobile') , 
+                                                                        'has-success' : !personalForm.get('movil').hasError('required') && !personalForm.get('movil').hasError('invalidMobile')  }">
+                            <label class="form-control-label">Movil</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
+                                
+                                <input maxlength="9" formControlName="movil" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('invalidMobile') || personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('required') , 'form-control-success' :  !personalForm.get('movil').hasError('required') && !personalForm.get('movil').hasError('invalidMobile') }"> 
+                            </div>
+                            <span class="help-block text-danger" *ngIf="personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('required')">Movil esta vacio</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('invalidMobile')">Movil Invalido</span>                             
+                            <span class="help-block text-danger" *ngIf="personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('minLength')">Movil  debe tener minimo 9 caracteres</span>                             
+                        </div>
+               
+                        
+                        
+                        <div class="form-group col-md-12" [ngClass]="{'has-danger' : step.hasError && personalForm.get('address').hasError('address'),
+                                                                      'has-success': !personalForm.get('address').hasError('required')}">
+                            <label class="form-control-label">Direccion</label>
+                            <textarea [ngClass]="{'form-control-danger': personalForm.get('address').hasError('required') , 'form-control-success': !personalForm.get('address').hasError('required')}" formControlName="address" class="form-control"></textarea>
+                              <span class="help-block text-danger" *ngIf="step.hasError && personalForm.get('address').hasError('required')">Direccion no puede estar Vacia</span>                             
+                        </div> 
+
+                                           
+                    </form>
+
+                    <form *ngIf="step.name=='Ciudad'" [formGroup]="cityForm" class="row">
+                            
+                          <div class="form-group col-md-12">
+                                            <label for="exampleSelect1">Ciudad</label>
+                                                <select formControlName="idCity" class="form-control">
+                                                    <option *ngFor="let city of cities" value="{{city._id}}">{{city.name}}</option>
+                                                
+                                                </select>
+                                                <span class="help-block text-danger" *ngIf="step.hasError && rolForm.get('idCity').hasError('required')">Ciudad no puede estar Vacia</span>                              
+                                            
+                                        </div>
+                    
+             
+
+                      
+
+                   
+
+                     
+                    </form>
+                   
+                    <div *ngIf="step.name=='Confirmar la Creacion'" class="row">
+
+                        <div class="col-2"><strong class="text-truncate">Nombre:</strong></div>
+                        <div class="col-10"><i>{{personalForm.value.name}}</i></div>
+
+                        <div class="col-2"><strong class="text-truncate">Telefono:</strong></div>
+                        <div class="col-10"><i>{{personalForm.value.phone}}</i></div>
+
+                        <div class="col-2"><strong class="text-truncate">Movil:</strong></div>
+                        <div class="col-10"><i>{{personalForm.value.movil}}</i></div>
+
+                        <div class="col-2"><strong class="text-truncate">Direccion:</strong></div>
+                        <div class="col-10"><i>{{personalForm.value.address}}</i></div>
+
+       
+                    </div>
+                       
+
+                     
+
+            </div>
+              <div class="row"> 
+                    <div class="col-12">
+                        <button *ngIf="!steps[0].active" class="btn btn-primary pull-left" (click)="prev()"><i class="fa fa-chevron-left arrow"></i>&nbsp; Atras</button>
+                        <button *ngIf="!steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="next()">Siguiente &nbsp;<i class="fa fa-chevron-right arrow"></i></button>
+                        <button *ngIf="steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="saveBranch()">Confirmar &nbsp;<i class="fa fa-check arrow"></i></button>
+                    </div> 
+                </div>  
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="new-city" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header state modal-primary">
+                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-plus"></i>Crear Ciudad</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                </div>
+                                <div class="modal-body">
+                                     <form  [formGroup]="cityDetailForm"  class="row">
+                                        
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleSelect1">Nombre de la Ciudad</label>
+                                                <input  type="text" formControlName="name" class="form-control">
+                                                <span class="help-block text-danger" *ngIf=" cityDetailForm.value.name !='' && cityDetailForm.get('name').hasError('required')">Nombre de ciudad vacio</span>                              
+                                            
+                                        </div>
+
+                                        <div class="from-group col-md-12">
+                                            <label for="description"> Descripcion</label>
+                                            <textarea class="form-control" formControlName="description" id="description" ></textarea>
+                                            
+                                            
+                                        </div> 
+
+
+                                      
+                            
+
+                                    
+
+                                
+
+                                    
+                                    </form>
+
+                                   
+                                </div>
+                                <div class="modal-footer">
+                                    <button [disabled]="!cityDetailForm.valid" (click)="saveCity()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+</div>

@@ -1,0 +1,40 @@
+   <div class="col-xl-12 col-lg-12 col-12 bottom-30">
+        <div widget class="card">
+            <div class="card-header">
+                <span>Cambiar configuracion</span>
+                <div class="widget-controls">              
+               
+                    <div (click)="enableFields()" href="#" class="transition"><i class="fa fa-pencil"></i></div>
+                    
+                </div>        
+            </div>
+            <div class="card-block widget-body">
+
+                <form  [formGroup]="settingsForm">
+                    <div class="form-group">
+                        <label for="input-1">IVA</label>
+                        <input formControlName="iva" type="text" class="form-control" id="input-1">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-1">Tiempo de Conexion</label>
+                        <input formControlName="connectionTime" type="text" class="form-control" id="input-1">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-1">Tamaño maximo de archivos</label>
+                        <input formControlName="maxAttached" type="text" class="form-control" id="input-1">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-1">Horario</label>
+                        <input type="text" class="form-control" id="input-1">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-1">Direcciones Permitidas</label>
+                        <input type="text" class="form-control" id="input-1">
+                    </div>
+
+                     <button class="btn btn-primary pull-right" (click)="saveSettings()">Save</button>
+                </form>
+              
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,272 @@
+<div class="row">
+    <div class="col">
+        <div widget class="card">
+            <div class="card-header">
+                <span class="text-uppercase">Lista de Roles</span>
+                <div class="widget-controls"> 
+             
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>                          
+                   
+                </div>        
+            </div>
+            <div class="card-block widget-body">
+                        <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>No tiene privilegios para ver borrar </strong> 
+                        </div>
+                       
+                        <div *ngIf="toast" class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>{{message}}</strong> 
+                        </div>
+                
+                <div class="w-200 pull-right bottom-15">
+                    <div class="input-group input-group-sm">
+
+                        
+                    </div>
+                </div> 
+                <div class="table-responsive datatable">
+                    <table class="table table-striped table-hover table-sm" [mfData]="rolsData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                        <thead>
+                            <tr>
+                                <th> <mfDefaultSorter by="cedula">Nombre</mfDefaultSorter></th>                              
+                                <th><mfDefaultSorter by="name">Descripcion</mfDefaultSorter></th>
+                 
+                                <th>Acciones</th>      
+                            </tr>
+                        </thead>
+                        <tbody>                           
+                            <tr *ngFor="let rol of rolsData">
+                                <td><strong>  {{rol.name}}   </strong></td>
+                                <td>{{rol.description}}</td>
+                               
+                                <td class="row col  bottom-15">
+                                  
+                                      <div class="d-inline-block">
+                                                <div class="row">
+                              
+                                                     <button type="button" (click)="checkPermission(rol._id)" class="btn btn-primary" data-toggle="modal" data-target="#permisos-modal">Cambiar Permisos</button>
+
+                                                            <div class="modal fade" id="permisos-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header state modal-primary">                                    
+                                                                                        <h4 class="modal-title" id="modal-primary-label"><i class="fa fa-shield"></i>Permisos</h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div *ngIf="modalError" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                                                                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                                                </button>
+                                                                                                                                <strong>No tiene privilegios para ver Roles </strong> 
+                                                                                          </div>
+                                                                                       <div class="list-group">
+
+
+                                                                                                    <div href="javascript:void(0);" class="list-group-item list-group-item-action active">
+                                                                                                        <div class="col-md-6"> <h5 class="list-group-item-heading"></h5></div>
+                                                                                                     
+                                                                                                    
+                                                                                                    </div>
+                                                                                                    <div href="javascript:void(0);" class="list-group-item list-group-item-action">
+                                                                                                       
+                                                                                                       
+
+                                                                                        
+                                                                                                    </div>
+                                                                                                 
+                                                                                                 
+                                                                                                    <div  class="list-group-item list-group-item-action"> 
+                                                                                                        
+                                                                                                        
+                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading">User </h5></div>
+                                                                                                       
+                                                                                                        <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="userList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Listado</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="userCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Crear</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="userEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Editar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="userDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Borrar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                       
+                                                                                                     
+                                                                                                         
+                                                                                                       
+                                                                                                    </div>
+                                                                                                    <div  class="list-group-item list-group-item-action"> 
+                                                                                                        
+                                                                                                        
+                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading">Roles </h5></div>
+                                                                                                       
+                                                                                                        <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Listado</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Crear</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Editar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Borrar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                            <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolGrantView" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Ver Permisos</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                          <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="rolGrantAdd" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Agregar Permisos</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                     
+                                                                                                         
+                                                                                                       
+                                                                                                    </div>
+                                                                                                    <div  class="list-group-item list-group-item-action"> 
+                                                                                                        
+                                                                                                        
+                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading">Empresas </h5></div>
+                                                                                                       
+                                                                                                        <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="buList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Listado</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="buCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Crear</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="buEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Editar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="buDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Borrar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="scheCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Agregar Horario</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="scheView" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Ver Horario</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                     
+                                                                                                         
+                                                                                                       
+                                                                                                    </div>
+                                                                                                     <div  class="list-group-item list-group-item-action"> 
+                                                                                                        
+                                                                                                        
+                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading">Licencias </h5></div>
+                                                                                                       
+                                                                                                        <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="liList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Listado</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="liCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Crear</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="liEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Editar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="liDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Borrar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                     
+                                                                                                         
+                                                                                                       
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button [disabled]="modalError" (click)="sendPermission(rol._id)" type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                        <button type="button" (click)="idAssign(rol._id)" class="btn btn-danger" data-toggle="modal" data-target="#primary-modal">Borrar</button>
+
+                                                                        <div class="modal fade" id="primary-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header state modal-danger">                                    
+                                                                                        <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        Al Borrar este rol se desactivara en todos los usuarios
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button (click)="borrar(rol._id)" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                </div>
+                                                
+                                            </div>
+                                </td>
+                                </tr>
+                          
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="12">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

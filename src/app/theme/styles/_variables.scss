@@ -1,0 +1,115 @@
+@import "skins/blue";
+
+$body-bg-color: #e9ebee;
+$text-color: #000;
+$gray-dark: #757575;
+$gray: #555;
+$gray-light: #bdbdbd;
+$gray-lighter: #eceeef;
+$primary-color-app :#0288d1;
+$secondary-color-app :#0288d1;
+
+$table-bg-active: rgba(#000,.075);
+$table-border-width: 1px;
+$table-border-color: $gray-lighter;
+
+/**** App roots ****/
+$assets-root: '~/assets/';
+$images-root: $assets-root + 'img/';
+$fonts-root: $assets-root + 'fonts/';
+
+
+/**** General ****/
+$font-family: 'Montserrat', sans-serif;
+
+
+/**** Navbar ****/
+$navbar-text-color: $default-color-nav;
+$navbar-text-color-hover: white;
+$navbar-height: 60px;
+
+
+/**** Sidebar ****/
+$sidebar-width: 230px;
+
+
+
+/**** Progress ****/
+$progress-border-radius: 0;
+$progress-height: 20px;
+
+
+/**** Fonts ****/
+$font-thin: 100;
+$font-thini: 100i;
+$font-extraThin: 200;
+$font-extraThini: 200i;
+$font-light: 300;
+$font-lighti: 300i;
+$font-regular: 400;
+$font-regulari: 400i;
+$font-normal: 500;
+$font-normali: 500i;
+$font-semiBold: 600;
+$font-semiBoldi: 600i;
+$font-bold: 700;
+$font-boldi: 700i;
+$font-bolder: 800;
+$font-bolderi: 800i;
+$font-ultraBold: 900;
+$font-ultraBoldi: 900i;
+
+
+/**** Social icons ****/
+$facebook-color: #3b5998;
+$twitter-color: #55acee;
+$instagram-color: #8a3ab9;
+$pinterest-color: #c92228; 
+$google-color: #dd4b39;
+$linkedin-color: #0177B5;
+$github-color: #6b6b6b;
+$stackoverflow-color: #2F96E8;
+$dribble-color: #F26798;
+$behace-color: #0093FA;
+
+//--------for prevent awesome-bootstrap-checkbox errors---------
+//@import "../../../../node_modules/bootstrap/scss/variables";
+//@import "../../../../node_modules/bootstrap/scss/mixins";
+$input-border-color: rgba(#000,.15);
+$enable-transitions: true;
+$input-color: $gray;
+$input-bg-disabled: $gray-lighter;
+$brand-primary: $primary-color;
+$brand-success: $success-color;
+$brand-info: $info-color;
+$brand-warning: $warning-color;
+$brand-danger: $danger-color;
+$brand-inverse: $gray-dark;
+
+
+
+
+//Set variables to be accessible for JS
+@import "../../../../node_modules/sass-to-js/sass/sass-to-js";
+
+$variablesMap: ( 
+  main-color: $main-color,
+  default-color: $default-color,
+  dark-color: $dark-color,
+  primary-color: $primary-color,
+  success-color: $success-color,
+  warning-color: $warning-color,
+  danger-color: $danger-color,
+  info-color: $info-color,
+  sidebar-bg-color: $sidebar-bg-color,
+  gray: $gray,
+  gray-light: $gray-light
+);
+
+body::after {
+    content: sassToJs($variablesMap);
+    display: none;
+}
+
+//fondos
+$fondo-login: '../../../assets/img/bg/fondo.jpg';
