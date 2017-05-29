@@ -4,5 +4,6 @@ app/**/*.map
 /node_modules
 node_modules
 jspm_packages
-bower_components
-
+bower_component
+.editor-config
+.vscode
