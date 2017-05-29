@@ -7,6 +7,7 @@ import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from 
 import {config} from './../../../../config/project-config';
 
 
+
 @Component({
   selector: 'az-dynamic-tables',
   encapsulation: ViewEncapsulation.None,
@@ -29,11 +30,14 @@ export class BranchListComponent {
     public local:any;
     public error;
     public modalError;
+
     public cities;
+
 
     constructor(private branchService:BranchService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService){
         
         this.local = this.userSession.getUser(); 
+
 
        this.loadBranches();
          this.loadCities();
@@ -45,21 +49,26 @@ export class BranchListComponent {
             'address' : ['',Validators.compose([Validators.required])],
             'idCity' : ['',Validators.compose([Validators.required])]
 
+
         });
     }
     borrar(id){
 
         
+
       this.http.delete(config.url+'branch/delete/'+this.branchId+'?access_token='+this.local.token).toPromise().then(result=>{
+
            let apiResult = result.json();
            console.log(apiResult);
            
            if(apiResult.msg == "OK"){
                this.toast = true;
+
                this.message ="Sucursal Borrada";
                this.branchData = apiResult.update;
                
                
+
            }else{
                 this.error = true;
                this.message ="No tiene privilegios para borrar usuarios";
@@ -70,16 +79,19 @@ export class BranchListComponent {
        })
        
     } 
+
     loadBranches(){
         this.branchService.branchList().then(result=>{
                     this.branchData = result.branches;
                     this.listBranchComplete = result.branches;
                     console.log('Users from Api: ',this.branchData);
+
                     
                     
         })
 
     }
+
     branchDetail(branch){
 
         this.branchId = branch._id;
@@ -87,10 +99,12 @@ export class BranchListComponent {
         console.log(branch);
         
         this.branchForm.setValue({name: branch.name, phone: branch.phone ,movil: branch.movil,idCity : branch.idCity,address: branch.address});
+
         
         
         
     }
+
     editBranch(){
             
             
@@ -101,6 +115,7 @@ export class BranchListComponent {
 
                 if(apiResult.msg == "OK"){
                         this.branchData = apiResult.update;
+
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de editar usuario"
@@ -114,7 +129,9 @@ export class BranchListComponent {
     }
     getItems(event:any){
             let search = this.searchTxt;
+
             let compleList = this.listBranchComplete;
+
             console.log(search);
             
             let q = search.toLowerCase();
@@ -124,14 +141,13 @@ export class BranchListComponent {
                   }
             })
 
-            this.branchData = this.resultData;
 
-            this.searchTxt == ''?this.branchData = this.listBranchComplete:null;
 
             
     }
 
     idAssign(id){
+
             this.branchId = id;
             console.log(this.branchId);
             
@@ -144,6 +160,7 @@ export class BranchListComponent {
                 console.log(apiResult);
                 
                 this.cities = apiResult.cities;
+
                 
         })
     }

@@ -2,7 +2,9 @@ import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+
 import {config} from './../../../../config/project-config';
+
 
 @Injectable()
 export class BranchService { 
@@ -12,14 +14,18 @@ export class BranchService {
 
     }
 
+
     branchList():Promise<any>{
         return this.http.get(config.url+'branch/list?access_token='+this.local.token).toPromise().then(result=>{
+
             return result.json()
         })
 
     }
     delete(id:string):Promise<any>{
+
        return this.http.delete(config.url+'branch/delete/'+id+'?access_token='+this.local.token).toPromise().then(result=>{
+
 
              result.json();
         })

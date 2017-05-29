@@ -50,7 +50,7 @@
                     
                     
                     <form *ngIf="step.name=='Informacion General'" [formGroup]="personalForm" class="row">
-                          
+
               
 
                         <div class="form-group  col-md-6" [ngClass]="{'has-danger' : personalForm.get('name').value != '' && personalForm.get('name').hasError('required'), 'has-success' : !personalForm.get('name').hasError('required') }">
@@ -105,7 +105,7 @@
                     </form>
 
                     <form *ngIf="step.name=='Ciudad'" [formGroup]="cityForm" class="row">
-                            
+
                           <div class="form-group col-md-12">
                                             <label for="exampleSelect1">Ciudad</label>
                                                 <select formControlName="idCity" class="form-control">
@@ -139,6 +139,7 @@
                         <div class="col-2"><strong class="text-truncate">Direccion:</strong></div>
                         <div class="col-10"><i>{{personalForm.value.address}}</i></div>
 
+
        
                     </div>
                        
@@ -150,7 +151,9 @@
                     <div class="col-12">
                         <button *ngIf="!steps[0].active" class="btn btn-primary pull-left" (click)="prev()"><i class="fa fa-chevron-left arrow"></i>&nbsp; Atras</button>
                         <button *ngIf="!steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="next()">Siguiente &nbsp;<i class="fa fa-chevron-right arrow"></i></button>
+
                         <button *ngIf="steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="saveBranch()">Confirmar &nbsp;<i class="fa fa-check arrow"></i></button>
+
                     </div> 
                 </div>  
         </div>
@@ -165,7 +168,9 @@
                                 </div>
                                 <div class="modal-body">
                                      <form  [formGroup]="cityDetailForm"  class="row">
+
                                         
+
                                         <div class="form-group col-md-12">
                                             <label for="exampleSelect1">Nombre de la Ciudad</label>
                                                 <input  type="text" formControlName="name" class="form-control">
@@ -173,12 +178,14 @@
                                             
                                         </div>
 
+
                                         <div class="from-group col-md-12">
                                             <label for="description"> Descripcion</label>
                                             <textarea class="form-control" formControlName="description" id="description" ></textarea>
                                             
                                             
                                         </div> 
+
 
 
                                       
@@ -194,7 +201,9 @@
                                    
                                 </div>
                                 <div class="modal-footer">
+
                                     <button [disabled]="!cityDetailForm.valid" (click)="saveCity()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>

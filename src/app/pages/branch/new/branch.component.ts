@@ -57,8 +57,10 @@ export class BranchComponent {
             'idCity': ['',Validators.compose([Validators.required])],
         }); 
         this.cityDetailForm = this.formBuilder.group({
+
             'name':['',Validators.compose([Validators.required])],
             'description':['',Validators.compose([Validators.required])]
+
         })
 
         this.userSession = this.local.getUser();
@@ -68,6 +70,7 @@ export class BranchComponent {
 
     
     }
+
 
     saveCity(){
         let request = { };
@@ -95,6 +98,7 @@ export class BranchComponent {
             
         })
     }
+
 
     public next(){
         let personalForm = this.personalForm;
@@ -146,17 +150,22 @@ export class BranchComponent {
   }
   loadCities(){
       this.http.get(config.url+'city/list?access_token='+this.userSession.token).toPromise().then(result=>{
+
           let apiResult = result.json()
           this.cities = apiResult.cities;
           console.log(this.cities);
+
           
       })
   }
 
+
     saveBranch(){
+
         
         let request = {
        
+
 
         };
             Object.assign(request, this.personalForm.value, this.cityForm.value);
@@ -168,11 +177,14 @@ export class BranchComponent {
                          let apiResult = result.json();
                              console.log(apiResult);
                               apiResult.msg == "OK"? this.router.navigate(['pages/sucursales/listado']):null;
+
                              if(apiResult.msg == "ERR"){
 
                                  if(apiResult.err ="No privileges"){
                                      this.permission = true;
+
                                      this.message = "No tiene privilegios de crear sucursal"
+
                                  }else{
 
                                      this.error = true;
@@ -186,10 +198,12 @@ export class BranchComponent {
                                  
 
                              }
+
                         
                     })
                     
           
+
 
 
 

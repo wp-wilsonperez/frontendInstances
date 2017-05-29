@@ -20,6 +20,7 @@ export const routes = [
   { path: 'configuracion', component:  SettingsComponent, data: { breadcrumb: 'Configuracion' } }
 
 
+
 ];
 
 @NgModule({
@@ -34,7 +35,9 @@ export const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
+
     UserComponent,UserListComponent,RolesComponent,RolsListComponent, SettingsComponent,ImageUploaderComponent
+
   ],
   providers: []
 })

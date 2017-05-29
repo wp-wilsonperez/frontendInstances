@@ -27,7 +27,9 @@ export const menuItems = [
   {
     title: 'Sucursales',
     routerLink: 'tables',
+
     icon: 'fa-building',
+
     selected: false,
     expanded: false,
     order: 0,
@@ -49,7 +51,9 @@ export const menuItems = [
       
     ]
   },
- 
+
+  
+
    {
     title: 'Roles',
     routerLink: 'tables',
@@ -73,6 +77,7 @@ export const menuItems = [
         expanded: false
       }
     ]
+
   },
   {
     title: 'Configuracion',
@@ -90,6 +95,7 @@ export const menuItems = [
         expanded: false
       }
     ]
+
   }
   
   

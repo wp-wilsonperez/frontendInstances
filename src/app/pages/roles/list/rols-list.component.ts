@@ -2,7 +2,9 @@ import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { UserService } from './dynamic-tables.service';
+
 import {config} from './../../../../config/project-config';
+
 
 @Component({
   selector: 'az-dynamic-tables',
@@ -107,6 +109,7 @@ export class RolsListComponent {
             console.log(this.idRol);
             
         this.http.delete(config.url+'role/delete/'+this.idRol+'?access_token='+this.userSession.token).toPromise().then(result=>{
+
                let  apiResult = result.json();
                console.log(apiResult);
                apiResult.msg == "OK"?this.rolsData = apiResult.update:null;
@@ -124,7 +127,9 @@ idAssign(id){
     }
     loadRols(){
 
+
         this.http.get(config.url+'role/list?access_token='+this.userSession.token).toPromise().then(result=>{
+
             let apiResult = result.json();
             this.rolsData = apiResult.roles;
             console.log(this.rolsData);
@@ -137,7 +142,9 @@ idAssign(id){
 
         
         
+
         this.http.get(config.url+'role/viewgrant/'+id+'?access_token='+this.userSession.token).toPromise().then(result=>{
+
             let apiResult = result.json();
             console.log(apiResult);
             if(apiResult.msg == "OK"){   
@@ -254,7 +261,9 @@ idAssign(id){
         let request ={
             grant: requestTwo
         }
+
         this.http.post(config.url+'role/addgrant/'+this.idRol+'?access_token='+this.userSession.token,request).toPromise().then(result=>{
+
                 //first controller
                 console.log(result.json());
 

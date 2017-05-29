@@ -13,6 +13,7 @@ export const routes = [
   { path: 'crear', component: BranchComponent, data: { breadcrumb: 'Nueva Sucursal' } },
    { path: 'listado', component: BranchListComponent, data: { breadcrumb: 'Ver Sucursales' } },
 
+
 ];
 
 @NgModule({
@@ -27,7 +28,9 @@ export const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
+
     BranchComponent,ImageUploaderComponent,BranchListComponent
+
   ],
   providers: []
 })

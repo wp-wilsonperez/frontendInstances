@@ -1,6 +1,7 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
+
 import {config} from './../../../../config/project-config';
 
 
@@ -12,7 +13,9 @@ export class UserService {
     }
 
     userList():Promise<any>{
+
         return this.http.get(config.url+'users?AUTH=true').toPromise().then(result=>{
+
             return result.json()
         })
 

@@ -33,7 +33,9 @@ export class UserComponent {
     public errorList:any={};
     public userSession:any;
     public permission:boolean = false;
+
     public branches:any;
+
 
      @ViewChild(ImageUploaderComponent)
      public  imageComponent: ImageUploaderComponent;
@@ -66,7 +68,9 @@ export class UserComponent {
 
         this.rolForm = this.formBuilder.group({
             'idRol': ['',Validators.compose([Validators.required])],
+
             'idBranch': ['',Validators.compose([Validators.required])]
+
         }); 
 
         this.userSession = this.local.getUser();
@@ -74,6 +78,7 @@ export class UserComponent {
 
         this.loadRols();   
         this.loadBranches();  
+
     }
 
     public next(){
@@ -145,6 +150,7 @@ export class UserComponent {
 
     saveUser(){
         
+
         
         let request = {
             "name" : this.personalForm.value.name,
@@ -161,6 +167,7 @@ export class UserComponent {
         }
         var newReq={};
         Object.assign(newReq,request);
+
 
         if(this.imageComponent.file != undefined){
 
@@ -201,7 +208,9 @@ export class UserComponent {
 
              console.log(request);
 
+
                       this.http.post(config.url+'user/add?access_token='+this.userSession.token,newReq).toPromise().then(result=>{
+
                              let apiResult = result.json();
                              console.log(apiResult);
                              
@@ -288,6 +297,7 @@ export class UserComponent {
         })
     }
 
+
     public  loadBranches(){
 
              this.http.get(config.url+'branch/list?access_token='+this.userSession.token).toPromise().then(result=>{
@@ -299,6 +309,7 @@ export class UserComponent {
         })
 
     }
+
   
 
    
