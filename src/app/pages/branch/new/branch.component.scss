@@ -1,5 +1,14 @@
 @import "../../../theme/styles/_variables.scss";
 
+.form-group-time{
+    label{
+        
+    }
+    input{
+        padding: 2px;
+    }
+}
+
 .step{
     text-align: center;
     &:before, &:after{

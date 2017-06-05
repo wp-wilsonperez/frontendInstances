@@ -1,5 +1,7 @@
-   <div class="col-xl-12 col-lg-12 col-12 bottom-30">
-        <div widget class="card">
+    <div class="row">
+        <div class="col">
+            <div class="col-md-12">
+             <div widget class="card">
             <div class="card-header">
                 <span>Cambiar configuracion</span>
                 <div class="widget-controls">              
@@ -10,7 +12,35 @@
             </div>
             <div class="card-block widget-body">
 
+                <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Verificar campos en rojo</strong>
+                  
+                </div>
+
+                <div *ngIf="empty" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Verificar campos en rojo</strong>
+                  
+                </div>
+
+
+
                 <form  [formGroup]="settingsForm">
+
+                    <div data-toggle="modal" data-target="#addressModal" class="list-group-item list-group-item-action">  
+
+                        <div class="col-10">
+                                Direcciones Permitidas
+                            </div> 
+                        <div class="col-2">
+                                <i class="fa fa-angle-right fa-2x"></i>
+                            </div>    
+                    </div>
                     <div class="form-group">
                         <label for="input-1">IVA</label>
                         <input formControlName="iva" type="text" class="form-control" id="input-1">
@@ -23,10 +53,11 @@
                         <label for="input-1">Tamaño maximo de archivos</label>
                         <input formControlName="maxAttached" type="text" class="form-control" id="input-1">
                     </div>
-                    <div class="form-group">
-                        <label for="input-1">Horario</label>
-                        <input type="text" class="form-control" id="input-1">
-                    </div>
+
+                    
+
+
+                   
                     <div class="form-group">
                         <label for="input-1">Direcciones Permitidas</label>
                         <input type="text" class="form-control" id="input-1">
@@ -38,3 +69,118 @@
             </div>
         </div>
     </div>
+
+        </div>
+
+   
+    </div>
+
+    <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header state modal-primary">                                    
+                    <h4 class="modal-title" id="modal-error-label"><i class="fa fa-building"></i>Direcciones Permitidas</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                         <div class="col-md-12">
+                                    <div widget class="card">
+                                    
+                                        <div class="card-block widget-body">
+
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        
+                                                        <th>Dias</th>
+                                                        <th>Horas</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let schedule of schedules; let i = index">
+                                                    
+                                                        <td>{{days[schedule.date_start]}} - {{days[schedule.date_end]}} </td>
+                                                        <td>{{schedule.hours.start}} - {{schedule.hours.end}}</td>
+                                                        <td> <button (click)="deleteSchedule(i)" type="button" class="btn btn-danger btn-rounded btn-sm">-</button></td>
+                                                    
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <div class="col-xl-12 col-lg-12 col-12 bottom-30">
+                                        <div widget class="card">
+                                            
+                                            <div class="card-block widget-body">
+                                                    <form [formGroup]="scheduleForm" class="row">
+                                                        <div class="form-group col-md-4">
+
+                                                                    <label for="exampleSelect1">Dia Inicio</label>
+                                                                        <select formControlName="date_start"  class="form-control">
+                                                                            <option  value="1"> Lunes</option>
+                                                                            <option  value="2"> Martes</option>
+                                                                            <option  value="3"> Miercoles</option>
+                                                                            <option  value="4"> Jueves</option>
+                                                                            <option  value="5"> Viernes</option>
+                                                                            <option  value="6"> Sabado</option>
+                                                                            <option  value="7"> Domingo</option>
+                                                                        
+                                                                        </select>
+                                                                        
+                                                                    
+                                                                </div>
+
+                                                        <div class="form-group col-md-4">
+                                                                <label for="exampleSelect1">Dia Fin</label>
+                                                                    <select formControlName="date_end"  class="form-control">
+                                                                            <option  value="1"> Lunes</option>
+                                                                            <option  value="2"> Martes</option>
+                                                                            <option  value="3"> Miercoles</option>
+                                                                            <option  value="4"> Jueves</option>
+                                                                            <option  value="5"> Viernes</option>
+                                                                            <option  value="6"> Sabado</option>
+                                                                            <option  value="7"> Domingo</option>
+                                                                        
+                                                                        </select>
+                                                                    
+                                                                
+                                                            </div>
+
+                                                        <div class="form-group col-md-2">
+                                                                    <label for="start">Hora Inicio:</label>
+                                                                    <input formControlName="start" type="time" class="form-control" id="start">
+                                                        </div>
+                                                         <div class="form-group col-md-2">
+                                                                    <label for="end">Hora Final:</label>
+                                                                    <input formControlName="end" type="time" class="form-control" id="end">
+                                                        </div>
+                                                      
+                                                       
+                                                    
+                                                
+                                                        
+                                                        <button [disabled]="!scheduleForm.valid || modalError"  class="btn btn-primary pull-right" (click)="addSchedule()">Agregar &nbsp;<i class="fa fa-add arrow"></i></button>
+
+                                                    </form>  
+
+                                            
+
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                    
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="!branchForm.valid" (click)="editBranch()" type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+     </div>
+   
+    

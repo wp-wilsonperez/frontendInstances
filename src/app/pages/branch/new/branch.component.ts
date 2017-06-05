@@ -20,6 +20,7 @@ import 'rxjs/add/operator/toPromise';
 export class BranchComponent {
     public steps:any[];
     public accountForm:FormGroup;
+    public scheduleForm:FormGroup;
     public personalForm:FormGroup;
     public cityForm:FormGroup;
     public cityDetailForm:FormGroup;
@@ -34,6 +35,8 @@ export class BranchComponent {
     public userSession:any;
     public permission:boolean = false;
     public cities: any;
+    public days:any;
+    public schedules:any=[];
 
      @ViewChild(ImageUploaderComponent)
      public  imageComponent: ImageUploaderComponent;
@@ -43,6 +46,7 @@ export class BranchComponent {
         this.steps = [
           {name: 'Informacion General', icon: 'fa-info-circle', active: true, valid: false, hasError:false },
           {name: 'Ciudad', icon: 'fa fa-building', active: false, valid: false, hasError:false },
+           {name: 'Horarios', icon: 'fa fa-calendar', active: false, valid: false, hasError:false },
           {name: 'Confirmar la Creacion', icon: 'fa-check-square-o', active: false, valid: false, hasError:false }
         ]
 
@@ -61,7 +65,24 @@ export class BranchComponent {
             'name':['',Validators.compose([Validators.required])],
             'description':['',Validators.compose([Validators.required])]
 
-        })
+        });
+        this.scheduleForm = this.formBuilder.group({
+             'date_start':['',Validators.compose([Validators.required])],
+            'date_end':['',Validators.compose([Validators.required])],
+            'start':['',Validators.compose([Validators.required])],
+            'end':['',Validators.compose([Validators.required])]
+
+        });
+        this.days = [
+            '',
+            'Lunes',
+            'Martes',
+            'Miercoles',
+            'Jueves',
+            'Viernes',
+            'Sabado',
+            'Domingo'
+        ]
 
         this.userSession = this.local.getUser();
         this.loadCities();
@@ -135,6 +156,17 @@ export class BranchComponent {
                             step.hasError = true;
                         }                      
                     }
+                     if(step.name=='Horarios'){
+                        if (cityForm.valid) {
+                            step.active = false;
+                            step.valid = true;
+                            steps[index+1].active=true;
+                            return true;
+                        }
+                        else{
+                            step.hasError = true;
+                        }                      
+                    }
                 }
             }   
         });
@@ -153,7 +185,7 @@ export class BranchComponent {
 
           let apiResult = result.json()
           this.cities = apiResult.cities;
-          console.log(this.cities);
+          console.log(apiResult);
 
           
       })
@@ -164,7 +196,7 @@ export class BranchComponent {
 
         
         let request = {
-       
+                schedules: this.schedules
 
 
         };
@@ -240,6 +272,31 @@ export class BranchComponent {
                 this.roles = apiResult.roles;
                 
         })
+    }
+
+      addSchedule(){
+       let addFormat = {
+           date_start: this.scheduleForm.value.date_start,
+           date_end:this.scheduleForm.value.date_end,
+           hours:{ 
+                start:this.scheduleForm.value.start,
+                end:this.scheduleForm.value.end
+            }
+                           
+       }
+
+       this.schedules.push(addFormat);
+      
+        
+    }
+      deleteSchedule(index){
+        console.log(index);
+        this.schedules.splice(index);
+        
+    }
+
+     saveAllSchedules(){
+  
     }
   
 

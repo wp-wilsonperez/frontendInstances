@@ -1,3 +1,4 @@
+<table></table>
 <div class="row">
     <div class="col-12">
         <div widget class="card">
@@ -25,7 +26,7 @@
                     <strong>{{message}}</strong> 
                 </div>
                 <div class="row">
-                    <div *ngFor="let step of steps; let last = last" class="col-md-4 col-sm-6 col-12 step" [class.active]="step.active" [class.valid]="step.valid" [ngClass]="{'last' : last }">
+                    <div *ngFor="let step of steps; let last = last" class="col-md-3 col-sm-6 col-12 step" [class.active]="step.active" [class.valid]="step.valid" [ngClass]="{'last' : last }">
                         <div class="step-icon">
                             <i class="fa {{ step.icon }}" aria-hidden="true"></i>
                         </div> 
@@ -115,13 +116,101 @@
                                                 <span class="help-block text-danger" *ngIf="step.hasError && rolForm.get('idCity').hasError('required')">Ciudad no puede estar Vacia</span>                              
                                             
                                         </div>
-                    
-             
 
-                      
+                          
+                     
+                    </form>
 
-                   
+                     <form *ngIf="step.name=='Horarios'" [formGroup]="cityForm" class="row">
+                                <div class="col-md-12">
+                                    <div widget class="card">
+                                    
+                                        <div class="card-block widget-body">
 
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        
+                                                        <th>Dias</th>
+                                                        <th>Horas</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let schedule of schedules; let i = index">
+                                                    
+                                                        <td>{{days[schedule.date_start]}} - {{days[schedule.date_end]}} </td>
+                                                        <td>{{schedule.hours.start}} - {{schedule.hours.end}}</td>
+                                                        <td> <button (click)="deleteSchedule(i)" type="button" class="btn btn-danger btn-rounded btn-sm">-</button></td>
+                                                    
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-12 bottom-30">
+                                        <div widget class="card">
+                                            
+                                            <div class="card-block widget-body">
+                                                    <form [formGroup]="scheduleForm" class="row">
+                                                        <div class="form-group col-md-4">
+
+                                                                    <label for="exampleSelect1">Dia Inicio</label>
+                                                                        <select formControlName="date_start"  class="form-control">
+                                                                            <option  value="1"> Lunes</option>
+                                                                            <option  value="2"> Martes</option>
+                                                                            <option  value="3"> Miercoles</option>
+                                                                            <option  value="4"> Jueves</option>
+                                                                            <option  value="5"> Viernes</option>
+                                                                            <option  value="6"> Sabado</option>
+                                                                            <option  value="7"> Domingo</option>
+                                                                        
+                                                                        </select>
+                                                                        
+                                                                    
+                                                                </div>
+
+                                                        <div class="form-group col-md-4">
+                                                                <label for="exampleSelect1">Dia Fin</label>
+                                                                    <select formControlName="date_end"  class="form-control">
+                                                                            <option  value="1"> Lunes</option>
+                                                                            <option  value="2"> Martes</option>
+                                                                            <option  value="3"> Miercoles</option>
+                                                                            <option  value="4"> Jueves</option>
+                                                                            <option  value="5"> Viernes</option>
+                                                                            <option  value="6"> Sabado</option>
+                                                                            <option  value="7"> Domingo</option>
+                                                                        
+                                                                        </select>
+                                                                    
+                                                                
+                                                            </div>
+
+                                                        <div class="form-group col-md-2">
+                                                                    <label for="start">Hora Inicio:</label>
+                                                                    <input formControlName="start" type="time" class="form-control" id="start">
+                                                        </div>
+                                                         <div class="form-group col-md-2">
+                                                                    <label for="end">Hora Final:</label>
+                                                                    <input formControlName="end" type="time" class="form-control" id="end">
+                                                        </div>
+                                                      
+                                                       
+                                                    
+                                                
+                                                        
+                                                        <button [disabled]="!scheduleForm.valid || modalError"  class="btn btn-primary pull-right" (click)="addSchedule()">Agregar &nbsp;<i class="fa fa-add arrow"></i></button>
+
+                                                    </form>  
+
+                                            
+
+                                            </div>
+                                        </div>
+                                    </div>
+                  
                      
                     </form>
                    

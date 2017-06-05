@@ -35,23 +35,37 @@ export class RolsListComponent {
     public rolDelete:boolean = false;
     public rolGrantAdd:boolean = false;
     public rolGrantView:boolean = false;
-    //checkbox Bussiness
-     public buList:boolean = false;
-    public buCreate:boolean = false;
-    public buEdit:boolean = false;
-    public buDelete:boolean = false;
+    //checkbox branch
+     public branchList:boolean = false;
+    public branchCreate:boolean = false;
+    public branchEdit:boolean = false;
+    public branchDelete:boolean = false;
 
-     //checkbox Licence
-     public liList:boolean = false;
-    public liCreate:boolean = false;
-    public liEdit:boolean = false;
-    public liDelete:boolean = false;
+       //checkbox city
+     public cityList:boolean = false;
+    public cityCreate:boolean = false;
+    public cityEdit:boolean = false;
+    public cityDelete:boolean = false;
+
+      //checkbox setting
+     public settingList:boolean = false;
+    public settingCreate:boolean = false;
+    public settingEdit:boolean = false;
+    public settingDelete:boolean = false;
+
 
      //checkbox schedules
-     public scheView:boolean = false;
+    public scheView:boolean = false;
     public scheCreate:boolean = false;
     public scheEdit:boolean = false;
     public scheDelete:boolean = false;
+    //
+
+    //checkbox account
+    public accountList:boolean = false;
+    public accountCreate:boolean = false;
+    public accountEdit:boolean = false;
+    public accountDelete:boolean = false;
     //
 
     //modules
@@ -84,21 +98,28 @@ export class RolsListComponent {
                 this.rolDelete = false;
                 this.rolGrantAdd = false;
                 this.rolGrantView = false;
-                //checkbox Bussiness
-                this.buList = false;
-                this.buCreate = false;
-                this.buEdit= false;
-                this.buDelete = false;
 
-                //checkbox Licence
-                this.liList = false;
-                this.liCreate = false;
-                this.liEdit = false;
-                this.liDelete = false;
+                 //checkbox setting
+                this.settingList = false; 
+                this.settingCreate = false;
+                this.settingEdit = false;
+                this.settingDelete = false;
 
-                //checkbox schedule
-                this.scheView = false;
-                this.scheCreate = false;
+                //checkbox city
+                
+                this.cityList = false; 
+                this.cityCreate = false;
+                this.cityEdit = false;
+                this.cityDelete = false;
+
+                 //account 
+                
+                this.accountList = false; 
+                this.accountCreate = false;
+                this.accountEdit = false;
+                this.accountDelete = false;
+     
+   
             
     //
 
@@ -152,6 +173,8 @@ idAssign(id){
             this.controllers = apiResult.module.controllers;     
             this.grant = apiResult.grant; 
             console.log(this.grant);
+
+            //user
             if(this.grant.user != undefined){
 
                 this.grant.user.list == true ? this.userList = true: this.userList = false;
@@ -175,30 +198,48 @@ idAssign(id){
              }
             
 
-            //empresas
-             if(this.grant.business != undefined){
-                 this.grant.business.list == true ? this.buList = true:this.buList = false;
-                this.grant.business.add   == true ? this.buCreate = true: this.buCreate = false; 
-                this.grant.business.edit  == true ? this.buEdit = true:this.buEdit = false;
-                this.grant.business.delete  == true ? this.buDelete = true:this.buDelete = false; 
-                this.grant.business.addSchedule  == true ? this.scheCreate = true:this.scheCreate = false
-                this.grant.business.viewSchedule  == true ? this.scheView = true:this.scheView = false; 
+            //sucursales
+             if(this.grant.branch != undefined){
+                 this.grant.branch.list == true ? this.branchList = true:this.branchList = false;
+                this.grant.branch.add   == true ? this.branchCreate = true: this.branchCreate = false; 
+                this.grant.branch.edit  == true ? this.branchEdit = true:this.branchEdit = false;
+                this.grant.branch.delete  == true ? this.branchDelete = true:this.branchDelete = false; 
+          
 
 
              }
 
+             //city
+             if(this.grant.city != undefined){
+                this.grant.city.list == true ?  this.cityList =true:   this.cityList = false;
+                this.grant.city.add   == true ?this.cityCreate= true: this.cityCreate = false; 
+                this.grant.city.edit  == true ?this.cityEdit =true:   this.cityEdit = false;
+                this.grant.city.delete  ==true?this.cityDelete= true: this.cityDelete = false; 
+               
+             }
+
+              //Setting
+             if(this.grant.setting != undefined){
+                this.grant.setting.list == true ?   this.settingList = true:    this.settingList = false;
+                this.grant.setting.add   == true ?  this.settingCreate = true:  this.settingCreate = false; 
+                this.grant.setting.edit  == true ?  this.settingEdit = true:    this.settingEdit = false;
+                this.grant.setting.delete  == true? this.settingDelete = true:  this.settingDelete = false; 
+               
+             }
+
+              //account
+             if(this.grant.account != undefined){
+                this.grant.account.list == true ?   this.accountList = true:    this.accountList = false;
+                this.grant.account.add   == true ?  this.accountCreate = true:  this.accountCreate = false; 
+                this.grant.account.edit  == true ?  this.accountEdit = true:    this.accountEdit = false;
+                this.grant.account.delete  == true? this.accountDelete = true:  this.accountDelete = false; 
+               
+             }
+
             
 
-               //licences
-            if(this.grant.license != undefined){
-                this.grant.license.list == true ? this.liList = true:this.liList = false;
-                this.grant.license.add   == true ? this.liCreate = true: this.liCreate = false; 
-                this.grant.license.edit  == true ? this.liEdit = true:this.liEdit = false;
-                this.grant.license.delete  == true ? this.liDelete = true:this.liDelete = false; 
+      
 
-
-
-            }
 
 
             }else{
@@ -209,16 +250,15 @@ idAssign(id){
          
 
 
-              
            
 
             
         })
         console.log(id);
         this.idRol = id;
-
     
         
+
     }
 
     show(module){
@@ -229,7 +269,7 @@ idAssign(id){
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},business:{},role:{},license:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -243,19 +283,32 @@ idAssign(id){
         this.rolGrantAdd?requestTwo.role['addgrant'] = true:null;
         this.rolGrantView?requestTwo.role['viewgrant'] = true:null;
 
-         this.buList?requestTwo.business['list'] = true:null;
-        this.buCreate?requestTwo.business['add'] = true:null;
-        this.buEdit?requestTwo.business['edit'] = true:null;
-        this.buDelete?requestTwo.business['delete'] = true:null;
-        this.scheCreate?requestTwo.business['addSchedule'] = true:null;
-        this.scheView?requestTwo.business['viewSchedule'] = true:null;
+         this.branchList?requestTwo.branch['list'] = true:null;
+        this.branchCreate?requestTwo.branch['add'] = true:null;
+        this.branchEdit?requestTwo.branch['edit'] = true:null;
+        this.branchDelete?requestTwo.branch['delete'] = true:null;
+        this.scheCreate?requestTwo.branch['addSchedule'] = true:null;
+        this.scheView?requestTwo.branch['viewSchedule'] = true:null;
 
-        this.liList?requestTwo.license['list'] = true:null;
-        this.liCreate?requestTwo.license['add'] = true:null;
-        this.liEdit?requestTwo.license['edit'] = true:null;
-        this.liDelete?requestTwo.license['delete'] = true:null;
+        this.cityList?requestTwo.city['list'] = true:null;
+      this.cityCreate?requestTwo.city['add'] = true:null;
+        this.cityEdit?requestTwo.city['edit'] = true:null;
+      this.cityDelete?requestTwo.city['delete'] = true:null;
+
+       this.settingList?requestTwo.setting['list'] = true:null;
+     this.settingCreate?requestTwo.setting['add'] = true:null;
+       this.settingEdit?requestTwo.setting['edit'] = true:null;
+     this.settingDelete?requestTwo.setting['delete'] = true:null;
+
+
+          this.accountList?requestTwo.account['list'] = true:null
+        this.accountCreate?requestTwo.account['add'] = true:null;
+          this.accountEdit?requestTwo.account['edit'] = true:null
+        this.accountDelete?requestTwo.account['delete'] = true:null
+  
      
 
+              
         console.log(requestTwo);
         
         let request ={
