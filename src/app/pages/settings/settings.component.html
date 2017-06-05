@@ -38,32 +38,25 @@
                                 Direcciones Permitidas
                             </div> 
                         <div class="col-2">
-                                <i class="fa fa-angle-right fa-2x"></i>
+                                <span class="badge badge-main badge-pill primary">{{addresses.length}}</span>
+                               
                             </div>    
                     </div>
                     <div class="form-group">
                         <label for="input-1">IVA</label>
-                        <input formControlName="iva" type="text" class="form-control" id="input-1">
+                        <input formControlName="iva" type="number" class="form-control" id="input-1">
                     </div>
                     <div class="form-group">
                         <label for="input-1">Tiempo de Conexion</label>
-                        <input formControlName="connectionTime" type="text" class="form-control" id="input-1">
+                        <input  formControlName="connectionTime" type="number" class="form-control" id="input-1">
                     </div>
                     <div class="form-group">
                         <label for="input-1">Tamaño maximo de archivos</label>
-                        <input formControlName="maxAttached" type="text" class="form-control" id="input-1">
+                        <input formControlName="maxAttached" type="number" class="form-control" id="input-1">
                     </div>
 
-                    
 
-
-                   
-                    <div class="form-group">
-                        <label for="input-1">Direcciones Permitidas</label>
-                        <input type="text" class="form-control" id="input-1">
-                    </div>
-
-                     <button class="btn btn-primary pull-right" (click)="saveSettings()">Save</button>
+                     <button [disabled]="!settingsForm.valid" class="btn btn-primary pull-right" (click)="saveSettings()">Save</button>
                 </form>
               
             </div>
@@ -79,7 +72,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header state modal-primary">                                    
-                    <h4 class="modal-title" id="modal-error-label"><i class="fa fa-building"></i>Direcciones Permitidas</h4>
+                    <h4 class="modal-title" id="modal-error-label"><i class="fa fa-desktop"></i>Direcciones Permitidas</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
@@ -92,16 +85,16 @@
                                                 <thead>
                                                     <tr>
                                                         
-                                                        <th>Dias</th>
-                                                        <th>Horas</th>
+                                                        <th>Nombre</th>
+                                                        <th>Direccion</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let schedule of schedules; let i = index">
+                                                    <tr *ngFor="let address of addresses; let i = index">
                                                     
-                                                        <td>{{days[schedule.date_start]}} - {{days[schedule.date_end]}} </td>
-                                                        <td>{{schedule.hours.start}} - {{schedule.hours.end}}</td>
+                                                        <td>{{address.name}} </td>
+                                                        <td>{{address.mac}}</td>
                                                         <td> <button (click)="deleteSchedule(i)" type="button" class="btn btn-danger btn-rounded btn-sm">-</button></td>
                                                     
                                                     </tr>
@@ -116,54 +109,22 @@
                                         <div widget class="card">
                                             
                                             <div class="card-block widget-body">
-                                                    <form [formGroup]="scheduleForm" class="row">
-                                                        <div class="form-group col-md-4">
+                                                    <form [formGroup]="addressForm" class="row">
 
-                                                                    <label for="exampleSelect1">Dia Inicio</label>
-                                                                        <select formControlName="date_start"  class="form-control">
-                                                                            <option  value="1"> Lunes</option>
-                                                                            <option  value="2"> Martes</option>
-                                                                            <option  value="3"> Miercoles</option>
-                                                                            <option  value="4"> Jueves</option>
-                                                                            <option  value="5"> Viernes</option>
-                                                                            <option  value="6"> Sabado</option>
-                                                                            <option  value="7"> Domingo</option>
-                                                                        
-                                                                        </select>
-                                                                        
-                                                                    
-                                                                </div>
-
-                                                        <div class="form-group col-md-4">
-                                                                <label for="exampleSelect1">Dia Fin</label>
-                                                                    <select formControlName="date_end"  class="form-control">
-                                                                            <option  value="1"> Lunes</option>
-                                                                            <option  value="2"> Martes</option>
-                                                                            <option  value="3"> Miercoles</option>
-                                                                            <option  value="4"> Jueves</option>
-                                                                            <option  value="5"> Viernes</option>
-                                                                            <option  value="6"> Sabado</option>
-                                                                            <option  value="7"> Domingo</option>
-                                                                        
-                                                                        </select>
-                                                                    
-                                                                
-                                                            </div>
-
-                                                        <div class="form-group col-md-2">
-                                                                    <label for="start">Hora Inicio:</label>
-                                                                    <input formControlName="start" type="time" class="form-control" id="start">
+                                                        <div class="form-group col-md-6">
+                                                                    <label for="start">Nombre de equipo:</label>
+                                                                    <input formControlName="name" type="text" class="form-control" id="start">
                                                         </div>
-                                                         <div class="form-group col-md-2">
-                                                                    <label for="end">Hora Final:</label>
-                                                                    <input formControlName="end" type="time" class="form-control" id="end">
+                                                         <div class="form-group col-md-6">
+                                                                    <label for="end">Mac address:</label>
+                                                                    <input formControlName="mac" type="text" class="form-control" id="end">
                                                         </div>
                                                       
                                                        
                                                     
                                                 
                                                         
-                                                        <button [disabled]="!scheduleForm.valid || modalError"  class="btn btn-primary pull-right" (click)="addSchedule()">Agregar &nbsp;<i class="fa fa-add arrow"></i></button>
+                                                        <button [disabled]="!addressForm.valid || modalError"  class="btn btn-primary pull-right" (click)="addAddress()">Agregar &nbsp;<i class="fa fa-add arrow"></i></button>
 
                                                     </form>  
 
@@ -176,7 +137,7 @@
                     
                 </div>
                 <div class="modal-footer">
-                    <button [disabled]="!branchForm.valid" (click)="editBranch()" type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                    <button  type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
