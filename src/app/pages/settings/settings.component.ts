@@ -68,8 +68,8 @@ export class SettingsComponent{
       }
       Object.assign(request,this.settingsForm.value);
       console.log(request);
-      this.http.post(config.url+'setting/add?access_token='+this.local.getUser().token,request).toPromise().then(result=>{
-          console.log(result.json());
+      this.http.post(config.url+'setting/add',request).toPromise().then(result=>{
+          console.log();
           
       })
       

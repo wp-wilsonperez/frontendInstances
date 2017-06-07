@@ -11,7 +11,7 @@ import { PipesModule } from '../../theme/pipes/pipes.module';
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
   { path: 'crear', component: BranchComponent, data: { breadcrumb: 'Nueva Sucursal' } },
-   { path: 'listado', component: BranchListComponent, data: { breadcrumb: 'Ver Sucursales' } },
+  { path: 'listado', component: BranchListComponent, data: { breadcrumb: 'Ver Sucursales' } },
 
 
 ];

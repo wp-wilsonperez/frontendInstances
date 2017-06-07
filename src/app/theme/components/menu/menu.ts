@@ -14,13 +14,40 @@ export const menuItems = [
         selected: false,
         expanded: false
       },
+   
        {
         title: 'Listado de Usuarios',
         routerLink: 'usuarios/listado',
         disabled: true,
         selected: false,
         expanded: false
+      },
+        {
+    title: 'Form Elements',
+    routerLink: 'form-elements',
+    icon: 'fa-pencil-square-o',
+    selected: false,
+    expanded: false,
+    order: 400,
+    subMenu: [
+      {
+        title: 'Form Inputs',
+        routerLink: 'form-elements/inputs'
+      },
+      {
+        title: 'Form Layouts',
+        routerLink: 'form-elements/layouts'
+      },
+      {
+        title: 'Form Validations',
+        routerLink: 'form-elements/validations'
+      },
+      {
+        title: 'Form Wizard',
+        routerLink: 'form-elements/wizard'
       }
+    ]
+  },
       
     ]
   },
@@ -88,62 +115,22 @@ export const menuItems = [
     order: 400,
     subMenu: [
       {
-        title: 'Ver Configuracion',
+        title: 'Configuracion de sistema',
         routerLink: 'usuarios/configuracion',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Configuracion de cuenta',
+        routerLink: 'cuenta/ver',
         disabled: true,
         selected: false,
         expanded: false
       }
     ]
 
-  },
-   {
-    title: 'UI Features',
-    routerLink: 'ui',
-    icon: 'fa-laptop',
-    selected: false,
-    expanded: false,
-    order: 300,
-    subMenu: [
-      {
-        title: 'Buttons',
-        routerLink: 'ui/buttons'
-      },
-      {
-        title: 'Cards',
-        routerLink: 'ui/cards'
-      },
-      {
-        title: 'Components',
-        routerLink: 'ui/components'
-      },           
-      {
-        title: 'Icons',
-        routerLink: 'ui/icons'
-      },
-      {
-        title: 'Grid',
-        routerLink: 'ui/grid'
-      },
-      {
-        title: 'List Group',
-        routerLink: 'ui/list-group'
-      },
-      {
-        title: 'Media Objects',
-        routerLink: 'ui/media-objects'
-      },
-      {
-        title: 'Tabs & Accordions',
-        routerLink: 'ui/tabs-accordions'
-      },
-      {
-        title: 'Typography',
-        routerLink: 'ui/typography'
-      }
-    ]
-  },
-  
+  }
   
   
   
