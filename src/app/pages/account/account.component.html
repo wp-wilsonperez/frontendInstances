@@ -28,9 +28,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tb">Imagenes</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tc">Guardar</a>
-                                </li>
+                           
                             
                                                       
                             </ul>
@@ -50,29 +48,40 @@
                                                         <label class="form-control-label">Descripcion</label>
                                                         <textarea  formControlName="desciption" class="form-control"></textarea>       
                                                     </div>
+                                                <div class="col-md-6 col-12 bottom-15">
+                                                    <h6>Estacionamiento</h6>
+                                                    <div class="form-group">
+                                                        <div class="custom-controls-stacked">
+                                                         
+                                                            <label class="custom-control custom-radio">
+                                                                <input type="radio" value="true" name="parking" formControlName="parking" class="custom-control-input radio-primary">
+                                                                <span class="custom-control-indicator"></span>
+                                                                <span class="custom-control-description">Si</span>
+                                                            </label>
+                                                         
+                                                            <label class="custom-control custom-radio">
+                                                                <input type="radio" value="false" name="parking" formControlName="parking" class="custom-control-input radio-danger">
+                                                                <span class="custom-control-indicator"></span>
+                                                                <span class="custom-control-description">No</span>
+                                                            </label>
+                                                        
+                                                        </div>
+                                                    </div>
+
+                                                </div>
 
                                             </form>
                             </div>
                             <div class="tab-pane" id="tb">
-                                    <div class="col-md-4">
-                         
 
-
-                                    <div class="col-lg-12 col-12 bottom-15">
-                                                    <h6 class="text-center">Imagenes de cuenta (Solo 3)</h6>
+                                    <div class="col-md-12">
                                                     <az-multiple-image-uploader></az-multiple-image-uploader>
                                     </div>
-                            </div>
+                           
                           
                            
                         </div>  
-                        <div class="tab-pane" id="tc">
-                                    <div class="col-md-4">
-                                        hgello
-                            </div>
-                          
-                           
-                        </div>                   
+                                        
                     </div>
                     
 

@@ -8,6 +8,7 @@ import { Component, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 })
 export class MultipleImageUploaderComponent { 
     public images: string[] = [];
+    public logo:any;
   
     constructor( private changeDetectorRef: ChangeDetectorRef ) {
     }    
@@ -32,10 +33,16 @@ export class MultipleImageUploaderComponent {
                     
                 }else{
                 
-                this.images.push(result);
-             
+                if(this.logo == undefined){
+                    this.logo = result;
+                }else{
                 
+                this.images.push(result);
                 this.readFiles(files, index+1);
+
+                }
+                
+                
 
                 }
                

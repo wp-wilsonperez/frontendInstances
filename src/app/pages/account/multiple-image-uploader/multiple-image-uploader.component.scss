@@ -37,6 +37,34 @@
            width: 120px;
            height: 120px;          
         }
+       
+    } 
+    .m-logo-wrapper{
+        position: relative;
+        margin: 5px;
+        width: 200px;
+        height: 200px;
+        .m-delete-img{
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 3px 5px;
+            border-radius: 50%;
+            visibility: hidden;
+            cursor: pointer;
+        }
+        &:hover .m-delete-img{
+            visibility: visible;
+        }
+        img{
+           width: 200px;
+           height: 200px;          
+        }
+       
     }   
 }
+
+
 
