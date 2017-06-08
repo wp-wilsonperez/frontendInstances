@@ -21,33 +21,7 @@ export const menuItems = [
         disabled: true,
         selected: false,
         expanded: false
-      },
-        {
-    title: 'Form Elements',
-    routerLink: 'form-elements',
-    icon: 'fa-pencil-square-o',
-    selected: false,
-    expanded: false,
-    order: 400,
-    subMenu: [
-      {
-        title: 'Form Inputs',
-        routerLink: 'form-elements/inputs'
-      },
-      {
-        title: 'Form Layouts',
-        routerLink: 'form-elements/layouts'
-      },
-      {
-        title: 'Form Validations',
-        routerLink: 'form-elements/validations'
-      },
-      {
-        title: 'Form Wizard',
-        routerLink: 'form-elements/wizard'
       }
-    ]
-  },
       
     ]
   },
