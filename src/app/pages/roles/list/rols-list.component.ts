@@ -220,7 +220,7 @@ idAssign(id){
 
               //Setting
              if(this.grant.setting != undefined){
-                this.grant.setting.list == true ?   this.settingList = true:    this.settingList = false;
+                this.grant.setting.view == true ?   this.settingList = true:    this.settingList = false;
                 this.grant.setting.add   == true ?  this.settingCreate = true:  this.settingCreate = false; 
                 this.grant.setting.edit  == true ?  this.settingEdit = true:    this.settingEdit = false;
                 this.grant.setting.delete  == true? this.settingDelete = true:  this.settingDelete = false; 
@@ -229,7 +229,7 @@ idAssign(id){
 
               //account
              if(this.grant.account != undefined){
-                this.grant.account.list == true ?   this.accountList = true:    this.accountList = false;
+                this.grant.account.view == true ?   this.accountList = true:    this.accountList = false;
                 this.grant.account.add   == true ?  this.accountCreate = true:  this.accountCreate = false; 
                 this.grant.account.edit  == true ?  this.accountEdit = true:    this.accountEdit = false;
                 this.grant.account.delete  == true? this.accountDelete = true:  this.accountDelete = false; 
@@ -295,13 +295,13 @@ idAssign(id){
         this.cityEdit?requestTwo.city['edit'] = true:null;
       this.cityDelete?requestTwo.city['delete'] = true:null;
 
-       this.settingList?requestTwo.setting['list'] = true:null;
+       this.settingList?requestTwo.setting['view'] = true:null;
      this.settingCreate?requestTwo.setting['add'] = true:null;
        this.settingEdit?requestTwo.setting['edit'] = true:null;
      this.settingDelete?requestTwo.setting['delete'] = true:null;
 
 
-          this.accountList?requestTwo.account['list'] = true:null
+          this.accountList?requestTwo.account['view'] = true:null
         this.accountCreate?requestTwo.account['add'] = true:null;
           this.accountEdit?requestTwo.account['edit'] = true:null
         this.accountDelete?requestTwo.account['delete'] = true:null

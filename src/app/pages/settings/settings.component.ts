@@ -1,3 +1,4 @@
+import { ValidationService } from './validation.service';
 import { UserSessionService } from './../../providers/session.service';
 import { Http, Response } from '@angular/http';
 import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -35,7 +36,7 @@ export class SettingsComponent{
         });
         this.addressForm = this.fromBuilder.group({
           'name':['',Validators.compose([Validators.required])],
-          'mac':['',Validators.compose([Validators.required])],
+          'mac':['',Validators.compose([Validators.required,ValidationService.macValidator])],
         })
 
         this.userSession = this.local.getUser();
@@ -52,28 +53,34 @@ export class SettingsComponent{
     
   }
   loadSettings(){
-    this.http.get(config.url+'setting/list?access_token='+this.local.getUser().token).map((result:Response)=>{
+    this.http.get(config.url+'setting/view/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token).map((result:Response)=>{
         console.log(result.json());
-        return result.json().settings;
+        return result.json().setting;
 
     }).subscribe((res)=>{
           this.setting = res;
+          this.addresses = res.idMacs;
+          this.settingsForm.setValue({iva:res.iva,connectionTime: res.connectionTime,maxAttached: res.maxAttached});
           console.log(this.setting);
           
     })  
   }
+
   saveSettings(){
       let request = {
           idMacs: this.addresses
       }
       Object.assign(request,this.settingsForm.value);
+
       console.log(request);
-      this.http.post(config.url+'setting/add',request).toPromise().then(result=>{
-          console.log();
+      this.http.post(config.url+'setting/edit/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token,request).toPromise().then(result=>{
+          console.log(result.json());
+          this.loadSettings();
           
       })
       
   }
+
   addAddress(){
     let addFormat = {
           mac : this.addressForm.value.mac,
@@ -83,6 +90,10 @@ export class SettingsComponent{
        this.addresses.push(addFormat);
 
        this.addressForm.setValue({name:'',mac:''});
+  }
+
+  deleteMac(index){
+    this.addresses.splice(index);
   }
 
 }

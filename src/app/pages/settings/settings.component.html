@@ -95,7 +95,7 @@
                                                     
                                                         <td>{{address.name}} </td>
                                                         <td>{{address.mac}}</td>
-                                                        <td> <button (click)="deleteSchedule(i)" type="button" class="btn btn-danger btn-rounded btn-sm">-</button></td>
+                                                        <td> <button (click)="deleteMac(i)" type="button" class="btn btn-danger btn-rounded btn-sm">-</button></td>
                                                     
                                                     </tr>
                                                 </tbody>
@@ -115,12 +115,13 @@
                                                                     <label for="start">Nombre de equipo:</label>
                                                                     <input formControlName="name" type="text" class="form-control" id="start">
                                                         </div>
-                                                         <div class="form-group col-md-6">
+                                                         <div class="form-group col-md-6" [ngClass]="{'has-danger' : addressForm.get('mac').touched && addressForm.get('mac').hasError('invalidMac') || addressForm.get('mac').touched && addressForm.get('mac').hasError('required')  , 
+                                                                                                       'has-success': addressForm.get('mac').touched && !addressForm.get('mac').hasError('invalidMac') && (addressForm.get('mac').touched && !addressForm.get('mac').hasError('required'))                           }"  >
                                                                     <label for="end">Mac address:</label>
-                                                                    <input formControlName="mac" type="text" class="form-control" id="end">
+                                                                    <input [ngClass]="{'form-control-danger': (addressForm.get('mac').hasError('invalidMac')) || (addressForm.get('mac').hasError('required'))    , 'form-control-success': !addressForm.get('mac').hasError('invalidMac') }"  formControlName="mac" type="text" class="form-control" id="end" maxlength="18">
                                                         </div>
                                                       
-                                                       
+                                                        
                                                     
                                                 
                                                         

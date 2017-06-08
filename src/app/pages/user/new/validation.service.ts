@@ -1,4 +1,3 @@
-
 export class ValidationService {
 
     static emailValidator(control): {[key: string]: any} {
