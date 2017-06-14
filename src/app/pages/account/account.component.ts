@@ -14,6 +14,8 @@ import {config} from './../../../config/project-config';
 })
 export class AccountComponent{
     account:any;
+    toast:boolean = false;
+    message:string='';
     formAccount:FormGroup;
     @ViewChild(MultipleImageUploaderComponent)
      public imagesComponent:MultipleImageUploaderComponent;
@@ -40,9 +42,51 @@ export class AccountComponent{
 
     }).subscribe((res)=>{
           this.account = res;
+     
           console.log(this.account);
           
     })  
+  }
+  saveAccount(){
+             
+
+    
+        let img1 = '';
+        let img2 = '';
+        let img3 = '';
+      this.imagesComponent.secImgs[0] != undefined? img1 = this.imagesComponent.secImgs[0].accountImg : null  ;
+      this.imagesComponent.secImgs[1] != undefined? img2 = this.imagesComponent.secImgs[1].accountImg : null;
+      this.imagesComponent.secImgs[2] != undefined? img3 = this.imagesComponent.secImgs[2].accountImg : null ;
+      
+       let request = {
+            logo: this.imagesComponent.logoImg.accountImg,
+            img1: img1,
+            img2: img2,
+            img3: img3
+        };
+
+   
+
+    Object.assign(this.formAccount.value, request);
+
+    this.http.post(config.url+'account/add?access_token='+this.local.getUser().token,this.formAccount.value).toPromise().then(result=>{
+
+        let apiResult = result.json();
+
+        console.log(apiResult.msg);
+
+        if(apiResult.msg == 'OK'){
+            this.toast = true;
+            this.message = 'Account saved';
+            
+        }
+        
+        
+    })
+
+    console.log(this.formAccount.value);
+    
+        
   }
 
 

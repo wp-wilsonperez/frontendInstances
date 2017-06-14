@@ -174,7 +174,7 @@ export class UserComponent {
                  console.log(this.imageComponent.file);
 
                   
-                  this.makeFileRequest(config.url+'user/adduserImg?access_token='+this.userSession.token,this.imageComponent.file).map(res => {
+        this.makeFileRequest(config.url+'user/adduserImg?access_token='+this.userSession.token,this.imageComponent.file).map(res => {
                       return (res);
                   }).subscribe(result=>{
                       this.imgResult = result;
