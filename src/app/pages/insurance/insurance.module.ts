@@ -5,11 +5,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
-import {LogsComponent} from '../logs/logs.component';
+import { InsuranceListComponent } from './list/insurance-list.component';
+import { InsuranceComponent } from './new/insurance.component';
 
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
-   { path: 'logs', component:  LogsComponent, data: { breadcrumb: 'Logs' } }
+   { path: 'crear', component:  InsuranceComponent, data: { breadcrumb: 'Nuevo' } },
+   { path: 'listado', component:  InsuranceListComponent, data: { breadcrumb: 'Listado' } }
 
 
 
@@ -27,11 +29,11 @@ export const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    LogsComponent
+    InsuranceComponent,InsuranceListComponent
 
   ],
   providers: []
 })
 export class InsuranceModule { 
-  
+  public message:any;
 }

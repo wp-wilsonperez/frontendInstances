@@ -26,6 +26,33 @@ export const menuItems = [
     ]
   },
   {
+    title: 'Seguros',
+    routerLink: 'seguros',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Crear seguro',
+        routerLink: 'seguros/crear',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Listado de Seguros',
+        routerLink: 'seguros/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
+   {
     title: 'Sucursales',
     routerLink: 'tables',
 

@@ -14,6 +14,7 @@ export const routes: Routes = [
             { path: 'panel', component: BlankComponent , data: { breadcrumb: 'Panel' }  },
             { path: 'usuarios', loadChildren: 'app/pages/user/user.module#UserModule', data: { breadcrumb: 'Usuarios' } },
              { path: 'sucursales', loadChildren: 'app/pages/branch/branch.module#BranchModule', data: { breadcrumb: 'Sucursales' } },
+            { path: 'seguros', loadChildren: 'app/pages/insurance/insurance.module#InsuranceModule', data: { breadcrumb: 'Seguros' } },
             { path: 'cuenta', loadChildren: 'app/pages/account/account.module#AccountModule', data: { breadcrumb: 'Cuenta' } },
             { path: 'maps', loadChildren: 'app/pages/maps/maps.module#MapsModule', data: { breadcrumb: 'Maps' } },
             { path: 'charts', loadChildren: 'app/pages/charting/charting.module#ChartingModule', data: { breadcrumb: 'Charts' } },
