@@ -101,6 +101,13 @@ export const menuItems = [
         disabled: true,
         selected: false,
         expanded: false
+      },
+      {
+        title: 'Logs del sistema',
+        routerLink: 'usuarios/logs',
+        disabled: true,
+        selected: false,
+        expanded: false
       }
     ]
 

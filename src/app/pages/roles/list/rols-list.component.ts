@@ -14,6 +14,8 @@ import {config} from './../../../../config/project-config';
   providers: [ UserService ]
 })
 export class RolsListComponent {
+
+
     public data: any;
     public rolsData:any;
     public searchText:string;
@@ -68,6 +70,19 @@ export class RolsListComponent {
     public accountDelete:boolean = false;
     //
 
+      //checkbox Insurance
+    public insuranceList:boolean = false;
+    public insuranceCreate:boolean = false;
+    public insuranceEdit:boolean = false;
+    public insuranceDelete:boolean = false;
+    public insuranceEnable:boolean = false;
+    //
+
+    //checkbox log
+    public logList:boolean = false;
+
+    //
+
     //modules
 
     controllers:any;
@@ -118,6 +133,18 @@ export class RolsListComponent {
                 this.accountCreate = false;
                 this.accountEdit = false;
                 this.accountDelete = false;
+
+                //insurance
+                
+                this.insuranceList = false; 
+                this.insuranceCreate = false;
+                this.insuranceEdit = false;
+                this.insuranceDelete = false;
+                this.insuranceEnable = false;
+
+                //log
+
+                this.logList = false;
      
    
             
@@ -140,7 +167,7 @@ export class RolsListComponent {
                
         })
     }
-idAssign(id){
+    idAssign(id){
             this.idRol = id;
             console.log(this.idRol);
             
@@ -236,6 +263,21 @@ idAssign(id){
                
              }
 
+             //insurance
+             if(this.grant.insurance != undefined){
+                this.grant.insurance.view == true ?   this.insuranceList = true:    this.insuranceList = false;
+                this.grant.insurance.add   == true ?  this.insuranceCreate = true:  this.insuranceCreate = false; 
+                this.grant.insurance.edit  == true ?  this.insuranceEdit = true:    this.insuranceEdit = false;
+                this.grant.insurance.delete  == true? this.insuranceDelete = true:  this.insuranceDelete = false; 
+                this.grant.insurance.enable  == true? this.insuranceEnable = true:  this.insuranceEnable = false; 
+               
+             }
+
+              //log
+             if(this.grant.log != undefined){
+                this.grant.log.list == true ?   this.logList = true:    this.logList = false;
+             }
+
             
 
       
@@ -269,7 +311,7 @@ idAssign(id){
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -300,11 +342,26 @@ idAssign(id){
        this.settingEdit?requestTwo.setting['edit'] = true:null;
      this.settingDelete?requestTwo.setting['delete'] = true:null;
 
-
+        //account
           this.accountList?requestTwo.account['view'] = true:null
         this.accountCreate?requestTwo.account['add'] = true:null;
           this.accountEdit?requestTwo.account['edit'] = true:null
         this.accountDelete?requestTwo.account['delete'] = true:null
+
+        //insurance
+            
+        this.insuranceList?requestTwo.branch['list'] = true:null;
+        this.insuranceCreate?requestTwo.branch['add'] = true:null;
+        this.insuranceEdit?requestTwo.branch['edit'] = true:null;
+        this.insuranceDelete?requestTwo.branch['delete'] = true:null;
+        this.insuranceEnable?requestTwo.branch['enable'] = true:null;
+
+
+
+
+        //log
+
+         this.logList?requestTwo.log['list'] = true:null
   
      
 

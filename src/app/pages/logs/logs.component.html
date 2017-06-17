@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col">
+        <div widget class="card">
+            <div class="card-header">
+                <span class="text-uppercase">Logs del sistema</span>
+                <div class="widget-controls"> 
+             
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>                          
+                   
+                </div>        
+            </div>
+            <div class="card-block widget-body">
+
+                 <div *ngIf="toast" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}}</strong> 
+                </div>
+                   <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}} </strong> 
+                    </div>
+                
+
+                <div class="w-200 pull-right bottom-15">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input class="form-control" [(ngModel)]="searchTxt" id="table-search-input" (input)="getItems($event)" type="text" placeholder="Buscar por cedula...">
+                    </div>
+                </div> 
+                <div class="table-responsive datatable">
+                    <table class="table table-striped table-hover table-sm" [mfData]="logs  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                        <thead>
+                            <tr>
+                            
+                                <th> <mfDefaultSorter by="cedula">Log</mfDefaultSorter></th>                              
+                                <th><mfDefaultSorter by="name">Usuario</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="name">Fecha</mfDefaultSorter></th>      
+                            </tr>
+                        </thead>
+                        <tbody>                           
+                            <tr *ngFor="let log of logs">
+                                  
+                                <td><strong>  {{log.log}}   </strong></td>
+                                <td>{{log.user.cedula}}</td>
+                                <td>
+                                    {{log.dateLog}}
+                                </td>
+                              
+                              
+                                    </tr>
+                            
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="12">
+                                        <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

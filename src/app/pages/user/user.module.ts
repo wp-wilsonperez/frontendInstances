@@ -11,13 +11,16 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
+import {LogsComponent} from '../logs/logs.component';
+
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
   { path: 'crear', component: UserComponent, data: { breadcrumb: 'Nuevo Usuario' } },
   { path: 'listado', component: UserListComponent, data: { breadcrumb: 'Listado' } },
   { path: 'nuevo_rol', component:  RolesComponent, data: { breadcrumb: 'Nuevo Rol' } },
   { path: 'roles', component:  RolsListComponent, data: { breadcrumb: 'Roles' } },
-  { path: 'configuracion', component:  SettingsComponent, data: { breadcrumb: 'Configuracion' } }
+  { path: 'configuracion', component:  SettingsComponent, data: { breadcrumb: 'Configuracion' } },
+   { path: 'logs', component:  LogsComponent, data: { breadcrumb: 'Logs' } }
 
 
 
@@ -36,7 +39,7 @@ export const routes = [
   ],
   declarations: [
 
-    UserComponent,UserListComponent,RolesComponent,RolsListComponent, SettingsComponent,ImageUploaderComponent
+    UserComponent,UserListComponent,RolesComponent,RolsListComponent, SettingsComponent,ImageUploaderComponent,LogsComponent
 
   ],
   providers: []

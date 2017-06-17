@@ -1,0 +1,138 @@
+$bz-third-color: #102836;
+$aqua-deep : #102836;
+
+.bz-fab {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 23px 16px;
+    width: 55px;
+    z-index: 999;
+  }
+
+  .bz-fab__btn {  
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    display: block;
+    width: 45px;
+    height: 45px;
+    margin: 20px auto 0;
+    position: relative;
+    transition: all .1s ease-out;
+    background-color: $aqua-deep;
+    i {
+      font-size: 26px;
+      color: #FFFFFF ;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -13px;
+      margin-left: -13px;
+    }
+
+    &:last-child {
+      &:hover {
+        i.bz-fab__transform{
+          transform: rotate(360deg);
+          &:first-child {
+            opacity: 0;
+          }
+          &:last-child {
+            opacity: 1;
+          }
+        }
+      }
+      i.bz-fab__transform {
+        transition: all .5s;
+        &:last-child {
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  .bz-fab__btn:active,
+  .bz-fab__btn:focus,
+  .bz-fab__btn:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  .bz-fab__btn:not(:last-child) {
+    width: 40px;
+    height: 40px;
+    margin: 20px auto 0;
+    opacity: 0;
+    transform: translateY(50px);
+    background-color: #B7B7B7 ;
+    i {
+      color: #FFFFFF ;
+      font-size: 18px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -9px;
+      margin-left: -9px;
+    }
+  }
+
+  .bz-fab:hover
+  .bz-fab__btn:not(:last-child) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .bz-fab__btn:nth-last-child(1) {
+    transition-delay: 70ms;
+  }
+
+  .bz-fab__btn:not(:last-child):nth-last-child(2) {
+    transition-delay: 50ms;
+  }
+
+  .bz-fab__btn:not(:last-child):nth-last-child(3) {
+    transition-delay: 75ms;
+  }
+
+  .bz-fab__btn:not(:last-child):nth-last-child(4) {
+    transition-delay: 100ms;
+  }
+
+  [tooltip]:before {
+    bottom: 25%;
+    font-weight: 200;
+    border-radius: 2px;
+    font-style: italic;
+    color: #FFF;
+    background: $bz-third-color;
+    content: attr(tooltip);
+    font-size: 13px;
+    visibility: hidden;
+    opacity: 0;
+    padding: 5px 7px;
+    margin-right: 12px;
+    position: absolute;
+    right: 100%;
+    white-space: nowrap;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.11);
+    border-radius: 5px;
+  }
+
+  [tooltip]:hover:before,
+  [tooltip]:hover:after {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .bz-fab__btn:hover,
+  .bz-fab__btn:active,
+  .bz-fab__btn:focus {
+    outline: 0;
+    text-decoration: none;
+  }
+
+  .bz-fab__i_hide{
+    opacity: 0;
+  }
+
+  .bz-fab__btn.bz-add-property{
+  }

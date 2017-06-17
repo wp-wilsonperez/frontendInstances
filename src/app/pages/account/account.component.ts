@@ -25,7 +25,7 @@ export class AccountComponent{
             this.loadAccount();
             this.formAccount = this.formBuilder.group({
                 name: ['',Validators.compose([Validators.required])],
-                desciption: ['',Validators.compose([Validators.required])],
+                description: ['',Validators.compose([Validators.required])],
                 parking: ['',Validators.compose([Validators.required])],
                 logo: ['',],
                 img1: ['',],
@@ -37,12 +37,22 @@ export class AccountComponent{
     }
     loadAccount(){
     this.http.get(config.url+'account/view/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token).map((result:Response)=>{
-        console.log(result.json());
-        return result.json().settings;
+        //console.log(result.json());
+        return result.json();
 
     }).subscribe((res)=>{
           this.account = res;
-     
+          console.log(res);
+          
+            this.formAccount.setValue({
+                    name: this.account.account.name,
+                    description: this.account.account.description,
+                    parking:this.account.account.parking,
+                    logo: '',
+                    img1:'',
+                    img2:'',
+                    img3:''
+            });
           console.log(this.account);
           
     })  
@@ -69,7 +79,7 @@ export class AccountComponent{
 
     Object.assign(this.formAccount.value, request);
 
-    this.http.post(config.url+'account/add?access_token='+this.local.getUser().token,this.formAccount.value).toPromise().then(result=>{
+    this.http.post(config.url+'account/edit/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token,this.formAccount.value).toPromise().then(result=>{
 
         let apiResult = result.json();
 
