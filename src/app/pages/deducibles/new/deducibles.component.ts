@@ -9,10 +9,10 @@ import { Http } from '@angular/http';
 @Component({
     encapsulation: ViewEncapsulation.None,
     selector:'insurance-new',
-    templateUrl: './insurance.component.html',
-    styleUrls:['./insurance.component.scss']
+    templateUrl: './deducibles.component.html',
+    styleUrls:['./deducibles.component.scss']
 })
-export class InsuranceComponent{
+export class DeduciblesComponent{
 
     message:any;
     permission:any;

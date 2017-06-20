@@ -14,13 +14,16 @@ import { SearchComponent } from './search/search.component';
 import { HttpModule } from '@angular/http';
 
 
+
+
+
 @NgModule({
   imports: [
     CommonModule,
     DirectivesModule,
     PipesModule,
     routing,
-    HttpModule
+    HttpModule,
   ],
   declarations: [ 
     PagesComponent,
@@ -30,7 +33,9 @@ import { HttpModule } from '@angular/http';
     MessagesComponent,
     BreadcrumbComponent,
     BackTopComponent,
-    SearchComponent 
+    SearchComponent ,
+
+
   ]
 })
 export class PagesModule { }

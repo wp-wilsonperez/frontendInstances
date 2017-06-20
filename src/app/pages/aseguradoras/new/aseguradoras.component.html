@@ -1,0 +1,105 @@
+<div class="row">
+    
+    <div class="col-md-12">
+        <div widget class="card">
+            <div class="card-header">
+                <span>Aseguradora</span>
+                <div class="widget-controls">              
+  
+                    <a data-widgster="fullscreen" href="#" class="transition"><i class="fa fa-expand"></i></a>
+                    <a data-widgster="restore" href="#" class="transition"><i class="fa fa-compress"></i></a>                          
+         
+                </div>        
+            </div>
+            <div class="card-block widget-body">
+                 <div *ngIf="toast" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}}</strong>
+                  
+                </div>
+                <div class="col-lg-12 col-12 bottom-30">
+                        <div class="clearfix">
+                            <ul class="nav nav-tabs top pull-left w-100p">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#ta">Datos Generales</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tb">Imagenes</a>
+                                </li>
+                           
+                            
+                                                      
+                            </ul>
+                        </div>
+                        <div class="tab-content top">
+                            <div class="tab-pane active" id="ta">
+                                    <form  [formGroup]="formAseguradora">
+                                                <div class="col-md-6">
+
+                                                <div class="form-group">
+                                                    <label for="input-1">Ruc</label>
+                                                    <input formControlName="ruc" type="text" class="form-control" >
+
+                                                </div>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                        <label class="form-control-label">Razon Social</label>
+                                                         <input formControlName="razonSocial" type="text" class="form-control" >      
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                        <label class="form-control-label">Telefono</label>
+                                                         <input formControlName="cellPhone" type="text" class="form-control" >
+                                                </div>
+                                                <div class="col-md-6 col-12 bottom-15">
+                                                    <h6>Estacionamiento</h6>
+                                                    <div class="form-group">
+                                                        <div class="custom-controls-stacked">
+                                                         
+                                                            <label class="custom-control custom-radio">
+                                                                <input type="radio" value="true" name="parking" formControlName="parking" class="custom-control-input radio-primary">
+                                                                <span class="custom-control-indicator"></span>
+                                                                <span class="custom-control-description">Si</span>
+                                                            </label>
+                                                         
+                                                            <label class="custom-control custom-radio">
+                                                                <input type="radio" value="false" name="parking" formControlName="parking" class="custom-control-input radio-danger">
+                                                                <span class="custom-control-indicator"></span>
+                                                                <span class="custom-control-description">No</span>
+                                                            </label>
+                                                        
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                        <label class="form-control-label">Mail</label>
+                                                        <input formControlName="mail" type="text" class="form-control" >
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                        <label class="form-control-label">Web</label>
+                                                        <input formControlName="web" type="text" class="form-control" >
+                                                </div>
+                                                
+
+                                            </form>
+                            </div>
+                            <div class="tab-pane" id="tb">
+
+                              
+                          
+                           
+                        </div>  
+                                        
+                    </div>
+                    
+
+                
+                 
+              
+            </div>
+            <button [disabled]="!formAseguradora.valid" (click)="saveAccount()" type="submit" class="btn btn-primary"> Guardar </button>
+        </div>
+    </div>
+    </div>

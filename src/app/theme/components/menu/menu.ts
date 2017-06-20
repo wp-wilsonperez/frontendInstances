@@ -25,8 +25,34 @@ export const menuItems = [
       
     ]
   },
+   {
+    title: 'Empresas',
+    routerLink: 'tables',
+    icon: 'fa-user',
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Nueva empresa',
+        routerLink: 'empresas/crear',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+   
+       {
+        title: 'Listado',
+        routerLink: 'empresas/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
   {
-    title: 'Seguros',
+    title: 'Aseguradoras',
     routerLink: 'seguros',
 
     icon: 'fa-building',
@@ -36,15 +62,76 @@ export const menuItems = [
     order: 0,
     subMenu: [
       {
-        title: 'Crear seguro',
+        title: 'Nueva Aseguradora',
+        routerLink: 'aseguradoras/crear',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Listado de Aseguradoras',
+        routerLink: 'aseguradoras/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
+  {
+    title: 'Ramos',
+    routerLink: 'seguros',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Crear Ramo',
         routerLink: 'seguros/crear',
         disabled: true,
         selected: false,
         expanded: false
       },
        {
-        title: 'Listado de Seguros',
+        title: 'Listado de Ramos',
         routerLink: 'seguros/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Porcentaje del Ramo',
+        routerLink: 'seguros/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
+   {
+    title: 'Deducibles',
+    routerLink: 'seguros',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Crear deducible',
+        routerLink: 'deducibles/crear',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Deducibles',
+        routerLink: 'deducibles/listado',
         disabled: true,
         selected: false,
         expanded: false
@@ -131,6 +218,13 @@ export const menuItems = [
       },
       {
         title: 'Logs del sistema',
+        routerLink: 'usuarios/logs',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Links de ayuda',
         routerLink: 'usuarios/logs',
         disabled: true,
         selected: false,

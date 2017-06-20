@@ -5,15 +5,15 @@ import { UserSessionService } from '../../../providers/session.service';
 
 
 @Component({
-    selector:'insurance-list',
+    selector:'deducibles-list',
     encapsulation:  ViewEncapsulation.None,
-    templateUrl: './insurance-list.component.html',
-    styleUrls:['./insurance-list.component.scss']
+    templateUrl: './deducibles-list.component.html',
+    styleUrls:['./deducibles-list.component.scss']
 })
 
-export class InsuranceListComponent{
+export class DeduciblesListComponent{
         
-        public insurances:any;
+        public deducibles:any;
         constructor(public http:Http,public local:UserSessionService){
 
             this.loadInsurances();
@@ -23,8 +23,8 @@ export class InsuranceListComponent{
             this.http.get(config.url+'insurance/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                    this.insurances = result.insurances;
-                    console.log(this.insurances);
+                    this.deducibles = result.insurances;
+                    console.log(this.deducibles);
                     
                     
             })

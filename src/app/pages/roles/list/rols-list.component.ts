@@ -25,16 +25,16 @@ export class RolsListComponent {
     public modalError:boolean = false;
     public error:boolean = false;
 
-    //checkbox user
-    public userList:boolean = false; 
-    public userCreate:boolean = false;
-    public userEdit:boolean = false;
-    public userDelete:boolean = false;
-    //checkbox rols
-     public rolList:boolean = false; 
-    public rolCreate:boolean = false;
-    public rolEdit:boolean = false;
-    public rolDelete:boolean = false;
+  //checkbox user
+  public userList:boolean = false; 
+  public userCreate:boolean = false;
+  public userEdit:boolean = false;
+  public userDelete:boolean = false;
+  //checkbox rols
+   public rolList:boolean = false; 
+  public rolCreate:boolean = false;
+  public rolEdit:boolean = false;
+  public rolDelete:boolean = false;
     public rolGrantAdd:boolean = false;
     public rolGrantView:boolean = false;
     //checkbox branch
@@ -265,7 +265,7 @@ export class RolsListComponent {
 
              //insurance
              if(this.grant.insurance != undefined){
-                this.grant.insurance.view == true ?   this.insuranceList = true:    this.insuranceList = false;
+                this.grant.insurance.list == true ?   this.insuranceList = true:    this.insuranceList = false;
                 this.grant.insurance.add   == true ?  this.insuranceCreate = true:  this.insuranceCreate = false; 
                 this.grant.insurance.edit  == true ?  this.insuranceEdit = true:    this.insuranceEdit = false;
                 this.grant.insurance.delete  == true? this.insuranceDelete = true:  this.insuranceDelete = false; 
@@ -311,7 +311,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -350,11 +350,11 @@ export class RolsListComponent {
 
         //insurance
             
-        this.insuranceList?requestTwo.branch['list'] = true:null;
-        this.insuranceCreate?requestTwo.branch['add'] = true:null;
-        this.insuranceEdit?requestTwo.branch['edit'] = true:null;
-        this.insuranceDelete?requestTwo.branch['delete'] = true:null;
-        this.insuranceEnable?requestTwo.branch['enable'] = true:null;
+        this.insuranceList?requestTwo.insurance['list'] = true:null;
+        this.insuranceCreate?requestTwo.insurance['add'] = true:null;
+        this.insuranceEdit?requestTwo.insurance['edit'] = true:null;
+        this.insuranceDelete?requestTwo.insurance['delete'] = true:null;
+        this.insuranceEnable?requestTwo.insurance['enable'] = true:null;
 
 
 

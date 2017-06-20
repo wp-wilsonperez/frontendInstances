@@ -4,8 +4,6 @@ import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { Location } from '@angular/common';
 import { AppState } from '../app.state';
 
-
-
 @Component({
   selector: 'az-pages',
   encapsulation: ViewEncapsulation.None,
@@ -14,6 +12,7 @@ import { AppState } from '../app.state';
   providers: [ AppState,UserSessionService ]
 })
 export class PagesComponent implements OnInit {
+
 
     public isMenuCollapsed:boolean = false;
   
@@ -25,7 +24,8 @@ export class PagesComponent implements OnInit {
         this.local.checkUser()?null:this.router.navigate(['/login']);
         this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
             this.isMenuCollapsed = isCollapsed;
-        });  
+        }); 
+
       
     }
 

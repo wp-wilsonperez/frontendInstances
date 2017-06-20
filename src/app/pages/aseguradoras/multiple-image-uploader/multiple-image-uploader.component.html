@@ -1,0 +1,25 @@
+<div class="col-8 offset-2">
+    <input type="file" multiple (change)="fileChange(input)" #input class="m-img-upload-btn"/>
+    <button *ngIf="logo == undefined" class="btn btn-success btn-block" type="button">
+        <i class="fa fa-upload"></i> Escoger Logo...
+    </button>
+
+    <button *ngIf="logo != undefined" class="btn btn-success btn-block" type="button">
+        <i class="fa fa-upload"></i> Escoger Imagenes...
+    </button>
+</div>
+
+<div class="card images-container">
+    <h6>Logo:</h6>
+    <div  class="m-logo-wrapper">
+        <i class="fa fa-times m-delete-img" (click)="removeImage(i)"></i>
+        <img [attr.src]="logo"> 
+    </div>
+
+    <h6>Imagenes:</h6>
+    
+    <div *ngFor="let image of images; let i=index;" class="m-image-wrapper">
+        <i class="fa fa-times m-delete-img" (click)="removeImage(i)"></i>
+        <img [attr.src]="image"> 
+    </div> 
+</div>

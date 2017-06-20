@@ -12,7 +12,6 @@ import { ErrorComponent } from './pages/error/error.component';
 import { HttpModule } from '@angular/http';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +20,8 @@ import { HttpModule } from '@angular/http';
   imports: [
     BrowserModule,
     HttpModule,
+
+
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDe_oVpi9eRSN99G4o6TwVjJbFBNr58NxE'
     }),

@@ -1,5 +1,3 @@
-import { BussinessComponent } from './new/bussiness.component';
-import { BussinessListComponent } from './list/bussiness-list.component';
 import { DataTableModule } from "angular2-datatable";
 import { PipesModule } from '../../theme/pipes/pipes.module';
 import { NgModule } from '@angular/core';
@@ -7,10 +5,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
+import { DeduciblesListComponent } from './list/deducibles-list.component';
+import { DeduciblesComponent } from './new/deducibles.component';
+
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
-  { path: 'crear', component: BussinessComponent, data: { breadcrumb: 'Nueva Empresa' } },
-  { path: 'listado', component: BussinessListComponent, data: { breadcrumb: 'Listado' } },
+   { path: 'crear', component:  DeduciblesComponent, data: { breadcrumb: 'Nuevo' } },
+   { path: 'listado', component:  DeduciblesListComponent, data: { breadcrumb: 'Listado' } }
 
 
 
@@ -28,10 +29,11 @@ export const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    BussinessListComponent,BussinessComponent
+    DeduciblesComponent,DeduciblesListComponent
+
   ],
   providers: []
 })
-export class BussinessModule { 
-  
+export class DeduciblesModule { 
+  public message:any;
 }
