@@ -1,21 +1,26 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
-import { config } from '../../../../config/project-config';
-import { UserSessionService } from '../../../providers/session.service';
+import { config } from '../../../config/project-config';
+import { UserSessionService } from '../../providers/session.service';
+import {FormGroup,FormBuilder,Validator} from '@angular/forms';
 
 
 @Component({
-    selector:'insurance-list',
+    selector:'ayuda-list',
     encapsulation:  ViewEncapsulation.None,
-    templateUrl: './insurance-list.component.html',
-    styleUrls:['./insurance-list.component.scss']
+    templateUrl: './ayuda-list.component.html',
+    styleUrls:['./ayuda-list.component.scss']
 })
 
-export class InsuranceListComponent{
-        
+export class AyudaListComponent{
+        public linkForm:FormGroup
         public insurances:any;
-        constructor(public http:Http,public local:UserSessionService){
-
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
+            
+            this.linkForm = this.formBuilder.group({
+                name: [''],
+                link:['']
+            });
             this.loadInsurances();
             
         }

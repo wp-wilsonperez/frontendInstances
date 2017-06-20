@@ -125,7 +125,7 @@
 
       
                     <div class="col-12">
-                        <button  class="btn btn-primary" [disabled]="!bussinessForm.valid || licence == undefined " (click)="saveBussiness()"><i class="fa fa-check"></i>Guardar</button>
+                        <button  class="btn btn-primary" [disabled]="!bussinessForm.valid" (click)="saveBussiness()"><i class="fa fa-check"></i>Guardar</button>
                         
                     </div> 
           
@@ -136,52 +136,3 @@
      
                  
     </form>
-      <div class="modal fade" id="licenceModal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
-                                                                            <div class="modal-dialog modal-lg" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header state modal-primary">                                    
-                                                                                        <h4 class="modal-title" id="modal-primary-label"><i class="fa fa-plus-square-o"></i>Crear Licencia</h4>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <div class="">
-                                                                                            <div widget class="card">
-                                                                                           
-                                                                                                <div class="card-block widget-body">
-                                                                                                        <form  [formGroup]="licenseForm"class="row">
-                                                                                                                     <div class="form-group col-md-4">
-                                                                                                                                    <label for="input-12">Fecha de Inicio</label>
-                                                                                                                                    <input  class="form-control" formControlName="dateStart" type="date"  max="2020-12-31" min="2010-12-31" class="form-control">
-                                                                                                                         </div>
-                                                                                                                         <div  class="form-group col-md-2">
-                                                                                                                                    <label for="input-12">Años</label>
-                                                                                                                                    <input formControlName="years"  class="form-control" type="number" class="form-control">
-                                                                                                                         </div>
-                                                                                                                          <div class="form-group col-md-2">
-                                                                                                                                    <label for="input-12">Meses</label>
-                                                                                                                                    <input formControlName="months"  class="form-control" type="number" class="form-control">
-                                                                                                                         </div>
-                                                                                                                          <div class="form-group col-md-2">
-                                                                                                                                    <label for="input-12">Dias</label>
-                                                                                                                                    <input formControlName="days"  class="form-control" type="number" class="form-control">
-                                                                                                                         </div>
-                                                                                                                         <div class="form-group col-md-2">
-                                                                                                                                    <label for="input-2">Usuarios</label>
-                                                                                                                                    <input formControlName="numberUsers"  class="form-control" type="number" class="form-control">
-                                                                                                                         </div>
-
-                                                                                                                            
-                                                                                                                </form>  
-                                                                                                    
-                                                                                                </div>
-                                                                                            </div>
-    </div>
-              
-            </div>
-              <div class="modal-footer">
-                                                                                        <button [disabled]="!licenseForm.valid" (click)="createLicense()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
-                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                    </div>
-        </div>
-    </div>
-    </div>

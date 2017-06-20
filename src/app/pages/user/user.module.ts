@@ -1,3 +1,4 @@
+
 import { SettingsComponent } from './../settings/settings.component';
 import { RolesComponent } from './../roles/new/roles.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
@@ -12,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
 import {LogsComponent} from '../logs/logs.component';
+import { AyudaListComponent } from '../ayuda/ayuda-list.component';
 
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
@@ -20,7 +22,8 @@ export const routes = [
   { path: 'nuevo_rol', component:  RolesComponent, data: { breadcrumb: 'Nuevo Rol' } },
   { path: 'roles', component:  RolsListComponent, data: { breadcrumb: 'Roles' } },
   { path: 'configuracion', component:  SettingsComponent, data: { breadcrumb: 'Configuracion' } },
-   { path: 'logs', component:  LogsComponent, data: { breadcrumb: 'Logs' } }
+   { path: 'logs', component:  LogsComponent, data: { breadcrumb: 'Logs' } },
+    { path: 'links', component:  AyudaListComponent, data: { breadcrumb: 'Links de Ayuda' } }
 
 
 
@@ -39,7 +42,7 @@ export const routes = [
   ],
   declarations: [
 
-    UserComponent,UserListComponent,RolesComponent,RolsListComponent, SettingsComponent,ImageUploaderComponent,LogsComponent
+    UserComponent,UserListComponent,RolesComponent,RolsListComponent, SettingsComponent,ImageUploaderComponent,LogsComponent,AyudaListComponent
 
   ],
   providers: []

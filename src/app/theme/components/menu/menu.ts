@@ -225,7 +225,7 @@ export const menuItems = [
       },
        {
         title: 'Links de ayuda',
-        routerLink: 'usuarios/logs',
+        routerLink: 'usuarios/links',
         disabled: true,
         selected: false,
         expanded: false
