@@ -25,7 +25,7 @@ export class AseguradorasComponent{
     constructor(public formBuilder:FormBuilder,public http:Http ,public local:UserSessionService,public router:Router){
             this.formAseguradora = this.formBuilder.group({
                 ruc: ['',Validators.compose([Validators.required])],
-                razonSocial: ['',Validators.compose([Validators.required])],
+                bussinesName: ['',Validators.compose([Validators.required])],
                 cellPhone: [''],
                 phones: [''],
                 address: ['',Validators.compose([Validators.required])],

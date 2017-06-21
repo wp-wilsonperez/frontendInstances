@@ -7,11 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
 import { InsuranceListComponent } from './list/insurance-list.component';
 import { InsuranceComponent } from './new/insurance.component';
+import { PorcentajeComponent } from './porcentaje/porcentaje.component';
 
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
    { path: 'crear', component:  InsuranceComponent, data: { breadcrumb: 'Nuevo' } },
-   { path: 'listado', component:  InsuranceListComponent, data: { breadcrumb: 'Listado' } }
+   { path: 'listado', component:  InsuranceListComponent, data: { breadcrumb: 'Listado' } },
+   { path: 'porcentaje', component: PorcentajeComponent , data: { breadcrumb: 'porcentaje de ramo' } }
+
 
 
 
@@ -29,7 +32,7 @@ export const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    InsuranceComponent,InsuranceListComponent
+    InsuranceComponent,InsuranceListComponent,PorcentajeComponent
 
   ],
   providers: []

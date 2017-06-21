@@ -104,7 +104,7 @@ export const menuItems = [
       },
        {
         title: 'Porcentaje del Ramo',
-        routerLink: 'seguros/listado',
+        routerLink: 'seguros/porcentaje',
         disabled: true,
         selected: false,
         expanded: false

@@ -91,6 +91,13 @@ export class RolsListComponent {
     public ramoEdit:boolean = false;
     public ramoDelete:boolean = false;
     public ramoEnable:boolean = false;
+
+     //checkbox porcentje
+    public porcentajeList:boolean = false;
+    public porcentajeCreate:boolean = false;
+    public porcentajeEdit:boolean = false;
+    public porcentajeDelete:boolean = false;
+    public porcentajeEnable:boolean = false;
     //
 
     //checkbox log
@@ -172,6 +179,14 @@ export class RolsListComponent {
                 this.ramoEdit = false;
                 this.ramoDelete = false;
                 this.ramoEnable = false;
+
+                 //porcentaje
+                
+                this.porcentajeList = false; 
+                this.porcentajeCreate = false;
+                this.porcentajeEdit = false;
+                this.porcentajeDelete = false;
+                this.porcentajeEnable = false;
 
                 //log
 
@@ -324,6 +339,16 @@ export class RolsListComponent {
                
              }
 
+             //porcentaje
+             if(this.grant.percentageRamo != undefined){
+                this.grant.percentageRamo.list == true ?   this.porcentajeList = true:    this.porcentajeList = false;
+                this.grant.percentageRamo.add   == true ?  this.porcentajeCreate = true:  this.porcentajeCreate = false; 
+                this.grant.percentageRamo.edit  == true ?  this.porcentajeEdit = true:    this.porcentajeEdit = false;
+                this.grant.percentageRamo.delete  == true? this.porcentajeDelete = true:  this.porcentajeDelete = false; 
+                this.grant.percentageRamo.enable  == true? this.porcentajeEnable = true:  this.porcentajeEnable = false; 
+               
+             }
+
               //log
              if(this.grant.log != undefined){
                 this.grant.log.list == true ?   this.logList = true:    this.logList = false;
@@ -362,7 +387,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -424,6 +449,13 @@ export class RolsListComponent {
         this.ramoDelete?requestTwo.ramo['delete'] = true:null;
         this.ramoEnable?requestTwo.ramo['enable'] = true:null;
 
+        //porcentaje
+            
+        this.porcentajeList?requestTwo.percentageRamo['list'] = true:null;
+        this.porcentajeCreate?requestTwo.percentageRamo['add'] = true:null;
+         this.porcentajeEdit?requestTwo.percentageRamo['edit'] = true:null;
+        this.porcentajeDelete?requestTwo.percentageRamo['delete'] = true:null;
+        this.porcentajeEnable?requestTwo.percentageRamo['enable'] = true:null
 
 
 
