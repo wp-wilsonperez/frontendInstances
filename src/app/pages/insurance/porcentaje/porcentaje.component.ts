@@ -46,6 +46,8 @@ export class PorcentajeComponent{
             }).subscribe((result)=>{
      
                    this.porcentajes = result.percentageRamos;
+                   console.log(this.porcentajes);
+                   
                     
                     
             })
@@ -71,6 +73,7 @@ export class PorcentajeComponent{
                 return res.json()
             }).subscribe((result=>{
                 console.log(result);
+                this.loadPorcentajes();
                 
             }))
         }
