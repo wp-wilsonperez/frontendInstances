@@ -21,7 +21,7 @@ export class AseguradorasListComponent {
     public message:string;
     public userInfo:any;
     public editForm: FormGroup;
-    public userId;
+    public aseguradoraId;
     public searchTxt:any;
     public resultData:any;
     public listUserComplete:any;
@@ -30,37 +30,43 @@ export class AseguradorasListComponent {
     public error;
     public modalError;
     public roles;
+    public aseguradoras;
+    formAseguradora:FormGroup;
 
     constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService){
         this.local = this.userSession.getUser(); 
-       this.loadUsers();
+
        this.loadRols();
        
-       this.editForm= this.formBuilder.group({
-            'name': ['', Validators.required],
-            'lastName': ['', Validators.required],
-            'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
-            'phone': ['', Validators.required],
-            'dateBirthday': [''],
-            'idRol':[''],
-            'userImg': [''],
-            'mail':['',Validators.compose([Validators.required])]
-        },{validator: ValidationService.validacionCedula('cedula')});
+       this.formAseguradora = this.formBuilder.group({
+                ruc: ['',Validators.compose([Validators.required])],
+               razonSocial: ['',Validators.compose([Validators.required])],
+                cellPhone: [''],
+                phones: [''],
+                address: ['',Validators.compose([Validators.required])],
+                parking: ['',],
+                mail: ['',],
+                web: ['',],
+                img1: ['',],
+                img2: ['',],
+                img3: ['',],
+
+            })
     }
     borrar(id){
 
         
-      this.http.delete(config.url+'user/delete/'+this.userId+'?access_token='+this.local.token).toPromise().then(result=>{
+      this.http.delete(config.url+'insurance/delete/'+this.aseguradoraId+'?access_token='+this.local.token).toPromise().then(result=>{
            let apiResult = result.json();
            console.log(apiResult);
            
            if(apiResult.msg == "OK"){
                this.toast = true;
-               this.message ="Usuario Borrado";
-               this.usersData = apiResult.update;
+               this.message ="Aseguradora Borrada";
+               this.aseguradoras = apiResult.update;
            }else{
                 this.error = true;
-               this.message ="No tiene privilegios para borrar usuarios";
+               this.message ="No tiene privilegios";
             
 
            }
@@ -68,56 +74,32 @@ export class AseguradorasListComponent {
        })
        
     } 
-    loadUsers(){
-        this.userService.userList().then(result=>{
-                    this.usersData = result.users;
-                    this.listUserComplete = result.users;
-                    console.log('Users from Api: ',this.usersData);
-                    
-                    
-        })
 
-    }
-    userDetail(user){
-            var today:any = new Date();
-            var dd:any = today.getDate();
-            var mm:any = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
-            if(dd<10){
-                    dd='0'+dd
-                } 
-                if(mm<10){
-                    mm='0'+mm
-                } 
-
-            today = yyyy+'-'+mm+'-'+dd;
-            this.today  = today;
-            console.log(today);
-            
-
-        this.userId = user._id;
-        console.log(this.userId);
-        console.log(user);
+    aseguradoraDetail(aseguradora){
+    
+        this.aseguradoraId = aseguradora._id;
+        console.log(this.aseguradoraId);
+        console.log(aseguradora);
         
-        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,dateBirthday: user.dateBirthday,mail:user.mail,userImg:user.userImg,idRol : user.idRol});
+        this.formAseguradora.setValue({ruc: aseguradora.ruc,cellPhone: aseguradora.cellPhone,address:aseguradora.address,mail:aseguradora.mail,web:aseguradora.web,phones:aseguradora.phones,img1:aseguradora.img1,img2:aseguradora.img2 ,img3:aseguradora.img3,razonSocial:'',parking:aseguradora.parking});
         
         
         
     }
-    editUser(){
+    editAseguradora(){
             
             
-            this.editForm.value.Enabled = 1;
-            console.log(this.editForm.value)
-            console.log(this.userId);
-            this.http.post(config.url+'user/edit/'+this.userId+"?access_token="+this.local.token,this.editForm.value).toPromise().then(result=>{
+            console.log(this.formAseguradora.value)
+            console.log(this.aseguradoraId);
+            this.http.post(config.url+'insurance/edit/'+this.aseguradoraId+"?access_token="+this.local.token,this.formAseguradora.value).toPromise().then(result=>{
                 let apiResult = result.json(); 
-
+                console.log(result.json());
+                
                 if(apiResult.msg == "OK"){
-                        this.usersData = apiResult.update;
+                        this.aseguradoras = apiResult.update;
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar usuario"
+                    this.message = "No tiene privilegios de editar Aseguradoras"
                 }
 
                 
@@ -146,18 +128,18 @@ export class AseguradorasListComponent {
     }
 
     idAssign(id){
-            this.userId = id;
-            console.log(this.userId);
+            this.aseguradoraId = id;
+            console.log(this.aseguradoraId);
             
     }
 
      loadRols(){
        
-        this.http.get(config.url+'role/list?access_token='+this.local.token).toPromise().then(result=>{
+        this.http.get(config.url+'insurance/list?access_token='+this.local.token).toPromise().then(result=>{
                 let apiResult = result.json();
                 console.log(apiResult);
                 
-                this.roles = apiResult.roles;
+                this.aseguradoras = apiResult.insurances;
                 
         })
     }

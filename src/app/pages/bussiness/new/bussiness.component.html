@@ -27,6 +27,12 @@
                     <strong>{{message}}</strong>
                   
                 </div>
+           <div *ngIf="permission" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{message}}</strong> 
+                </div>
        
         
          
@@ -66,30 +72,19 @@
    
 
 
-   <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('phone').hasError('required') && bussinessForm.get('phone').value != '' ||  bussinessForm.get('phone').hasError('invalidPhone') && bussinessForm.get('phone').value != '',
-    'has-success' : !bussinessForm.get('phone').hasError('required') && !bussinessForm.get('phone').hasError('invalidPhone') }">
-            <label class="form-control-label">Telefono</label>
-            <div class="input-group">  
-                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                <input maxlength="9" formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' : bussinessForm.get('phone').hasError('required') && bussinessForm.get('phone').value != '' || bussinessForm.get('phone').hasError('invalidMobile') && bussinessForm.get('phone').value != '' , 
-                'form-control-success' :  !bussinessForm.get('phone').hasError('required') }" type="text"> 
-            </div>
-        
-            <span class="help-block text-danger" *ngIf=" bussinessForm.get('phone').hasError('required') && bussinessForm.get('phone').value != ''">Telefono no puede estar vacio</span>                             
-             <span class="help-block text-danger" *ngIf="bussinessForm.get('phone').hasError('invalidPhone') && bussinessForm.get('phone').value != ''">Telefono Invalido</span>                             
-        </div>
+   
 
 
-        <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('movil').hasError('required') && bussinessForm.get('movil').value != '' || bussinessForm.get('movil').hasError('invalidMobile') && bussinessForm.get('movil').value != '' , 'has-success' : !bussinessForm.get('movil').hasError('required') && !bussinessForm.get('movil').hasError('invalidMobile') }">
+        <div class="form-group col-md-5" [ngClass]="{'has-danger' : bussinessForm.get('cellPhone').hasError('required') && bussinessForm.get('cellPhone').value != '' || bussinessForm.get('cellPhone').hasError('invalidMobile') && bussinessForm.get('cellPhone').value != '' , 'has-success' : !bussinessForm.get('cellPhone').hasError('required') && !bussinessForm.get('cellPhone').hasError('invalidMobile') }">
             <label class="form-control-label">Telefono Movil</label>
             <div class="input-group">  
                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                <input maxlength="10" formControlName="movil" class="form-control" [ngClass]="{'form-control-danger' : bussinessForm.get('movil').hasError('required') && bussinessForm.get('movil').value != '' || bussinessForm.get('movil').hasError('invalidMobile') && bussinessForm.get('movil').value != ''  , 'form-control-success' :  !bussinessForm.get('movil').hasError('required') && !bussinessForm.get('movil').hasError('invalidMobile') }" type="text"> 
+                <input maxlength="10" formControlName="cellPhone" class="form-control" [ngClass]="{'form-control-danger' : bussinessForm.get('cellPhone').hasError('required') && bussinessForm.get('cellPhone').value != '' || bussinessForm.get('cellPhone').hasError('invalidMobile') && bussinessForm.get('cellPhone').value != ''  , 'form-control-success' :  !bussinessForm.get('cellPhone').hasError('required') && !bussinessForm.get('cellPhone').hasError('invalidMobile') }" type="text"> 
             </div>
         
-            <span class="help-block text-danger" *ngIf="bussinessForm.get('movil').hasError('required') && bussinessForm.get('movil').value != '' ">Telefono Movil no puede estar vacio</span>
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('cellPhone').hasError('required') && bussinessForm.get('cellPhone').value != '' ">Telefono Movil no puede estar vacio</span>
 
-            <span class="help-block text-danger" *ngIf="bussinessForm.get('movil').hasError('invalidMobile') && bussinessForm.get('movil').value != '' ">Telefono Movil invalido</span>                             
+            <span class="help-block text-danger" *ngIf="bussinessForm.get('cellPhone').hasError('invalidMobile') && bussinessForm.get('cellPhone').value != '' ">Telefono Movil invalido</span>                             
         </div>
 
 
@@ -105,6 +100,18 @@
             <span class="help-block text-danger" *ngIf=" bussinessForm.get('mail').value != ''  && bussinessForm.get('mail').hasError('required')">Email esta vacio</span>
             <span class="help-block text-danger" *ngIf=" bussinessForm.get('mail').value != ''  && bussinessForm.get('mail').hasError('invalidEmail')">Email Invalido</span>                             
 
+        </div>
+
+        <div class="form-group col-md-12" [ngClass]="{'has-danger' : bussinessForm.get('phones').hasError('required') && bussinessForm.get('phones').value != '' ||  bussinessForm.get('phones').hasError('invalidphones') && bussinessForm.get('phones').value != '',
+    'has-success' : !bussinessForm.get('phones').hasError('required') && !bussinessForm.get('phones').hasError('invalidphones') }">
+            <label class="form-control-label">Telefonos</label>
+            <div class="input-group"> 
+                 <textarea formControlName="phones"  class="form-control" class="form-control" cols="100" rows="10"> </textarea>
+                
+            </div>
+        
+            <span class="help-block text-danger" *ngIf=" bussinessForm.get('phones').hasError('required') && bussinessForm.get('phones').value != ''">Telefono no puede estar vacio</span>                             
+             <span class="help-block text-danger" *ngIf="bussinessForm.get('phones').hasError('invalidphones') && bussinessForm.get('phones').value != ''">Telefono Invalido</span>                             
         </div>
 
         

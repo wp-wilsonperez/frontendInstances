@@ -78,6 +78,21 @@ export class RolsListComponent {
     public insuranceEnable:boolean = false;
     //
 
+    //checkbox Business
+    public businessList:boolean = false;
+    public businessCreate:boolean = false;
+    public businessEdit:boolean = false;
+    public businessDelete:boolean = false;
+    public businessEnable:boolean = false;
+
+     //checkbox Ramo
+    public ramoList:boolean = false;
+    public ramoCreate:boolean = false;
+    public ramoEdit:boolean = false;
+    public ramoDelete:boolean = false;
+    public ramoEnable:boolean = false;
+    //
+
     //checkbox log
     public logList:boolean = false;
 
@@ -141,6 +156,22 @@ export class RolsListComponent {
                 this.insuranceEdit = false;
                 this.insuranceDelete = false;
                 this.insuranceEnable = false;
+
+                //business
+                
+                this.businessList = false; 
+                this.businessCreate = false;
+                this.businessEdit = false;
+                this.businessDelete = false;
+                this.businessEnable = false;
+
+                //ramo
+                
+                this.ramoList = false; 
+                this.ramoCreate = false;
+                this.ramoEdit = false;
+                this.ramoDelete = false;
+                this.ramoEnable = false;
 
                 //log
 
@@ -273,6 +304,26 @@ export class RolsListComponent {
                
              }
 
+              //business
+             if(this.grant.business != undefined){
+                this.grant.business.list == true ?   this.businessList = true:    this.businessList = false;
+                this.grant.business.add   == true ?  this.businessCreate = true:  this.businessCreate = false; 
+                this.grant.business.edit  == true ?  this.businessEdit = true:    this.businessEdit = false;
+                this.grant.business.delete  == true? this.businessDelete = true:  this.businessDelete = false; 
+                this.grant.business.enable  == true? this.businessEnable = true:  this.businessEnable = false; 
+               
+             }
+
+              //business
+             if(this.grant.ramo != undefined){
+                this.grant.ramo.list == true ?   this.ramoList = true:    this.ramoList = false;
+                this.grant.ramo.add   == true ?  this.ramoCreate = true:  this.ramoCreate = false; 
+                this.grant.ramo.edit  == true ?  this.ramoEdit = true:    this.ramoEdit = false;
+                this.grant.ramo.delete  == true? this.ramoDelete = true:  this.ramoDelete = false; 
+                this.grant.ramo.enable  == true? this.ramoEnable = true:  this.ramoEnable = false; 
+               
+             }
+
               //log
              if(this.grant.log != undefined){
                 this.grant.log.list == true ?   this.logList = true:    this.logList = false;
@@ -311,7 +362,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -355,6 +406,23 @@ export class RolsListComponent {
         this.insuranceEdit?requestTwo.insurance['edit'] = true:null;
         this.insuranceDelete?requestTwo.insurance['delete'] = true:null;
         this.insuranceEnable?requestTwo.insurance['enable'] = true:null;
+
+
+         //business
+            
+        this.businessList?requestTwo.business['list'] = true:null;
+        this.businessCreate?requestTwo.business['add'] = true:null;
+        this.businessEdit?requestTwo.business['edit'] = true:null;
+        this.businessDelete?requestTwo.business['delete'] = true:null;
+        this.businessEnable?requestTwo.business['enable'] = true:null;
+
+          //ramo
+            
+        this.ramoList?requestTwo.ramo['list'] = true:null;
+        this.ramoCreate?requestTwo.ramo['add'] = true:null;
+        this.ramoEdit?requestTwo.ramo['edit'] = true:null;
+        this.ramoDelete?requestTwo.ramo['delete'] = true:null;
+        this.ramoEnable?requestTwo.ramo['enable'] = true:null;
 
 
 

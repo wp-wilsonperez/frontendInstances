@@ -1,3 +1,4 @@
+import { config } from '../../../../config/project-config';
 import { UserSessionService } from './../../../providers/session.service';
 import { ValidationService } from './validation.service';
 import { Router } from '@angular/router';
@@ -19,6 +20,7 @@ export class BussinessComponent {
   message:any;
   error:any;
   toast:any;
+  permission:any;
   errorList:any={};
   attempt = {
     valid: null
@@ -32,11 +34,11 @@ export class BussinessComponent {
         this.bussinessForm= this.formBuilder.group({
             'ruc':['',Validators.compose([Validators.required,ValidationService.rucValidator])],
             'name':['',Validators.compose([Validators.required])],
-            'phone':['',Validators.compose([Validators.required,ValidationService.phoneValidator ])],
-            'movil':['',Validators.compose([Validators.required,ValidationService.mobileValidator])],
+            'phones':['',Validators.compose([Validators.required])],
+            'cellPhone':['',Validators.compose([Validators.required,ValidationService.mobileValidator])],
             'address':['',Validators.compose([Validators.required])],
             'mail':['',Validators.compose([Validators.required , ValidationService.emailValidator])],
-            'web':[''],
+            'map':[''],
    
 
         })
@@ -46,24 +48,34 @@ export class BussinessComponent {
   saveBussiness(){
 
         let request = {
-            idLicense : this.licence
-
-        }
+        };
         Object.assign(request, this.bussinessForm.value )
 
         if(this.bussinessForm.valid){
                 console.log(request);
                 
-                this.http.post('http://localhost:3000/business/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
+                this.http.post(config.url+'business/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
                 let apiResult = result.json();
                 console.log(apiResult);
-                apiResult.msg == "OK"? this.router.navigate(['pages/bussiness/listado']):null
-                if(apiResult.msg == "ERR"){
+                apiResult.msg == "OK"? this.router.navigate(['pages/empresas/listado']):null;
 
-                                 this.error = true;
-                                 this.message = apiResult.err.message;
-                                 this.errorList = apiResult.err.errors;
-                                 console.log('hay un error');
+                             if(apiResult.msg == "ERR"){
+
+                                 if(apiResult.err ="No privileges"){
+                                     this.permission = true;
+
+                                     this.message = "No tiene privilegios de crear Empresa"
+
+                                 }else{
+
+                                     this.error = true;
+                                    this.message = apiResult.err.message;
+                                    this.errorList = apiResult.err.errors;
+                                    console.log('hay un error');
+
+                                 }
+
+                                 
                                  
 
                              }
