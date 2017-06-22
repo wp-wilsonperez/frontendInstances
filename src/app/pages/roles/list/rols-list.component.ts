@@ -100,6 +100,14 @@ export class RolsListComponent {
     public porcentajeEnable:boolean = false;
     //
 
+     //checkbox deductible
+    public deductibleList:boolean = false;
+    public deductibleCreate:boolean = false;
+    public deductibleEdit:boolean = false;
+    public deductibleDelete:boolean = false;
+    public deductibleEnable:boolean = false;
+    //
+
     //checkbox log
     public logList:boolean = false;
 
@@ -187,6 +195,15 @@ export class RolsListComponent {
                 this.porcentajeEdit = false;
                 this.porcentajeDelete = false;
                 this.porcentajeEnable = false;
+
+
+                 //deductible
+                
+                this.deductibleList = false; 
+                this.deductibleCreate = false;
+                this.deductibleEdit = false;
+                this.deductibleDelete = false;
+                this.deductibleEnable = false;
 
                 //log
 
@@ -329,7 +346,7 @@ export class RolsListComponent {
                
              }
 
-              //business
+              //ramo
              if(this.grant.ramo != undefined){
                 this.grant.ramo.list == true ?   this.ramoList = true:    this.ramoList = false;
                 this.grant.ramo.add   == true ?  this.ramoCreate = true:  this.ramoCreate = false; 
@@ -346,6 +363,16 @@ export class RolsListComponent {
                 this.grant.percentageRamo.edit  == true ?  this.porcentajeEdit = true:    this.porcentajeEdit = false;
                 this.grant.percentageRamo.delete  == true? this.porcentajeDelete = true:  this.porcentajeDelete = false; 
                 this.grant.percentageRamo.enable  == true? this.porcentajeEnable = true:  this.porcentajeEnable = false; 
+               
+             }
+
+              //deductible
+             if(this.grant.deductible != undefined){
+                this.grant.deductible.list == true ?   this.deductibleList = true:    this.deductibleList = false;
+                this.grant.deductible.add   == true ?  this.deductibleCreate = true:  this.deductibleCreate = false; 
+                this.grant.deductible.edit  == true ?  this.deductibleEdit = true:    this.deductibleEdit = false;
+                this.grant.deductible.delete  == true? this.deductibleDelete = true:  this.deductibleDelete = false; 
+                this.grant.deductible.enable  == true? this.deductibleEnable = true:  this.deductibleEnable = false; 
                
              }
 
@@ -387,7 +414,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -456,6 +483,14 @@ export class RolsListComponent {
          this.porcentajeEdit?requestTwo.percentageRamo['edit'] = true:null;
         this.porcentajeDelete?requestTwo.percentageRamo['delete'] = true:null;
         this.porcentajeEnable?requestTwo.percentageRamo['enable'] = true:null
+
+         //deductible
+            
+        this.deductibleList?requestTwo.deductible['list'] = true:null;
+        this.deductibleCreate?requestTwo.deductible['add'] = true:null;
+        this.deductibleEdit?requestTwo.deductible['edit'] = true:null;
+        this.deductibleDelete?requestTwo.deductible['delete'] = true:null;
+        this.deductibleEnable?requestTwo.deductible['enable'] = true:null
 
 
 

@@ -16,14 +16,14 @@ export class DeduciblesListComponent{
         public deducibles:any;
         constructor(public http:Http,public local:UserSessionService){
 
-            this.loadInsurances();
+            this.loadDeducibles();
             
         }
-        loadInsurances(){
-            this.http.get(config.url+'insurance/list?access_token='+this.local.getUser().token).map((res)=>{
+        loadDeducibles(){
+            this.http.get(config.url+'deductible/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                    this.deducibles = result.insurances;
+                    this.deducibles = result.deductibles;
                     console.log(this.deducibles);
                     
                     

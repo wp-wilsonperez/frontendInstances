@@ -3,7 +3,7 @@
         <div widget class="card">
             <div class="card-header">
 
-                <span class="text-uppercase">Listado de Ramos</span>
+                <span class="text-uppercase">Listado de Deducibles</span>
 
                 <div class="widget-controls"> 
              
@@ -35,10 +35,12 @@
                     </div>
                 </div> 
                 <div class="table-responsive datatable">
-                    <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                    <table class="table table-striped table-hover table-sm" [mfData]="deducibles  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
                             <tr>
-                                <th> <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>                              
+                                <th> <mfDefaultSorter by="name">Aseguradora</mfDefaultSorter></th>                              
+                                <th><mfDefaultSorter by="phone">Ramo</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="phone">Nombre</mfDefaultSorter></th>
                                 <th><mfDefaultSorter by="phone">Descripcion</mfDefaultSorter></th>
                             
 
@@ -47,9 +49,11 @@
                         </thead>
                         <tbody>                           
 
-                            <tr *ngFor="let insurance of  insurances">
-                                <td><strong>  {{insurance.name}}   </strong></td>
-                                <td>{{insurance.description}}</td>
+                            <tr *ngFor="let deducible of  deducibles">
+                                <td><strong>  {{deducible.idInsurance}}   </strong></td>
+                                <td>{{deducible.idBranch}}</td>
+                                <td> {{deducible.name}} </td>
+                                <td>{{deducible.name}}</td>
               
                                
 
