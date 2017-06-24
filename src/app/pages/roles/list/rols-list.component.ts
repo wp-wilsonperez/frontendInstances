@@ -108,6 +108,14 @@ export class RolsListComponent {
     public deductibleEnable:boolean = false;
     //
 
+    //checkbox helpLinks
+    public helpLinkList:boolean = false;
+    public helpLinkCreate:boolean = false;
+    public helpLinkEdit:boolean = false;
+    public helpLinkDelete:boolean = false;
+    public helpLinkEnable:boolean = false;
+    //
+
     //checkbox log
     public logList:boolean = false;
 
@@ -204,6 +212,14 @@ export class RolsListComponent {
                 this.deductibleEdit = false;
                 this.deductibleDelete = false;
                 this.deductibleEnable = false;
+
+                //deductible
+                
+                this.helpLinkList = false; 
+                this.helpLinkCreate = false;
+                this.helpLinkEdit = false;
+                this.helpLinkDelete = false;
+                this.helpLinkEnable = false;
 
                 //log
 
@@ -376,6 +392,17 @@ export class RolsListComponent {
                
              }
 
+              //helpLinks
+             if(this.grant.helpLink != undefined){
+                this.grant.helpLink.list == true ?   this.helpLinkList = true:    this.helpLinkList = false;
+                this.grant.helpLink.add   == true ?  this.helpLinkCreate = true:  this.helpLinkCreate = false; 
+                this.grant.helpLink.edit  == true ?  this.helpLinkEdit = true:    this.helpLinkEdit = false;
+                this.grant.helpLink.delete  == true? this.helpLinkDelete = true:  this.helpLinkDelete = false; 
+                this.grant.helpLink.enable  == true? this.helpLinkEnable = true:  this.helpLinkEnable = false; 
+               
+             }
+
+
               //log
              if(this.grant.log != undefined){
                 this.grant.log.list == true ?   this.logList = true:    this.logList = false;
@@ -414,7 +441,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -491,6 +518,14 @@ export class RolsListComponent {
         this.deductibleEdit?requestTwo.deductible['edit'] = true:null;
         this.deductibleDelete?requestTwo.deductible['delete'] = true:null;
         this.deductibleEnable?requestTwo.deductible['enable'] = true:null
+
+        //helpLink
+            
+        this.helpLinkList?requestTwo.helpLink['list'] = true:null;
+        this.helpLinkCreate?requestTwo.helpLink['add'] = true:null;
+        this.helpLinkEdit?requestTwo.helpLink['edit'] = true:null;
+        this.helpLinkDelete?requestTwo.helpLink['delete'] = true:null;
+        this.helpLinkEnable?requestTwo.helpLink['enable'] = true:null
 
 
 
