@@ -20,6 +20,8 @@ export const routes: Routes = [
             { path: 'aseguradoras', loadChildren: 'app/pages/aseguradoras/aseguradoras.module#AseguradorasModule', data: { breadcrumb: 'Aseguradoras' } },
             { path: 'empresas', loadChildren: 'app/pages/bussiness/bussiness.module#BussinessModule', data: { breadcrumb: 'Empresas' } },
             { path: 'bancos', loadChildren: 'app/pages/banco/banco.module#BancoModule', data: { breadcrumb: 'Bancos' } },
+            { path: 'tasas', loadChildren: 'app/pages/tasa/tasa.module#TasaModule', data: { breadcrumb: 'Tasas' } },
+             { path: 'cartas', loadChildren: 'app/pages/carta-accidentes/carta-accidente.module#CartaAccidenteModule', data: { breadcrumb: 'Carta Accidente' } },
             { path: 'maps', loadChildren: 'app/pages/maps/maps.module#MapsModule', data: { breadcrumb: 'Maps' } },
             { path: 'charts', loadChildren: 'app/pages/charting/charting.module#ChartingModule', data: { breadcrumb: 'Charts' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },

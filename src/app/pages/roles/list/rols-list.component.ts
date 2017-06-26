@@ -124,6 +124,21 @@ export class RolsListComponent {
     public bankEnable:boolean = false;
     //
 
+    //checkbox tasa
+    public tasaList:boolean = false;
+    public tasaCreate:boolean = false;
+    public tasaEdit:boolean = false;
+    public tasaDelete:boolean = false;
+    public tasaEnable:boolean = false;
+    //
+    //checkbox tasa
+    public letterAccidentList:boolean = false;
+    public letterAccidentCreate:boolean = false;
+    public letterAccidentEdit:boolean = false;
+    public letterAccidentDelete:boolean = false;
+    public letterAccidentEnable:boolean = false;
+    //
+
     //checkbox log
     public logList:boolean = false;
 
@@ -236,6 +251,24 @@ export class RolsListComponent {
                 this.bankEdit = false;
                 this.bankDelete = false;
                 this.bankEnable = false;
+
+                  //tasa
+                
+                this.tasaList = false; 
+                this.tasaCreate = false;
+                this.tasaEdit = false;
+                this.tasaDelete = false;
+                this.tasaEnable = false;
+
+                 //letterAccident
+                
+                this.letterAccidentList = false; 
+                this.letterAccidentCreate = false;
+                this.letterAccidentEdit = false;
+                this.letterAccidentDelete = false;
+                this.letterAccidentEnable = false;
+
+                
 
                 //log
 
@@ -428,6 +461,27 @@ export class RolsListComponent {
                
              }
 
+              //tasa
+             if(this.grant.tasa != undefined){
+                this.grant.tasa.list == true ?   this.tasaList = true:    this.tasaList = false;
+                this.grant.tasa.add   == true ?  this.tasaCreate = true:  this.tasaCreate = false; 
+                this.grant.tasa.edit  == true ?  this.tasaEdit = true:    this.tasaEdit = false;
+                this.grant.tasa.delete  == true? this.tasaDelete = true:  this.tasaDelete = false; 
+                this.grant.tasa.enable  == true? this.tasaEnable = true:  this.tasaEnable = false; 
+               
+             }
+              //letterAccident
+             if(this.grant.letterAccident != undefined){
+                this.grant.letterAccident.list == true ?   this.letterAccidentList = true:    this.letterAccidentList = false;
+                this.grant.letterAccident.add   == true ?  this.letterAccidentCreate = true:  this.letterAccidentCreate = false; 
+                this.grant.letterAccident.edit  == true ?  this.letterAccidentEdit = true:    this.letterAccidentEdit = false;
+                this.grant.letterAccident.delete  == true? this.letterAccidentDelete = true:  this.letterAccidentDelete = false; 
+                this.grant.letterAccident.enable  == true? this.letterAccidentEnable = true:  this.letterAccidentEnable = false; 
+               
+             }
+
+             //
+
 
               //log
              if(this.grant.log != undefined){
@@ -467,7 +521,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -560,6 +614,26 @@ export class RolsListComponent {
         this.bankEdit?requestTwo.bank['edit'] = true:null;
         this.bankDelete?requestTwo.bank['delete'] = true:null;
         this.bankEnable?requestTwo.bank['enable'] = true:null
+
+
+        //tasa
+            
+        this.tasaList?requestTwo.tasa['list'] = true:null;
+        this.tasaCreate?requestTwo.tasa['add'] = true:null;
+        this.tasaEdit?requestTwo.tasa['edit'] = true:null;
+        this.tasaDelete?requestTwo.tasa['delete'] = true:null;
+        this.tasaEnable?requestTwo.tasa['enable'] = true:null
+
+         //tasa
+            
+        this.letterAccidentList?requestTwo.letterAccident['list'] = true:null;
+        this.letterAccidentCreate?requestTwo.letterAccident['add'] = true:null;
+        this.letterAccidentEdit?requestTwo.letterAccident['edit'] = true:null;
+        this.letterAccidentDelete?requestTwo.letterAccident['delete'] = true:null;
+        this.letterAccidentEnable?requestTwo.letterAccident['enable'] = true:null
+
+
+    
 
 
 

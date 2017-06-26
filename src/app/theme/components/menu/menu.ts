@@ -158,6 +158,44 @@ export const menuItems = [
       
     ]
   },
+  {
+    title: 'Tasas',
+    routerLink: 'tasas',
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado de Tasas',
+        routerLink: 'tasas/tasa',
+        disabled: false,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
+  {
+    title: 'Formato Carta Accidente',
+    routerLink: 'cartas',
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado de Formatos',
+        routerLink: 'cartas/listado',
+        disabled: false,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
    {
     title: 'Sucursales',
     routerLink: 'tables',

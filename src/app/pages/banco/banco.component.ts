@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
-import {FormGroup,FormBuilder,Validator} from '@angular/forms';
+import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 
 @Component({
@@ -18,20 +18,23 @@ export class BancoComponent{
         public helpLinks:any;
         public bancos:any;
         public helpLinkId:any;
+        public bankId:any;
         error:any;
         toast:boolean = false;
         message:string;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.bankForm = this.formBuilder.group({
-                name: [''],
-                month:[''],
-                interest:[''],
-                totalMonths:['']
+                name: ['',Validators.compose([Validators.required])],
+                month:['',Validators.compose([Validators.required])],
+                interest:['',Validators.compose([Validators.required])],
+                totalMonths:['',Validators.compose([Validators.required])]
             });
-             this.editForm = this.formBuilder.group({
-                name: [''],
-                link:['']
+            this.editForm = this.formBuilder.group({
+                name: ['',Validators.compose([Validators.required])],
+                month:['',Validators.compose([Validators.required])],
+                interest:['',Validators.compose([Validators.required])],
+                totalMonths:['',Validators.compose([Validators.required])]
             });
 
             this.loadBanks();
@@ -64,33 +67,33 @@ export class BancoComponent{
                 
             })
         }
-        idAssign(helpLinkId){
-                this.helpLinkId = helpLinkId;
+        idAssign(bankId){
+                this.bankId = bankId;
         }
 
-        linkDetail(helpLink){
+        bankDetail(bank){
     
-        this.helpLinkId = helpLink._id;
-        console.log(this.helpLinkId);
-        console.log(helpLink);
+        this.bankId = bank._id;
+        console.log(this.bankId);
+        console.log(this.bankId);
         
-        this.editForm.setValue({name: helpLink.name,link: ''});
+        this.editForm.setValue({name: bank.name,month:bank.month,interest:bank.interest,totalMonths:bank.totalMonths});
         
         
         
     }
-    editLink(){
+    editBank(){
             
-            this.http.post(config.url+`helpLink/edit/${this.helpLinkId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`bank/edit/${this.bankId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.helpLinks = res.update; 
+                        this.bancos = res.update; 
                         this.toast = true;
-                        this.message = "Link editado"
+                        this.message = "Banco editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar links"
+                    this.message = "No tiene privilegios de editar Bancos"
                 }
                 
             })
@@ -99,18 +102,18 @@ export class BancoComponent{
         
         
     }
-    deleteLink(){
+    deleteBank(){
 
-        this.http.delete(config.url+`helpLink/delete/${this.helpLinkId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`bank/delete/${this.bankId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.helpLinks = res.update; 
+                        this.bancos = res.update; 
                         this.toast = true;
-                        this.message = "Link Borrado"
+                        this.message = "Banco Borrado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar links"
+                    this.message = "No tiene privilegios de borrar"
                 }
                 
             })

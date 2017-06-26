@@ -65,12 +65,12 @@
                                                 <div class="row">
 
 
-                                                        <button type="button" (click)="linkDetail(helpLink)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+                                                        <button type="button" (click)="bankDetail(banco)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
 
                                                                 
                         
 
-                                                        <button type="button" (click)="idAssign(helpLink._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                        <button type="button" (click)="idAssign(banco._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
 
                                                                         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                                                                             <div class="modal-dialog" role="document">
@@ -83,7 +83,7 @@
                                                                                        <!--Esta seguro-->
                                                                                     </div>
                                                                                     <div class="modal-footer">
-                                                                                        <button (click)="deleteLink()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                        <button (click)="deleteBank()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                     </div>
                                                                                 </div>
@@ -116,7 +116,7 @@
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header state modal-primary">
-                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-plus"></i>Nuevo Banco</h4>
+                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-money"></i>Nuevo Banco</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 </div>
                                 <div class="modal-body">
@@ -171,7 +171,7 @@
         <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                     <div class="modal-header state modal-primary">                                    
-                    <h4 class="modal-title" id="modal-primary-label"><i class="fa  fa-money"></i>Editar link</h4>
+                    <h4 class="modal-title" id="modal-primary-label"><i class="fa  fa-money"></i>Editar Banco</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
@@ -185,7 +185,7 @@
                                         
 
                                         <div class="form-group col-md-12">
-                                            <label for="exampleSelect1">Nuevo Banco</label>
+                                            <label for="exampleSelect1">Nombre</label>
                                                 <input  type="text" formControlName="name" class="form-control">
                                                                               
                                             
@@ -193,8 +193,21 @@
 
 
                                         <div class="from-group col-md-12">
-                                            <label for="description"> Link</label>
-                                             <input  type="text" formControlName="link" class="form-control">
+                                            <label for="description"> Meses sin Interes</label>
+                                             <input  type="text" formControlName="month" class="form-control">
+                                            
+                                            
+                                        </div> 
+                                        <div class="from-group col-md-12">
+                                            <label for="description"> Cantidad de Meses</label>
+                                             <input  type="number" maxlength="4" formControlName="totalMonths" class="form-control">
+                                            
+                                            
+                                        </div> 
+
+                                        <div class="from-group col-md-12">
+                                            <label for="description"> Intereses</label>
+                                             <input  type="number" maxlength="3" formControlName="interest" class="form-control">
                                             
                                             
                                         </div> 
@@ -211,7 +224,7 @@
                     </div>
                     </div>
                     <div class="modal-footer">
-                    <button (click)="editLink()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
+                    <button [disabled]="!editForm.valid" (click)="editBank()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                     </div>
