@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms'
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import {config} from './../../../../config/project-config';
 import {Router} from '@angular/router';
+import { ValidationService } from './validation.service';
 
 @Component({
     selector: 'aseguradoras',
@@ -24,15 +25,15 @@ export class AseguradorasComponent{
 
     constructor(public formBuilder:FormBuilder,public http:Http ,public local:UserSessionService,public router:Router){
             this.formAseguradora = this.formBuilder.group({
-                ruc: ['',Validators.compose([Validators.required])],
+                ruc: ['',Validators.compose([Validators.required,ValidationService.rucValidator])],
                 bussinesName: ['',Validators.compose([Validators.required])],
-                cellPhone: [''],
+                cellPhone: ['',Validators.compose([ValidationService.mobileValidator])],
                 phones: [''],
                 address: ['',Validators.compose([Validators.required])],
                 schedules: ['',],
                 parking: ['',],
-                mail: ['',],
-                web: ['',],
+                mail: ['',Validators.compose([ValidationService.emailValidator,Validators.required])],
+                web: ['',Validators.compose([Validators.required])],
                 logo: ['',],
                 img1: ['',],
                 img2: ['',],

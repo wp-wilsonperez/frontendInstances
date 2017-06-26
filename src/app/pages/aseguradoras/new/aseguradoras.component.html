@@ -51,19 +51,23 @@
                                     <form  [formGroup]="formAseguradora">
                                                 <div class="col-md-6">
 
-                                                <div class="form-group">
-                                                    <label for="input-1">Ruc</label>
-                                                    <input formControlName="ruc" type="text" class="form-control" >
+                                                <div class="form-group" [ngClass]="{'has-danger' : formAseguradora.get('ruc').hasError('required') && formAseguradora.get('ruc').value != ''  || formAseguradora.get('ruc').hasError('invalidRuc') && formAseguradora.get('ruc').value != '' 
+                                                             , 'has-success' : !formAseguradora.get('ruc').hasError('required') &&  !formAseguradora.get('ruc').hasError('invalidRuc')}" >
+                                                    <label class="form-control-label">Ruc</label>
+                                                    <input formControlName="ruc" type="text" class="form-control" [ngClass]="{'form-control-danger' :  formAseguradora.get('ruc').hasError('required')  ||  formAseguradora.get('ruc').hasError('invalidRuc'),
+                                                     'form-control-success' :  !formAseguradora.get('ruc').hasError('required') && !formAseguradora.get('ruc').hasError('invalidRuc') }" >
 
                                                 </div>
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-6" [ngClass]="{'has-success':  !formAseguradora.get('bussinesName').hasError('required')}">
+                                                               
                                                         <label class="form-control-label">Razon Social</label>
-                                                         <input formControlName="bussinesName" type="text" class="form-control" >      
+                                                         <input [ngClass]="{'form-control-success': !formAseguradora.get('bussinesName').hasError('required') }" formControlName="bussinesName" type="text" class="form-control" >      
                                                 </div>
-                                                <div class="form-group col-md-6">
+
+                                                <div class="form-group col-md-6" [ngClass]="{'has-danger': formAseguradora.get('cellPhone').hasError('invalidMobile') && formAseguradora.get('cellPhone').value != '' , 'has-success': !formAseguradora.get('cellPhone').hasError('invalidMobile')  }">
                                                         <label class="form-control-label">Telefono</label>
-                                                         <input formControlName="cellPhone" type="text" class="form-control" >
+                                                         <input formControlName="cellPhone" [ngClass]="{'form-control-danger' : formAseguradora.get('cellPhone').value != ''  && formAseguradora.get('cellPhone').hasError('invalidMobile') , 'form-control-success' :  !formAseguradora.get('cellPhone').hasError('invalidMobile')  }" maxlength="10" type="text" class="form-control" >
                                                 </div>
                                                 <div class="col-md-6 col-12 bottom-15">
                                                     <h6>Estacionamiento</h6>
@@ -86,17 +90,18 @@
                                                     </div>
 
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                        <label class="form-control-label">Mail</label>
-                                                        <input formControlName="mail" type="text" class="form-control" >
+                                                <div class="form-group col-md-6" [ngClass]="{'has-danger' : formAseguradora.get('mail').value != '' && formAseguradora.get('mail').hasError('required')  || formAseguradora.get('mail').value != ''  && formAseguradora.get('mail').hasError('invalidEmail')   ,
+                                                 'has-success' : !formAseguradora.get('mail').hasError('required') && !formAseguradora.get('mail').hasError('invalidEmail') }">
+                                                        <label class="form-control-label">Email</label>
+                                                        <input formControlName="mail"  [ngClass]="{'form-control-danger' : formAseguradora.get('mail').value != ''  && formAseguradora.get('mail').hasError('required') || formAseguradora.get('mail').value != ''  && formAseguradora.get('mail').hasError('invalidEmail'), 'form-control-success' :  !formAseguradora.get('mail').hasError('required') && !formAseguradora.get('mail').hasError('invalidEmail') }" type="text" class="form-control" >
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-6"  [ngClass]="{'has-success':  !formAseguradora.get('web').hasError('required')}">
                                                         <label class="form-control-label">Web</label>
-                                                        <input formControlName="web" type="text" class="form-control" >
+                                                        <input [ngClass]="{'form-control-success': !formAseguradora.get('web').hasError('required') }" formControlName="web" type="text" class="form-control" >
                                                 </div>
-                                                <div class="form-group col-md-6">
+                                                <div class="form-group col-md-6" [ngClass]="{'has-success':  !formAseguradora.get('address').hasError('required')}">
                                                         <label class="form-control-label">Direccion</label>
-                                                        <textarea formControlName="address" class="form-control" ></textarea>
+                                                        <textarea [ngClass]="{'form-control-success': !formAseguradora.get('address').hasError('required') }" formControlName="address" class="form-control" ></textarea>
                                                 </div>
                                                 
 
