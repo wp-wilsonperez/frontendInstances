@@ -116,6 +116,14 @@ export class RolsListComponent {
     public helpLinkEnable:boolean = false;
     //
 
+    //checkbox bank
+    public bankList:boolean = false;
+    public bankCreate:boolean = false;
+    public bankEdit:boolean = false;
+    public bankDelete:boolean = false;
+    public bankEnable:boolean = false;
+    //
+
     //checkbox log
     public logList:boolean = false;
 
@@ -220,6 +228,14 @@ export class RolsListComponent {
                 this.helpLinkEdit = false;
                 this.helpLinkDelete = false;
                 this.helpLinkEnable = false;
+
+                //bank
+                
+                this.bankList = false; 
+                this.bankCreate = false;
+                this.bankEdit = false;
+                this.bankDelete = false;
+                this.bankEnable = false;
 
                 //log
 
@@ -402,6 +418,16 @@ export class RolsListComponent {
                
              }
 
+              //bank
+             if(this.grant.bank != undefined){
+                this.grant.bank.list == true ?   this.bankList = true:    this.bankList = false;
+                this.grant.bank.add   == true ?  this.bankCreate = true:  this.bankCreate = false; 
+                this.grant.bank.edit  == true ?  this.bankEdit = true:    this.bankEdit = false;
+                this.grant.bank.delete  == true? this.bankDelete = true:  this.bankDelete = false; 
+                this.grant.bank.enable  == true? this.bankEnable = true:  this.bankEnable = false; 
+               
+             }
+
 
               //log
              if(this.grant.log != undefined){
@@ -441,7 +467,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -526,6 +552,14 @@ export class RolsListComponent {
         this.helpLinkEdit?requestTwo.helpLink['edit'] = true:null;
         this.helpLinkDelete?requestTwo.helpLink['delete'] = true:null;
         this.helpLinkEnable?requestTwo.helpLink['enable'] = true:null
+
+        //bank
+            
+        this.bankList?requestTwo.bank['list'] = true:null;
+        this.bankCreate?requestTwo.bank['add'] = true:null;
+        this.bankEdit?requestTwo.bank['edit'] = true:null;
+        this.bankDelete?requestTwo.bank['delete'] = true:null;
+        this.bankEnable?requestTwo.bank['enable'] = true:null
 
 
 

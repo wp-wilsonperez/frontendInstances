@@ -195,7 +195,7 @@
                     </div>
                     </div>
                     <div class="modal-footer">
-                    <button (click)="editLink()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
+                    <button [disabled]="!editForm.valid" (click)="editLink()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                     </div>

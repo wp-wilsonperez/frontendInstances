@@ -140,6 +140,25 @@ export const menuItems = [
     ]
   },
    {
+    title: 'Banco',
+    routerLink: 'bancos',
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado de Bancos',
+        routerLink: 'bancos/banco',
+        disabled: false,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
+   {
     title: 'Sucursales',
     routerLink: 'tables',
 

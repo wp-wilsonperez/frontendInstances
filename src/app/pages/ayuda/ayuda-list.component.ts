@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
-import {FormGroup,FormBuilder,Validator} from '@angular/forms';
+import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 
 @Component({
@@ -23,12 +23,12 @@ export class AyudaListComponent{
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.linkForm = this.formBuilder.group({
-                name: [''],
-                link:['']
+                name: ['',Validators.compose([Validators.required])],
+                link:['',Validators.compose([Validators.required])]
             });
              this.editForm = this.formBuilder.group({
-                name: [''],
-                link:['']
+                name: ['',Validators.compose([Validators.required])],
+                link:['',Validators.compose([Validators.required])]
             });
             this.loadLinks();
         }

@@ -41,7 +41,7 @@
                     </div>
                    
                    
-                   <button (click)="saveInsurance()" type="submit" class="btn btn-primary"> Agregar </button>
+                   <button [disabled]="!insuranceForm.valid" (click)="saveInsurance()" type="submit" class="btn btn-primary"> Agregar </button>
             
                 </form>
               
