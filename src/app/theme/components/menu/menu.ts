@@ -113,7 +113,7 @@ export const menuItems = [
     ]
   },
     {
-    title: 'Presupuestos',
+    title: 'Cotizaciones',
     routerLink: 'presupuestos',
 
     icon: 'fa-building',

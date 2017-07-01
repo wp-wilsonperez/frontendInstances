@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
@@ -13,7 +13,8 @@ import { ValidationService } from '../bussiness/new/validation.service';
     styleUrls:['./quotes.component.scss']
 })
 
-export class QuoteComponent{
+
+export class QuoteComponent implements OnInit{ 
         public quoteForm:FormGroup;
          public editForm:FormGroup
         public helpLinks:any;
@@ -60,6 +61,7 @@ export class QuoteComponent{
 
 
             });
+            
             this.editForm = this.formBuilder.group({
                 date: ['',Validators.compose([Validators.required])],
                 name: ['',Validators.compose([Validators.required])],
@@ -93,6 +95,24 @@ export class QuoteComponent{
             this.loadDeductible();
             this.loadSettings();
             this.loadPaymentTypes();
+            
+            this.quoteForm.valueChanges.map((res)=>{
+                return res;
+            }).subscribe((result)=>{
+                
+                if ( this.quoteForm.value.idInsurance != '' && this.quoteForm.value.idDeductible != ''){
+                        
+                        this.getTasa();
+                }
+                
+            })
+
+        }
+
+        ngOnInit(){
+
+            
+            
         }
 
         loadquotes(){
@@ -255,6 +275,17 @@ export class QuoteComponent{
                     this.message = "No tiene privilegios de borrar"
                 }
                 
+            })
+
+    }
+
+    getTasa(){
+
+         this.http.get(config.url+'tasa/value?access_token='+this.local.getUser().token+'&idInsurance='+this.quoteForm.value.idInsurance+'&idDeductible='+this.quoteForm.value.idDeductible+'&idRamo=3').map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    
+                    console.log('getTasa result: ',result);
             })
 
     }
