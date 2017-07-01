@@ -6,13 +6,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
-import { CartaAccidenteComponent } from './carta-accidente.component';
-import { PdfViewerComponent } from 'ng2-pdf-viewer';
-
+import { EmisionComponent } from './emision.component';
 
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
-  { path: 'listado', component: CartaAccidenteComponent, data: { breadcrumb: 'Listado' } }
+  { path: 'listado', component: EmisionComponent, data: { breadcrumb: 'listado' } }
 ];
 
 @NgModule({
@@ -28,12 +26,11 @@ export const routes = [
   ],
   declarations: [
 
-    CartaAccidenteComponent,
-    PdfViewerComponent
+    EmisionComponent
 
   ],
   providers: []
 })
-export class CartaAccidenteModule { 
+export class EmisionModule { 
   
 }

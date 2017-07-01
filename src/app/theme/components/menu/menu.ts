@@ -112,6 +112,27 @@ export const menuItems = [
       
     ]
   },
+    {
+    title: 'Presupuestos',
+    routerLink: 'presupuestos',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado',
+        routerLink: 'presupuestos/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+  
+      
+    ]
+  },
    {
     title: 'Deducibles',
     routerLink: 'seguros',
@@ -151,6 +172,44 @@ export const menuItems = [
       {
         title: 'Listado de Bancos',
         routerLink: 'bancos/banco',
+        disabled: false,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
+  {
+    title: 'Derechos de Emision',
+    routerLink: 'emision',
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado',
+        routerLink: 'emision/listado',
+        disabled: false,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
+   {
+    title: 'Tipos de Pago',
+    routerLink: 'bancos',
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado',
+        routerLink: 'pagos/listado',
         disabled: false,
         selected: false,
         expanded: false

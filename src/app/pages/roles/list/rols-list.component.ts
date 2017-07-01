@@ -137,7 +137,38 @@ export class RolsListComponent {
     public letterAccidentEdit:boolean = false;
     public letterAccidentDelete:boolean = false;
     public letterAccidentEnable:boolean = false;
+
+    //checkbox paymentType
+    public paymentTypeList:boolean = false;
+    public paymentTypeCreate:boolean = false;
+    public paymentTypeEdit:boolean = false;
+    public paymentTypeDelete:boolean = false;
+    public paymentTypeEnable:boolean = false;
     //
+    //checkbox paymentType
+    public quoteList:boolean = false;
+    public quoteCreate:boolean = false;
+    public quoteEdit:boolean = false;
+    public quoteDelete:boolean = false;
+    public quoteEnable:boolean = false;
+
+     //checkbox issue
+
+    public issueList:boolean = false;
+    public issueCreate:boolean = false;
+    public issueEdit:boolean = false;
+    public issueDelete:boolean = false;
+    public issueEnable:boolean = false;
+
+
+        //checkbox issue
+
+    public clientList:boolean = false;
+    public clientCreate:boolean = false;
+    public clientEdit:boolean = false;
+    public clientDelete:boolean = false;
+    public clientEnable:boolean = false;
+
 
     //checkbox log
     public logList:boolean = false;
@@ -267,6 +298,39 @@ export class RolsListComponent {
                 this.letterAccidentEdit = false;
                 this.letterAccidentDelete = false;
                 this.letterAccidentEnable = false;
+
+                //letterAccident
+                
+                this.paymentTypeList = false; 
+                this.paymentTypeCreate = false;
+                this.paymentTypeEdit = false;
+                this.paymentTypeDelete = false;
+                this.paymentTypeEnable = false;
+
+              //quote
+                
+                this.quoteList = false; 
+                this.quoteCreate = false;
+                this.quoteEdit = false;
+                this.quoteDelete = false;
+                this.quoteEnable = false;
+
+
+             //quote
+                
+                this.issueList = false; 
+                this.issueCreate = false;
+                this.issueEdit = false;
+                this.issueDelete = false;
+                this.issueEnable = false;
+
+             //client
+                
+                this.clientList = false; 
+                this.clientCreate = false;
+                this.clientEdit = false;
+                this.clientDelete = false;
+                this.clientEnable = false;
 
                 
 
@@ -481,6 +545,49 @@ export class RolsListComponent {
              }
 
              //
+             //payment type
+             if(this.grant.paymentType != undefined){
+                this.grant.paymentType.list == true ?   this.paymentTypeList = true:    this.paymentTypeList = false;
+                this.grant.paymentType.add   == true ?  this.paymentTypeCreate = true:  this.paymentTypeCreate = false; 
+                this.grant.paymentType.edit  == true ?  this.paymentTypeEdit = true:    this.paymentTypeEdit = false;
+                this.grant.paymentType.delete  == true? this.paymentTypeDelete = true:  this.paymentTypeDelete = false; 
+                this.grant.paymentType.enable  == true? this.paymentTypeEnable = true:  this.paymentTypeEnable = false; 
+               
+             }
+
+              //quote
+             if(this.grant.quote != undefined){
+                this.grant.quote.list == true ?   this.quoteList = true:    this.quoteList = false;
+                this.grant.quote.add   == true ?  this.quoteCreate = true:  this.quoteCreate = false; 
+                this.grant.quote.edit  == true ?  this.quoteEdit = true:    this.quoteEdit = false;
+                this.grant.quote.delete  == true? this.quoteDelete = true:  this.quoteDelete = false; 
+                this.grant.quote.enable  == true? this.quoteEnable = true:  this.quoteEnable = false; 
+               
+             }
+
+             //quote
+             if(this.grant.issue != undefined){
+                this.grant.issue.list == true ?   this.issueList = true:    this.issueList = false;
+                this.grant.issue.add   == true ?  this.issueCreate = true:  this.issueCreate = false; 
+                this.grant.issue.edit  == true ?  this.issueEdit = true:    this.issueEdit = false;
+                this.grant.issue.delete  == true? this.issueDelete = true:  this.issueDelete = false; 
+                this.grant.issue.enable  == true? this.issueEnable = true:  this.issueEnable = false; 
+               
+             }
+
+             //
+
+             //client
+             if(this.grant.client != undefined){
+                this.grant.client.list == true ?   this.clientList = true:    this.clientList = false;
+                this.grant.client.add   == true ?  this.clientCreate = true:  this.clientCreate = false; 
+                this.grant.client.edit  == true ?  this.clientEdit = true:    this.clientEdit = false;
+                this.grant.client.delete  == true? this.clientDelete = true:  this.clientDelete = false; 
+                this.grant.client.enable  == true? this.clientEnable = true:  this.clientEnable = false; 
+               
+             }
+
+             //
 
 
               //log
@@ -521,7 +628,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -631,6 +738,40 @@ export class RolsListComponent {
         this.letterAccidentEdit?requestTwo.letterAccident['edit'] = true:null;
         this.letterAccidentDelete?requestTwo.letterAccident['delete'] = true:null;
         this.letterAccidentEnable?requestTwo.letterAccident['enable'] = true:null
+
+        //paymentType
+            
+        this.paymentTypeList?requestTwo.paymentType['list'] = true:null;
+        this.paymentTypeCreate?requestTwo.paymentType['add'] = true:null;
+        this.paymentTypeEdit?requestTwo.paymentType['edit'] = true:null;
+        this.paymentTypeDelete?requestTwo.paymentType['delete'] = true:null;
+        this.paymentTypeEnable?requestTwo.paymentType['enable'] = true:null
+
+        
+        //quote
+            
+        this.quoteList?requestTwo.quote['list'] = true:null;
+        this.quoteCreate?requestTwo.quote['add'] = true:null;
+        this.quoteEdit?requestTwo.quote['edit'] = true:null;
+        this.quoteDelete?requestTwo.quote['delete'] = true:null;
+        this.quoteEnable?requestTwo.quote['enable'] = true:null
+
+         //issue
+            
+        this.issueList?requestTwo.issue['list'] = true:null;
+        this.issueCreate?requestTwo.issue['add'] = true:null;
+        this.issueEdit?requestTwo.issue['edit'] = true:null;
+        this.issueDelete?requestTwo.issue['delete'] = true:null;
+        this.issueEnable?requestTwo.issue['enable'] = true:null
+
+         //client
+            
+        this.clientList?requestTwo.client['list'] = true:null;
+        this.clientCreate?requestTwo.client['add'] = true:null;
+        this.clientEdit?requestTwo.client['edit'] = true:null;
+        this.clientDelete?requestTwo.client['delete'] = true:null;
+        this.clientEnable?requestTwo.client['enable'] = true:null
+
 
 
     

@@ -59,7 +59,7 @@ export class UserComponent {
         this.personalForm = this.formBuilder.group({
             'name': ['', Validators.required],
             'lastName': ['', Validators.required],
-            'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
+            'doc': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
             'telefono':['',Validators.compose([ValidationService.phoneValidator])],
             'birthDate': [''],
             'imagen': [''],
@@ -247,6 +247,7 @@ export class UserComponent {
         
     }
     makeFileRequest(url: string, file: any) {
+
     return Observable.fromPromise(new Promise((resolve, reject) => {
         let formData: any = new FormData()
         let xhr = new XMLHttpRequest()

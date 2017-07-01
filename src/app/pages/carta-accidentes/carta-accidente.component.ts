@@ -1,9 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { Params } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 
 
@@ -15,10 +16,10 @@ import { Params } from '@angular/router';
 })
 
 export class CartaAccidenteComponent{
-        public tasaForm:FormGroup;
+        public formatForm:FormGroup;
          public editForm:FormGroup
         public tasas:any;
-        public tasaId:any;
+        public formatoId:any;
         error:any;
         toast:boolean = false;
         message:string;
@@ -26,24 +27,23 @@ export class CartaAccidenteComponent{
         deducibles:any = [];
         ramos: any = [];
         carUses:any = [];
+        formatos:any =[];
+        imageResult:any;
+        file:any;
+        image:any;
+        pdfSrc:any;
         
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public element:ElementRef ){
         
-            this.tasaForm = this.formBuilder.group({
-                name: ['',Validators.compose([Validators.required])],
+            this.formatForm = this.formBuilder.group({
+
                 idInsurance:['',Validators.compose([Validators.required])],
-                idDeductible:['',Validators.compose([Validators.required])],
                 idRamo:['',Validators.compose([Validators.required])],
-                carUse:['',Validators.compose([Validators.required])],
-                value:['',Validators.compose([Validators.required])]
+        
             });
             this.editForm = this.formBuilder.group({
-                name: ['',Validators.compose([Validators.required])],
-                idInsurance:['',Validators.compose([Validators.required])],
-                idDeductible:['',Validators.compose([Validators.required])],
+               idInsurance:['',Validators.compose([Validators.required])],
                 idRamo:['',Validators.compose([Validators.required])],
-                carUse:['',Validators.compose([Validators.required])],
-                value:['',Validators.compose([Validators.required])]
             });
 
             this.loadTasas();
@@ -51,6 +51,7 @@ export class CartaAccidenteComponent{
             this.loadDeductible();
             this.loadRamos();
             this.loadCarUse();
+            this.loadFormatos();
         }
 
         loadTasas(){
@@ -102,51 +103,120 @@ export class CartaAccidenteComponent{
             })
 
         }
-        saveTasa(){
-            this.http.post(config.url+'tasa/add?access_token='+this.local.getUser().token,this.tasaForm.value).map((result)=>{
-                return result.json()
-            }).subscribe(res=>{
-                 if(res.msg == "OK"){
-                       this.loadTasas();
-                        this.toast = true;
-                        this.message = "Tasa guardada"
-                }else{
-                      this.error = true;
-                    this.message = "No tiene privilegios de guardar tasa"
-                   
-                }
-                console.log(res);
-               this.loadTasas();
+        loadFormatos(){
+
+              this.http.get(config.url+'letterAccident/list?access_token='+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe(
+            (result)=>{
+                    this.formatos = result.letterAccidents;
+                  console.log('letter Accident',result)
+            },
+            (err)=>{
+                console.log(err);
                 
-            })
+            }
+            
+            )
+
+
         }
-        idAssign(tasaId){
-                this.tasaId = tasaId;
+        fileChange(input){
+            console.log(input.files[0]);
+            
+            const reader = new FileReader();
+            if (input.files.length) {
+                const file = input.files[0];
+                this.file = input.files[0];
+                reader.onload = () => {
+                    this.image = reader.result;
+                }
+                reader.readAsDataURL(file);           
+            }
+        }
+        saveFormat(){
+            
+            this.makeFileRequest(config.url+'letterAccident/addletterAccidentFile?access_token='+this.local.getUser().token,this.file).map(res=>{
+                return res
+            }).subscribe(
+            (result)=>{
+                let request = {};
+               this.imageResult = result;
+               Object.assign(request,this.formatForm.value,{file:this.imageResult.letterAccidentFile});
+               this.http.post(config.url+'letterAccident/add?access_token='+this.local.getUser().token,request).map((result)=>{
+                return result.json()
+                    }).subscribe(res=>{
+                         if(res.msg == "OK"){
+                               this.loadFormatos();
+                                this.toast = true;
+                                this.message = "Formato guardado"
+                        }else{
+                              this.error = true;
+                            this.message = "No tiene privilegios de guardar Formatos"
+                           
+                        }
+                        console.log(res);
+                       this.loadFormatos();
+                        
+                    })
+     
+               
+               
+            },
+            (err)=>{}
+            )
+            
+           
         }
 
-    tasaDetail(tasa){
+      makeFileRequest(url: string, file: any) {
+
+        return Observable.fromPromise(new Promise((resolve, reject) => {
+            let formData: any = new FormData()
+            let xhr = new XMLHttpRequest()
+       
+                formData.append("letterAccidentFile", file, file.name)
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.response))
+                    } else {
+                        reject(xhr.response)
+                    }
+                }
+            }
+            xhr.open("POST", url, true)
+            xhr.send(formData)
+        }));
+    }
+    idAssign(formatoId){
+                this.formatoId = formatoId;
+        }
+
+    formatoDetail(formato){
     
-        this.tasaId = tasa._id;
-        console.log(this.tasaId);
+        this.formatoId = formato._id;
+        console.log(this.formatoId);
     
         
-        this.editForm.setValue({name:tasa.name,idDeductible:tasa.idDeductible,idInsurance:tasa.idInsurance,idRamo:tasa.idRamo,carUse:tasa.carUse,value:tasa.value});
+        this.editForm.setValue({idRamo:formato.idRamo,idInsurance:formato.idInsurance});
         
         
         
     }
-    editBank(){
+    editFormato(){
             
-            this.http.post(config.url+`tasa/edit/${this.tasaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`letterAccident/edit/${this.formatoId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.tasas = res.update; 
+                        this.formatos = res.update; 
                         this.toast = true;
-                        this.message = "Banco editado"
+                        this.message = "Formato editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar tasas"
+                    this.message = "No tiene privilegios de editar formatos"
                 }
                 
             })
@@ -155,15 +225,15 @@ export class CartaAccidenteComponent{
         
         
     }
-    deleteBank(){
+    deleteFormato(){
 
-        this.http.delete(config.url+`tasa/delete/${this.tasaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`letterAccident/delete/${this.formatoId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.tasas = res.update; 
+                        this.formatos = res.update; 
                         this.toast = true;
-                        this.message = "Banco Borrado"
+                        this.message = "Formato Borrado"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"
@@ -171,6 +241,14 @@ export class CartaAccidenteComponent{
                 
             })
 
+    }
+    verPdf(formato){
+            
+            this.pdfSrc = config.url+'uploads/letterAccident/'+formato.file;
+            console.log(this.pdfSrc);
+            
+                
+            
     }
 
 }
