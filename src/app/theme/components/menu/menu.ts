@@ -112,6 +112,27 @@ export const menuItems = [
       
     ]
   },
+  {
+    title: 'Clientes',
+    routerLink: 'clientes',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado',
+        routerLink: 'clientes/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+  
+      
+    ]
+  },
     {
     title: 'Cotizaciones',
     routerLink: 'presupuestos',
@@ -348,7 +369,52 @@ export const menuItems = [
       }
     ]
 
-  }
+  }, {
+    title: 'UI Features',
+    routerLink: 'ui',
+    icon: 'fa-laptop',
+    selected: false,
+    expanded: false,
+    order: 300,
+    subMenu: [
+      {
+        title: 'Buttons',
+        routerLink: 'ui/buttons'
+      },
+      {
+        title: 'Cards',
+        routerLink: 'ui/cards'
+      },
+      {
+        title: 'Components',
+        routerLink: 'ui/components'
+      },           
+      {
+        title: 'Icons',
+        routerLink: 'ui/icons'
+      },
+      {
+        title: 'Grid',
+        routerLink: 'ui/grid'
+      },
+      {
+        title: 'List Group',
+        routerLink: 'ui/list-group'
+      },
+      {
+        title: 'Media Objects',
+        routerLink: 'ui/media-objects'
+      },
+      {
+        title: 'Tabs & Accordions',
+        routerLink: 'ui/tabs-accordions'
+      },
+      {
+        title: 'Typography',
+        routerLink: 'ui/typography'
+      }
+    ]
+  },
   
   
   

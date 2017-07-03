@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
-import { ClienteComponent } from './cliente.component';
+import { ClienteComponent } from './list/cliente.component';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
@@ -22,7 +23,8 @@ export const routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AgmCoreModule
   ],
   declarations: [
 

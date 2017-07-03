@@ -55,12 +55,13 @@ export class QuoteComponent implements OnInit{
                 emissionRights:['',Validators.compose([Validators.required])],
                 totalAmount:['',Validators.compose([Validators.required])],
                 idPaymentTye:['',Validators.compose([Validators.required])],
-                idTypeClient:['']
+                idTypeClient:[''],
+                prima:['',Validators.compose([Validators.required])]
 
 
 
 
-            });
+            },{validator: ValidationService.validacionCedula('doc')});
             
             this.editForm = this.formBuilder.group({
                 date: ['',Validators.compose([Validators.required])],
@@ -86,7 +87,8 @@ export class QuoteComponent implements OnInit{
                 emissionRights:[''],
                 totalAmount:[''],
                 idPaymentTye:[''],
-                idTypeClient:['']
+                idTypeClient:[''],
+                prima:['']
             });
 
             this.loadquotes();
@@ -100,11 +102,9 @@ export class QuoteComponent implements OnInit{
                 return res;
             }).subscribe((result)=>{
                 
-                if ( this.quoteForm.value.idInsurance != '' && this.quoteForm.value.idDeductible != ''){
-                        
-                        this.getTasa();
-                }
                 
+                     
+                    
             })
 
         }
@@ -281,13 +281,32 @@ export class QuoteComponent implements OnInit{
 
     getTasa(){
 
-         this.http.get(config.url+'tasa/value?access_token='+this.local.getUser().token+'&idInsurance='+this.quoteForm.value.idInsurance+'&idDeductible='+this.quoteForm.value.idDeductible+'&idRamo=3').map((res)=>{
-                return res.json();
-            }).subscribe((result)=>{
-                    
-                    console.log('getTasa result: ',result);
-            })
+        if(this.quoteForm.value.idInsurance != ''&& this.quoteForm.value.idDeductible != ''&& this.quoteForm.value.carUse != '' ){
+            this.http.get(config.url+'tasa/value?access_token='+this.local.getUser().token+'&idInsurance='+this.quoteForm.value.idInsurance+'&idDeductible='+this.quoteForm.value.idDeductible+'&idRamo=59587220641440d5d2b9e2ab'+'&carUse='+this.quoteForm.value.carUse)
+         .toPromise().then(result=>{
+                         let apiResult = result.json();
+                      console.log('getTasa result: ',apiResult);
+                    this.quoteForm.controls['tasaValue'].setValue(apiResult.value);
+         })
 
+        }
+
+         
+
+    }
+    getPrima(){
+        this.quoteForm.controls['prima'].setValue((this.quoteForm.value.valueCar + this.quoteForm.value.accessories) *this.quoteForm.value.tasaValue / 100);
+    }
+
+    getDerechosEmision(){
+        this.http.get(config.url+'issue/value?access_token='+this.local.getUser().token+'&number='+this.quoteForm.value.prima).map(res=>{
+            
+            return res.json();
+        }).subscribe(result=>{
+
+            console.log(result);
+            
+        })
     }
 
 }
