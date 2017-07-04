@@ -59,7 +59,7 @@ export class UserComponent {
         this.personalForm = this.formBuilder.group({
             'name': ['', Validators.required],
             'lastName': ['', Validators.required],
-            'doc': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
+            'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
             'telefono':['',Validators.compose([ValidationService.phoneValidator])],
             'birthDate': [''],
             'imagen': [''],
