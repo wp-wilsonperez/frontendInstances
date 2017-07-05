@@ -266,7 +266,7 @@
                                                         <label class="form-control-label">Tasa</label>
                                                         <div class="input-group">
                                                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                <input (input)="getPrima()" formControlName="tasaValue" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('tasaValue').hasError('required'), 'form-control-success' :  !quoteForm.get('tasaValue').hasError('required') }" type="number"> 
+                                                                <input (input)="getPrima()" formControlName="tasaValue" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('tasaValue').hasError('required'), 'form-control-success' :  !quoteForm.get('tasaValue').hasError('required') }" value="0" step="0.01" type="number"> 
                                                         </div>
                                                     
                                                         <span class="help-block text-danger" *ngIf="quoteForm.get('tasaValue').value != '' && quoteForm.get('tasaValue').hasError('required')">Tasa no puede estar vacio</span>                             
@@ -285,16 +285,16 @@
                                                         <label class="form-control-label">Prima</label>
                                                         <div class="input-group">
                                                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                <input (input)="getDerechosEmision()" formControlName="prima" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('iva').hasError('required'), 'form-control-success' :  !quoteForm.get('iva').hasError('required') }" type="number"> 
+                                                                <input (change)="getDerechosEmision()" formControlName="prima" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('iva').hasError('required'), 'form-control-success' :  !quoteForm.get('iva').hasError('required') }" value="0" step="0.01" type="number"> 
                                                         </div>
                                                     
                                                         <span class="help-block text-danger" *ngIf="quoteForm.get('prima').value != '' && quoteForm.get('prima').hasError('required')">Prima no puede estar vacio</span>                             
                                                     </div>
-                                                      <div class="form-group " [ngClass]="{'has-danger' : quoteForm.get('superBank').value != '' && quoteForm.get('superBank').hasError('required'), 'has-success' : !quoteForm.get('superBank').hasError('required') }">
+                                                      <div class="form-group "  [ngClass]="{'has-danger' : quoteForm.get('superBank').value != '' && quoteForm.get('superBank').hasError('required'), 'has-success' : !quoteForm.get('superBank').hasError('required') }">
                                                         <label class="form-control-label">Super de Banco</label>
                                                         <div class="input-group">
                                                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                <input formControlName="superBank" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('superBank').hasError('required'), 'form-control-success' :  !quoteForm.get('superBank').hasError('required') }" type="number"> 
+                                                                <input  (input)="getValorIva()" formControlName="superBank" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('superBank').hasError('required'), 'form-control-success' :  !quoteForm.get('superBank').hasError('required') }" value="0" step="0.01" type="number"> 
                                                         </div>
                                                     
                                                         <span class="help-block text-danger" *ngIf="quoteForm.get('superBank').value != '' && quoteForm.get('superBank').hasError('required')">Super banco no puede estar vacio </span>                             
@@ -304,38 +304,38 @@
                                                         <label class="form-control-label">Derechos de Emision</label>
                                                         <div class="input-group">
                                                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                <input formControlName="emissionRights" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('emissionRights').hasError('required'), 'form-control-success' :  !quoteForm.get('emissionRights').hasError('required') }" type="number"> 
+                                                                <input  (input)="getValorIva()" formControlName="emissionRights" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('emissionRights').hasError('required'), 'form-control-success' :  !quoteForm.get('emissionRights').hasError('required') }" value="0" step="0.01" type="number"> 
                                                         </div>
                                                     
                                                         <span class="help-block text-danger" *ngIf="quoteForm.get('emissionRights').value != '' && quoteForm.get('emissionRights').hasError('required')">Derechos de emision no puede estar vacio </span>                             
                                                     </div>
 
-                                              
-
-                                                      <div class="form-group " [ngClass]="{'has-danger' : quoteForm.get('peasantInsurance').value != '' && quoteForm.get('peasantInsurance').hasError('required'), 'has-success' : !quoteForm.get('peasantInsurance').hasError('required') }">
+                                                     <div class="form-group " [ngClass]="{'has-danger' : quoteForm.get('peasantInsurance').value != '' && quoteForm.get('peasantInsurance').hasError('required'), 'has-success' : !quoteForm.get('peasantInsurance').hasError('required') }">
                                                         <label class="form-control-label">Seguro campesino</label>
                                                         <div class="input-group">
-                                                                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                <input formControlName="peasantInsurance" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('peasantInsurance').hasError('required'), 'form-control-success' :  !quoteForm.get('peasantInsurance').hasError('required') }" type="number"> 
+                                                                <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                                                                <input  (input)="getValorIva()" formControlName="peasantInsurance" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('peasantInsurance').hasError('required'), 'form-control-success' :  !quoteForm.get('peasantInsurance').hasError('required') }"  value="0" step="0.01" type="number"> 
                                                         </div>
                                                     
-                                                        <span class="help-block text-danger" *ngIf="quoteForm.get('peasantInsurance').value != '' && quoteForm.get('peasantInsurance').hasError('required')">Seguro campesino no puede estar vacio </span>                             
+                                                        <span class="help-block text-danger" *ngIf="quoteForm.get('peasantInsurance').value != '' && quoteForm.get('peasantInsurance').hasError('required')">Seguro campesino </span>                             
                                                     </div>
-                                                     <div class="form-group " [ngClass]="{'has-danger' : quoteForm.get('valueWithoutTaxes').value != '' && quoteForm.get('valueWithoutTaxes').hasError('required'), 'has-success' : !quoteForm.get('valueWithoutTaxes').hasError('required') }">
-                                                        <label class="form-control-label">Valor sin impuestos</label>
+
+                                              
+                                                     <div class="form-group " [ngClass]="{'has-danger' : quoteForm.get('valorIva').value != '' && quoteForm.get('valorIva').hasError('required'), 'has-success' : !quoteForm.get('valorIva').hasError('required') }">
+                                                        <label class="form-control-label">Valor de IVA</label>
                                                         <div class="input-group">
                                                                 <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                                                <input formControlName="valueWithoutTaxes" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('valueWithoutTaxes').hasError('required'), 'form-control-success' :  !quoteForm.get('valueWithoutTaxes').hasError('required') }" type="number"> 
+                                                                <input  (input)="getValorIva()" formControlName="valorIva" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('valorIva').hasError('required'), 'form-control-success' :  !quoteForm.get('valorIva').hasError('required') }"  value="0" step="0.01" type="number"> 
                                                         </div>
                                                     
-                                                        <span class="help-block text-danger" *ngIf="quoteForm.get('valueWithoutTaxes').value != '' && quoteForm.get('valueWithoutTaxes').hasError('required')">Valor sin Impuestos no puede estar vacio </span>                             
+                                                        <span class="help-block text-danger" *ngIf="quoteForm.get('valorIva').value != '' && quoteForm.get('valorIva').hasError('required')">Valor de Iva no puede estar vacio </span>                             
                                                     </div>
 
                                                      <div class="form-group " [ngClass]="{'has-danger' : quoteForm.get('totalAmount').value != '' && quoteForm.get('totalAmount').hasError('required'), 'has-success' : !quoteForm.get('totalAmount').hasError('required') }">
                                                         <label class="form-control-label">Valor Total</label>
                                                         <div class="input-group">
                                                                 <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                                                <input formControlName="totalAmount" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('totalAmount').hasError('required'), 'form-control-success' :  !quoteForm.get('totalAmount').hasError('required') }" type="number"> 
+                                                                <input formControlName="totalAmount" class="form-control" [ngClass]="{'form-control-danger' :  quoteForm.get('totalAmount').hasError('required'), 'form-control-success' :  !quoteForm.get('totalAmount').hasError('required') }" value="0" step="0.01" type="number"> 
                                                         </div>
                                                     
                                                         <span class="help-block text-danger" *ngIf="quoteForm.get('totalAmount').value != '' && quoteForm.get('totalAmount').hasError('required')">Valor total no puede estar vacio </span>                             

@@ -49,6 +49,8 @@ export class QuoteComponent implements OnInit{
                 accessories:['',Validators.compose([Validators.required])],
                 tasaValue:['',Validators.compose([Validators.required])],
                 iva:['',Validators.compose([Validators.required])],
+                valorIva:['',Validators.compose([Validators.required])],
+
                 superBank:['',Validators.compose([Validators.required])],
                 peasantInsurance:['',Validators.compose([Validators.required])],
                 valueWithoutTaxes:['',Validators.compose([Validators.required])],
@@ -88,7 +90,8 @@ export class QuoteComponent implements OnInit{
                 totalAmount:[''],
                 idPaymentTye:[''],
                 idTypeClient:[''],
-                prima:['']
+                prima:[''],
+                ivaValue:['']
             });
 
             this.loadquotes();
@@ -98,14 +101,7 @@ export class QuoteComponent implements OnInit{
             this.loadSettings();
             this.loadPaymentTypes();
             
-            this.quoteForm.valueChanges.map((res)=>{
-                return res;
-            }).subscribe((result)=>{
-                
-                
-                     
-                    
-            })
+          
 
         }
 
@@ -295,18 +291,32 @@ export class QuoteComponent implements OnInit{
 
     }
     getPrima(){
-        this.quoteForm.controls['prima'].setValue((this.quoteForm.value.valueCar + this.quoteForm.value.accessories) *this.quoteForm.value.tasaValue / 100);
+        console.log('get prima');
+        
+        this.quoteForm.controls['prima'].setValue(((this.quoteForm.value.valueCar + this.quoteForm.value.accessories) *this.quoteForm.value.tasaValue / 100).toFixed(2));
+         this.getDerechosEmision();
     }
 
     getDerechosEmision(){
-        this.http.get(config.url+'issue/value?access_token='+this.local.getUser().token+'&number='+this.quoteForm.value.prima).map(res=>{
-            
-            return res.json();
-        }).subscribe(result=>{
+        this.http.get(config.url+'issue/value?access_token='+this.local.getUser().token+'&number='+this.quoteForm.value.prima)
+                .toPromise().then((result)=>{
+                    let apiResult = result.json();
 
-            console.log(result);
+                    this.quoteForm.controls['emissionRights'].setValue(apiResult.value);
+                    
+                })
+    }
+    getValorIva(){
+
+                 console.log('get Iva Value');
+                    //console.log(this.quoteForm.value.peasantInsurance, (parseFloat(this.quoteForm.value.prima)  +  parseFloat(this.quoteForm.value.superBank ), this.quoteForm.value.peasantInsurance ,this.quoteForm.value.emissionRights  );
+                    
+                      this.quoteForm.controls['valorIva'].setValue( ((parseFloat(this.quoteForm.value.prima)  +  parseFloat(this.quoteForm.value.superBank )  + parseFloat(this.quoteForm.value.emissionRights) + parseFloat(this.quoteForm.value.peasantInsurance) ) * this.quoteForm.value.iva) / 100  );  
+
+                     this.quoteForm.controls['totalAmount'].setValue(parseFloat(this.quoteForm.value.prima)  +  parseFloat(this.quoteForm.value.superBank )  + parseFloat(this.quoteForm.value.emissionRights) + parseFloat(this.quoteForm.value.peasantInsurance) + parseFloat(this.quoteForm.value.valorIva)  ); 
+
             
-        })
+          
     }
 
 }
