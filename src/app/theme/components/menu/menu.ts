@@ -133,6 +133,27 @@ export const menuItems = [
       
     ]
   },
+   {
+    title: 'Tipo de Clientes',
+    routerLink: 'tipoClientes',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado',
+        routerLink: 'tipoClientes/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+  
+      
+    ]
+  },
     {
     title: 'Cotizaciones',
     routerLink: 'presupuestos',

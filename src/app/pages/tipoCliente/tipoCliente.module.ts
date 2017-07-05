@@ -6,14 +6,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
-import { ClienteComponent } from './list/cliente.component';
-import { AgmCoreModule } from 'angular2-google-maps/core';
-import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
+import { TipoClienteComponent } from './tipoCliente.component';
 
 
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
-  { path: 'listado', component: ClienteComponent, data: { breadcrumb: 'Listado' } }
+  { path: 'listado', component: TipoClienteComponent, data: { breadcrumb: 'Tipos de Cliente' } }
 ];
 
 @NgModule({
@@ -25,16 +23,15 @@ export const routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes),
-    AgmCoreModule
+    RouterModule.forChild(routes)
   ],
   declarations: [
 
-    ClienteComponent,ImageUploaderComponent
+    TipoClienteComponent
 
   ],
   providers: []
 })
-export class ClienteModule { 
+export class TipoClienteModule { 
   
 }

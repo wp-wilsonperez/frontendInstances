@@ -26,6 +26,7 @@ export const routes: Routes = [
              { path: 'presupuestos', loadChildren: 'app/pages/quotes/quotes.module#QuotesModule', data: { breadcrumb: 'Cotizaciones' } },
              { path: 'emision', loadChildren: 'app/pages/emision/emision.module#EmisionModule', data: { breadcrumb: 'Derechos de Emision' } },
              { path: 'clientes', loadChildren: 'app/pages/cliente/cliente.module#ClienteModule', data: { breadcrumb: 'Clientes' } },
+            { path: 'tipoClientes', loadChildren: 'app/pages/tipoCliente/tipoCliente.module#TipoClienteModule', data: { breadcrumb: 'Tipo de Clientes' } },
             { path: 'maps', loadChildren: 'app/pages/maps/maps.module#MapsModule', data: { breadcrumb: 'Maps' } },
             { path: 'charts', loadChildren: 'app/pages/charting/charting.module#ChartingModule', data: { breadcrumb: 'Charts' } },
             { path: 'ui', loadChildren: 'app/pages/ui/ui.module#UiModule', data: { breadcrumb: 'UI' } },

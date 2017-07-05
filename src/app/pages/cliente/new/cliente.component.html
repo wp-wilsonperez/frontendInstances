@@ -116,6 +116,16 @@
                                                         </div>
                                                         
                                      </div>
+                                      <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('address').value != '' && clientForm.get('address').hasError('required'), 'has-success' : !clientForm.get('address').hasError('required') }">
+                                            <label class="form-control-label">Direccion*</label>
+                                            <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                    <textarea formControlName="address" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('address').hasError('required'), 'form-control-success' :  !clientForm.get('address').hasError('required') }">
+                                                    </textarea>
+                                            </div>
+                                        
+                                            <span class="help-block text-danger" *ngIf="clientForm.get('address').value != '' && clientForm.get('address').hasError('required')">Direccion no puede estar vacio</span>                             
+                                        </div>
 
 
                                              </div> 

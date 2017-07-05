@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 import { ValidationService } from '../../bussiness/new/validation.service';
 import * as mapTypes from 'angular2-google-maps/core' ;
 import { SebmGoogleMap, MapsAPILoader } from 'angular2-google-maps/core';
+import { Observable } from 'rxjs/Observable';
+
 
 
 
@@ -21,6 +23,7 @@ export class ClienteComponent implements OnInit{
         public editForm:FormGroup
         public helpLinks:any;
         public clients:any;
+        public cities:any;
         public helpLinkId:any;
         public clientId:any;
         error:any;
@@ -33,10 +36,14 @@ export class ClienteComponent implements OnInit{
         zoom: number = 7;
         coords:any;
         event:any;
+        maritalStatuses:any;
+        typeClients:any;
+        result:any;
+
         @ViewChild(SebmGoogleMap) map: SebmGoogleMap;
 
         
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public loader:MapsAPILoader){
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public loader:MapsAPILoader,public element:ElementRef){
 
             
         
@@ -52,6 +59,7 @@ export class ClienteComponent implements OnInit{
                 address: ['',Validators.compose([Validators.required])],
                 nameEmergency: ['',Validators.compose([Validators.required])],
                 lastNameEmergency: ['',Validators.compose([Validators.required])],
+                phoneEmergency: ['',Validators.compose([Validators.required])],
                 nameWork: ['',Validators.compose([Validators.required])],
                 phoneWork: ['',Validators.compose([Validators.required])],
                 map: ['',Validators.compose([Validators.required])],
@@ -84,6 +92,7 @@ export class ClienteComponent implements OnInit{
                 address: ['',Validators.compose([Validators.required])],
                 nameEmergency: ['',Validators.compose([Validators.required])],
                 lastNameEmergency: ['',Validators.compose([Validators.required])],
+                phoneEmergency: ['',Validators.compose([Validators.required])],
                 nameWork: ['',Validators.compose([Validators.required])],
                 phoneWork: ['',Validators.compose([Validators.required])],
                 map: ['',Validators.compose([Validators.required])],
@@ -100,6 +109,10 @@ export class ClienteComponent implements OnInit{
             });
 
             this.loadclients();
+            this.loadcities();
+            this.loadMaritalStatus();
+            this.loadTypeClient();
+            this.loadclients();
         }
 
         ngOnInit(){
@@ -112,6 +125,33 @@ export class ClienteComponent implements OnInit{
             }).subscribe((result)=>{
                     this.clients = result.clients;
                     console.log(this.clients);
+            })
+            
+        }
+        loadcities(){
+            this.http.get(config.url+'city/list?access_token='+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    this.cities = result.cities;
+                    console.log('cities',this.cities);
+            })
+            
+        }
+         loadMaritalStatus(){
+            this.http.get(config.url+'maritalStatus/list?access_token='+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    this.maritalStatuses = result.maritalStatus;
+                    console.log('marital',this.maritalStatuses);
+            })
+            
+        }
+         loadTypeClient(){
+            this.http.get(config.url+'typeClient/list?access_token='+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    this.typeClients = result.typeClients;
+                    console.log('typeClients',this.typeClients);
             })
             
         }
@@ -206,6 +246,112 @@ export class ClienteComponent implements OnInit{
     this.clientForm.controls['mapShow'].setValue("Latitud: "+this.coords.lat+" Longitud: "+this.coords.lng);
     
   }
+
+  subirDoc(input){
+         console.log(input.files[0]);
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+             return res;
+         }).subscribe((result)=>{
+             this.result = result;
+            
+             
+             this.clientForm.controls['copyDoc'].setValue(this.result.clientImg);
+              console.log(this.result);
+             console.log(this.clientForm.value);
+             
+             
+         })
+
+         
+      
+  }
+   subirRegister(input){
+         console.log(input.files[0]);
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+             return res;
+         }).subscribe((result)=>{
+             this.result = result;
+             this.clientForm.controls['copyRegister'].setValue(this.result.clientImg);
+              console.log(this.result);
+             console.log(this.clientForm.value);
+             
+             
+         })
+
+         
+      
+  }
+  subirVote(input){
+         console.log(input.files[0]);
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+             return res;
+         }).subscribe((result)=>{
+             this.result = result;
+             this.clientForm.controls['copyVote'].setValue(this.result.clientImg);
+              console.log(this.result);
+             console.log(this.clientForm.value);
+             
+             
+         })
+
+         
+      
+  }
+   subirBasic(input){
+         console.log(input.files[0]);
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+             return res;
+         }).subscribe((result)=>{
+             this.result = result;
+             this.clientForm.controls['copyBasicService'].setValue(this.result.clientImg);
+              console.log(this.result);
+             console.log(this.clientForm.value);
+             
+             
+         })
+
+         
+      
+  }
+
+   subirGroup(input){
+         console.log(input.files[0]);
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+             return res;
+         }).subscribe((result)=>{
+             this.result = result;
+             this.clientForm.controls['copyGroup'].setValue(this.result.clientImg);
+              console.log(this.result);
+             console.log(this.clientForm.value);
+             
+             
+         })
+
+         
+      
+  }
+
+   makeFileRequest(url: string, file: any) {
+
+    return Observable.fromPromise(new Promise((resolve, reject) => {
+        let formData: any = new FormData()
+        let xhr = new XMLHttpRequest()
+   
+            formData.append("copyImg", file, file.name)
+        
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.response))
+                } else {
+                    reject(xhr.response)
+                }
+            }
+        }
+        xhr.open("POST", url, true)
+        xhr.send(formData)
+    }));
+}
 
 
 

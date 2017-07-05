@@ -170,6 +170,19 @@ export class RolsListComponent {
     public clientEnable:boolean = false;
 
 
+      //marital
+
+    public maritalStatusList:boolean = false;
+
+     //checkbox issue
+
+    public typeClientList:boolean = false;
+    public typeClientCreate:boolean = false;
+    public typeClientEdit:boolean = false;
+    public typeClientDelete:boolean = false;
+    public typeClientEnable:boolean = false;
+
+
     //checkbox log
     public logList:boolean = false;
 
@@ -331,6 +344,19 @@ export class RolsListComponent {
                 this.clientEdit = false;
                 this.clientDelete = false;
                 this.clientEnable = false;
+
+             //maritalStatus
+                
+                this.maritalStatusList = false; 
+           
+             //typeClient
+                
+                this.typeClientList = false; 
+                this.typeClientCreate = false;
+                this.typeClientEdit = false;
+                this.typeClientDelete = false;
+                this.typeClientEnable = false;
+           
 
                 
 
@@ -587,6 +613,25 @@ export class RolsListComponent {
                
              }
 
+                //marital 
+
+               if(this.grant.maritalStatus != undefined){
+                this.grant.maritalStatus.list == true ?   this.maritalStatusList = true:    this.maritalStatusList = false;
+         
+               
+             }
+
+              //typeClient
+
+             if(this.grant.typeClient != undefined){
+                this.grant.typeClient.list == true ?   this.typeClientList = true:    this.typeClientList = false;
+                this.grant.typeClient.add   == true ?  this.typeClientCreate = true:  this.typeClientCreate = false; 
+                this.grant.typeClient.edit  == true ?  this.typeClientEdit = true:    this.typeClientEdit = false;
+                this.grant.typeClient.delete  == true? this.typeClientDelete = true:  this.typeClientDelete = false; 
+                this.grant.typeClient.enable  == true? this.typeClientEnable = true:  this.typeClientEnable = false; 
+               
+             }
+
              //
 
 
@@ -628,7 +673,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -772,6 +817,19 @@ export class RolsListComponent {
         this.clientDelete?requestTwo.client['delete'] = true:null;
         this.clientEnable?requestTwo.client['enable'] = true:null
 
+         //marital
+            
+        this.maritalStatusList?requestTwo.maritalStatus['list'] = true:null;
+       
+        
+        //typeClient
+            
+        this.typeClientList?requestTwo.typeClient['list'] = true:null;
+        this.typeClientCreate?requestTwo.typeClient['add'] = true:null;
+        this.typeClientEdit?requestTwo.typeClient['edit'] = true:null;
+        this.typeClientDelete?requestTwo.typeClient['delete'] = true:null;
+        this.typeClientEnable?requestTwo.typeClient['enable'] = true:null
+       
 
 
     
