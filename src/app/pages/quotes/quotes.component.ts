@@ -318,5 +318,13 @@ export class QuoteComponent implements OnInit{
             
           
     }
+    getTipoPagos(){
+        this.http.get(config.url+'paymentType/list?access_token='+this.local.getUser().token).map(res=>{
+            return res
+        }).subscribe((result)=>{
+            console.log(result);
+            
+        })
+    }
 
 }

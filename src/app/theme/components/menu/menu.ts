@@ -112,6 +112,27 @@ export const menuItems = [
       
     ]
   },
+   {
+    title: 'Autos',
+    routerLink: 'clientes',
+
+    icon: 'fa-car',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado',
+        routerLink: 'autos/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+  
+      
+    ]
+  },
   {
     title: 'Clientes',
     routerLink: 'clientes',

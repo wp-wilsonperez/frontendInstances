@@ -183,8 +183,24 @@ export class RolsListComponent {
     public typeClientEnable:boolean = false;
 
 
+     //car
+
+    public carList:boolean = false;
+    public carCreate:boolean = false;
+    public carEdit:boolean = false;
+    public carDelete:boolean = false;
+    public carEnable:boolean = false;
+
+
     //checkbox log
     public logList:boolean = false;
+
+    //
+        //checkbox log
+    public carBrandList:boolean = false;
+
+          //checkbox log
+    public carModelList:boolean = false;
 
     //
 
@@ -358,11 +374,29 @@ export class RolsListComponent {
                 this.typeClientEnable = false;
            
 
+             //typeClient
+                
+                this.carList = false; 
+                this.carCreate = false;
+                this.carEdit = false;
+                this.carDelete = false;
+                this.carEnable = false;
+           
+
                 
 
                 //log
 
                 this.logList = false;
+
+
+                //carModel
+
+                this.carBrandList = false;
+
+                //carBrand
+
+                this.carModelList = false;
      
    
             
@@ -613,6 +647,16 @@ export class RolsListComponent {
                
              }
 
+             //car
+             if(this.grant.car != undefined){
+                this.grant.car.list == true ?   this.carList = true:    this.carList = false;
+                this.grant.car.add   == true ?  this.carCreate = true:  this.carCreate = false; 
+                this.grant.car.edit  == true ?  this.carEdit = true:    this.carEdit = false;
+                this.grant.car.delete  == true? this.carDelete = true:  this.carDelete = false; 
+                this.grant.car.enable  == true? this.carEnable = true:  this.carEnable = false; 
+               
+             }
+
                 //marital 
 
                if(this.grant.maritalStatus != undefined){
@@ -638,6 +682,16 @@ export class RolsListComponent {
               //log
              if(this.grant.log != undefined){
                 this.grant.log.list == true ?   this.logList = true:    this.logList = false;
+             }
+
+              //car Brand
+             if(this.grant.carBrand != undefined){
+                this.grant.carBrand.list == true ?   this.carBrandList = true:    this.logList = false;
+             }
+
+              //car Model
+             if(this.grant.carModel != undefined){
+                this.grant.carModel.list == true ?   this.carModelList = true:    this.logList = false;
              }
 
             
@@ -673,7 +727,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -831,6 +885,15 @@ export class RolsListComponent {
         this.typeClientEnable?requestTwo.typeClient['enable'] = true:null
        
 
+        //Car
+            
+        this.carList?requestTwo.car['list'] = true:null;
+        this.carCreate?requestTwo.car['add'] = true:null;
+        this.carEdit?requestTwo.car['edit'] = true:null;
+        this.carDelete?requestTwo.car['delete'] = true:null;
+        this.carEnable?requestTwo.car['enable'] = true:null
+       
+
 
     
 
@@ -839,6 +902,15 @@ export class RolsListComponent {
         //log
 
          this.logList?requestTwo.log['list'] = true:null
+
+
+          //carBrand
+
+         this.carBrandList?requestTwo.carBrand['list'] = true:null
+
+          //carModel
+
+         this.carModelList?requestTwo.carModel['list'] = true:null
   
      
 
