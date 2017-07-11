@@ -191,16 +191,41 @@ export class RolsListComponent {
     public carDelete:boolean = false;
     public carEnable:boolean = false;
 
+     //carType
+
+    public carTypeList:boolean = false;
+    public carTypeCreate:boolean = false;
+    public carTypeEdit:boolean = false;
+    public carTypeDelete:boolean = false;
+    public carTypeEnable:boolean = false;
+
+    //carBrand
+
+    public carBrandList:boolean = false;
+    public carBrandCreate:boolean = false;
+    public carBrandEdit:boolean = false;
+    public carBrandDelete:boolean = false;
+    public carBrandEnable:boolean = false;
+
+    //carColor
+
+    public carColorList:boolean = false;
+    public carColorCreate:boolean = false;
+    public carColorEdit:boolean = false;
+    public carColorDelete:boolean = false;
+    public carColorEnable:boolean = false;
+
+    //carColor
+
+    public carModelList:boolean = false;
+    public carModelCreate:boolean = false;
+    public carModelEdit:boolean = false;
+    public carModelDelete:boolean = false;
+    public carModelEnable:boolean = false;
+
 
     //checkbox log
     public logList:boolean = false;
-
-    //
-        //checkbox log
-    public carBrandList:boolean = false;
-
-          //checkbox log
-    public carModelList:boolean = false;
 
     //
 
@@ -374,13 +399,55 @@ export class RolsListComponent {
                 this.typeClientEnable = false;
            
 
-             //typeClient
+             //car
                 
                 this.carList = false; 
                 this.carCreate = false;
                 this.carEdit = false;
                 this.carDelete = false;
                 this.carEnable = false;
+
+            //
+
+            //car brand
+                
+                this.carBrandList = false; 
+                this.carBrandCreate = false;
+                this.carBrandEdit = false;
+                this.carBrandDelete = false;
+                this.carBrandEnable = false;
+
+            //
+
+            //car model
+                
+                this.carModelList = false; 
+                this.carModelCreate = false;
+                this.carModelEdit = false;
+                this.carModelDelete = false;
+                this.carModelEnable = false;
+
+            //
+
+            //car type
+                
+                this.carTypeList = false; 
+                this.carTypeCreate = false;
+                this.carTypeEdit = false;
+                this.carTypeDelete = false;
+                this.carTypeEnable = false;
+
+            //
+
+            //car color
+                
+                this.carColorList = false; 
+                this.carColorCreate = false;
+                this.carColorEdit = false;
+                this.carColorDelete = false;
+                this.carColorEnable = false;
+
+            //
            
 
                 
@@ -389,14 +456,6 @@ export class RolsListComponent {
 
                 this.logList = false;
 
-
-                //carModel
-
-                this.carBrandList = false;
-
-                //carBrand
-
-                this.carModelList = false;
      
    
             
@@ -657,6 +716,46 @@ export class RolsListComponent {
                
              }
 
+             //car Model
+             if(this.grant.carModel != undefined){
+                this.grant.carModel.list == true ?   this.carModelList = true:    this.carModelList = false;
+                this.grant.carModel.add   == true ?  this.carModelCreate = true:  this.carModelCreate = false; 
+                this.grant.carModel.edit  == true ?  this.carModelEdit = true:    this.carModelEdit = false;
+                this.grant.carModel.delete  == true? this.carModelDelete = true:  this.carModelDelete = false; 
+                this.grant.carModel.enable  == true? this.carModelEnable = true:  this.carModelEnable = false; 
+               
+             }
+
+              //car Type
+             if(this.grant.carType != undefined){
+                this.grant.carType.list == true ?   this.carTypeList = true:    this.carTypeList = false;
+                this.grant.carType.add   == true ?  this.carTypeCreate = true:  this.carTypeCreate = false; 
+                this.grant.carType.edit  == true ?  this.carTypeEdit = true:    this.carTypeEdit = false;
+                this.grant.carType.delete  == true? this.carTypeDelete = true:  this.carTypeDelete = false; 
+                this.grant.carType.enable  == true? this.carTypeEnable = true:  this.carTypeEnable = false; 
+               
+             }
+
+             //car brand
+             if(this.grant.carBrand != undefined){
+                this.grant.carBrand.list == true ?   this.carBrandList = true:    this.carBrandList = false;
+                this.grant.carBrand.add   == true ?  this.carBrandCreate = true:  this.carBrandCreate = false; 
+                this.grant.carBrand.edit  == true ?  this.carBrandEdit = true:    this.carBrandEdit = false;
+                this.grant.carBrand.delete  == true? this.carBrandDelete = true:  this.carBrandDelete = false; 
+                this.grant.carBrand.enable  == true? this.carBrandEnable = true:  this.carBrandEnable = false; 
+               
+             }
+
+             //car color
+             if(this.grant.carColor != undefined){
+                this.grant.carColor.list == true ?   this.carColorList = true:    this.carColorList = false;
+                this.grant.carColor.add   == true ?  this.carColorCreate = true:  this.carColorCreate = false; 
+                this.grant.carColor.edit  == true ?  this.carColorEdit = true:    this.carColorEdit = false;
+                this.grant.carColor.delete  == true? this.carColorDelete = true:  this.carColorDelete = false; 
+                this.grant.carColor.enable  == true? this.carColorEnable = true:  this.carColorEnable = false; 
+               
+             }
+
                 //marital 
 
                if(this.grant.maritalStatus != undefined){
@@ -684,15 +783,7 @@ export class RolsListComponent {
                 this.grant.log.list == true ?   this.logList = true:    this.logList = false;
              }
 
-              //car Brand
-             if(this.grant.carBrand != undefined){
-                this.grant.carBrand.list == true ?   this.carBrandList = true:    this.logList = false;
-             }
 
-              //car Model
-             if(this.grant.carModel != undefined){
-                this.grant.carModel.list == true ?   this.carModelList = true:    this.logList = false;
-             }
 
             
 
@@ -727,7 +818,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -892,6 +983,38 @@ export class RolsListComponent {
         this.carEdit?requestTwo.car['edit'] = true:null;
         this.carDelete?requestTwo.car['delete'] = true:null;
         this.carEnable?requestTwo.car['enable'] = true:null
+
+        //CarType
+            
+        this.carTypeList?requestTwo.carType['list'] = true:null;
+        this.carTypeCreate?requestTwo.carType['add'] = true:null;
+        this.carTypeEdit?requestTwo.carType['edit'] = true:null;
+        this.carTypeDelete?requestTwo.carType['delete'] = true:null;
+        this.carTypeEnable?requestTwo.carType['enable'] = true:null
+
+        //CarModel
+            
+        this.carModelList?requestTwo.carModel['list'] = true:null;
+        this.carModelCreate?requestTwo.carModel['add'] = true:null;
+        this.carModelEdit?requestTwo.carModel['edit'] = true:null;
+        this.carModelDelete?requestTwo.carModel['delete'] = true:null;
+        this.carModelEnable?requestTwo.carModel['enable'] = true:null
+
+        //CarBrand
+            
+        this.carBrandList?requestTwo.carBrand['list'] = true:null;
+        this.carBrandCreate?requestTwo.carBrand['add'] = true:null;
+        this.carBrandEdit?requestTwo.carBrand['edit'] = true:null;
+        this.carBrandDelete?requestTwo.carBrand['delete'] = true:null;
+        this.carBrandEnable?requestTwo.carBrand['enable'] = true:null
+
+        //CarColor
+            
+        this.carColorList?requestTwo.carColor['list'] = true:null;
+        this.carColorCreate?requestTwo.carColor['add'] = true:null;
+        this.carColorEdit?requestTwo.carColor['edit'] = true:null;
+        this.carColorDelete?requestTwo.carColor['delete'] = true:null;
+        this.carColorEnable?requestTwo.carColor['enable'] = true:null
        
 
 
@@ -904,14 +1027,6 @@ export class RolsListComponent {
          this.logList?requestTwo.log['list'] = true:null
 
 
-          //carBrand
-
-         this.carBrandList?requestTwo.carBrand['list'] = true:null
-
-          //carModel
-
-         this.carModelList?requestTwo.carModel['list'] = true:null
-  
      
 
               

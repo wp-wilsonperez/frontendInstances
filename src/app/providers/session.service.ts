@@ -1,5 +1,6 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import {config } from './../../config/project-config';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -28,6 +29,16 @@ export class UserSessionService {
                     
                     return this.info;
             }
+    }
+
+    getParams(){
+
+           return  this.http.get(config.url+'param/list?access_token='+this.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    return result;
+
+            })
     }
 
     setUser(user){

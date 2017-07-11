@@ -129,6 +129,34 @@ export const menuItems = [
         selected: false,
         expanded: false
       },
+       {
+        title: 'Tipos de Carros',
+        routerLink: 'autos/car-types',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+        {
+        title: 'Marcas de Carros',
+        routerLink: 'autos/car-brands',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+        {
+        title: 'Modelos de Carros',
+        routerLink: 'autos/car-models',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+        {
+        title: 'Colores de Carros',
+        routerLink: 'autos/car-colors',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
   
       
     ]
