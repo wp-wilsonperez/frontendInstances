@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
@@ -26,10 +26,12 @@ export class QuoteComponent implements OnInit{
         public quoteId:any;
         public iva:any;
         public paymentTypes:any;
+        public quantityMonths= [2,3,4,5,6,7,8,9];
         error:any;
         toast:boolean = false;
         message:string;
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
+        @ViewChild('months') months:ElementRef;
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public element:ElementRef){
         
             this.quoteForm = this.formBuilder.group({
                 date: ['',Validators.compose([Validators.required])],
@@ -56,9 +58,11 @@ export class QuoteComponent implements OnInit{
                 valueWithoutTaxes:['',Validators.compose([Validators.required])],
                 emissionRights:['',Validators.compose([Validators.required])],
                 totalAmount:['',Validators.compose([Validators.required])],
-                idPaymentTye:['',Validators.compose([Validators.required])],
+                idPaymentType:['',Validators.compose([Validators.required])],
+                equalPayments:[''],
                 idTypeClient:[''],
-                prima:['',Validators.compose([Validators.required])]
+                prima:['',Validators.compose([Validators.required])],
+                months:['']
 
 
 
@@ -87,7 +91,7 @@ export class QuoteComponent implements OnInit{
                 peasantInsurance:[''],
                 valueWithoutTaxes:[''],
                 emissionRights:[''],
-                totalAmount:[''],
+                totalAmount:['',],
                 idPaymentTye:[''],
                 idTypeClient:[''],
                 prima:[''],
@@ -100,6 +104,7 @@ export class QuoteComponent implements OnInit{
             this.loadDeductible();
             this.loadSettings();
             this.loadPaymentTypes();
+           // this.quoteForm.controls['totalAmount'].disable();
             
           
 
@@ -151,6 +156,16 @@ export class QuoteComponent implements OnInit{
             })
 
         }
+        loadBanks(){
+
+         /*   this.http.get(config.url+'bank/list?access_token='+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    this.bancos = result.banks;
+                    console.log('Bancos: ',this.bancos);
+            })*/
+
+        }
          loadSettings(){
         
                     this.http.get(config.url+'setting/view/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token).map((res)=>{
@@ -165,12 +180,13 @@ export class QuoteComponent implements OnInit{
 
           loadPaymentTypes(){
 
-             this.http.get(config.url+'paymentType/list?access_token='+this.local.getUser().token).map((res)=>{
-                return res.json();
-            }).subscribe((result)=>{
-                    this.paymentTypes = result.paymentTypes;
-                    console.log('Tipos de pago: ',this.paymentTypes);
-            })
+            this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).toPromise().then(result=>{
+             let apiResult = result.json();
+             this.paymentTypes = apiResult.params.paymentType.list;
+             console.log("payment types::",this.paymentTypes);
+             
+             
+         })
 
         }
         
@@ -193,6 +209,13 @@ export class QuoteComponent implements OnInit{
                this.loadquotes();
                 
             })
+        }
+        equalPaymentCalc(){
+            let e = this.months.nativeElement.value;
+            console.log("query selector month",e);
+            
+            this.quoteForm.controls['equalPayments'].setValue(this.quoteForm.value.totalAmount / e);
+            
         }
        
         idAssign(quoteId){
@@ -312,9 +335,14 @@ export class QuoteComponent implements OnInit{
                  console.log('get Iva Value');
                     //console.log(this.quoteForm.value.peasantInsurance, (parseFloat(this.quoteForm.value.prima)  +  parseFloat(this.quoteForm.value.superBank ), this.quoteForm.value.peasantInsurance ,this.quoteForm.value.emissionRights  );
                     
-                      this.quoteForm.controls['valorIva'].setValue( ((parseFloat(this.quoteForm.value.prima)  +  parseFloat(this.quoteForm.value.superBank )  + parseFloat(this.quoteForm.value.emissionRights) + parseFloat(this.quoteForm.value.peasantInsurance) ) * this.quoteForm.value.iva) / 100  );  
+                    let ivaValue =  (parseFloat(this.quoteForm.value.prima) + parseFloat(this.quoteForm.value.superBank)    + parseFloat(this.quoteForm.value.emissionRights) +parseFloat(this.quoteForm.value.peasantInsurance) ) * parseFloat(this.quoteForm.value.iva) / 100;
+                    
+                    this.quoteForm.controls['valorIva'].setValue(ivaValue);
 
-                     this.quoteForm.controls['totalAmount'].setValue(parseFloat(this.quoteForm.value.prima)  +  parseFloat(this.quoteForm.value.superBank )  + parseFloat(this.quoteForm.value.emissionRights) + parseFloat(this.quoteForm.value.peasantInsurance) + parseFloat(this.quoteForm.value.valorIva)  ); 
+                    let totalAmount = parseFloat(this.quoteForm.value.prima) + parseFloat(this.quoteForm.value.superBank) + parseFloat(this.quoteForm.value.emissionRights) + parseFloat(this.quoteForm.value.peasantInsurance);
+                      
+
+                     this.quoteForm.controls['totalAmount'].setValue(totalAmount +ivaValue); 
 
             
           

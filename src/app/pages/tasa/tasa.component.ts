@@ -94,13 +94,13 @@ export class TasaComponent{
         }
         loadCarUse(){
 
-             this.http.get(config.url+'param/list/carUse?access_token='+this.local.getUser().token).map((res)=>{
-                return res.json();
-            }).subscribe((result)=>{
-                    this.carUses = result.params;
-                  console.log('car use',result)
-            })
-
+             this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).toPromise().then(result=>{
+             let apiResult = result.json();
+             this. carUses = apiResult.params.carUse.list;
+             console.log("car uses::",this.carUses);
+             
+             
+         })
         }
         saveTasa(){
             this.http.post(config.url+'tasa/add?access_token='+this.local.getUser().token,this.tasaForm.value).map((result)=>{
