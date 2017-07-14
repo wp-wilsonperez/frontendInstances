@@ -224,6 +224,51 @@ export const menuItems = [
       
     ]
   },
+    {
+    title: 'Polizas',
+    routerLink: 'polizas',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+
+      
+      {
+        title: 'Tipo de Polizas',
+        routerLink: 'polizas/tipo-polizas',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+
+       {
+        title: 'Rutas',
+        routerLink: 'polizas/rutas',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Ingresos',
+        routerLink: 'polizas/ingresos',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Frecuencias de Pago',
+        routerLink: 'polizas/frecuencias',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+  
+      
+    ]
+  },
    {
     title: 'Deducibles',
     routerLink: 'seguros',
@@ -439,52 +484,7 @@ export const menuItems = [
       }
     ]
 
-  }, {
-    title: 'UI Features',
-    routerLink: 'ui',
-    icon: 'fa-laptop',
-    selected: false,
-    expanded: false,
-    order: 300,
-    subMenu: [
-      {
-        title: 'Buttons',
-        routerLink: 'ui/buttons'
-      },
-      {
-        title: 'Cards',
-        routerLink: 'ui/cards'
-      },
-      {
-        title: 'Components',
-        routerLink: 'ui/components'
-      },           
-      {
-        title: 'Icons',
-        routerLink: 'ui/icons'
-      },
-      {
-        title: 'Grid',
-        routerLink: 'ui/grid'
-      },
-      {
-        title: 'List Group',
-        routerLink: 'ui/list-group'
-      },
-      {
-        title: 'Media Objects',
-        routerLink: 'ui/media-objects'
-      },
-      {
-        title: 'Tabs & Accordions',
-        routerLink: 'ui/tabs-accordions'
-      },
-      {
-        title: 'Typography',
-        routerLink: 'ui/typography'
-      }
-    ]
-  },
+  }
   
   
   

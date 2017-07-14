@@ -27,6 +27,7 @@ export const routes: Routes = [
              { path: 'emision', loadChildren: 'app/pages/emision/emision.module#EmisionModule', data: { breadcrumb: 'Derechos de Emision' } },
              { path: 'clientes', loadChildren: 'app/pages/cliente/cliente.module#ClienteModule', data: { breadcrumb: 'Clientes' } },
               { path: 'autos', loadChildren: 'app/pages/autos/auto.module#AutoModule', data: { breadcrumb: 'Autos' } },
+            { path: 'polizas', loadChildren: 'app/pages/polizas/poliza.module#PolizaModule', data: { breadcrumb: 'Polizas' } },
             { path: 'tipoClientes', loadChildren: 'app/pages/tipoCliente/tipoCliente.module#TipoClienteModule', data: { breadcrumb: 'Tipo de Clientes' } },
             { path: 'maps', loadChildren: 'app/pages/maps/maps.module#MapsModule', data: { breadcrumb: 'Maps' } },
             { path: 'charts', loadChildren: 'app/pages/charting/charting.module#ChartingModule', data: { breadcrumb: 'Charts' } },

@@ -223,6 +223,39 @@ export class RolsListComponent {
     public carModelDelete:boolean = false;
     public carModelEnable:boolean = false;
 
+    //policyType
+
+    public policyTypeList:boolean = false;
+    public policyTypeCreate:boolean = false;
+    public policyTypeEdit:boolean = false;
+    public policyTypeDelete:boolean = false;
+    public policyTypeEnable:boolean = false;
+
+     //policy
+
+    public policyList:boolean = false;
+    public policyCreate:boolean = false;
+    public policyEdit:boolean = false;
+    public policyDelete:boolean = false;
+    public policyEnable:boolean = false;
+
+    //route
+
+    public routeList:boolean = false;
+    public routeCreate:boolean = false;
+    public routeEdit:boolean = false;
+    public routeDelete:boolean = false;
+    public routeEnable:boolean = false;
+
+    //income
+
+    public incomeList:boolean = false;
+    public incomeCreate:boolean = false;
+    public incomeEdit:boolean = false;
+    public incomeDelete:boolean = false;
+    public incomeEnable:boolean = false;
+
+
 
     //checkbox log
     public logList:boolean = false;
@@ -447,7 +480,39 @@ export class RolsListComponent {
                 this.carColorDelete = false;
                 this.carColorEnable = false;
 
-            //
+              //policy
+                
+                this.policyList = false; 
+                this.policyCreate = false;
+                this.policyEdit = false;
+                this.policyDelete = false;
+                this.policyEnable = false;
+
+            //policy type
+                
+                this.policyTypeList = false; 
+                this.policyTypeCreate = false;
+                this.policyTypeEdit = false;
+                this.policyTypeDelete = false;
+                this.policyTypeEnable = false;
+                
+              //route
+                
+                this.routeList = false; 
+                this.routeCreate = false;
+                this.routeEdit = false;
+                this.routeDelete = false;
+                this.routeEnable = false;
+
+             //income
+                
+                this.incomeList = false; 
+                this.incomeCreate = false;
+                this.incomeEdit = false;
+                this.incomeDelete = false;
+                this.incomeEnable = false;
+
+            
            
 
                 
@@ -684,7 +749,7 @@ export class RolsListComponent {
                
              }
 
-             //quote
+             //issue
              if(this.grant.issue != undefined){
                 this.grant.issue.list == true ?   this.issueList = true:    this.issueList = false;
                 this.grant.issue.add   == true ?  this.issueCreate = true:  this.issueCreate = false; 
@@ -756,6 +821,46 @@ export class RolsListComponent {
                
              }
 
+              //policy
+             if(this.grant.policy != undefined){
+                this.grant.policy.list == true ?   this.policyList = true:    this.policyList = false;
+                this.grant.policy.add   == true ?  this.policyCreate = true:  this.policyCreate = false; 
+                this.grant.policy.edit  == true ?  this.policyEdit = true:    this.policyEdit = false;
+                this.grant.policy.delete  == true? this.policyDelete = true:  this.policyDelete = false; 
+                this.grant.policy.enable  == true? this.policyEnable = true:  this.policyEnable = false; 
+               
+             }
+
+              //policy type
+             if(this.grant.policyType != undefined){
+                this.grant.policyType.list == true ?   this.policyTypeList = true:    this.policyTypeList = false;
+                this.grant.policyType.add   == true ?  this.policyTypeCreate = true:  this.policyTypeCreate = false; 
+                this.grant.policyType.edit  == true ?  this.policyTypeEdit = true:    this.policyTypeEdit = false;
+                this.grant.policyType.delete  == true? this.policyTypeDelete = true:  this.policyTypeDelete = false; 
+                this.grant.policyType.enable  == true? this.policyTypeEnable = true:  this.policyTypeEnable = false; 
+               
+             }
+
+               //income
+             if(this.grant.income != undefined){
+                this.grant.income.list == true ?   this.incomeList = true:    this.incomeList = false;
+                this.grant.income.add   == true ?  this.incomeCreate = true:  this.incomeCreate = false; 
+                this.grant.income.edit  == true ?  this.incomeEdit = true:    this.incomeEdit = false;
+                this.grant.income.delete  == true? this.incomeDelete = true:  this.incomeDelete = false; 
+                this.grant.income.enable  == true? this.incomeEnable = true:  this.incomeEnable = false; 
+               
+             }
+
+               //route
+             if(this.grant.route != undefined){
+                this.grant.route.list == true ?   this.routeList = true:    this.routeList = false;
+                this.grant.route.add   == true ?  this.routeCreate = true:  this.routeCreate = false; 
+                this.grant.route.edit  == true ?  this.routeEdit = true:    this.routeEdit = false;
+                this.grant.route.delete  == true? this.routeDelete = true:  this.routeDelete = false; 
+                this.grant.route.enable  == true? this.routeEnable = true:  this.routeEnable = false; 
+               
+             }
+
                 //marital 
 
                if(this.grant.maritalStatus != undefined){
@@ -818,7 +923,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1015,6 +1120,39 @@ export class RolsListComponent {
         this.carColorEdit?requestTwo.carColor['edit'] = true:null;
         this.carColorDelete?requestTwo.carColor['delete'] = true:null;
         this.carColorEnable?requestTwo.carColor['enable'] = true:null
+
+         //income
+            
+        this.incomeList?requestTwo.income['list'] = true:null;
+        this.incomeCreate?requestTwo.income['add'] = true:null;
+        this.incomeEdit?requestTwo.income['edit'] = true:null;
+        this.incomeDelete?requestTwo.income['delete'] = true:null;
+        this.incomeEnable?requestTwo.income['enable'] = true:null
+
+          //route
+            
+        this.routeList?requestTwo.route['list'] = true:null;
+        this.routeCreate?requestTwo.route['add'] = true:null;
+        this.routeEdit?requestTwo.route['edit'] = true:null;
+        this.routeDelete?requestTwo.route['delete'] = true:null;
+        this.routeEnable?requestTwo.route['enable'] = true:null
+
+         //policy
+            
+        this.policyList?requestTwo.policy['list'] = true:null;
+        this.policyCreate?requestTwo.policy['add'] = true:null;
+        this.policyEdit?requestTwo.policy['edit'] = true:null;
+        this.policyDelete?requestTwo.policy['delete'] = true:null;
+        this.policyEnable?requestTwo.policy['enable'] = true:null
+
+
+         //policy type
+            
+        this.policyTypeList?requestTwo.policyType['list'] = true:null;
+        this.policyTypeCreate?requestTwo.policyType['add'] = true:null;
+        this.policyTypeEdit?requestTwo.policyType['edit'] = true:null;
+        this.policyTypeDelete?requestTwo.policyType['delete'] = true:null;
+        this.policyTypeEnable?requestTwo.policyType['enable'] = true:null
        
 
 

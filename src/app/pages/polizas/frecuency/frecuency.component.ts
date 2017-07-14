@@ -1,0 +1,123 @@
+import { Component, ViewEncapsulation } from '@angular/core';
+import { Http } from '@angular/http';
+import { config } from '../../../../config/project-config';
+import { UserSessionService } from '../../../providers/session.service';
+import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+
+
+@Component({
+    selector:'frecuency-component',
+    encapsulation:  ViewEncapsulation.None,
+    templateUrl: './frecuency.component.html',
+    styleUrls:['./frecuency.component.scss']
+})
+
+export class FrecuencyComponent{
+        public frecuencyForm:FormGroup;
+         public editForm:FormGroup
+        public helpLinks:any;
+        public frecuencys:any;
+        public helpLinkId:any;
+        public frecuencyId:any;
+        error:any;
+        toast:boolean = false;
+        message:string;
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
+        
+            this.frecuencyForm = this.formBuilder.group({
+                name: ['',Validators.compose([Validators.required])],
+                month:['',Validators.compose([Validators.required])],
+                interest:['',Validators.compose([Validators.required])],
+                totalMonths:['',Validators.compose([Validators.required])]
+            });
+            this.editForm = this.formBuilder.group({
+                name: ['',Validators.compose([Validators.required])],
+                month:['',Validators.compose([Validators.required])],
+                interest:['',Validators.compose([Validators.required])],
+                totalMonths:['',Validators.compose([Validators.required])]
+            });
+
+            this.loadfrecuencys();
+        }
+
+        loadfrecuencys(){
+            this.http.get(config.url+'frecuency/list?access_token='+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    this.frecuencys = result.frecuencys;
+                    console.log(this.frecuencys);
+            })
+            
+        }
+        savefrecuency(){
+            this.http.post(config.url+'frecuency/add?access_token='+this.local.getUser().token,this.frecuencyForm.value).map((result)=>{
+                return result.json()
+            }).subscribe(res=>{
+                 if(res.msg == "OK"){
+                       this.loadfrecuencys();
+                        this.toast = true;
+                        this.message = "frecuency guardado"
+                }else{
+                      this.error = true;
+                    this.message = "No tiene privilegios de guardar frecuency"
+                   
+                }
+                console.log(res);
+               this.loadfrecuencys();
+                
+            })
+        }
+        idAssign(frecuencyId){
+                this.frecuencyId = frecuencyId;
+        }
+
+        frecuencyDetail(frecuency){
+    
+        this.frecuencyId = frecuency._id;
+        console.log(this.frecuencyId);
+        console.log(this.frecuencyId);
+        
+        this.editForm.setValue({name: frecuency.name,month:frecuency.month,interest:frecuency.interest,totalMonths:frecuency.totalMonths});
+        
+        
+        
+    }
+    editfrecuency(){
+            
+            this.http.post(config.url+`frecuency/edit/${this.frecuencyId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+                return result.json()
+            }).subscribe(res=>{
+                if(res.msg == "OK"){
+                        this.frecuencys = res.update; 
+                        this.toast = true;
+                        this.message = "frecuency editado"
+                }else{
+                    this.error = true;
+                    this.message = "No tiene privilegios de editar frecuencys"
+                }
+                
+            })
+      
+        
+        
+        
+    }
+    deletefrecuency(){
+
+        this.http.delete(config.url+`frecuency/delete/${this.frecuencyId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+                return result.json()
+            }).subscribe(res=>{
+                if(res.msg == "OK"){
+                        this.frecuencys = res.update; 
+                        this.toast = true;
+                        this.message = "frecuency Borrado"
+                }else{
+                    this.error = true;
+                    this.message = "No tiene privilegios de borrar"
+                }
+                
+            })
+
+    }
+
+}
