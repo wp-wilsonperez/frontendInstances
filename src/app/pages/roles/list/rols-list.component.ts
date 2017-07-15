@@ -255,6 +255,14 @@ export class RolsListComponent {
     public incomeDelete:boolean = false;
     public incomeEnable:boolean = false;
 
+     //frequencyPayment
+
+    public frequencyPaymentList:boolean = false;
+    public frequencyPaymentCreate:boolean = false;
+    public frequencyPaymentEdit:boolean = false;
+    public frequencyPaymentDelete:boolean = false;
+    public frequencyPaymentEnable:boolean = false;
+
 
 
     //checkbox log
@@ -511,6 +519,14 @@ export class RolsListComponent {
                 this.incomeEdit = false;
                 this.incomeDelete = false;
                 this.incomeEnable = false;
+
+             //frequency payment
+                
+                this.frequencyPaymentList = false; 
+                this.frequencyPaymentCreate = false;
+                this.frequencyPaymentEdit = false;
+                this.frequencyPaymentDelete = false;
+                this.frequencyPaymentEnable = false;
 
             
            
@@ -861,6 +877,16 @@ export class RolsListComponent {
                
              }
 
+                //frequency payment
+             if(this.grant.frequencyPayment != undefined){
+                this.grant.frequencyPayment.list == true ?   this.frequencyPaymentList = true:    this.frequencyPaymentList = false;
+                this.grant.frequencyPayment.add   == true ?  this.frequencyPaymentCreate = true:  this.frequencyPaymentCreate = false; 
+                this.grant.frequencyPayment.edit  == true ?  this.frequencyPaymentEdit = true:    this.frequencyPaymentEdit = false;
+                this.grant.frequencyPayment.delete  == true? this.frequencyPaymentDelete = true:  this.frequencyPaymentDelete = false; 
+                this.grant.frequencyPayment.enable  == true? this.frequencyPaymentEnable = true:  this.frequencyPaymentEnable = false; 
+               
+             }
+
                 //marital 
 
                if(this.grant.maritalStatus != undefined){
@@ -923,7 +949,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1153,6 +1179,14 @@ export class RolsListComponent {
         this.policyTypeEdit?requestTwo.policyType['edit'] = true:null;
         this.policyTypeDelete?requestTwo.policyType['delete'] = true:null;
         this.policyTypeEnable?requestTwo.policyType['enable'] = true:null
+
+         //frequency payment
+            
+        this.frequencyPaymentList?requestTwo.frequencyPayment['list'] = true:null;
+        this.frequencyPaymentCreate?requestTwo.frequencyPayment['add'] = true:null;
+        this.frequencyPaymentEdit?requestTwo.frequencyPayment['edit'] = true:null;
+        this.frequencyPaymentDelete?requestTwo.frequencyPayment['delete'] = true:null;
+        this.frequencyPaymentEnable?requestTwo.frequencyPayment['enable'] = true:null
        
 
 

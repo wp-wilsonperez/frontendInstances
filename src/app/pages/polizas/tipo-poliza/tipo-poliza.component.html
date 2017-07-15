@@ -8,20 +8,7 @@
             </div>
             
             <div class="card-block widget-body">
-
-                <form [formGroup]="tipoPolizaForm" class="row form-inline">
-                                    <div class="form-group col-md-10 col-sm-6">
-                                        <input type="text" formControlName="name" class="form-control" placeholder="Nombre">
-                                    </div>
-                                 
-                                
-                                    <div class="form-group col-md-2 col-sm-6">
-                                        <button [disabled]="!tipoPolizaForm.valid" (click)="saveTipoPoliza()" type="submit" class="btn btn-primary">Guardar</button>
-                                    </div> 
-                </form>
-                  
-
-                        <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                   <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -34,7 +21,21 @@
                             </button>
                             <strong>{{message}}</strong> 
                         </div>
-                
+
+                <form [formGroup]="tipoPolizaForm" class="row form-inline">
+                                    <div class="form-group col-md-10 col-sm-6" [ngClass]="{}">
+                                        <input type="text" formControlName="name" class="form-control" placeholder="Nombre">
+                                    </div>
+                                 
+                                
+                                    <div class="form-group col-md-2 col-sm-6" *ngIf="create">
+                                        <button [disabled]="!tipoPolizaForm.valid" (click)="saveTipoPoliza()" type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                    
+                                    <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
+                                        <button [disabled]="!tipoPolizaForm.valid" (click)="editTipoPoliza()" type="submit" class="btn btn-primary">Editar</button>
+                                    </div>
+                </form>               
                 <div class="w-200 pull-right bottom-15">
                     <div class="input-group input-group-sm">
 
@@ -47,8 +48,11 @@
                         <thead>
                             <tr>
                                 <th> <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>                              
-                      
-
+                                  <td><strong>    </strong></td>
+                                   <td><strong>    </strong></td>
+                                    <td><strong>    </strong></td>
+                                    <td><strong>    </strong></td>
+                                    <td><strong>    </strong></td>
                                 <th>Acciones</th>      
                             </tr>
                         </thead>
@@ -56,6 +60,13 @@
 
                             <tr *ngFor="let tipoPoliza of tipoPolizas">
                                 <td><strong>  {{tipoPoliza.name}}   </strong></td>
+
+                              
+                                  <td><strong>    </strong></td>
+                                   <td><strong>    </strong></td>
+                                    <td><strong>    </strong></td>
+                                     <td><strong>    </strong></td>
+                                    <td><strong>    </strong></td>
                          
               
                                

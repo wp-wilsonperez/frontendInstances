@@ -22,35 +22,33 @@ export class FrecuencyComponent{
         error:any;
         toast:boolean = false;
         message:string;
+        create:boolean=true;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.frecuencyForm = this.formBuilder.group({
                 name: ['',Validators.compose([Validators.required])],
-                month:['',Validators.compose([Validators.required])],
-                interest:['',Validators.compose([Validators.required])],
-                totalMonths:['',Validators.compose([Validators.required])]
+              
             });
             this.editForm = this.formBuilder.group({
                 name: ['',Validators.compose([Validators.required])],
-                month:['',Validators.compose([Validators.required])],
-                interest:['',Validators.compose([Validators.required])],
-                totalMonths:['',Validators.compose([Validators.required])]
+          
             });
 
             this.loadfrecuencys();
         }
 
         loadfrecuencys(){
-            this.http.get(config.url+'frecuency/list?access_token='+this.local.getUser().token).map((res)=>{
+            this.http.get(config.url+'frequencyPayment/list?access_token='+this.local.getUser().token).map((res)=>{
+                console.log(res.json());
                 return res.json();
             }).subscribe((result)=>{
-                    this.frecuencys = result.frecuencys;
+                    this.frecuencys = result.frequencyPayments;
                     console.log(this.frecuencys);
             })
             
         }
         savefrecuency(){
-            this.http.post(config.url+'frecuency/add?access_token='+this.local.getUser().token,this.frecuencyForm.value).map((result)=>{
+            this.http.post(config.url+'frequencyPayment/add?access_token='+this.local.getUser().token,this.frecuencyForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
@@ -72,28 +70,33 @@ export class FrecuencyComponent{
         }
 
         frecuencyDetail(frecuency){
-    
+        this.create = false;
         this.frecuencyId = frecuency._id;
         console.log(this.frecuencyId);
         console.log(this.frecuencyId);
         
-        this.editForm.setValue({name: frecuency.name,month:frecuency.month,interest:frecuency.interest,totalMonths:frecuency.totalMonths});
+        this.frecuencyForm.setValue({name: frecuency.name});
         
         
         
     }
     editfrecuency(){
             
-            this.http.post(config.url+`frecuency/edit/${this.frecuencyId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`frequencyPayment/edit/${this.frecuencyId}?access_token=`+this.local.getUser().token,this.frecuencyForm.value).map((result)=>{
+                console.log(result.json());
                 return result.json()
+                
+                
             }).subscribe(res=>{
                 if(res.msg == "OK"){
                         this.frecuencys = res.update; 
                         this.toast = true;
-                        this.message = "frecuency editado"
+                        this.message = "Frecuencia de Pago Editada";
+                        this.create = true;
+                        this.frecuencyForm.setValue({name:''});
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar frecuencys"
+                    this.message = "No tiene privilegios de editar"
                 }
                 
             })
@@ -104,7 +107,7 @@ export class FrecuencyComponent{
     }
     deletefrecuency(){
 
-        this.http.delete(config.url+`frecuency/delete/${this.frecuencyId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`frequencyPayment/delete/${this.frecuencyId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){

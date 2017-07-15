@@ -22,6 +22,7 @@ export class TipoPolizaComponent{
         error:any;
         toast:boolean = false;
         message:string;
+        create:boolean = true;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.tipoPolizaForm = this.formBuilder.group({
@@ -37,6 +38,7 @@ export class TipoPolizaComponent{
         }
 
         loadtipoPolizas(){
+
             this.http.get(config.url+'policyType/list?access_token='+this.local.getUser().token).map((res)=>{
                    console.log(res.json());
                 return res.json();
@@ -47,6 +49,7 @@ export class TipoPolizaComponent{
             
         }
         saveTipoPoliza(){
+
             this.http.post(config.url+'policyType/add?access_token='+this.local.getUser().token,this.tipoPolizaForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
@@ -61,6 +64,7 @@ export class TipoPolizaComponent{
                 }
                 console.log(res);
                this.loadtipoPolizas();
+               this.tipoPolizaForm.setValue({name:''});
                 
             })
         }
@@ -69,28 +73,32 @@ export class TipoPolizaComponent{
         }
 
         tipoPolizaDetail(tipoPoliza){
-    
-        this.tipoPolizaId = tipoPoliza._id;
-        console.log(this.tipoPolizaId);
-        console.log(this.tipoPolizaId);
-        
-        this.editForm.setValue({name: tipoPoliza.name,month:tipoPoliza.month,interest:tipoPoliza.interest,totalMonths:tipoPoliza.totalMonths});
-        
+            
+            this.create = false;
+            this.tipoPolizaId = tipoPoliza._id;
+            console.log(this.tipoPolizaId);
+            console.log(this.tipoPolizaId);
+            
+            this.tipoPolizaForm.setValue({name: tipoPoliza.name});
+            
         
         
     }
-    edittipoPoliza(){
+    editTipoPoliza(){
             
-            this.http.post(config.url+`tipoPoliza/edit/${this.tipoPolizaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`policyType/edit/${this.tipoPolizaId}?access_token=`+this.local.getUser().token,this.tipoPolizaForm.value).map((result)=>{
+           
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
                         this.tipoPolizas = res.update; 
                         this.toast = true;
-                        this.message = "tipoPoliza editado"
+                        this.message = "tipo de poliza editado";
+                        this.create = true;
+                        this.tipoPolizaForm.setValue({name:''});
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar tipoPolizas"
+                    this.message = "No tiene privilegios de editar tipo de poliza"
                 }
                 
             })

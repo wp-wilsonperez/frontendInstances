@@ -22,6 +22,7 @@ export class RutaComponent{
         error:any;
         toast:boolean = false;
         message:string;
+        create:boolean=true;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.rutaForm = this.formBuilder.group({
@@ -37,16 +38,17 @@ export class RutaComponent{
         }
 
         loadrutas(){
-            this.http.get(config.url+'ruta/list?access_token='+this.local.getUser().token).map((res)=>{
+            this.http.get(config.url+'route/list?access_token='+this.local.getUser().token).map((res)=>{
+                
                 return res.json();
             }).subscribe((result)=>{
-                    this.rutas = result.rutas;
+                    this.rutas = result.routes;
                     console.log(this.rutas);
             })
             
         }
         saveruta(){
-            this.http.post(config.url+'ruta/add?access_token='+this.local.getUser().token,this.rutaForm.value).map((result)=>{
+            this.http.post(config.url+'route/add?access_token='+this.local.getUser().token,this.rutaForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
@@ -73,14 +75,14 @@ export class RutaComponent{
         console.log(this.rutaId);
         console.log(this.rutaId);
         
-        this.editForm.setValue({name: ruta.name,month:ruta.month,interest:ruta.interest,totalMonths:ruta.totalMonths});
+        this.editForm.setValue({name: ruta.name});
         
         
         
     }
     editruta(){
             
-            this.http.post(config.url+`ruta/edit/${this.rutaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`route/edit/${this.rutaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
@@ -100,7 +102,7 @@ export class RutaComponent{
     }
     deleteruta(){
 
-        this.http.delete(config.url+`ruta/delete/${this.rutaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`route/delete/${this.rutaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
