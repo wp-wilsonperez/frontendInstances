@@ -19,6 +19,10 @@ export class RutaComponent{
         public rutas:any;
         public helpLinkId:any;
         public rutaId:any;
+        public users:any= [];
+        public business:any= [];
+        public clients:any= [];
+        public destinatario:any= [];
         error:any;
         toast:boolean = false;
         message:string;
@@ -26,15 +30,28 @@ export class RutaComponent{
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.rutaForm = this.formBuilder.group({
-                name: ['',Validators.compose([Validators.required])],
+                name:[''],
+                typeReception:[''],
+                idUserSend:[''],
+                userSend:[''],
+                idClientRecipient:[''],
+                idBusinessRecipent:[''],
+                idInsuranceRecipent:[''],
+                dateRoute:[''],
+                dateReception:[''],
+                dateMessenger:[''],
+                dateReEntry:[''],
+                dateReturn:[''],
+                details:[''] ,
+                observations:[''] ,
              
-            });
-            this.editForm = this.formBuilder.group({
-                name: ['',Validators.compose([Validators.required])],
-  
             });
 
             this.loadrutas();
+            this.loadBusiness();
+            this.loadClients();
+            this.loadUsers();
+            
         }
 
         loadrutas(){
@@ -43,9 +60,50 @@ export class RutaComponent{
                 return res.json();
             }).subscribe((result)=>{
                     this.rutas = result.routes;
-                    console.log(this.rutas);
+                    
+                    console.log('rutas',this.rutas);
             })
             
+        }
+
+        loadUsers(){
+
+             this.http.get(config.url+'user/list?access_token='+this.local.getUser().token).map((res)=>{
+                
+                return res.json();
+            }).subscribe((result)=>{
+                    this.users = result.users;
+                    this.destinatario = this.destinatario.concat(this.users);
+                    console.log('users',this.users);
+                    console.log(this.destinatario)
+            })
+
+        }
+
+        loadBusiness(){
+
+             this.http.get(config.url+'business/list?access_token='+this.local.getUser().token).map((res)=>{
+                
+                return res.json();
+            }).subscribe((result)=>{
+                    this.business = result.businesses;
+                    this.destinatario = this.destinatario.concat(this.business);
+                    console.log('bussiness',this.business);
+            })
+
+        }
+
+        loadClients(){
+
+             this.http.get(config.url+'client/list?access_token='+this.local.getUser().token).map((res)=>{
+                
+                return res.json();
+            }).subscribe((result)=>{
+                    this.clients = result.clients;
+                    this.destinatario = this.destinatario.concat(this.clients);
+                    console.log('clients',this.clients);
+            })
+
         }
         saveruta(){
             this.http.post(config.url+'route/add?access_token='+this.local.getUser().token,this.rutaForm.value).map((result)=>{
@@ -54,7 +112,7 @@ export class RutaComponent{
                  if(res.msg == "OK"){
                        this.loadrutas();
                         this.toast = true;
-                        this.message = "ruta guardado"
+                        this.message = "ruta guardada"
                 }else{
                       this.error = true;
                     this.message = "No tiene privilegios de guardar ruta"
@@ -69,13 +127,14 @@ export class RutaComponent{
                 this.rutaId = rutaId;
         }
 
-        rutaDetail(ruta){
-    
+    rutaDetail(ruta){
+
+        this.create = false;
         this.rutaId = ruta._id;
         console.log(this.rutaId);
-        console.log(this.rutaId);
         
-        this.editForm.setValue({name: ruta.name});
+        
+        this.rutaForm.setValue({name: ruta.name});
         
         
         
@@ -102,7 +161,7 @@ export class RutaComponent{
     }
     deleteruta(){
 
-        this.http.delete(config.url+`route/delete/${this.rutaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`route/delete/${this.rutaId}?access_token=`+this.local.getUser().token,this.rutaForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
