@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
 import { PolizaComponent } from './poliza.component';
 import { TipoPolizaComponent } from './tipo-poliza/tipo-poliza.component';
+import {SelectModule} from 'angular2-select';
 
 
 export const routes = [
@@ -30,6 +31,7 @@ export const routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    SelectModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

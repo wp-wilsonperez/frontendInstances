@@ -25,17 +25,22 @@ export class IngresoComponent{
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.ingresoForm = this.formBuilder.group({
-                name: ['',Validators.compose([Validators.required])],
-                month:['',Validators.compose([Validators.required])],
-                interest:['',Validators.compose([Validators.required])],
-                totalMonths:['',Validators.compose([Validators.required])]
+
+                typeReception:[''],
+                idUserSend:[''],
+                idClientRecipient:[''],
+                idBusinessRecipent:[''],
+                idInsuranceRecipent:[''],
+                dateRoute:[''],
+                dateReception:[''],
+                dateMessenger:[''],
+                dateReEntry:[''],
+                dateReturn:[''],
+                details:[''] ,
+                observations:[''] ,
+         
             });
-            this.editForm = this.formBuilder.group({
-                name: ['',Validators.compose([Validators.required])],
-                month:['',Validators.compose([Validators.required])],
-                interest:['',Validators.compose([Validators.required])],
-                totalMonths:['',Validators.compose([Validators.required])]
-            });
+        
 
             this.loadingresos();
         }
@@ -84,7 +89,7 @@ export class IngresoComponent{
     }
     editingreso(){
             
-            this.http.post(config.url+`ingreso/edit/${this.ingresoId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`ingreso/edit/${this.ingresoId}?access_token=`+this.local.getUser().token,this.ingresoForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
@@ -104,7 +109,7 @@ export class IngresoComponent{
     }
     deleteingreso(){
 
-        this.http.delete(config.url+`ingreso/delete/${this.ingresoId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`ingreso/delete/${this.ingresoId}?access_token=`+this.local.getUser().token,this.ingresoForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){

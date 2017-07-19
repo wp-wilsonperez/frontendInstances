@@ -28,22 +28,26 @@
                                              <div class="row row-input">
                                                 <div class="col-md-4">
 
-                                                <select formControlName="idUserSend" class="form-control">
-                                                    <option *ngFor="let user of users" value="{{user._id}}">{{user.name}}</option>
-                                                
-                                                </select>
-
+                                                <ng-select
+                                                    [(options)]="opt"
+                                                    [placeholder]="Origen"
+                                                    [multiple]="false"
+                                                    formControlName="idUserSend">
+                                                </ng-select>
 
                                                 </div>
-                                              
 
-                                                 <div  class="form-group col-md-4 col-sm-6" [ngClass]="{}">
-                                                        <select formControlName="idUserSend" class="form-control">
-                                                                <option *ngFor="let dest of destinatario" value="{{dest._id}}">{{dest.name}}</option>
-                                                            
-                                                            </select>
-                                                          
+                                                <div class="col-md-4">
+
+                                                <ng-select
+                                                    [(options)]="opt2"
+                                                    [placeholder]="Destinatario"
+                                                    [multiple]="false"
+                                                    formControlName="idClientRecipient">
+                                                </ng-select>
+
                                                 </div>
+                                            
                                                 <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
                                                             <input type="text" formControlName="observations" class="form-control" placeholder="Observaciones">
                                                      </div>
@@ -83,19 +87,19 @@
                     <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
                             <tr>
-                                <th> <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>                              
-                                  <td><strong>    </strong></td>
-                                   <td><strong>    </strong></td>
-                                    <td><strong>    </strong></td>
-                                    <td><strong>    </strong></td>
-                                    <td><strong>    </strong></td>
+                                <th> <mfDefaultSorter by="name">No. Ruta</mfDefaultSorter></th>                              
+                                  <td><strong>   Fecha Creacion </strong></td>
+                                   <td><strong>   Origen </strong></td>
+                                    <td><strong>   Descripcion </strong></td>
+                                    <td><strong>  Observaciones  </strong></td>
+                                    <td><strong>   Destino </strong></td>
                                 <th>Acciones</th>      
                             </tr>
                         </thead>
                         <tbody>                           
 
                             <tr *ngFor="let ruta of rutas">
-                                <td><strong>  {{ruta.name}}   </strong></td>
+                                <td><strong>     </strong></td>
 
                               
                                   <td><strong>    </strong></td>

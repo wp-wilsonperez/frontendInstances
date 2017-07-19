@@ -26,6 +26,7 @@
     "angular2-datatable": "0.6.0",
     "angular2-froala-wysiwyg": "2.5.1-2",
     "angular2-google-maps": "0.17.0",
+    "angular2-select": "^1.0.0-beta.3",
     "awesome-bootstrap-checkbox": "1.0.0-alpha.4",
     "bootstrap": "4.0.0-alpha.6",
     "chart.js": "2.5.0",

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
     styleUrls:['./ruta.component.scss']
 })
 
-export class RutaComponent{
+export class RutaComponent implements OnInit {
         public rutaForm:FormGroup;
          public editForm:FormGroup
         public helpLinks:any;
@@ -27,10 +27,15 @@ export class RutaComponent{
         toast:boolean = false;
         message:string;
         create:boolean=true;
+        myOptions:Array<object> = [];
+         myOptions2:Array<object> = [];
+        opt:any;
+        opt2:any;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
+            
+            
         
             this.rutaForm = this.formBuilder.group({
-                name:[''],
                 typeReception:[''],
                 idUserSend:[''],
                 userSend:[''],
@@ -47,12 +52,25 @@ export class RutaComponent{
              
             });
 
-            this.loadrutas();
-            this.loadBusiness();
-            this.loadClients();
             this.loadUsers();
+            this.loadInsurances();
+
+   
             
         }
+
+        ngOnInit(){
+
+
+         
+
+
+
+           
+
+        }
+
+   
 
         loadrutas(){
             this.http.get(config.url+'route/list?access_token='+this.local.getUser().token).map((res)=>{
@@ -68,16 +86,54 @@ export class RutaComponent{
 
         loadUsers(){
 
-             this.http.get(config.url+'user/list?access_token='+this.local.getUser().token).map((res)=>{
+               this.http.get(config.url+'user/list?access_token='+this.local.getUser().token).map((res)=>{
                 
                 return res.json();
             }).subscribe((result)=>{
                     this.users = result.users;
                     this.destinatario = this.destinatario.concat(this.users);
                     console.log('users',this.users);
-                    console.log(this.destinatario)
-            })
+                     this.users.map((result,index)=>{
+                       let obj = {
+                           value: result._id,
+                           label: result.name
+                       }
+                    this.myOptions.push(obj);
 
+                    this.opt = this.myOptions;
+
+                    })
+                    console.log(this.myOptions)
+                    console.log('oninit')
+                    
+            });
+
+          
+
+        }
+
+        loadInsurances(){
+
+              this.http.get(config.url+'insurance/list?access_token='+this.local.getUser().token).map((res)=>{
+                console.log('insurances',res.json());
+                
+                return res.json();
+            }).subscribe((result)=>{
+                     result.insurances.map((result,index)=>{
+                       let obj = {
+                           value: result._id,
+                           label: result.bussinesName
+                       }
+                    this.myOptions2.push(obj);
+
+                    this.opt2 = this.myOptions2;
+
+                    })
+                    console.log(this.myOptions2)
+                    console.log('oninit')
+                    
+            });
+            
         }
 
         loadBusiness(){
@@ -102,6 +158,9 @@ export class RutaComponent{
                     this.clients = result.clients;
                     this.destinatario = this.destinatario.concat(this.clients);
                     console.log('clients',this.clients);
+                    this.opt2 = this.destinatario;
+                    console.log(this.opt2);
+                    
             })
 
         }
@@ -119,7 +178,6 @@ export class RutaComponent{
                    
                 }
                 console.log(res);
-               this.loadrutas();
                 
             })
         }
@@ -176,5 +234,6 @@ export class RutaComponent{
             })
 
     }
+        
 
 }
