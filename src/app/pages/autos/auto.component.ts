@@ -74,7 +74,7 @@ export class AutoComponent{
             
         }
         saveauto(){
-            this.http.post(config.url+'auto/add?access_token='+this.local.getUser().token,this.autoForm.value).map((result)=>{
+            this.http.post(config.url+'car/add?access_token='+this.local.getUser().token,this.autoForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
@@ -87,7 +87,7 @@ export class AutoComponent{
                    
                 }
                 console.log(res);
-               this.loadautos();
+
                 
             })
         }
@@ -165,7 +165,7 @@ export class AutoComponent{
     loadClients(){
 
                 //cliente
-              this.http.get(config.url+'client/list?access_token='+this.local.getUser().token).map((res)=>{
+            this.http.get(config.url+'client/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
                     this.clientes = result.clients;

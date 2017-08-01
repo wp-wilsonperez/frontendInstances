@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
     styleUrls:['./ruta.component.scss']
 })
 
-export class RutaComponent implements OnInit {
+export class RutaComponent  {
         public rutaForm:FormGroup;
          public editForm:FormGroup
         public helpLinks:any;
@@ -38,7 +38,6 @@ export class RutaComponent implements OnInit {
             this.rutaForm = this.formBuilder.group({
                 typeReception:[''],
                 idUserSend:[''],
-                userSend:[''],
                 idClientRecipient:[''],
                 idBusinessRecipent:[''],
                 idInsuranceRecipent:[''],
@@ -54,20 +53,10 @@ export class RutaComponent implements OnInit {
 
             this.loadUsers();
             this.loadInsurances();
+            this.loadrutas();
 
    
             
-        }
-
-        ngOnInit(){
-
-
-         
-
-
-
-           
-
         }
 
    
@@ -101,6 +90,7 @@ export class RutaComponent implements OnInit {
                     this.myOptions.push(obj);
 
                     this.opt = this.myOptions;
+                    
 
                     })
                     console.log(this.myOptions)
@@ -165,6 +155,12 @@ export class RutaComponent implements OnInit {
 
         }
         saveruta(){
+        
+            //this.rutaForm.controls['idClientRecipient'].setValue();
+            this.rutaForm.controls['idBusinessRecipent'].setValue('596e3b612c54d9185e28765f');
+             this.rutaForm.controls['idInsuranceRecipent'].setValue('596e3b612c54d9185e28467f');
+            console.log('form value ',this.rutaForm.value);
+            
             this.http.post(config.url+'route/add?access_token='+this.local.getUser().token,this.rutaForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
@@ -172,6 +168,9 @@ export class RutaComponent implements OnInit {
                        this.loadrutas();
                         this.toast = true;
                         this.message = "ruta guardada"
+                        console.log('1saved');
+                        
+
                 }else{
                       this.error = true;
                     this.message = "No tiene privilegios de guardar ruta"
@@ -181,6 +180,8 @@ export class RutaComponent implements OnInit {
                 
             })
         }
+
+
         idAssign(rutaId){
                 this.rutaId = rutaId;
         }
@@ -225,7 +226,7 @@ export class RutaComponent implements OnInit {
                 if(res.msg == "OK"){
                         this.rutas = res.update; 
                         this.toast = true;
-                        this.message = "ruta Borrado"
+                        this.message = "Ruta Borrada"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

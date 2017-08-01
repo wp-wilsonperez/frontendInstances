@@ -112,16 +112,18 @@ export class ClienteComponent implements OnInit{
             
         }
         saveclient(){
+
+            this.clientForm.controls['maritalStatus'].setValue('591e0fd1c03c1149fc078321');
             this.http.post(config.url+'client/add?access_token='+this.local.getUser().token,this.clientForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
                        this.loadclients();
                         this.toast = true;
-                        this.message = "Banco guardado"
+                        this.message = "Cliente guardado"
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar banco"
+                    this.message = "No tiene privilegios de guardar cliente"
                    
                 }
                 console.log(res);

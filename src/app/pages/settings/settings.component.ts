@@ -21,9 +21,11 @@ export class SettingsComponent{
   disabled:boolean = true;
   public settingsForm:FormGroup;
   public addressForm:FormGroup;
+  public maritalForm:FormGroup;
   public userSession:any;
   public setting:any;
   public addresses = [];
+  public maritalStatuses=[];
   
 
   constructor(private fromBuilder:FormBuilder,public http:Http,public local:UserSessionService){
@@ -37,7 +39,15 @@ export class SettingsComponent{
         this.addressForm = this.fromBuilder.group({
           'name':['',Validators.compose([Validators.required])],
           'mac':['',Validators.compose([Validators.required,ValidationService.macValidator])],
-        })
+        });
+
+        this.maritalForm = this.fromBuilder.group({
+          'name':['',Validators.compose([Validators.required])],
+
+        });
+
+        this.loadMarital();
+
 
         this.userSession = this.local.getUser();
 
@@ -66,6 +76,21 @@ export class SettingsComponent{
     })  
   }
 
+  loadMarital(){
+
+    this.http.get(config.url+'maritalStatus/list?access_token='+this.local.getUser().token).map((result:Response)=>{
+        console.log(result.json());
+        return result.json().maritalStatus;
+
+    }).subscribe((res)=>{
+          this.maritalStatuses = res;
+          console.log('Status Maritales',this.maritalStatuses);
+          
+          
+    }) 
+
+  }
+
   saveSettings(){
       let request = {
           idMacs: this.addresses
@@ -90,6 +115,21 @@ export class SettingsComponent{
        this.addresses.push(addFormat);
 
        this.addressForm.setValue({name:'',mac:''});
+  }
+
+  addMarital(){
+      this.http.post(config.url+'maritalStatus/add?access_token='+this.local.getUser().token,this.maritalForm.value).map((result)=>{
+        return result.json()
+      }).subscribe((res)=>{
+        this.loadMarital();
+      })
+  }
+  rmMarital(id){
+        this.http.delete(config.url+`maritalStatus/delete/${id}?access_token=`+this.local.getUser().token).map((result)=>{
+        return result.json()
+      }).subscribe((res)=>{
+        this.loadMarital();
+      })
   }
 
   deleteMac(index){

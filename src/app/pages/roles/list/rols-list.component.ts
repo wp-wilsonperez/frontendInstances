@@ -173,6 +173,10 @@ export class RolsListComponent {
       //marital
 
     public maritalStatusList:boolean = false;
+    public maritalStatusCreate:boolean = false;
+    public maritalStatusEdit:boolean = false;
+    public maritalStatusDelete:boolean = false;
+    public maritalStatusEnable:boolean = false;
 
      //checkbox issue
 
@@ -239,6 +243,14 @@ export class RolsListComponent {
     public policyDelete:boolean = false;
     public policyEnable:boolean = false;
 
+     //policyAnnex
+
+    public policyAnnexList:boolean = false;
+    public policyAnnexCreate:boolean = false;
+    public policyAnnexEdit:boolean = false;
+    public policyAnnexDelete:boolean = false;
+    public policyAnnexEnable:boolean = false;
+
     //route
 
     public routeList:boolean = false;
@@ -262,6 +274,14 @@ export class RolsListComponent {
     public frequencyPaymentEdit:boolean = false;
     public frequencyPaymentDelete:boolean = false;
     public frequencyPaymentEnable:boolean = false;
+
+     //bankInsurance
+
+    public bankInsuranceList:boolean = false;
+    public bankInsuranceCreate:boolean = false;
+    public bankInsuranceEdit:boolean = false;
+    public bankInsuranceDelete:boolean = false;
+    public bankInsuranceEnable:boolean = false;
 
 
 
@@ -430,6 +450,10 @@ export class RolsListComponent {
              //maritalStatus
                 
                 this.maritalStatusList = false; 
+                this.maritalStatusCreate = false; 
+                this.maritalStatusEdit = false; 
+                this.maritalStatusDelete= false; 
+                this.maritalStatusEnable = false; 
            
              //typeClient
                 
@@ -496,6 +520,14 @@ export class RolsListComponent {
                 this.policyDelete = false;
                 this.policyEnable = false;
 
+                //policy annex
+                
+                this.policyAnnexList = false; 
+                this.policyAnnexCreate = false;
+                this.policyAnnexEdit = false;
+                this.policyAnnexDelete = false;
+                this.policyAnnexEnable = false;
+
             //policy type
                 
                 this.policyTypeList = false; 
@@ -527,6 +559,14 @@ export class RolsListComponent {
                 this.frequencyPaymentEdit = false;
                 this.frequencyPaymentDelete = false;
                 this.frequencyPaymentEnable = false;
+
+             //bank insurance
+                
+                this.bankInsuranceList = false; 
+                this.bankInsuranceCreate = false;
+                this.bankInsuranceEdit = false;
+                this.bankInsuranceDelete = false;
+                this.bankInsuranceEnable = false;
 
             
            
@@ -847,6 +887,16 @@ export class RolsListComponent {
                
              }
 
+              //policy annex
+             if(this.grant.policyAnnex != undefined){
+                this.grant.policyAnnex.list == true ?   this.policyAnnexList = true:    this.policyAnnexList = false;
+                this.grant.policyAnnex.add   == true ?  this.policyAnnexCreate = true:  this.policyAnnexCreate = false; 
+                this.grant.policyAnnex.edit  == true ?  this.policyAnnexEdit = true:    this.policyAnnexEdit = false;
+                this.grant.policyAnnex.delete  == true? this.policyAnnexDelete = true:  this.policyAnnexDelete = false; 
+                this.grant.policyAnnex.enable  == true? this.policyAnnexEnable = true:  this.policyAnnexEnable = false; 
+               
+             }
+
               //policy type
              if(this.grant.policyType != undefined){
                 this.grant.policyType.list == true ?   this.policyTypeList = true:    this.policyTypeList = false;
@@ -891,6 +941,10 @@ export class RolsListComponent {
 
                if(this.grant.maritalStatus != undefined){
                 this.grant.maritalStatus.list == true ?   this.maritalStatusList = true:    this.maritalStatusList = false;
+                this.grant.maritalStatus.create == true ?   this.maritalStatusCreate = true:    this.maritalStatusCreate = false;
+                this.grant.maritalStatus.edit == true ?   this.maritalStatusEdit = true:    this.maritalStatusEdit = false;
+                this.grant.maritalStatus.delete == true ?   this.maritalStatusDelete = true:    this.maritalStatusDelete = false;
+                this.grant.maritalStatus.enable == true ?   this.maritalStatusEnable = true:    this.maritalStatusEnable = false;
          
                
              }
@@ -903,6 +957,17 @@ export class RolsListComponent {
                 this.grant.typeClient.edit  == true ?  this.typeClientEdit = true:    this.typeClientEdit = false;
                 this.grant.typeClient.delete  == true? this.typeClientDelete = true:  this.typeClientDelete = false; 
                 this.grant.typeClient.enable  == true? this.typeClientEnable = true:  this.typeClientEnable = false; 
+               
+             }
+
+               //bankInsurance
+
+             if(this.grant.bankInsurance != undefined){
+                this.grant.bankInsurance.list == true ?   this.bankInsuranceList = true:    this.bankInsuranceList = false;
+                this.grant.bankInsurance.add   == true ?  this.bankInsuranceCreate = true:  this.bankInsuranceCreate = false; 
+                this.grant.bankInsurance.edit  == true ?  this.bankInsuranceEdit = true:    this.bankInsuranceEdit = false;
+                this.grant.bankInsurance.delete  == true? this.bankInsuranceDelete = true:  this.bankInsuranceDelete = false; 
+                this.grant.bankInsurance.enable  == true? this.bankInsuranceEnable = true:  this.bankInsuranceEnable = false; 
                
              }
 
@@ -949,7 +1014,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1096,6 +1161,11 @@ export class RolsListComponent {
          //marital
             
         this.maritalStatusList?requestTwo.maritalStatus['list'] = true:null;
+        this.maritalStatusCreate?requestTwo.maritalStatus['add'] = true:null;
+        this.maritalStatusEdit?requestTwo.maritalStatus['edit'] = true:null;
+        this.maritalStatusDelete?requestTwo.maritalStatus['delete'] = true:null;
+        this.maritalStatusEnable?requestTwo.maritalStatus['enable'] = true:null;
+        
        
         
         //typeClient
@@ -1170,6 +1240,7 @@ export class RolsListComponent {
         this.policyEdit?requestTwo.policy['edit'] = true:null;
         this.policyDelete?requestTwo.policy['delete'] = true:null;
         this.policyEnable?requestTwo.policy['enable'] = true:null
+        this.policyList?requestTwo.policy['ramoPercentageValue'] = true:null
 
 
          //policy type
@@ -1180,6 +1251,17 @@ export class RolsListComponent {
         this.policyTypeDelete?requestTwo.policyType['delete'] = true:null;
         this.policyTypeEnable?requestTwo.policyType['enable'] = true:null
 
+         //policy annex
+            
+        this.policyAnnexList?requestTwo.policyAnnex['list'] = true:null;
+        this.policyAnnexList?requestTwo.policyAnnex['param'] = true:null;
+        this.policyAnnexCreate?requestTwo.policyAnnex['add'] = true:null;
+        this.policyAnnexEdit?requestTwo.policyAnnex['edit'] = true:null;
+        this.policyAnnexDelete?requestTwo.policyAnnex['delete'] = true:null;
+        this.policyAnnexEnable?requestTwo.policyAnnex['enable'] = true:null
+
+        
+
          //frequency payment
             
         this.frequencyPaymentList?requestTwo.frequencyPayment['list'] = true:null;
@@ -1187,6 +1269,14 @@ export class RolsListComponent {
         this.frequencyPaymentEdit?requestTwo.frequencyPayment['edit'] = true:null;
         this.frequencyPaymentDelete?requestTwo.frequencyPayment['delete'] = true:null;
         this.frequencyPaymentEnable?requestTwo.frequencyPayment['enable'] = true:null
+
+         //bank insurance
+            
+        this.bankInsuranceList?requestTwo.bankInsurance['list'] = true:null;
+        this.bankInsuranceCreate?requestTwo.bankInsurance['add'] = true:null;
+        this.bankInsuranceEdit?requestTwo.bankInsurance['edit'] = true:null;
+        this.bankInsuranceDelete?requestTwo.bankInsurance['delete'] = true:null;
+        this.bankInsuranceEnable?requestTwo.bankInsurance['enable'] = true:null
        
 
 

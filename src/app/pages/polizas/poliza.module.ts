@@ -1,3 +1,4 @@
+import { PolizaAnnexComponent } from './polizaAnnex/polizaAnnex.component';
 import { FrecuencyComponent } from './frecuency/frecuency.component';
 import { IngresoComponent } from './ingresos/ingresos.component';
 import { RutaComponent } from './ruta/ruta.component';
@@ -20,6 +21,7 @@ export const routes = [
   { path: 'rutas', component: RutaComponent, data: { breadcrumb: 'Rutas' } },
   { path: 'ingresos', component: IngresoComponent, data: { breadcrumb: 'Ingresos' } },
   { path: 'frecuencias', component: FrecuencyComponent, data: { breadcrumb: 'Frecuencias' } },
+  { path: 'anexos/:id', component: PolizaAnnexComponent, data: { breadcrumb: 'Anexos' } }
 ];
 
 @NgModule({
@@ -36,7 +38,7 @@ export const routes = [
   ],
   declarations: [
 
-    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent
+    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent
 
   ],
   providers: []

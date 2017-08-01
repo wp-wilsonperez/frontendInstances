@@ -6,19 +6,19 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 
 @Component({
-    selector:'ingresos-component',
+    selector:'bancoSeguro-component',
     encapsulation:  ViewEncapsulation.None,
-    templateUrl: './ingresos.component.html',
-    styleUrls:['./ingresos.component.scss']
+    templateUrl: './bankInsurance.component.html',
+    styleUrls:['./bankInsurance.component.scss']
 })
 
-export class IngresoComponent  {
-        public ingresosForm:FormGroup;
+export class BancoSeguroComponent  {
+        public bancoSeguroForm:FormGroup;
          public editForm:FormGroup
         public helpLinks:any;
-        public ingresoss:any;
+        public bancoSeguros:any;
         public helpLinkId:any;
-        public ingresosId:any;
+        public bancoSeguroId:any;
         public users:any= [];
         public business:any= [];
         public clients:any= [];
@@ -31,29 +31,24 @@ export class IngresoComponent  {
          myOptions2:Array<object> = [];
         opt:any;
         opt2:any;
+        banks:any;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
             
             
         
-            this.ingresosForm = this.formBuilder.group({
-                typeReception:[''],
-                IdUserSend:[''],
-                idClientRecipient:[''],
-                idBusinessRecipent:[''],
-                idInsuranceRecipent:[''],
-                dateincome:[''],
-                dateReception:[''],
-                dateMessenger:[''],
-                dateReEntry:[''],
-                dateReturn:[''],
-                details:[''] ,
-                observations:[''] ,
+            this.bancoSeguroForm = this.formBuilder.group({
+           
+                idBank:['',Validators.compose([Validators.required])],
+                idInsurance:['',Validators.compose([Validators.required])],
+                interest:[],
+                monthWithoutInterest:[],
+                monthWithInterest:[]
              
             });
 
             this.loadUsers();
             this.loadInsurances();
-            this.loadingresoss();
+            this.loadbancoSeguros();
 
    
             
@@ -61,28 +56,28 @@ export class IngresoComponent  {
 
    
 
-        loadingresoss(){
-            this.http.get(config.url+'income/list?access_token='+this.local.getUser().token).map((res)=>{
+        loadbancoSeguros(){
+            this.http.get(config.url+'bankInsurance/list?access_token='+this.local.getUser().token).map((res)=>{
                 
                 return res.json();
             }).subscribe((result)=>{
-                    this.ingresoss = result.incomes;
+                    this.bancoSeguros = result.bankInsurances;
                     
-                    console.log('ingresoss',this.ingresoss);
+                    console.log('bancoSeguros',this.bancoSeguros);
             })
             
         }
 
         loadUsers(){
 
-               this.http.get(config.url+'user/list?access_token='+this.local.getUser().token).map((res)=>{
+               this.http.get(config.url+'bank/list?access_token='+this.local.getUser().token).map((res)=>{
                 
                 return res.json();
             }).subscribe((result)=>{
-                    this.users = result.users;
-                    this.destinatario = this.destinatario.concat(this.users);
-                    console.log('users',this.users);
-                     this.users.map((result,index)=>{
+                    console.log('banks',result);
+
+                    this.banks = result.banks;
+                     this.banks.map((result,index)=>{
                        let obj = {
                            value: result._id,
                            label: result.name
@@ -154,26 +149,26 @@ export class IngresoComponent  {
             })
 
         }
-        saveingresos(){
-        
-            //this.ingresosForm.controls['idClientRecipient'].setValue();
-            this.ingresosForm.controls['idBusinessRecipent'].setValue('596e3b612c54d9185e28765f');
-             this.ingresosForm.controls['idInsuranceRecipent'].setValue('596e3b612c54d9185e28467f');
-            console.log('form value ',this.ingresosForm.value);
+        saveBancoSeguro(){
             
-            this.http.post(config.url+'income/add?access_token='+this.local.getUser().token,this.ingresosForm.value).map((result)=>{
+            this.http.post(config.url+'bankInsurance/add?access_token='+this.local.getUser().token,this.bancoSeguroForm.value).map((result)=>{
+                
+                console.log(result.json());
                 return result.json()
+                
+                
             }).subscribe(res=>{
+                
                  if(res.msg == "OK"){
-                       this.loadingresoss();
+                       this.loadbancoSeguros();
                         this.toast = true;
-                        this.message = "ingresos guardada"
+                        this.message = "bancoSeguro guardada"
                         console.log('1saved');
                         
 
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar ingresos"
+                    this.message = "No tiene privilegios de guardar bancoSeguro"
                    
                 }
                 console.log(res);
@@ -182,34 +177,34 @@ export class IngresoComponent  {
         }
 
 
-        idAssign(ingresosId){
-                this.ingresosId = ingresosId;
+        idAssign(bancoSeguroId){
+                this.bancoSeguroId = bancoSeguroId;
         }
 
-    ingresosDetail(ingresos){
+    bancoSeguroDetail(bancoSeguro){
 
         this.create = false;
-        this.ingresosId = ingresos._id;
-        console.log(this.ingresosId);
+        this.bancoSeguroId = bancoSeguro._id;
+        console.log(this.bancoSeguroId);
         
         
-        this.ingresosForm.setValue({name: ingresos.name});
+        this.bancoSeguroForm.setValue({idBank: bancoSeguro.idBank,idInsurance:bancoSeguro.idInsurance,interest:bancoSeguro.interest,monthWithInterest:bancoSeguro.monthWithInterest,monthWithoutInterest:bancoSeguro.monthWithoutInterest});
         
         
         
     }
-    editingresos(){
+    editbancoSeguro(){
             
-            this.http.post(config.url+`income/edit/${this.ingresosId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`bankInsurance/edit/${this.bancoSeguroId}?access_token=`+this.local.getUser().token,this.bancoSeguroForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.ingresoss = res.update; 
+                        this.bancoSeguros = res.update; 
                         this.toast = true;
-                        this.message = "ingresos editado"
+                        this.message = "bancoSeguro editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar ingresoss"
+                    this.message = "No tiene privilegios de editar bancoSeguros"
                 }
                 
             })
@@ -218,15 +213,15 @@ export class IngresoComponent  {
         
         
     }
-    deleteingresos(){
+    deletebancoSeguro(){
 
-        this.http.delete(config.url+`income/delete/${this.ingresosId}?access_token=`+this.local.getUser().token,this.ingresosForm.value).map((result)=>{
+        this.http.delete(config.url+`bankInsurance/delete/${this.bancoSeguroId}?access_token=`+this.local.getUser().token,this.bancoSeguroForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.ingresoss = res.update; 
+                        this.bancoSeguros = res.update; 
                         this.toast = true;
-                        this.message = "ingresos Borrada"
+                        this.message = "bancoSeguro Borrada"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

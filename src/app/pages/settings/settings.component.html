@@ -42,6 +42,18 @@
                                
                             </div>    
                     </div>
+                        
+                     <div data-toggle="modal" data-target="#maritalModal" class="list-group-item list-group-item-action">  
+
+                        <div class="col-10">
+                                Estatus Maritales
+                            </div> 
+                        <div class="col-2">
+                                <span class="badge badge-main badge-pill primary">{{maritalStatuses.length}}</span>
+                               
+                            </div>    
+                    </div>
+
                     <div class="form-group">
                         <label for="input-1">IVA</label>
                         <input formControlName="iva" type="number" class="form-control" id="input-1">
@@ -126,6 +138,81 @@
                                                 
                                                         
                                                         <button [disabled]="!addressForm.valid || modalError"  class="btn btn-primary pull-right" (click)="addAddress()">Agregar &nbsp;<i class="fa fa-add arrow"></i></button>
+
+                                                    </form>  
+
+                                            
+
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                    
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+     </div>
+
+
+
+     <div class="modal fade" id="maritalModal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header state modal-primary">                                    
+                    <h4 class="modal-title" id="modal-error-label"><i class="fa fa-venus-mars"></i>Estatus Maritales</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                         <div class="col-md-12">
+                                    <div widget class="card">
+                                    
+                                        <div class="card-block widget-body">
+
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        
+                                                        <th>Nombre</th>
+                                            
+                                         
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let status of maritalStatuses ">
+                                                    
+                                                        <td>{{status.name}} </td>
+                                           
+                                                        <td> <button (click)="rmMarital(status._id)" type="button" class="btn btn-danger btn-rounded btn-sm">-</button></td>
+                                                    
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <div class="col-xl-12 col-lg-12 col-12 bottom-30">
+                                        <div widget class="card">
+                                            
+                                            <div class="card-block widget-body">
+                                                    <form [formGroup]="maritalForm" class="row">
+
+                                                        <div class="form-group col-md-12">
+                                                                    <label for="start">Nombre:</label>
+                                                                    <input formControlName="name" type="text" class="form-control" id="start">
+                                                        </div>
+                                                
+                                                      
+                                                        
+                                                    
+                                                
+                                                        
+                                                        <button [disabled]="!maritalForm.valid || modalError"  class="btn btn-primary pull-right" (click)="addMarital()">Agregar &nbsp;<i class="fa fa-add arrow"></i></button>
 
                                                     </form>  
 

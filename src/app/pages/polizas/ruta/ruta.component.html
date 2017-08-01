@@ -26,8 +26,8 @@
 
                                     <div class="col-md-10">
                                              <div class="row row-input">
-                                                <div class="col-md-4">
-
+                                                <div class="col-md-3">
+                                      
                                                 <ng-select
                                                     [(options)]="opt"
                                                     [placeholder]="Origen"
@@ -37,21 +37,25 @@
 
                                                 </div>
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
 
                                                 <ng-select
                                                     [(options)]="opt2"
                                                     [placeholder]="Destinatario"
                                                     [multiple]="false"
+
                                                     formControlName="idClientRecipient">
                                                 </ng-select>
 
                                                 </div>
+                                                
                                             
-                                                <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                                                <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
+                                                            <input type="text" formControlName="details" class="form-control" placeholder="Detalles">
+                                                     </div>
+                                                    <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                             <input type="text" formControlName="observations" class="form-control" placeholder="Observaciones">
                                                      </div>
-                                                    
                                                 
                                              </div>
                                              <div class="row row-input">
@@ -90,7 +94,7 @@
                                 <th> <mfDefaultSorter by="name">No. Ruta</mfDefaultSorter></th>                              
                                   <td><strong>   Fecha Creacion </strong></td>
                                    <td><strong>   Origen </strong></td>
-                                    <td><strong>   Descripcion </strong></td>
+                                    <td><strong>   Detalles </strong></td>
                                     <td><strong>  Observaciones  </strong></td>
                                     <td><strong>   Destino </strong></td>
                                 <th>Acciones</th>      
@@ -99,13 +103,13 @@
                         <tbody>                           
 
                             <tr *ngFor="let ruta of rutas">
-                                <td><strong>     </strong></td>
+                                <td><strong>   {{ruta.routeNumber}}  </strong></td>
 
                               
-                                  <td><strong>    </strong></td>
-                                   <td><strong>    </strong></td>
-                                    <td><strong>    </strong></td>
-                                     <td><strong>    </strong></td>
+                                  <td><strong>   {{ruta.dateCreate | date: 'dd/MM/yyyy'}} </strong></td>
+                                   <td><strong>  {{ruta.idUserSend}}  </strong></td>
+                                    <td><strong>  {{ruta.details}}  </strong></td>
+                                     <td><strong>   {{ruta.observations}}  </strong></td>
                                     <td><strong>    </strong></td>
                          
               

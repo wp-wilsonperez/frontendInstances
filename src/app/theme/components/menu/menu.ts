@@ -235,6 +235,13 @@ export const menuItems = [
     order: 0,
     subMenu: [
 
+      {
+        title: 'Listado de Polizas',
+        routerLink: 'polizas/polizas',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
       
       {
         title: 'Tipo de Polizas',
@@ -308,6 +315,13 @@ export const menuItems = [
       {
         title: 'Listado de Bancos',
         routerLink: 'bancos/banco',
+        disabled: false,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Banco Seguro',
+        routerLink: 'bancos/banco-seguro',
         disabled: false,
         selected: false,
         expanded: false
