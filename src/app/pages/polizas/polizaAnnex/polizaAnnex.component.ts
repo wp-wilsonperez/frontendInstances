@@ -18,26 +18,14 @@ export class PolizaAnnexComponent{
          public itemAnnexCarForm:FormGroup;
          public editForm:FormGroup;
          public itemForm:FormGroup;
-        public helpLinks:any;
+          public itemExtraForm:FormGroup;
         public polizaAnnexs:any;
-        public helpLinkId:any;
         public polizaAnnexId:any;
-        public insurances:any = [];
-        public insuranceOptions:any = [];
-        public deductibleOptions:any = [];
-         public usersOptions:any = [];
-        public ramosOptions:any = [];
-        public ramos:any;
-        public users:any;
+        public itemCarAnnexs:any;
         public clients:any;
          public clientsOptions:any = [];
-        public deductibles:any;
-        public policyTypes:any;
-         public policyTypesOptions:any = [];
-        public frecuencyPayments:any;
-         public frecuencyPaymentsOptions:any = [];
-          public paymentTypes:any;
-         public paymentTypesOptions:any = [];
+        public itemCarOptions:any = [];
+
         public carOptions:any=[];
         public cars:any;
         public policyId:number;
@@ -45,11 +33,18 @@ export class PolizaAnnexComponent{
         public citiesOptions:any = [];
         public cities:any;
         public create:boolean = true;
+        public createItemCar:boolean =true;
         public anexos:boolean = false;
         public itemCars:any = [];
+        public carUses:any;
+        public carUsesOptions:any=[]
+        public itemAnnexCarId:number;
+        public selectItemCar:any = [];
+        public itemAnnexExtras:any = [];
         error:any;
         toast:boolean = false;
         message:string;
+        messageCar:string;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute ){
         
             this.polizaAnnexForm = this.formBuilder.group({
@@ -70,7 +65,7 @@ export class PolizaAnnexComponent{
                 idPolicyAnnex:[''],
                 idCar:[''],
                 tasa:[''],
-                idCarUse:[''],
+                carUse:[''],
                 carValue:[''],
                 amparoPatrimonial:[''],
                 rc:[''],
@@ -80,26 +75,24 @@ export class PolizaAnnexComponent{
             this.route.params.subscribe((params:Params)=>{
                 console.log(params['id']);
                 this.policyId = params['id'];
-                this.loadpolizaAnnexs();
-                
-                
-                
+                this.loadpolizaAnnexs();           
             })
-
-            this.itemForm = this.formBuilder.group({
+            this.itemExtraForm = this.formBuilder.group({
             
-                idPolicyAnnex:[],
-                idCar:[],
-                tasa:[],
-                idCarUse:[],
-                carValue:[],
-                amparoPatrimonial:[],
-                rc:[],
+                idItemAnnexCar:[],
+                extraDetails:[],
+                extraValue:[],
+                extraTasa:[],
+                exclusionDate:[],
+                inclusionDate:[]
 
             });
+
             this.editForm = this.formBuilder.group({
                
             });
+              this.loadCars();
+              this.loadCarUse();
         }
 
         loadpolizaAnnexs(){
@@ -111,6 +104,98 @@ export class PolizaAnnexComponent{
                     console.log('polizaAnnexs',this.polizaAnnexs);
             })
             
+        }
+        loadCars(){
+            this.http.get(config.url+`car/list/?access_token=`+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                console.log('carros',result);
+                    let cars = result.cars;
+                    cars.forEach(element => {
+                        let obj = {
+                            value:element._id,
+                            label:element.placa
+                        }
+                        this.carOptions.push(obj);
+                        
+                    });
+                    this.cars = this.carOptions;
+                    console.log('car definitivo',this.cars);
+                    
+                    
+            })
+
+        }
+        loadCarUse(){
+        //caruse
+        this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).toPromise().then(result=>{
+             let apiResult = result.json();
+             apiResult.params.carUse.list.forEach((element)=>{
+                 let obj ={
+                     value:element.id,
+                     label:element.name
+                 }
+                 this.carUsesOptions.push(obj)
+             })
+             this. carUses = this.carUsesOptions;
+             console.log("car uses::",this.carUses);
+             
+             
+         })
+        }
+        loadItemAnnexCar(idAnnex){
+            this.http.get(config.url+`itemAnnexCar/param/${this.polizaAnnexId}?access_token=`+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    this.itemCarAnnexs = result.itemAnnexCars;
+                     this.loadItemCarSelect();
+                    console.log(this.itemCarAnnexs);
+                    
+                
+            })  
+        }
+        saveItemAnnexCar(){
+            console.log(this.itemAnnexCarForm.value);
+            
+            this.itemAnnexCarForm.controls['idPolicyAnnex'].setValue(this.polizaAnnexId);
+            this.http.post(config.url+'itemAnnexCar/add?access_token='+this.local.getUser().token,this.itemAnnexCarForm.value).map((result)=>{  
+                return result.json()
+            }).subscribe(res=>{
+                 if(res.msg == "OK"){
+                       this.loadItemAnnexCar(this.polizaAnnexId);
+                        this.messageCar = "Elemento Auto Guardado"
+                        this.itemAnnexCarForm.reset();
+                }else{
+                      this.error = true;
+                    this.message = "No tiene privilegios de guardar elementos autos"
+                   
+                }
+                console.log(res);
+              // this.loadItemAnnexCar(this.polizaAnnexId);
+                
+            })
+
+        }
+         saveItemAnnexExtra(){
+            console.log(this.itemExtraForm.value);
+            
+            this.itemExtraForm.controls['idItemAnnexCar'].setValue(this.itemAnnexCarId);
+            this.http.post(config.url+'itemAnnexExtra/add?access_token='+this.local.getUser().token,this.itemExtraForm.value).map((result)=>{  
+                return result.json()
+            }).subscribe(res=>{
+                 if(res.msg == "OK"){
+                       this.getExtras(this.itemAnnexCarId);
+                        this.itemExtraForm.reset();
+                }else{
+                      this.error = true;
+                    this.message = "No tiene privilegios de guardar elementos autos"
+                   
+                }
+                console.log(res);
+              // this.loadItemAnnexCar(this.polizaAnnexId);
+                
+            })
+
         }
   
 
@@ -221,14 +306,58 @@ export class PolizaAnnexComponent{
             })
 
     }
+
+     deleteCarItem(id){
+
+        this.http.delete(config.url+`itemAnnexCar/delete/${id}?access_token=`+this.local.getUser().token,this.itemAnnexCarForm.value).map((result)=>{
+                return result.json()
+            }).subscribe(res=>{
+                if(res.msg == "OK"){
+                        this.itemCarAnnexs = res.update; 
+                }else{
+                    this.error = true;
+                    this.message = "No tiene privilegios de borrar"
+                }
+                
+            })
+
+    }
     openItems(id){
         console.log(id);
         this.polizaAnnexId = id;
+        this.loadItemAnnexCar(this.polizaAnnexId);
         this.anexos = true;
+
     }
     closeItems(){
    
         this.anexos = false;
+    }
+    loadItemCarSelect(){
+        let carAnnexs = this.itemCarAnnexs;
+        carAnnexs.forEach(element => {
+            let obj = {
+                    value:element._id,
+                    label:element._id
+            }
+                this.itemCarOptions.push(obj);      
+        });
+            this.selectItemCar = this.itemCarOptions;
+
+    }
+    getExtras(id){
+        this.itemAnnexCarId = id;
+         this.http.get(config.url+`itemAnnexExtra/param/${id}?access_token=`+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                this.itemAnnexExtras = result.itemAnnexExtras;
+                  console.log(result);
+                  
+                    
+                
+            })  
+            
+            
     }
 
 }

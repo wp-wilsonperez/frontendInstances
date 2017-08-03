@@ -1014,7 +1014,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1259,6 +1259,23 @@ export class RolsListComponent {
         this.policyAnnexEdit?requestTwo.policyAnnex['edit'] = true:null;
         this.policyAnnexDelete?requestTwo.policyAnnex['delete'] = true:null;
         this.policyAnnexEnable?requestTwo.policyAnnex['enable'] = true:null
+
+        //item annex car
+            
+        this.policyAnnexList?requestTwo.itemAnnexCar['list'] = true:null;
+        this.policyAnnexList?requestTwo.itemAnnexCar['param'] = true:null;
+        this.policyAnnexCreate?requestTwo.itemAnnexCar['add'] = true:null;
+        this.policyAnnexEdit?requestTwo.itemAnnexCar['edit'] = true:null;
+        this.policyAnnexDelete?requestTwo.itemAnnexCar['delete'] = true:null;
+        this.policyAnnexEnable?requestTwo.itemAnnexCar['enable'] = true:null
+
+        //item annex extra
+        this.policyAnnexList?requestTwo.itemAnnexExtra['list'] = true:null;
+        this.policyAnnexList?requestTwo.itemAnnexExtra['param'] = true:null;
+        this.policyAnnexCreate?requestTwo.itemAnnexExtra['add'] = true:null;
+        this.policyAnnexEdit?requestTwo.itemAnnexExtra['edit'] = true:null;
+        this.policyAnnexDelete?requestTwo.itemAnnexExtra['delete'] = true:null;
+        this.policyAnnexEnable?requestTwo.itemAnnexExtra['enable'] = true:null
 
         
 
