@@ -359,5 +359,16 @@ export class PolizaAnnexComponent{
             
             
     }
+    deleteExtra(id){
+        this.http.post(config.url+`itemAnnexExtra/delete/${id}?access_token=`+this.local.getUser().token,this.itemExtraForm).map((res)=>{
+            return res.json();
+        }).subscribe((result)=>{
+            this.itemAnnexExtras = result.itemAnnexExtras;
+                console.log(result);
+                
+                
+            
+        })  
+    }
 
 }
