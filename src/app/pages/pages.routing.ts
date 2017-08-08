@@ -24,6 +24,7 @@ export const routes: Routes = [
              { path: 'cartas', loadChildren: 'app/pages/carta-accidentes/carta-accidente.module#CartaAccidenteModule', data: { breadcrumb: 'Carta Accidente' } },
             { path: 'pagos', loadChildren: 'app/pages/paymentType/payment-type.module#PaymentTypeModule', data: { breadcrumb: 'Tipos de Pago' } },
              { path: 'presupuestos', loadChildren: 'app/pages/quotes/quotes.module#QuotesModule', data: { breadcrumb: 'Cotizaciones' } },
+             { path: 'facturas', loadChildren: 'app/pages/billing/billing.module#BillingModule', data: { breadcrumb: 'Facturas' } },
              { path: 'emision', loadChildren: 'app/pages/emision/emision.module#EmisionModule', data: { breadcrumb: 'Derechos de Emision' } },
              { path: 'clientes', loadChildren: 'app/pages/cliente/cliente.module#ClienteModule', data: { breadcrumb: 'Clientes' } },
               { path: 'autos', loadChildren: 'app/pages/autos/auto.module#AutoModule', data: { breadcrumb: 'Autos' } },

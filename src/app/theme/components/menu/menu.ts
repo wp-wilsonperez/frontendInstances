@@ -276,6 +276,27 @@ export const menuItems = [
       
     ]
   },
+    {
+    title: 'Facturacion',
+    routerLink: 'polizas',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+
+      {
+        title: 'Listado de Facturas',
+        routerLink: 'facturas/facturas',
+        disabled: true,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
    {
     title: 'Deducibles',
     routerLink: 'seguros',

@@ -7,20 +7,20 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 
 @Component({
-    selector:'poliza-component',
+    selector:'billing-component',
     encapsulation:  ViewEncapsulation.None,
-    templateUrl: './poliza.component.html',
-    styleUrls:['./poliza.component.scss']
+    templateUrl: './billing.component.html',
+    styleUrls:['./billing.component.scss']
 })
 
-export class PolizaComponent{
-        public polizaForm:FormGroup;
+export class BillingComponent{
+        public billingForm:FormGroup;
          public editForm:FormGroup;
          public itemForm:FormGroup;
         public helpLinks:any;
-        public polizas:any;
+        public billings:any;
         public helpLinkId:any;
-        public polizaId:any;
+        public billingId:any;
         public insurances:any = [];
         public insuranceOptions:any = [];
         public deductibleOptions:any = [];
@@ -31,15 +31,16 @@ export class PolizaComponent{
         public clients:any;
          public clientsOptions:any = [];
         public deductibles:any;
-        public policyTypes:any;
-         public policyTypesOptions:any = [];
+        public billingTypes:any;
+         public billingTypesOptions:any = [];
         public frecuencyPayments:any;
          public frecuencyPaymentsOptions:any = [];
           public paymentTypes:any;
          public paymentTypesOptions:any = [];
         public carOptions:any=[];
         public cars:any;
-
+        public business:any;
+        public businessOptions:any=[];
          public citiesOptions:any = [];
         public cities:any;
 
@@ -48,36 +49,32 @@ export class PolizaComponent{
         message:string;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
         
-            this.polizaForm = this.formBuilder.group({
-                policyNumber:[],
-                idInsurance:[],
-                idRamo:[],
-                annexedNumber:[],
-                certificateNumber:[],
-                idUser:[],
-                idClient:[],
-                idDeductible:[],
-                insured:[],
-                startDate:[],
-                finishDate:[],
-                daysofValidity:[],
-                idPolicyType:[],
-                idFrequencyPayment:[],
-                idCity:[],
-                dateAdmission:[],
-                dateCancellation:[],
-                idPaymentType:[],
-                percentageRamo:[]
-            
-
-
-            
+            this.billingForm = this.formBuilder.group({
+                typeBilling:[''],
+                idClient:[''],
+                detailsClient:[''],
+                idBusiness:[''],
+                detailBusiness:[''],
+                idInsurance:[''],
+                detailsInsurance:[''],
+                idInsuranceCom:[''],
+                billingNumber:[],
+                billingDate:[''],
+                firstPaymentDate:[],
+                idPaymentType:[''],
+                initialPayment:[],
+                equalPayments:[''],
+                valueEqualPayments:[''],
+                observationsBilling:[''],
+                totalPrimaValue:[''],
+                totalIvaValue:[''],
+                totalBillingValue:['']
                 
             });
 
             this.itemForm = this.formBuilder.group({
             
-                idPolicyAnnex:[],
+                idbillingAnnex:[],
                 idCar:[],
                 tasa:[],
                 idCarUse:[],
@@ -90,26 +87,22 @@ export class PolizaComponent{
                
             });
 
-            this.loadpolizas();
-            this.loadInsurances();
-            this.loadRamo();
-            this.loadUser();
+            this.loadbillings();
             this.loadClients();
-            this.loadDeductibles();
-            this.loadFrecuencyOfPayment();
-            this.loadCity();
-            this.loadPolicyTypes();
+            this.loadBusiness();
+            this.loadInsurances();
             this.loadPaymentTypes();
-            this.loadCars();
+            
+    
         }
 
-        loadpolizas(){
-            this.http.get(config.url+'policy/list?access_token='+this.local.getUser().token).map((res)=>{
+        loadbillings(){
+            this.http.get(config.url+'billing/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                    this.polizas = result.policies;
+                    this.billings = result.billings;
 
-                    console.log('Polizas',this.polizas);
+                    console.log('billings',this.billings);
             })
             
         }
@@ -152,25 +145,6 @@ export class PolizaComponent{
             })
             
         }
-
-        loadDeductibles(){
-            this.http.get(config.url+'deductible/list?access_token='+this.local.getUser().token).map((res)=>{
-                return res.json();
-            }).subscribe((result)=>{
-                   let deductibles = result.deductibles;
-                     deductibles.map((result)=>{
-                        let obj = {
-                            value: result._id,
-                            label: result.name
-                        }
-                        this.deductibleOptions.push(obj);
-                        this.deductibles = this.deductibleOptions;
-                    })
-                    console.log('Deductibles',this.deductibles);
-            })
-            
-        }
-
         loadRamo(){
 
             this.http.get(config.url+'ramo/list?access_token='+this.local.getUser().token).map((res)=>{
@@ -228,6 +202,25 @@ export class PolizaComponent{
             })
 
         }
+
+        loadBusiness(){
+
+            this.http.get(config.url+'business/list?access_token='+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                     let business = result.businesses;
+                     business.map((result)=>{
+                        let obj = {
+                            value: result._id,
+                            label: result.name
+                        }
+                        this.businessOptions.push(obj);
+                        this.business = this.businessOptions;
+                    })
+                    console.log('Business',this.business);
+            })
+
+        }
         loadFrecuencyOfPayment(){
 
             this.http.get(config.url+'frequencyPayment/list?access_token='+this.local.getUser().token).map((res)=>{
@@ -269,21 +262,21 @@ export class PolizaComponent{
 
         }
 
-        loadPolicyTypes(){
+        loadbillingTypes(){
 
-             this.http.get(config.url+'policyType/list?access_token='+this.local.getUser().token).map((res)=>{
+             this.http.get(config.url+'billingType/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                     let policyTypes = result.policyTypes;
-                     policyTypes.map((result)=>{
+                     let billingTypes = result.billingTypes;
+                     billingTypes.map((result)=>{
                         let obj = {
                             value: result._id,
                             label: result.name 
                         }
-                        this.policyTypesOptions.push(obj);
-                        this.policyTypes = this.policyTypesOptions;
+                        this.billingTypesOptions.push(obj);
+                        this.billingTypes = this.billingTypesOptions;
                     })
-                    console.log('Policy Types',this.policyTypes);
+                    console.log('billing Types',this.billingTypes);
             })
 
         }
@@ -311,11 +304,11 @@ export class PolizaComponent{
 
         getTasa(){
 
-        if(this.polizaForm.value.idInsurance != ''&& this.polizaForm.value.idRamo != '' ){
-            this.http.get(config.url+'policy/ramoPercentageValue?access_token='+this.local.getUser().token+'&idInsurance='+this.polizaForm.value.idInsurance+'&idRamo='+this.polizaForm.value.idRamo)
+        if(this.billingForm.value.idInsurance != ''&& this.billingForm.value.idRamo != '' ){
+            this.http.get(config.url+'billing/ramoPercentageValue?access_token='+this.local.getUser().token+'&idInsurance='+this.billingForm.value.idInsurance+'&idRamo='+this.billingForm.value.idRamo)
          .toPromise().then(result=>{
                          let apiResult = result.json();
-                         this.polizaForm.controls['percentageRamo'].setValue(apiResult.value);
+                         this.billingForm.controls['percentageRamo'].setValue(apiResult.value);
                       console.log('getTasa result: ',apiResult.value);
           
          })
@@ -326,54 +319,54 @@ export class PolizaComponent{
 
     }
 
-        savepoliza(){
-            this.http.post(config.url+'policy/add?access_token='+this.local.getUser().token,this.polizaForm.value).map((result)=>{
+        savebilling(){
+            this.http.post(config.url+'billing/add?access_token='+this.local.getUser().token,this.billingForm.value).map((result)=>{
                 
                 
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
-                       this.loadpolizas();
+                       this.loadbillings();
                         this.toast = true;
-                        this.message = "Poliza guardada"
-                        this.polizaForm.reset();
+                        this.message = "billing guardada"
+                        this.billingForm.reset();
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar poliza"
+                    this.message = "No tiene privilegios de guardar billing"
                    
                 }
                 console.log(res);
-               this.loadpolizas();
+               this.loadbillings();
                 
             })
         }
-        idAssign(polizaId){
-                this.polizaId = polizaId;
+        idAssign(billingId){
+                this.billingId = billingId;
         }
 
-        polizaDetail(poliza){
+        billingDetail(billing){
     
-        this.polizaId = poliza._id;
-        console.log(this.polizaId);
-        console.log(this.polizaId);
+        this.billingId = billing._id;
+        console.log(this.billingId);
+        console.log(this.billingId);
         
-        this.editForm.setValue({name: poliza.name,month:poliza.month,interest:poliza.interest,totalMonths:poliza.totalMonths});
+        this.editForm.setValue({name: billing.name,month:billing.month,interest:billing.interest,totalMonths:billing.totalMonths});
         
         
         
     }
-    editpoliza(){
+    editbilling(){
             
-            this.http.post(config.url+`policy/edit/${this.polizaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`billing/edit/${this.billingId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.polizas = res.update; 
+                        this.billings = res.update; 
                         this.toast = true;
-                        this.message = "poliza editado"
+                        this.message = "billing editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar polizas"
+                    this.message = "No tiene privilegios de editar billings"
                 }
                 
             })
@@ -382,15 +375,15 @@ export class PolizaComponent{
         
         
     }
-    deletepoliza(){
+    deletebilling(){
 
-        this.http.delete(config.url+`policy/delete/${this.polizaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`billing/delete/${this.billingId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.polizas = res.update; 
+                        this.billings = res.update; 
                         this.toast = true;
-                        this.message = "poliza Borrado"
+                        this.message = "billing Borrado"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

@@ -3,7 +3,7 @@
         <div widget class="card">
             <div class="card-header">
 
-                <span class="text-uppercase">Listado de polizas</span>
+                <span class="text-uppercase">Listado de Facturas</span>
 
                 <div class="widget-controls"> 
                      <div class="col-md-4">
@@ -51,11 +51,11 @@
                         </thead>
                         <tbody>                           
 
-                            <tr *ngFor="let poliza of polizas">
-                                <td><strong>  {{poliza.policyNumber}}   </strong></td>
-                                <td>{{poliza.insured}}</td>
-                                <td>{{poliza.startDate}}</td>
-                                 <td>{{poliza.finishDate}}</td>
+                            <tr *ngFor="let billing of billings">
+                                <td><strong>  {{billing.billingNumber}}   </strong></td>
+                                <td>{{billing.insured}}</td>
+                                <td>{{billing.startDate}}</td>
+                                 <td>{{billing.finishDate}}</td>
               
                                
 
@@ -65,12 +65,12 @@
                                                 <div class="row">
 
 
-                                                        <button type="button" [routerLink]="['/pages/polizas/anexos',poliza._id]" class="btn btn-primary" data-toggle="modal" data-target="#anexos-modal">Anexos</button>
+                                                        <button type="button" [routerLink]="['/pages/billings/anexos',billing._id]" class="btn btn-primary" data-toggle="modal" data-target="#anexos-modal">Anexos</button>
 
                                                                 
                         
 
-                                                        <button type="button" (click)="idAssign(poliza._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                        <button type="button" (click)="idAssign(billing._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
 
                                                                         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                                                                             <div class="modal-dialog" role="document">
@@ -83,7 +83,7 @@
                                                                                        <!--Esta seguro-->
                                                                                     </div>
                                                                                     <div class="modal-footer">
-                                                                                        <button (click)="deletepoliza()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                        <button (click)="deletebilling()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                     </div>
                                                                                 </div>
@@ -116,7 +116,7 @@
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header state modal-primary">
-                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-file-o"></i>Nueva Poliza</h4>
+                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-file-o"></i>Nueva billing</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 </div>
                                 <div class="modal-body">
@@ -124,19 +124,19 @@
                                                 <div class="clearfix">
                                                     <ul class="nav nav-tabs top pull-left w-100p">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active" data-toggle="tab" href="#ta">Datos de Poliza</a>
+                                                            <a class="nav-link active" data-toggle="tab" href="#ta">Datos de billing</a>
                                                         </li>
                                                                           
                                                     </ul>
                                                 </div>
                                                 <div class="tab-content top">
                                                     <div class="tab-pane active" id="ta">
-                                                          <form  [formGroup]="polizaForm"  class="row">
+                                                          <form  [formGroup]="billingForm"  class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
 
-                                                                        <label for="exampleSelect1">Poliza Numero</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
+                                                                        <label for="exampleSelect1">billing Numero</label>
+                                                                        <input  type="text" formControlName="billingNumber" class="form-control">
                                                                             
 
                                                                     </div>
@@ -144,7 +144,7 @@
                                                                     <div class="form-group">
 
                                                                         <label for="exampleSelect1">Certificado</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
+                                                                        <input  type="text" formControlName="billingNumber" class="form-control">
                                                                             
 
                                                                     </div>
@@ -179,7 +179,7 @@
                                                                     <div class="form-group">
 
                                                                         <label for="exampleSelect1">Grupo Cliente</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
+                                                                        <input  type="text" formControlName="billingNumber" class="form-control">
                                                                             
 
                                                                     </div>
@@ -194,12 +194,12 @@
 
                                                                     <div class="form-group">
 
-                                                                        <label for="exampleSelect1">Forma Poliza</label>
+                                                                        <label for="exampleSelect1">Forma billing</label>
                                                                         <ng-select
-                                                                            [(options)]="policyTypes"
+                                                                            [(options)]="billingTypes"
                                                                             [placeholder]="Types"
                                                                             [multiple]="false"
-                                                                            formControlName="idPolicyType">
+                                                                            formControlName="idbillingType">
                                                                         </ng-select>
                                                                             
 
@@ -241,7 +241,7 @@
                                                                     <div class="form-group">
 
                                                                         <label for="exampleSelect1">Anexo</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
+                                                                        <input  type="text" formControlName="billingNumber" class="form-control">
                                                                                                     
 
                                                                     </div>
@@ -362,7 +362,7 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    <button [disabled]="!polizaForm.valid" (click)="savepoliza()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                                    <button [disabled]="!billingForm.valid" (click)="savebilling()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
 
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
@@ -398,11 +398,11 @@
                                                     
                                                     
                                                         <div class="form-group col-md-2 col-sm-6" *ngIf="create">
-                                                            <button  (click)="saveTipoPoliza()" type="submit" class="btn btn-primary">Guardar</button>
+                                                            <button  (click)="saveTipobilling()" type="submit" class="btn btn-primary">Guardar</button>
                                                         </div>
                                                         
                                                         <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
-                                                            <button  (click)="editTipoPoliza()" type="submit" class="btn btn-primary">Editar</button>
+                                                            <button  (click)="editTipobilling()" type="submit" class="btn btn-primary">Editar</button>
                                                         </div>
                                                     </form> 
                                                     <div class="table-responsive datatable">
@@ -420,8 +420,8 @@
                                                             </thead>
                                                             <tbody>                           
 
-                                                                <tr *ngFor="let tipoPoliza of tipoPolizas">
-                                                                    <td><strong>  {{tipoPoliza.name}}   </strong></td>
+                                                                <tr *ngFor="let tipobilling of tipobillings">
+                                                                    <td><strong>  {{tipobilling.name}}   </strong></td>
 
                                                                 
                                                                     <td><strong>    </strong></td>
@@ -439,12 +439,12 @@
                                                                                     <div class="row">
 
 
-                                                                                            <button type="button" (click)="tipoPolizaDetail(tipoPoliza)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+                                                                                            <button type="button" (click)="tipobillingDetail(tipobilling)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
 
                                                                                                     
                                                             
 
-                                                                                            <button type="button" (click)="idAssign(tipoPoliza._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                                                            <button type="button" (click)="idAssign(tipobilling._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
 
                                                                                                             <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                                                                                                                 <div class="modal-dialog" role="document">
@@ -457,7 +457,7 @@
                                                                                                                         <!--Esta seguro-->
                                                                                                                         </div>
                                                                                                                         <div class="modal-footer">
-                                                                                                                            <button (click)="deletetipoPoliza()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                                                            <button (click)="deletetipobilling()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
                                                                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                                                         </div>
                                                                                                                     </div>
@@ -512,7 +512,7 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    <button [disabled]="!polizaForm.valid" (click)="savepoliza()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                                    <button [disabled]="!billingForm.valid" (click)="savebilling()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
 
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
@@ -524,7 +524,7 @@
         <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                     <div class="modal-header state modal-primary">                                    
-                    <h4 class="modal-title" id="modal-primary-label"><i class="fa  fa-money"></i>Editar poliza</h4>
+                    <h4 class="modal-title" id="modal-primary-label"><i class="fa  fa-money"></i>Editar billing</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
@@ -549,7 +549,7 @@
                     </div>
                     </div>
                     <div class="modal-footer">
-                    <button [disabled]="!editForm.valid" (click)="editpoliza()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
+                    <button [disabled]="!editForm.valid" (click)="editbilling()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                     </div>

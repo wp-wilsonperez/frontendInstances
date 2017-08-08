@@ -25,7 +25,7 @@
                             <strong>{{message}}</strong> 
                         </div>
                 
-                         <form [formGroup]="polizaAnnexForm" class="row form-inline">
+                         <form [formGroup]="billingPolicyForm" class="row form-inline">
                                     <div class="form-group col-md-10" [ngClass]="{}">
                                         <div class="row">
                                             <div class="col-md-4"> <input type="text" formControlName="annexNumber" class="form-control" placeholder="N. Anexo"></div>
@@ -48,11 +48,11 @@
                                  
                                 
                                     <div class="form-group col-md-2 col-sm-6" *ngIf="create">
-                                        <button [disabled]="!polizaAnnexForm.valid" (click)="savePolizaAnnex()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
+                                        <button [disabled]="!billingPolicyForm.valid" (click)="savebillingPolicy()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
                                     </div>
                                     
                                     <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
-                                        <button [disabled]="!polizaAnnexForm.valid" (click)="editpolizaAnnex()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
+                                        <button [disabled]="!billingPolicyForm.valid" (click)="editbillingPolicy()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
                                     </div>
                 </form>  
                 <div style="padding-top: 10px;"class="table-responsive datatable">
@@ -69,10 +69,10 @@
                         </thead>
                         <tbody>                           
 
-                            <tr  *ngFor="let polizaAnnex of polizaAnnexs">
-                                <td><strong>  {{polizaAnnex.annexNumber}}   </strong></td>
-                                <td>{{polizaAnnex.certificateNumber}}</td>
-                                <td>{{polizaAnnex.totalValue}}</td>
+                            <tr  *ngFor="let billingPolicy of billingPolicys">
+                                <td><strong>  {{billingPolicy.annexNumber}}   </strong></td>
+                                <td>{{billingPolicy.certificateNumber}}</td>
+                                <td>{{billingPolicy.totalValue}}</td>
               
                                
 
@@ -82,13 +82,13 @@
                                                 <div class="row">
 
 
-                                                        <button type="button" (click)="openItems(polizaAnnex._id)" class="btn btn-primary btn-sm transition" data-toggle="modal" data-target="#anexos-modal">Articulos</button>
+                                                        <button type="button" (click)="openItems(billingPolicy._id)" class="btn btn-primary btn-sm transition" data-toggle="modal" data-target="#anexos-modal">Articulos</button>
 
                                                                 
 
-                                                        <button type="button" (click)="polizaAnnexDetail(polizaAnnex)" class="btn btn-success btn-sm transition" >Editar</button>
+                                                        <button type="button" (click)="billingPolicyDetail(billingPolicy)" class="btn btn-success btn-sm transition" >Editar</button>
 
-                                                        <button type="button" (click)="idAssign(polizaAnnex._id)" class="btn btn-danger btn-sm transition" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                        <button type="button" (click)="idAssign(billingPolicy._id)" class="btn btn-danger btn-sm transition" data-toggle="modal" data-target="#delete-modal">Borrar</button>
 
                                                                         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                                                                             <div class="modal-dialog" role="document">
@@ -101,7 +101,7 @@
                                                                                        <!--Esta seguro-->
                                                                                     </div>
                                                                                     <div class="modal-footer">
-                                                                                        <button (click)="deletepolizaAnnex()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                        <button (click)="deletebillingPolicy()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                     </div>
                                                                                 </div>
@@ -197,7 +197,7 @@
                                         </div>
                                         
                                         <div class="form-group col-md-2 col-sm-6" *ngIf="!createItemCar">
-                                            <button [disabled]="!polizaAnnexForm.valid" (click)="editItemAnnexCar()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
+                                            <button [disabled]="!billingPolicyForm.valid" (click)="editItemAnnexCar()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
                                         </div>
                                 </form> 
                                 <div style="padding-top: 10px;"class="table-responsive datatable">
@@ -244,7 +244,7 @@
                                                                                                         <!--Esta seguro-->
                                                                                                         </div>
                                                                                                         <div class="modal-footer">
-                                                                                                            <button (click)="deletepolizaAnnex()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                                            <button (click)="deletebillingPolicy()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
                                                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                                         </div>
                                                                                                     </div>
@@ -305,7 +305,7 @@
                                         </div>
                                         
                                         <div class="form-group col-md-2 col-sm-6" *ngIf="!createItemCar">
-                                            <button [disabled]="!polizaAnnexForm.valid" (click)="editItemAnnexExtra()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
+                                            <button [disabled]="!billingPolicyForm.valid" (click)="editItemAnnexExtra()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
                                         </div>
                                 </form> 
                                  <div style="padding-top: 10px;"class="table-responsive datatable">
@@ -354,7 +354,7 @@
                                                                                                         <!--Esta seguro-->
                                                                                                         </div>
                                                                                                         <div class="modal-footer">
-                                                                                                            <button (click)="deletepolizaAnnex()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                                            <button (click)="deletebillingPolicy()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
                                                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                                         </div>
                                                                                                     </div>

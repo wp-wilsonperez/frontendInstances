@@ -7,20 +7,20 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 
 @Component({
-    selector:'polizaAnnex-component',
+    selector:'billingPolicy-component',
     encapsulation:  ViewEncapsulation.None,
-    templateUrl: './polizaAnnex.component.html',
-    styleUrls:['./polizaAnnex.component.scss']
+    templateUrl: './billingPolicy.component.html',
+    styleUrls:['./billingPolicy.component.scss']
 })
 
-export class PolizaAnnexComponent{
-        public polizaAnnexForm:FormGroup;
+export class BillingPolicyComponent{
+        public billingPolicyForm:FormGroup;
          public itemAnnexCarForm:FormGroup;
          public editForm:FormGroup;
          public itemForm:FormGroup;
           public itemExtraForm:FormGroup;
-        public polizaAnnexs:any;
-        public polizaAnnexId:any;
+        public billingPolicys:any;
+        public billingPolicyId:any;
         public itemCarAnnexs:any;
         public clients:any;
          public clientsOptions:any = [];
@@ -49,7 +49,7 @@ export class PolizaAnnexComponent{
         totalPrima:any;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute ){
         
-            this.polizaAnnexForm = this.formBuilder.group({
+            this.billingPolicyForm = this.formBuilder.group({
                 
                 idPolicy:[''],
                 annexNumber:[''],
@@ -64,7 +64,7 @@ export class PolizaAnnexComponent{
             });
             this.itemAnnexCarForm = this.formBuilder.group({
                 
-                idPolicyAnnex:[''],
+                idbillingPolicy:[''],
                 idCar:[''],
                 tasa:[''],
                 carUse:[''],
@@ -77,7 +77,7 @@ export class PolizaAnnexComponent{
             this.route.params.subscribe((params:Params)=>{
                 console.log(params['id']);
                 this.policyId = params['id'];
-                this.loadpolizaAnnexs();           
+                this.loadbillingPolicys();           
             })
             this.itemExtraForm = this.formBuilder.group({
             
@@ -96,18 +96,18 @@ export class PolizaAnnexComponent{
               this.loadCars();
               this.loadCarUse();
               this.loadSettings();
-              this.polizaAnnexForm.controls['totalPrima'].setValue(0);
-              this.polizaAnnexForm.controls['valueIssue'].setValue(0);
-              this.polizaAnnexForm.controls['segCamp'].setValue(0);
+              this.billingPolicyForm.controls['totalPrima'].setValue(0);
+              this.billingPolicyForm.controls['valueIssue'].setValue(0);
+              this.billingPolicyForm.controls['segCamp'].setValue(0);
         }
 
-        loadpolizaAnnexs(){
-            this.http.get(config.url+`policyAnnex/param/${this.policyId}?access_token=`+this.local.getUser().token).map((res)=>{
+        loadbillingPolicys(){
+            this.http.get(config.url+`billingPolicy/param/${this.policyId}?access_token=`+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                    this.polizaAnnexs = result.policyAnnex;
+                    this.billingPolicys = result.billingPolicy;
 
-                    console.log('polizaAnnexs',this.polizaAnnexs);
+                    console.log('billingPolicys',this.billingPolicys);
             })
             
         }
@@ -150,7 +150,7 @@ export class PolizaAnnexComponent{
          })
         }
         loadItemAnnexCar(idAnnex){
-            this.http.get(config.url+`itemAnnexCar/param/${this.polizaAnnexId}?access_token=`+this.local.getUser().token).map((res)=>{
+            this.http.get(config.url+`itemAnnexCar/param/${this.billingPolicyId}?access_token=`+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
                     this.itemCarAnnexs = result.itemAnnexCars;
@@ -163,7 +163,7 @@ export class PolizaAnnexComponent{
                      })
                     this.totalPrima = sum;
                     console.log('Total Prima',this.totalPrima);
-                    this.polizaAnnexForm.controls['totalPrima'].setValue(this.totalPrima)
+                    this.billingPolicyForm.controls['totalPrima'].setValue(this.totalPrima)
                     
                     console.log(this.itemCarAnnexs);
                     
@@ -173,12 +173,12 @@ export class PolizaAnnexComponent{
         saveItemAnnexCar(){
             console.log(this.itemAnnexCarForm.value);
             
-            this.itemAnnexCarForm.controls['idPolicyAnnex'].setValue(this.polizaAnnexId);
+            this.itemAnnexCarForm.controls['idbillingPolicy'].setValue(this.billingPolicyId);
             this.http.post(config.url+'itemAnnexCar/add?access_token='+this.local.getUser().token,this.itemAnnexCarForm.value).map((result)=>{  
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
-                       this.loadItemAnnexCar(this.polizaAnnexId);
+                       this.loadItemAnnexCar(this.billingPolicyId);
                         this.messageCar = "Elemento Auto Guardado"
                         this.itemAnnexCarForm.reset();
                 }else{
@@ -187,7 +187,7 @@ export class PolizaAnnexComponent{
                    
                 }
                 console.log(res);
-              // this.loadItemAnnexCar(this.polizaAnnexId);
+              // this.loadItemAnnexCar(this.billingPolicyId);
                 
             })
 
@@ -208,7 +208,7 @@ export class PolizaAnnexComponent{
                    
                 }
                 console.log(res);
-              // this.loadItemAnnexCar(this.polizaAnnexId);
+              // this.loadItemAnnexCar(this.billingPolicyId);
                 
             })
 
@@ -217,11 +217,11 @@ export class PolizaAnnexComponent{
 
         getTasa(){
 
-        if(this.polizaAnnexForm.value.idInsurance != ''&& this.polizaAnnexForm.value.idRamo != '' ){
-            this.http.get(config.url+'policy/ramoPercentageValue?access_token='+this.local.getUser().token+'&idInsurance='+this.polizaAnnexForm.value.idInsurance+'&idRamo='+this.polizaAnnexForm.value.idRamo)
+        if(this.billingPolicyForm.value.idInsurance != ''&& this.billingPolicyForm.value.idRamo != '' ){
+            this.http.get(config.url+'policy/ramoPercentageValue?access_token='+this.local.getUser().token+'&idInsurance='+this.billingPolicyForm.value.idInsurance+'&idRamo='+this.billingPolicyForm.value.idRamo)
          .toPromise().then(result=>{
                          let apiResult = result.json();
-                         this.polizaAnnexForm.controls['percentageRamo'].setValue(apiResult.value);
+                         this.billingPolicyForm.controls['percentageRamo'].setValue(apiResult.value);
                       console.log('getTasa result: ',apiResult.value);
           
          })
@@ -232,71 +232,71 @@ export class PolizaAnnexComponent{
 
     }
 
-        savePolizaAnnex(){
-            this.polizaAnnexForm.controls['idPolicy'].setValue(this.policyId);
-            this.http.post(config.url+'policyAnnex/add?access_token='+this.local.getUser().token,this.polizaAnnexForm.value).map((result)=>{
+        savebillingPolicy(){
+            this.billingPolicyForm.controls['idPolicy'].setValue(this.policyId);
+            this.http.post(config.url+'billingPolicy/add?access_token='+this.local.getUser().token,this.billingPolicyForm.value).map((result)=>{
                 
                 
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
-                       this.loadpolizaAnnexs();
+                       this.loadbillingPolicys();
                         this.toast = true;
-                        this.message = "polizaAnnex guardada"
-                        this.polizaAnnexForm.reset();
+                        this.message = "billingPolicy guardada"
+                        this.billingPolicyForm.reset();
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar polizaAnnex"
+                    this.message = "No tiene privilegios de guardar billingPolicy"
                    
                 }
                 console.log(res);
-               this.loadpolizaAnnexs();
+               this.loadbillingPolicys();
                 
             })
         }
       
-        idAssign(polizaAnnexId){
-                this.polizaAnnexId = polizaAnnexId;
+        idAssign(billingPolicyId){
+                this.billingPolicyId = billingPolicyId;
         }
 
-    polizaAnnexDetail(polizaAnnex){
+    billingPolicyDetail(billingPolicy){
             
             this.create = false;
-             this.polizaAnnexId = polizaAnnex._id;
-            console.log(this.polizaAnnexId );
+             this.billingPolicyId = billingPolicy._id;
+            console.log(this.billingPolicyId );
       
-            this.polizaAnnexForm.setValue({
+            this.billingPolicyForm.setValue({
 
-                idPolicy:polizaAnnex.idPolicy,
-                annexNumber:polizaAnnex.annexNumber,
-                certificateNumber:polizaAnnex.certificateNumber,
-                totalPrima:polizaAnnex.totalPrima,
+                idPolicy:billingPolicy.idPolicy,
+                annexNumber:billingPolicy.annexNumber,
+                certificateNumber:billingPolicy.certificateNumber,
+                totalPrima:billingPolicy.totalPrima,
                 detailAnnex:'',
-                superBank:polizaAnnex.superBank,
-                iva:polizaAnnex.iva,
-                segCamp:polizaAnnex.segCamp,
-                valueIssue:polizaAnnex.valueIssue,
-                totalValue:polizaAnnex.totalValue
+                superBank:billingPolicy.superBank,
+                iva:billingPolicy.iva,
+                segCamp:billingPolicy.segCamp,
+                valueIssue:billingPolicy.valueIssue,
+                totalValue:billingPolicy.totalValue
 
             });
             
         
         
     }
-    editpolizaAnnex(){
+    editbillingPolicy(){
             
-            this.http.post(config.url+`policyAnnex/edit/${this.polizaAnnexId}?access_token=`+this.local.getUser().token,this.polizaAnnexForm.value).map((result)=>{
+            this.http.post(config.url+`billingPolicy/edit/${this.billingPolicyId}?access_token=`+this.local.getUser().token,this.billingPolicyForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.polizaAnnexs = res.update; 
+                        this.billingPolicys = res.update; 
                         this.toast = true;
-                        this.message = "polizaAnnex editado";
+                        this.message = "billingPolicy editado";
                         this.create = true;
-                        this.polizaAnnexForm.reset();
+                        this.billingPolicyForm.reset();
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar polizaAnnexs"
+                    this.message = "No tiene privilegios de editar billingPolicys"
                 }
                 
             })
@@ -305,15 +305,15 @@ export class PolizaAnnexComponent{
         
         
     }
-    deletepolizaAnnex(){
+    deletebillingPolicy(){
 
-        this.http.delete(config.url+`policy/delete/${this.polizaAnnexId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`policy/delete/${this.billingPolicyId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.polizaAnnexs = res.update; 
+                        this.billingPolicys = res.update; 
                         this.toast = true;
-                        this.message = "polizaAnnex Borrado"
+                        this.message = "billingPolicy Borrado"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"
@@ -340,8 +340,8 @@ export class PolizaAnnexComponent{
     }
     openItems(id){
         console.log(id);
-        this.polizaAnnexId = id;
-        this.loadItemAnnexCar(this.polizaAnnexId);
+        this.billingPolicyId = id;
+        this.loadItemAnnexCar(this.billingPolicyId);
         this.anexos = true;
 
     }
@@ -382,7 +382,7 @@ export class PolizaAnnexComponent{
 
         }).subscribe((res)=>{
             this.iva = res.setting.iva;
-            this.polizaAnnexForm.controls['iva'].setValue(this.iva);
+            this.billingPolicyForm.controls['iva'].setValue(this.iva);
             console.log('settings',res);
             
             
@@ -405,10 +405,10 @@ export class PolizaAnnexComponent{
                     //console.log(this.quoteForm.value.peasantInsurance, (parseFloat(this.quoteForm.value.prima)  +  parseFloat(this.quoteForm.value.superBank ), this.quoteForm.value.peasantInsurance ,this.quoteForm.value.emissionRights  );
                     
 
-                    let totalAmount =  parseFloat(this.polizaAnnexForm.value.superBank) + parseFloat(this.polizaAnnexForm.value.totalPrima) + parseFloat(this.polizaAnnexForm.value.segCamp) + parseFloat(this.polizaAnnexForm.value.valueIssue) ;
+                    let totalAmount =  parseFloat(this.billingPolicyForm.value.superBank) + parseFloat(this.billingPolicyForm.value.totalPrima) + parseFloat(this.billingPolicyForm.value.segCamp) + parseFloat(this.billingPolicyForm.value.valueIssue) ;
                       
 
-                     this.polizaAnnexForm.controls['totalValue'].setValue(totalAmount +this.polizaAnnexForm.value.iva); 
+                     this.billingPolicyForm.controls['totalValue'].setValue(totalAmount +this.billingPolicyForm.value.iva); 
 
             
           

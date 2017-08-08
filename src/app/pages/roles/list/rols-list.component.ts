@@ -243,6 +243,14 @@ export class RolsListComponent {
     public policyDelete:boolean = false;
     public policyEnable:boolean = false;
 
+     //billing
+
+    public billingList:boolean = false;
+    public billingCreate:boolean = false;
+    public billingEdit:boolean = false;
+    public billingDelete:boolean = false;
+    public billingEnable:boolean = false;
+
      //policyAnnex
 
     public policyAnnexList:boolean = false;
@@ -887,6 +895,16 @@ export class RolsListComponent {
                
              }
 
+             //billing
+             if(this.grant.billing != undefined){
+                this.grant.billing.list == true ?   this.billingList = true:    this.billingList = false;
+                this.grant.billing.add   == true ?  this.billingCreate = true:  this.billingCreate = false; 
+                this.grant.billing.edit  == true ?  this.billingEdit = true:    this.billingEdit = false;
+                this.grant.billing.delete  == true? this.billingDelete = true:  this.billingDelete = false; 
+                this.grant.billing.enable  == true? this.billingEnable = true:  this.billingEnable = false; 
+               
+             }
+
               //policy annex
              if(this.grant.policyAnnex != undefined){
                 this.grant.policyAnnex.list == true ?   this.policyAnnexList = true:    this.policyAnnexList = false;
@@ -1014,7 +1032,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1241,6 +1259,16 @@ export class RolsListComponent {
         this.policyDelete?requestTwo.policy['delete'] = true:null;
         this.policyEnable?requestTwo.policy['enable'] = true:null
         this.policyList?requestTwo.policy['ramoPercentageValue'] = true:null
+
+         //billing
+            
+        this.billingList?requestTwo.billing['list'] = true:null;
+        this.billingCreate?requestTwo.billing['add'] = true:null;
+        this.billingEdit?requestTwo.billing['edit'] = true:null;
+        this.billingDelete?requestTwo.billing['delete'] = true:null;
+        this.billingEnable?requestTwo.billing['enable'] = true:null
+        this.billingList?requestTwo.billing['ramoPercentageValue'] = true:null
+        
 
 
          //policy type
