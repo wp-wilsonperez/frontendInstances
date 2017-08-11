@@ -305,15 +305,15 @@ export class PolizaAnnexComponent{
         
         
     }
-    deletepolizaAnnex(){
+    deletePolizaAnnex(id){
 
-        this.http.delete(config.url+`policy/delete/${this.polizaAnnexId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`policyAnnex/delete/${id}?access_token=`+this.local.getUser().token,this.polizaAnnexForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.polizaAnnexs = res.update; 
+                        this.loadpolizaAnnexs();
                         this.toast = true;
-                        this.message = "polizaAnnex Borrado"
+                        this.message = "Anexo Borrado"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

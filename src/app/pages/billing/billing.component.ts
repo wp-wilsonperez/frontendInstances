@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
@@ -15,8 +15,9 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 export class BillingComponent{
         public billingForm:FormGroup;
-         public editForm:FormGroup;
-         public itemForm:FormGroup;
+        public billingPolicyForm:FormGroup;
+        public editForm:FormGroup;
+        public itemForm:FormGroup;
         public helpLinks:any;
         public billings:any;
         public helpLinkId:any;
@@ -24,38 +25,66 @@ export class BillingComponent{
         public insurances:any = [];
         public insuranceOptions:any = [];
         public deductibleOptions:any = [];
-         public usersOptions:any = [];
+        public usersOptions:any = [];
         public ramosOptions:any = [];
         public ramos:any;
         public users:any;
         public clients:any;
-         public clientsOptions:any = [];
+        public clientsOptions:any = [];
         public deductibles:any;
         public billingTypes:any;
-         public billingTypesOptions:any = [];
+        public billingTypesOptions:any = [];
         public frecuencyPayments:any;
-         public frecuencyPaymentsOptions:any = [];
-          public paymentTypes:any;
-         public paymentTypesOptions:any = [];
+        public frecuencyPaymentsOptions:any = [];
+        public paymentTypes:any;
+        public paymentTypesOptions:any = [];
         public carOptions:any=[];
         public cars:any;
         public business:any;
         public businessOptions:any=[];
-         public citiesOptions:any = [];
+        public citiesOptions:any = [];
         public cities:any;
+        public policyOptions:any = [];
+        public policies:any;
+        public annexOptions:any = [];
+        public annexs:any;
 
         error:any;
         toast:boolean = false;
         message:string;
+        public list:boolean = false;
+        public create:boolean = true;
+        itemPolicies:any =[];
+
+        public typeBillingOptions = [
+            {
+                label:'Cliente',
+                value:1
+
+            },
+            {
+                label:'Aseguradora',
+                value:2
+
+            },
+            {
+                label:'Negocio',
+                value:3
+
+            }
+
+        ];
+
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
         
             this.billingForm = this.formBuilder.group({
-                typeBilling:[''],
+                typeBilling:['',Validators.required],
                 idClient:[''],
                 detailsClient:[''],
                 idBusiness:[''],
                 detailBusiness:[''],
                 idInsurance:[''],
+                idUser:[],
                 detailsInsurance:[''],
                 idInsuranceCom:[''],
                 billingNumber:[],
@@ -66,11 +95,36 @@ export class BillingComponent{
                 equalPayments:[''],
                 valueEqualPayments:[''],
                 observationsBilling:[''],
-                totalPrimaValue:[''],
+                totalPrimaValue:['',Validators.required],
                 totalIvaValue:[''],
-                totalBillingValue:['']
+                totalBillingValue:['',Validators.required],
+                phone:[''],
+                address:[''],
+                id:[''],
+                items:['']
                 
             });
+
+            this.billingPolicyForm = this.formBuilder.group({
+                idBilling:[''],
+                idPolicy:['',Validators.compose([Validators.required])],
+                policyNumber:[''],
+                idRamo:[''],
+                idPolicyAnnex:['',Validators.compose([Validators.required])],
+                annexNumber:[''],
+                refNumber:[''],
+                prima:['',Validators.compose([Validators.required])],
+                superBank:['',Validators.compose([Validators.required])], //(solo se guardaran los valores el porcentaje se saca de las polizas itemcar)
+                segCamp:['',Validators.compose([Validators.required])], //(solo se guardaran los valores el porcentaje se saca de las polizas itemcar)
+                issue :[''],                  //(obvio sacara para mostrar el calculo de la relación pero recuerden guardaran el valor no la relación)
+                otherWithIVA2:[''],
+                iva:[''],
+                others:[''],
+                totalValue:['']
+                
+            });
+
+            
 
             this.itemForm = this.formBuilder.group({
             
@@ -92,6 +146,8 @@ export class BillingComponent{
             this.loadBusiness();
             this.loadInsurances();
             this.loadPaymentTypes();
+            this.loadPolicies();
+        
             
     
         }
@@ -139,9 +195,9 @@ export class BillingComponent{
                             label: result.bussinesName
                         }
                         this.insuranceOptions.push(obj);
-                        this.insurances = this.insuranceOptions;
+                        this.clients = this.insuranceOptions;
                     })
-                    console.log('Insurances',this.insurances);
+                    console.log('Insurances clients',this.clients);
             })
             
         }
@@ -215,9 +271,9 @@ export class BillingComponent{
                             label: result.name
                         }
                         this.businessOptions.push(obj);
-                        this.business = this.businessOptions;
+                        this.clients = this.businessOptions;
                     })
-                    console.log('Business',this.business);
+                    console.log('business clients',this.clients);
             })
 
         }
@@ -300,6 +356,68 @@ export class BillingComponent{
                     console.log('Payment Types',this.paymentTypes);
             })
 
+        }
+        loadPolicies(){
+
+            this.http.get(config.url+'policy/list?access_token='+this.local.getUser().token).map((res)=>{
+                console.log('policiessss',res.json());
+                
+                return res.json();
+            }).subscribe((result)=>{
+                     let policies = result.policies;
+                     policies.map((result)=>{
+                        let obj = {
+                            value: result._id,
+                            label: result.policyNumber
+                        }
+                        this.policyOptions.push(obj);
+                        this.policies = this.policyOptions;
+                    })
+                    console.log('Polizas',this.policies);
+            })
+
+        }
+        getAnnexs(event){
+            this.http.get(config.url+`policyAnnex/param/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                     let annexs = result.policyAnnex;
+                     console.log(annexs);
+                     
+                     this.annexOptions = [];
+                     annexs.map((result)=>{
+                        let obj = {
+                            value: result._id,
+                            label: result.annexNumber
+                        }
+                        this.annexOptions.push(obj);
+                        this.annexs = this.annexOptions;
+                    })
+                    console.log('Annexs',this.annexs);
+            })
+            
+        }
+        getAnnexDetail(event){
+            this.http.get(config.url+`policyAnnex/view/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                     let res = result.policyAnnex;
+                     console.log(res);
+                     
+                     this.billingPolicyForm.controls['prima'].setValue(res.totalPrima);
+                     this.billingPolicyForm.controls['refNumber'].setValue(0);
+                     this.billingPolicyForm.controls['segCamp'].setValue(res.segCamp);
+                     this.billingPolicyForm.controls['superBank'].setValue(res.superBank);
+                     this.billingPolicyForm.controls['annexNumber'].setValue(res.annexNumber);
+                     
+            })
+
+        }
+        saveItem(){
+            this.itemPolicies.push(this.billingPolicyForm.value);
+            this.billingPolicyForm.reset();
+            console.log(this.itemPolicies);
+            
         }
 
         getTasa(){
@@ -391,6 +509,74 @@ export class BillingComponent{
                 
             })
 
+    }
+    changeType(type){
+        type.value == 1? this.loadClients():null;
+        type.value == 2? this.loadInsurances():null;
+        type.value == 3? this.loadBusiness():null;
+        
+    }
+    showData(type){
+        let url ='';
+        this.billingForm.value.typeBilling == 1?url = `client/view/${type.value}`:null;
+        this.billingForm.value.typeBilling == 2?url = `insurance/view/${type.value}`:null;
+        this.billingForm.value.typeBilling == 3?url = `business/view/${type.value}`:null;
+
+        this.http.get(config.url+url+`?access_token=`+this.local.getUser().token).map(result=>{
+            return result.json()
+        }).subscribe((res)=>{
+            if(this.billingForm.value.typeBilling == 1){
+                console.log(res.client);
+                this.billingForm.controls['phone'].setValue(res.client.cellPhone);
+                this.billingForm.controls['id'].setValue(res.client.doc);
+                this.billingForm.controls['address'].setValue(res.client.address);
+                
+            }
+            if(this.billingForm.value.typeBilling == 2){
+                console.log(res.insurance);
+                this.billingForm.controls['phone'].setValue(res.insurance.cellPhone);
+                this.billingForm.controls['id'].setValue(res.insurance.ruc);
+                this.billingForm.controls['address'].setValue(res.insurance.address);
+                
+            }
+            if(this.billingForm.value.typeBilling == 3){
+                console.log(res.business);
+                this.billingForm.controls['phone'].setValue(res.business.cellPhone);
+                this.billingForm.controls['id'].setValue(res.business.ruc);
+                this.billingForm.controls['address'].setValue(res.business.address);
+                
+            }
+            
+            
+        })
+        console.log(type);
+        
+    }
+    generateFactura(){
+        this.billingForm.controls['items'].setValue(this.itemPolicies);
+        let request = {
+            billing:this.billingForm.value
+        };
+         this.http.post(config.url+'billing/add?access_token='+this.local.getUser().token,request).map((result)=>{
+                return result.json()
+            }).subscribe(res=>{
+                 if(res.msg == "OK"){
+                       this.loadbillings();
+                        this.toast = true;
+                        this.message = "billing guardada"
+                        this.billingForm.reset();
+                        this.itemPolicies = [];
+                }else{
+                      this.error = true;
+                    this.message = "No tiene privilegios de guardar billing"
+                   
+                }
+                console.log(res);
+    
+                
+            });
+        console.log('generate');
+        
     }
 
 

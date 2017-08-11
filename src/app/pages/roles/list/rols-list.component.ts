@@ -1072,6 +1072,7 @@ export class RolsListComponent {
         //insurance
             
         this.insuranceList?requestTwo.insurance['list'] = true:null;
+         this.insuranceList?requestTwo.insurance['view'] = true:null;
         this.insuranceCreate?requestTwo.insurance['add'] = true:null;
         this.insuranceEdit?requestTwo.insurance['edit'] = true:null;
         this.insuranceDelete?requestTwo.insurance['delete'] = true:null;
@@ -1081,6 +1082,7 @@ export class RolsListComponent {
          //business
             
         this.businessList?requestTwo.business['list'] = true:null;
+        this.businessList?requestTwo.business['view'] = true:null;
         this.businessCreate?requestTwo.business['add'] = true:null;
         this.businessEdit?requestTwo.business['edit'] = true:null;
         this.businessDelete?requestTwo.business['delete'] = true:null;
@@ -1171,6 +1173,7 @@ export class RolsListComponent {
          //client
             
         this.clientList?requestTwo.client['list'] = true:null;
+         this.clientList?requestTwo.client['view'] = true:null;
         this.clientCreate?requestTwo.client['add'] = true:null;
         this.clientEdit?requestTwo.client['edit'] = true:null;
         this.clientDelete?requestTwo.client['delete'] = true:null;
@@ -1282,6 +1285,7 @@ export class RolsListComponent {
          //policy annex
             
         this.policyAnnexList?requestTwo.policyAnnex['list'] = true:null;
+        this.policyAnnexList?requestTwo.policyAnnex['view'] = true:null;
         this.policyAnnexList?requestTwo.policyAnnex['param'] = true:null;
         this.policyAnnexCreate?requestTwo.policyAnnex['add'] = true:null;
         this.policyAnnexEdit?requestTwo.policyAnnex['edit'] = true:null;
