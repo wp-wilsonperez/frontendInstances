@@ -3,7 +3,7 @@
         <div *ngIf="!list"  widget class="card">
             <div class="card-header">
 
-                <span class="text-uppercase">Nueva Factura</span>
+                <span class="text-uppercase">Nueva Cartera</span>
 
                 <div class="widget-controls"> 
                      <div class="col-md-4">
@@ -30,17 +30,17 @@
                     <strong>{{message}}</strong> 
                 </div>
 
-                 <form  [formGroup]="billingForm">
+                 <form  [formGroup]="walletForm">
 
                                     <div class="row">
                                         <div class=" col-md-4">
                                             <div class="form-group"> 
                                                  <label>Tipo de Cobro</label>
                                                 <ng-select (selected)="changeType($event)" class="form-group"
-                                                            [(options)]="typeBillingOptions"
+                                                            [(options)]="typewalletOptions"
                                                             [placeholder]="TipoDeCobro"
                                                             [multiple]="false"
-                                                            formControlName="typeBilling"
+                                                            formControlName="typewallet"
                                                       
                                                         >
                                                 </ng-select>
@@ -60,7 +60,7 @@
                                          </div>
                                             <div class="form-group">
                                                 <label for="">N. Factura</label>
-                                                <input type="text" formControlName="billingNumber" class="form-control" placeholder="Numero Factura">
+                                                <input type="text" formControlName="walletNumber" class="form-control" placeholder="Numero Factura">
                                             </div>
                                            
 
@@ -79,7 +79,7 @@
                                         <div class=" col-md-4">
                                             <div class="form-group"> 
                                                  <label>Fecha Factura</label>
-                                                <input type="date" formControlName="billingDate" class="form-control" placeholder="Fecha Factura">
+                                                <input type="date" formControlName="walletDate" class="form-control" placeholder="Fecha Factura">
                                             </div>
 
                                              <div class="form-group"> 
@@ -122,7 +122,7 @@
                                             </div>
                                              <div class="form-group"> 
                                                     <label>Valor Total</label>
-                                                    <input type="number" formControlName="totalBillingValue" class="form-control bg-primary text-white" placeholder="Valor total">
+                                                    <input type="number" formControlName="totalwalletValue" class="form-control bg-primary text-white" placeholder="Valor total">
                                                 </div>
                                         </div>
                                     </div>
@@ -136,7 +136,7 @@
                         Polizas
                     </div>
                     <div class="card-block">
-                                            <form [formGroup]="billingPolicyForm" class="row form-inline">
+                                            <form [formGroup]="walletPaymentForm" class="row form-inline">
 
                                     <div class="row">
                                          <div class="col-md-10">
@@ -203,11 +203,11 @@
                                     </div>
 
                                      <div class="form-group col-md-2 col-sm-6" *ngIf="create">
-                                        <button [disabled]="!billingPolicyForm.valid" (click)="saveItem()" type="submit" class="btn btn-primary btn-sm">Agregar </button>
+                                        <button [disabled]="!walletPaymentForm.valid" (click)="saveItem()" type="submit" class="btn btn-primary btn-sm">Agregar </button>
                                     </div>
                                     
                                     <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
-                                        <button [disabled]="!billingPolicyForm.valid" (click)="editruta()" type="submit" class="btn btn-primary">Editar</button>
+                                        <button [disabled]="!walletPaymentForm.valid" (click)="editruta()" type="submit" class="btn btn-primary">Editar</button>
                                     </div>
 
 
@@ -269,7 +269,7 @@
                     </table>
                 </div>
                  <div class="btn-wrapper">
-                    <button [disabled]="itemPolicies.length == 0 || !billingForm.valid" type="button" class="btn btn-primary btn-lg transition" (click)="generateFactura()">Generar Factura</button>
+                    <button [disabled]="itemPolicies.length == 0 || !walletForm.valid" type="button" class="btn btn-primary btn-lg transition" (click)="generateFactura()">Generar Factura</button>
                 
                 </div>
 
@@ -283,7 +283,7 @@
         <div *ngIf="list"  class="card">
              <div class="card-header">
 
-                <span class="text-uppercase">Listado de Facturas</span>
+                <span class="text-uppercase">Listado de Carteras</span>
 
                 <div class="widget-controls"> 
                      <div class="col-md-4">
@@ -309,11 +309,11 @@
                         </thead>
                         <tbody>                           
 
-                            <tr *ngFor="let billing of billings">
-                                <td><strong>  {{billing.billingNumber}}  </strong></td>
-                                <td>{{billing.billingDate}}</td>
+                            <tr *ngFor="let wallet of wallets">
+                                <td><strong>  {{wallet.walletNumber}}  </strong></td>
+                                <td>{{wallet.walletDate}}</td>
                                  <td></td>
-                                 <td>{{billing.totalBillingValue}}</td>
+                                 <td>{{wallet.totalwalletValue}}</td>
               
                                
 

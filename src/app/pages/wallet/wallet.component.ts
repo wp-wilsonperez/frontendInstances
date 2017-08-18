@@ -7,21 +7,21 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 
 @Component({
-    selector:'billing-component',
+    selector:'wallet-component',
     encapsulation:  ViewEncapsulation.None,
-    templateUrl: './billing.component.html',
-    styleUrls:['./billing.component.scss']
+    templateUrl: './wallet.component.html',
+    styleUrls:['./wallet.component.scss']
 })
 
-export class BillingComponent{
-        public billingForm:FormGroup;
-        public billingPolicyForm:FormGroup;
+export class WalletComponent{
+        public walletForm:FormGroup;
+        public walletPaymentForm:FormGroup;
         public editForm:FormGroup;
         public itemForm:FormGroup;
         public helpLinks:any;
-        public billings:any;
+        public wallets:any;
         public helpLinkId:any;
-        public billingId:any;
+        public walletId:any;
         public insurances:any = [];
         public insuranceOptions:any = [];
         public deductibleOptions:any = [];
@@ -32,8 +32,8 @@ export class BillingComponent{
         public clients:any;
         public clientsOptions:any = [];
         public deductibles:any;
-        public billingTypes:any;
-        public billingTypesOptions:any = [];
+        public walletTypes:any;
+        public walletTypesOptions:any = [];
         public frecuencyPayments:any;
         public frecuencyPaymentsOptions:any = [];
         public paymentTypes:any;
@@ -56,7 +56,7 @@ export class BillingComponent{
         public create:boolean = true;
         itemPolicies:any =[];
 
-        public typeBillingOptions = [
+        public typewalletOptions = [
             {
                 label:'Cliente',
                 value:1
@@ -77,8 +77,8 @@ export class BillingComponent{
 
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
         
-            this.billingForm = this.formBuilder.group({
-                typeBilling:['',Validators.required],
+            this.walletForm = this.formBuilder.group({
+                typewallet:['',Validators.required],
                 idClient:[''],
                 detailsClient:[''],
                 idBusiness:[''],
@@ -87,26 +87,35 @@ export class BillingComponent{
                 idUser:[],
                 detailsInsurance:[''],
                 idInsuranceCom:[''],
-                billingNumber:[],
-                billingDate:[''],
+                walletNumber:[],
+                walletDate:[''],
                 firstPaymentDate:[],
                 idPaymentType:[''],
                 initialPayment:[],
                 equalPayments:[''],
                 valueEqualPayments:[''],
-                observationsBilling:[''],
+                observationswallet:[''],
                 totalPrimaValue:['',Validators.required],
                 totalIvaValue:[''],
-                totalBillingValue:['',Validators.required],
+                totalwalletValue:['',Validators.required],
                 phone:[''],
                 address:[''],
+                // wallet
                 id:[''],
-                items:['']
+                items:[''],
+                dPoliza:[''],
+                idPolicyAnnex:[''],// (se relacioanra con un anexo que peude tener uno o varios cars o extras)
+                idBilling:[''],
+                detailsBillingData:[''], //(seta para guardar el details de si factura a un cliente, bussines o insurance para no repetir como en factura ya que solo nos interesa los datos de cobros)
+                compNumber:[''] ,//(autoincremental)
+                expirationDate:[''],
+                paymentValue:[''],
+                detailsWallet:['']
                 
             });
 
-            this.billingPolicyForm = this.formBuilder.group({
-                idBilling:[''],
+            this.walletPaymentForm = this.formBuilder.group({
+                idwallet:[''],
                 idPolicy:['',Validators.compose([Validators.required])],
                 policyNumber:[''],
                 idRamo:[''],
@@ -120,7 +129,20 @@ export class BillingComponent{
                 otherWithIVA2:[''],
                 iva:[''],
                 others:[''],
-                totalValue:['']
+                totalValue:[''],
+                //wallet payment
+                idWallet:[''],
+                compPayment:[''],// (numero autoincremntable)
+                idMoneyTipe:[''],
+                document:[''],
+                idBank:[''],
+                details:[''],
+                ctaCteNumber:[''],
+                expirationDate:[''],
+                paymentValue:[''],
+                balance:[''],
+                paymentDate:[''],
+                moneyObservation:['']
                 
             });
 
@@ -128,7 +150,7 @@ export class BillingComponent{
 
             this.itemForm = this.formBuilder.group({
             
-                idbillingAnnex:[],
+                idwalletAnnex:[],
                 idCar:[],
                 tasa:[],
                 idCarUse:[],
@@ -141,7 +163,7 @@ export class BillingComponent{
                
             });
 
-            this.loadbillings();
+            this.loadwallets();
             this.loadClients();
             this.loadBusiness();
             this.loadInsurances();
@@ -152,13 +174,13 @@ export class BillingComponent{
     
         }
 
-        loadbillings(){
-            this.http.get(config.url+'billing/list?access_token='+this.local.getUser().token).map((res)=>{
+        loadwallets(){
+            this.http.get(config.url+'wallet/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                    this.billings = result.billings;
+                    this.wallets = result.wallets;
 
-                    console.log('billings',this.billings);
+                    console.log('wallets',this.wallets);
             })
             
         }
@@ -318,21 +340,21 @@ export class BillingComponent{
 
         }
 
-        loadbillingTypes(){
+        loadwalletTypes(){
 
-             this.http.get(config.url+'billingType/list?access_token='+this.local.getUser().token).map((res)=>{
+             this.http.get(config.url+'walletType/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                     let billingTypes = result.billingTypes;
-                     billingTypes.map((result)=>{
+                     let walletTypes = result.walletTypes;
+                     walletTypes.map((result)=>{
                         let obj = {
                             value: result._id,
                             label: result.name 
                         }
-                        this.billingTypesOptions.push(obj);
-                        this.billingTypes = this.billingTypesOptions;
+                        this.walletTypesOptions.push(obj);
+                        this.walletTypes = this.walletTypesOptions;
                     })
-                    console.log('billing Types',this.billingTypes);
+                    console.log('wallet Types',this.walletTypes);
             })
 
         }
@@ -404,29 +426,29 @@ export class BillingComponent{
                      let res = result.policyAnnex;
                      console.log(res);
                      
-                     this.billingPolicyForm.controls['prima'].setValue(res.totalPrima);
-                     this.billingPolicyForm.controls['refNumber'].setValue(0);
-                     this.billingPolicyForm.controls['segCamp'].setValue(res.segCamp);
-                     this.billingPolicyForm.controls['superBank'].setValue(res.superBank);
-                     this.billingPolicyForm.controls['annexNumber'].setValue(res.annexNumber);
+                     this.walletPaymentForm.controls['prima'].setValue(res.totalPrima);
+                     this.walletPaymentForm.controls['refNumber'].setValue(0);
+                     this.walletPaymentForm.controls['segCamp'].setValue(res.segCamp);
+                     this.walletPaymentForm.controls['superBank'].setValue(res.superBank);
+                     this.walletPaymentForm.controls['annexNumber'].setValue(res.annexNumber);
                      
             })
 
         }
         saveItem(){
-            this.itemPolicies.push(this.billingPolicyForm.value);
-            this.billingPolicyForm.reset();
+            this.itemPolicies.push(this.walletPaymentForm.value);
+            this.walletPaymentForm.reset();
             console.log(this.itemPolicies);
             
         }
 
         getTasa(){
 
-        if(this.billingForm.value.idInsurance != ''&& this.billingForm.value.idRamo != '' ){
-            this.http.get(config.url+'billing/ramoPercentageValue?access_token='+this.local.getUser().token+'&idInsurance='+this.billingForm.value.idInsurance+'&idRamo='+this.billingForm.value.idRamo)
+        if(this.walletForm.value.idInsurance != ''&& this.walletForm.value.idRamo != '' ){
+            this.http.get(config.url+'wallet/ramoPercentageValue?access_token='+this.local.getUser().token+'&idInsurance='+this.walletForm.value.idInsurance+'&idRamo='+this.walletForm.value.idRamo)
          .toPromise().then(result=>{
                          let apiResult = result.json();
-                         this.billingForm.controls['percentageRamo'].setValue(apiResult.value);
+                         this.walletForm.controls['percentageRamo'].setValue(apiResult.value);
                       console.log('getTasa result: ',apiResult.value);
           
          })
@@ -437,54 +459,54 @@ export class BillingComponent{
 
     }
 
-        savebilling(){
-            this.http.post(config.url+'billing/add?access_token='+this.local.getUser().token,this.billingForm.value).map((result)=>{
+        savewallet(){
+            this.http.post(config.url+'wallet/add?access_token='+this.local.getUser().token,this.walletForm.value).map((result)=>{
                 
                 
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
-                       this.loadbillings();
+                       this.loadwallets();
                         this.toast = true;
-                        this.message = "billing guardada"
-                        this.billingForm.reset();
+                        this.message = "wallet guardada"
+                        this.walletForm.reset();
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar billing"
+                    this.message = "No tiene privilegios de guardar wallet"
                    
                 }
                 console.log(res);
-               this.loadbillings();
+               this.loadwallets();
                 
             })
         }
-        idAssign(billingId){
-                this.billingId = billingId;
+        idAssign(walletId){
+                this.walletId = walletId;
         }
 
-        billingDetail(billing){
+        walletDetail(wallet){
     
-        this.billingId = billing._id;
-        console.log(this.billingId);
-        console.log(this.billingId);
+        this.walletId = wallet._id;
+        console.log(this.walletId);
+        console.log(this.walletId);
         
-        this.editForm.setValue({name: billing.name,month:billing.month,interest:billing.interest,totalMonths:billing.totalMonths});
+        this.editForm.setValue({name: wallet.name,month:wallet.month,interest:wallet.interest,totalMonths:wallet.totalMonths});
         
         
         
     }
-    editbilling(){
+    editwallet(){
             
-            this.http.post(config.url+`billing/edit/${this.billingId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`wallet/edit/${this.walletId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.billings = res.update; 
+                        this.wallets = res.update; 
                         this.toast = true;
-                        this.message = "billing editado"
+                        this.message = "wallet editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar billings"
+                    this.message = "No tiene privilegios de editar wallets"
                 }
                 
             })
@@ -493,15 +515,15 @@ export class BillingComponent{
         
         
     }
-    deletebilling(){
+    deletewallet(){
 
-        this.http.delete(config.url+`billing/delete/${this.billingId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`wallet/delete/${this.walletId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.billings = res.update; 
+                        this.wallets = res.update; 
                         this.toast = true;
-                        this.message = "billing Borrado"
+                        this.message = "wallet Borrado"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"
@@ -518,32 +540,32 @@ export class BillingComponent{
     }
     showData(type){
         let url ='';
-        this.billingForm.value.typeBilling == 1?url = `client/view/${type.value}`:null;
-        this.billingForm.value.typeBilling == 2?url = `insurance/view/${type.value}`:null;
-        this.billingForm.value.typeBilling == 3?url = `business/view/${type.value}`:null;
+        this.walletForm.value.typewallet == 1?url = `client/view/${type.value}`:null;
+        this.walletForm.value.typewallet == 2?url = `insurance/view/${type.value}`:null;
+        this.walletForm.value.typewallet == 3?url = `business/view/${type.value}`:null;
 
         this.http.get(config.url+url+`?access_token=`+this.local.getUser().token).map(result=>{
             return result.json()
         }).subscribe((res)=>{
-            if(this.billingForm.value.typeBilling == 1){
+            if(this.walletForm.value.typewallet == 1){
                 console.log(res.client);
-                this.billingForm.controls['phone'].setValue(res.client.cellPhone);
-                this.billingForm.controls['id'].setValue(res.client.doc);
-                this.billingForm.controls['address'].setValue(res.client.address);
+                this.walletForm.controls['phone'].setValue(res.client.cellPhone);
+                this.walletForm.controls['id'].setValue(res.client.doc);
+                this.walletForm.controls['address'].setValue(res.client.address);
                 
             }
-            if(this.billingForm.value.typeBilling == 2){
+            if(this.walletForm.value.typewallet == 2){
                 console.log(res.insurance);
-                this.billingForm.controls['phone'].setValue(res.insurance.cellPhone);
-                this.billingForm.controls['id'].setValue(res.insurance.ruc);
-                this.billingForm.controls['address'].setValue(res.insurance.address);
+                this.walletForm.controls['phone'].setValue(res.insurance.cellPhone);
+                this.walletForm.controls['id'].setValue(res.insurance.ruc);
+                this.walletForm.controls['address'].setValue(res.insurance.address);
                 
             }
-            if(this.billingForm.value.typeBilling == 3){
+            if(this.walletForm.value.typewallet == 3){
                 console.log(res.business);
-                this.billingForm.controls['phone'].setValue(res.business.cellPhone);
-                this.billingForm.controls['id'].setValue(res.business.ruc);
-                this.billingForm.controls['address'].setValue(res.business.address);
+                this.walletForm.controls['phone'].setValue(res.business.cellPhone);
+                this.walletForm.controls['id'].setValue(res.business.ruc);
+                this.walletForm.controls['address'].setValue(res.business.address);
                 
             }
             
@@ -553,22 +575,22 @@ export class BillingComponent{
         
     }
     generateFactura(){
-        this.billingForm.controls['items'].setValue(this.itemPolicies);
+        this.walletForm.controls['items'].setValue(this.itemPolicies);
         let request = {
-            billing:this.billingForm.value
+            wallet:this.walletForm.value
         };
-         this.http.post(config.url+'billing/add?access_token='+this.local.getUser().token,request).map((result)=>{
+         this.http.post(config.url+'wallet/add?access_token='+this.local.getUser().token,request).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
-                       this.loadbillings();
+                       this.loadwallets();
                         this.toast = true;
-                        this.message = "billing guardada"
-                        this.billingForm.reset();
+                        this.message = "wallet guardada"
+                        this.walletForm.reset();
                         this.itemPolicies = [];
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar billing"
+                    this.message = "No tiene privilegios de guardar wallet"
                    
                 }
                 console.log(res);

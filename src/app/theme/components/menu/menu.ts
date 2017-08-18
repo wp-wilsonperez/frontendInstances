@@ -297,6 +297,62 @@ export const menuItems = [
       
     ]
   },
+  {
+    title: 'Cartera',
+    routerLink: 'cartera',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+
+      {
+        title: 'Carteras',
+        routerLink: 'cartera/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
+   {
+    title: 'Siniestros',
+    routerLink: 'siniestros',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+
+      {
+        title: 'Listado de Siniestros',
+        routerLink: 'siniestros/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Listado de Documentacion',
+        routerLink: 'siniestros/documentacion',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Documentacion Ramo',
+        routerLink: 'siniestros/documentacion-ramo',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      
+    ]
+  },
    {
     title: 'Deducibles',
     routerLink: 'seguros',

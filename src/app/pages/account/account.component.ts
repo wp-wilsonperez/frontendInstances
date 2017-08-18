@@ -46,7 +46,7 @@ export class AccountComponent{
           
             this.formAccount.setValue({
                     name: this.account.account.name,
-                    description: this.account.account.description,
+                    description: this.account.account.description,//description
                     parking:this.account.account.parking,
                     logo: '',
                     img1:'',
@@ -78,6 +78,8 @@ export class AccountComponent{
    
 
     Object.assign(this.formAccount.value, request);
+    console.log('this is the request',this.formAccount.value);
+    
 
     this.http.post(config.url+'account/edit/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token,this.formAccount.value).toPromise().then(result=>{
 

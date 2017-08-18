@@ -291,6 +291,14 @@ export class RolsListComponent {
     public bankInsuranceDelete:boolean = false;
     public bankInsuranceEnable:boolean = false;
 
+    //Sinister
+
+    public sinisterList:boolean = false;
+    public sinisterCreate:boolean = false;
+    public sinisterEdit:boolean = false;
+    public sinisterDelete:boolean = false;
+    public sinisterEnable:boolean = false;
+
 
 
     //checkbox log
@@ -575,6 +583,14 @@ export class RolsListComponent {
                 this.bankInsuranceEdit = false;
                 this.bankInsuranceDelete = false;
                 this.bankInsuranceEnable = false;
+
+                //bank insurance
+                
+                this.sinisterList = false; 
+                this.sinisterCreate = false;
+                this.sinisterEdit = false;
+                this.sinisterDelete = false;
+                this.sinisterEnable = false;
 
             
            
@@ -989,6 +1005,15 @@ export class RolsListComponent {
                
              }
 
+             if(this.grant.sinister != undefined){
+                this.grant.sinister.list == true ?   this.sinisterList = true:    this.sinisterList = false;
+                this.grant.sinister.add   == true ?  this.sinisterCreate = true:  this.sinisterCreate = false; 
+                this.grant.sinister.edit  == true ?  this.sinisterEdit = true:    this.sinisterEdit = false;
+                this.grant.sinister.delete  == true? this.sinisterDelete = true:  this.sinisterDelete = false; 
+                this.grant.sinister.enable  == true? this.sinisterEnable = true:  this.sinisterEnable = false; 
+               
+             }
+
              //
 
 
@@ -1032,7 +1057,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1326,6 +1351,28 @@ export class RolsListComponent {
         this.bankInsuranceEdit?requestTwo.bankInsurance['edit'] = true:null;
         this.bankInsuranceDelete?requestTwo.bankInsurance['delete'] = true:null;
         this.bankInsuranceEnable?requestTwo.bankInsurance['enable'] = true:null
+
+        //sinister
+
+        this.sinisterList?requestTwo.sinister['list'] = true:null;
+        this.sinisterCreate?requestTwo.sinister['add'] = true:null;
+        this.sinisterEdit?requestTwo.sinister['edit'] = true:null;
+        this.sinisterDelete?requestTwo.sinister['delete'] = true:null;
+        this.sinisterEnable?requestTwo.sinister['enable'] = true:null;
+
+        //documentation sinister
+        this.sinisterList?requestTwo.sinisterDocumentation['list'] = true:null;
+        this.sinisterList?requestTwo.sinisterDocumentation['add'] = true:null;
+        this.sinisterList?requestTwo.sinisterDocumentation['edit'] = true:null;
+        this.sinisterList?requestTwo.sinisterDocumentation['delete'] = true:null;
+        this.sinisterList?requestTwo.sinisterDocumentation['enable'] = true:null;
+
+         //documentation ramo sinister
+        this.sinisterList?requestTwo.sinisterDocumentationRamo['list'] = true:null;
+        this.sinisterList?requestTwo.sinisterDocumentationRamo['add'] = true:null;
+        this.sinisterList?requestTwo.sinisterDocumentationRamo['edit'] = true:null;
+        this.sinisterList?requestTwo.sinisterDocumentationRamo['delete'] = true:null;
+        this.sinisterList?requestTwo.sinisterDocumentationRamo['enable'] = true:null;
        
 
 

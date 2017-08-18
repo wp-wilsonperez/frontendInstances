@@ -68,7 +68,7 @@ export class AyudaListComponent{
         console.log(this.helpLinkId);
         console.log(helpLink);
         
-        this.editForm.setValue({name: helpLink.name,link: ''});
+        this.editForm.setValue({name: helpLink.name,link: helpLink.link});
         
         
         

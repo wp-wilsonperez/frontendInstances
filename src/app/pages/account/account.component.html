@@ -51,21 +51,10 @@
                                                 <div class="col-md-6 col-12 bottom-15">
                                                     <h6>Estacionamiento</h6>
                                                     <div class="form-group">
-                                                        <div class="custom-controls-stacked">
-                                                         
-                                                            <label class="custom-control custom-radio">
-                                                                <input type="radio" value="true" name="parking" formControlName="parking" class="custom-control-input radio-primary">
-                                                                <span class="custom-control-indicator"></span>
-                                                                <span class="custom-control-description">Si</span>
-                                                            </label>
-                                                         
-                                                            <label class="custom-control custom-radio">
-                                                                <input type="radio" value="false" name="parking" formControlName="parking" class="custom-control-input radio-danger">
-                                                                <span class="custom-control-indicator"></span>
-                                                                <span class="custom-control-description">No</span>
-                                                            </label>
-                                                        
-                                                        </div>
+                                                        <select class="form-control" formControlName="parking" >
+                                                            <option value="true">Si</option>
+                                                            <option value="false">No</option>
+                                                        </select>
                                                     </div>
 
                                                 </div>

@@ -14,8 +14,11 @@ export class MultipleImageUploaderComponent {
     public images: string[] = [];
     public logo:any;
     public input:any;
-    public logoImg:any;
+    public logoImg:any={
+        accountImg:''
+    };
     public secImgs:any = [];
+    
   
     constructor( private changeDetectorRef: ChangeDetectorRef,public http:Http,public local:UserSessionService ) {
     }    
