@@ -209,7 +209,7 @@
                                                             <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('nameWork').value != '' && clientForm.get('nameWork').hasError('required'), 'has-success' : !clientForm.get('nameWork').hasError('required') }">
                                                                 <label class="form-control-label">Coordenadas</label>
                                                                 <div class="input-group">
-                                                                        <div (click)="resize()" data-toggle="modal" data-target="#map-modal" class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                                                                        <div (click)="resize()" class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                                                                         <input formControlName="nameWork" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('nameWork').hasError('required'), 'form-control-success' :  !clientForm.get('nameWork').hasError('required') }" type="text"> 
                                                                 </div>
                                                             

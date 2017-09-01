@@ -1,4 +1,4 @@
-
+import { DependienteComponent } from './dependiente/dependiente.component';
 import { DataTableModule } from "angular2-datatable";
 import { PipesModule } from '../../theme/pipes/pipes.module';
 import { NgModule } from '@angular/core';
@@ -9,11 +9,13 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 import { ClienteComponent } from './list/cliente.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
+import {SelectModule} from 'angular2-select';
 
 
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
-  { path: 'listado', component: ClienteComponent, data: { breadcrumb: 'Listado' } }
+  { path: 'listado', component: ClienteComponent, data: { breadcrumb: 'Listado' } },
+  { path: 'dependiente', component: DependienteComponent, data: { breadcrumb: 'Dependientes' } }
 ];
 
 @NgModule({
@@ -26,11 +28,12 @@ export const routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    AgmCoreModule
+    AgmCoreModule,
+    SelectModule
   ],
   declarations: [
 
-    ClienteComponent,ImageUploaderComponent
+    ClienteComponent,ImageUploaderComponent,DependienteComponent
 
   ],
   providers: []

@@ -7,13 +7,13 @@
 
                 <div class="widget-controls"> 
                      <div class="col-md-4">
-                               <button data-toggle="modal" data-target="#new-city" class="btn btn-primary btn-rounded pull-right" ><i class="fa fa-plus"></i></button>
+                               <button (click)="changeView()" class="btn btn-primary btn-rounded pull-right" ><i [ngClass]="{'fa-plus':!create,'fa-list':create}"class="fa"></i></button>
                         </div>                        
                    
                 </div>        
             </div>
             
-            <div class="card-block widget-body">
+            <div *ngIf="!create" class="card-block widget-body">
                   
 
                         <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -107,268 +107,489 @@
                     </table>
                 </div>
             </div>
+            <div *ngIf="create"  class="card-block widget-body">
+                    <div class="col-lg-12">
+                            <div class="clearfix">
+                                <ul class="nav nav-tabs top pull-left w-100p">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#ta">Datos de siniestro</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tb">Siniestro Carro</a>
+                                    </li>            
+                                </ul>
+                            </div>
+                            <div class="tab-content top">
+                                <div class="tab-pane active" id="ta">
+                                      <form  [formGroup]="siniestroForm"  class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+            
+                                                    <label for="exampleSelect1">Fecha Siniestro</label>
+                                                    <input  type="date" formControlName="dateSinister" class="form-control">
+                                                        
+            
+                                                </div>
+            
+                                                <div class="form-group">
+                                                    
+                                                    <label for="exampleSelect1">Fecha Notificacion</label>
+                                                    <input  type="date" formControlName="dateNotification" class="form-control">
+                                                        
+            
+                                                </div>
+            
+                                                <div class="form-group">
+            
+                                                    <label for="exampleSelect1">Ramo</label>
+                                                    <ng-select
+                                                        (selected)="getTasa()"
+                                                        [(options)]="ramos"
+                                                        [placeholder]="Ramos"
+                                                        [multiple]="false"
+                                                        formControlName="idRamo">
+                                                    </ng-select>
+                                                        
+            
+                                                </div>
+                                                <div class="form-group">
+                                                    
+                                                <label for="exampleSelect1">Estado de Siniestro</label>
+                                                <ng-select
+                                              
+                                                    [(options)]="states"
+                                        
+                                                    [multiple]="false"
+                                                    formControlName="sinisterState">
+                                                </ng-select>
+                                                    
+            
+                                            </div>
+                                                <div class="form-group">
+                                                            
+                                                    <label for="exampleSelect1">Poliza</label>
+                                                    <ng-select
+                                                        [(options)]="policies"
+                                                        [placeholder]="polizas"
+                                                        (selected)="selectPoliza($event)"
+                                                        [multiple]="false"
+                                                        formControlName="idPoliza"
+                                                        >
+                                                    </ng-select>
+                                                        
+            
+                                                </div>
+                                                <div class="form-group">
+                                                    
+                                                    <label for="exampleSelect1">Anexos de Poliza</label>
+                                                    <ng-select
+                                                        [(options)]="policyAnnexs"
+                                                        [placeholder]="polizas"
+                                                        (selected)="selectPolizaAnnex($event)"
+                                                        [multiple]="false"
+                                                        formControlName="idPolicyAnnex"
+                                                        >
+                                                    </ng-select>
+                                                        
+            
+                                                </div>
+                                                <div class="row form-group">  
+                                                        <div class="col-md-6"> 
+                                                                <label for="">F. inicio</label>
+                                                                <input disabled formControlName="fechaInicio" type="date" class="form-control bg-light ">   
+                                                             </div>
+                                                             <div class="col-md-6"> 
+                                                                 <label for="">F. fin</label>
+                                                                    <input disabled type="date" formControlName="fechaFin" class="form-control bg-light ">    
+                                                            </div>
+                                                    
+                                                </div>
+                                                <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">Valor Asegurado</label>
+                                                        <input disabled  type="number" formControlName="valorAsegurado" class="form-control bg-primary text-white">
+                                                            
+            
+                                                </div>
+                                                <div class="form-group">
+                                                    
+                                                    <label for="exampleSelect1">Nombre de Compania</label>
+                                                    <input type="text" formControlName="compName" class="form-control bg-warning text-white">
+                                                        
+            
+                                            </div>
+                                                <div class="form-group">
+                                                    
+                                                    <label for="exampleSelect1">Cliente asegurado</label>
+                                                    <input disabled  type="text" formControlName="clientInsured" class="form-control bg-warning text-white">
+                                                        
+            
+                                            </div>
+                                            <div class="form-group">
+                                                
+                                                <label for="exampleSelect1">Beneficiario</label>
+                                                <input   type="text" formControlName="beneficiary" class="form-control bg-warning text-white">
+                                                    
+            
+                                        </div>
+                                               
+            
+                                            </div>
+            
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                                
+                                                        <label for="exampleSelect1">Cliente</label>
+                                                        <ng-select
+                                                            [(options)]="clients"
+                                                            [placeholder]="Clientes"
+                                                            (selected)="selectClient($event)"
+                                                            [multiple]="false"
+                                                            formControlName="idClient"
+                                                            >
+                                                        </ng-select>
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                            
+                                                        <label for="exampleSelect1">Nombre Cliente</label>
+                                                        <input disabled type="text" formControlName="nombreCliente" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                            
+                                                        <label for="exampleSelect1">Cedula o Ruc</label>
+                                                        <input disabled type="text" formControlName="cedCliente" class="form-control bg-light">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                            
+                                                    <label for="exampleSelect1">Direccion</label>
+                                                    <input disabled type="text" formControlName="direccionCliente" class="form-control bg-light">
+                                                        
+            
+                                                </div>
+            
+            
+                                            
+                                            </div>
+            
+            
+                                
+            
+                                        
+                                        </form>
+                                </div>
+                                <div class="tab-pane" id="tb">
+                                        <form  [formGroup]="siniestroCarForm"  class="row">
+
+                                                <div class="col-md-6">
+            
+                                                    <div class="form-group">
+                                                                
+                                                        <label for="exampleSelect1">Seleccione Auto</label>
+                                                        <ng-select
+                                                            [(options)]="cars"
+                                                            [placeholder]="Autos"
+                                                            (selected)="selectCar($event)"
+                                                            [multiple]="false"
+                                                            formControlName="idCar"
+                                                            >
+                                                        </ng-select>
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                            
+                                                        <label for="exampleSelect1">Matricula</label>
+                                                        <input disabled type="text" formControlName="matricula" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                            
+                                                        <label for="exampleSelect1">Marca</label>
+                                                        <input disabled type="text" formControlName="marca" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                            
+                                                        <label for="exampleSelect1">Modelo</label>
+                                                        <input disabled type="text" formControlName="modelo" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                        
+                                                    <label for="exampleSelect1">Diagnosis del siniestro</label>
+                                                    <textarea  formControlName="sinisterDiagnosis" class="bg-light form-control"></textarea>
+                                                        
+        
+                                                </div>
+                                                <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">Valor del Siniestro</label>
+                                                        <input  type="number" formControlName="sinisterValue" class="bg-primary text-white form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">Otros 3 </label>
+                                                        <input  type="text" formControlName="others3" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">No Cubiertos </label>
+                                                        <input  type="text" formControlName="notCovered" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">Observacion no cubiertos </label>
+                                                        <input  type="text" formControlName="observationNotCovered" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">Liquidacion </label>
+                                                        <input  type="text" formControlName="liquidation" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">Fecha de Liquidacion</label>
+                                                        <input  type="text" formControlName="liquidationDate" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                
+                                                    <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">Fecha de entrega</label>
+                                                        <input  type="text" formControlName="deliverDate" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                               
+                                                    
+                                                   
+            
+                                                </div>
+            
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                            <label for="">Lugar del siniestro</label>
+                                                            <input placeholder="" formControlName="idCar" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control address-autocomplete" #search >
+                                                   
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                            
+                                                        <label for="exampleSelect1">Taller </label>
+                                                        <input type="text" formControlName="workshop" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">Arreglo</label>
+                                                        <input  type="text" formControlName="arrangement" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                        
+                                                        <label for="exampleSelect1">Rasa</label>
+                                                        <input  type="text" formControlName="rasa" class="bg-light form-control">
+                                                            
+            
+                                                    </div>
+                                                    <div class="form-group">
+                                                            
+                                                            <label for="exampleSelect1">Costo Medico</label>
+                                                            <input  type="text" formControlName="medicalExpense" class="bg-light form-control">
+                                                                
+                
+                                                        </div>
+                                                        <div class="form-group">
+                                                                
+                                                                <label for="exampleSelect1">RC</label>
+                                                                <input  type="text" formControlName="rc" class="bg-light form-control">
+                                                                    
+                    
+                                                            </div>
+                                                        <div class="form-group">
+                                                                
+                                                                <label for="exampleSelect1">Valor Deducible</label>
+                                                                <input  type="text" formControlName="deductibleValue" class="bg-light form-control">
+                                                                    
+                    
+                                                            </div>
+                                                        <div class="form-group">
+                                                                
+                                                                <label for="exampleSelect1">Depreciacion</label>
+                                                                <input  type="text" formControlName="depreciation" class="bg-light form-control">
+                                                                    
+                    
+                                                            </div>
+                                                            <div class="form-group">
+                                                                
+                                                                <label for="exampleSelect1">Otros 1 </label>
+                                                                <input  type="text" formControlName="others1" class="bg-light form-control">
+                                                                    
+                    
+                                                            </div>
+                                                            <div class="form-group">
+                                                                
+                                                                <label for="exampleSelect1">Otros 2 </label>
+                                                                <input  type="text" formControlName="others2" class="bg-light form-control">
+                                                                    
+                    
+                                                            </div>
+                       
+                                                        
+                                                        
+                                                </div>
+                                              
+                                               
+            
+            
+                                    
+            
+                                            
+                                            </form>
+
+                                          <div widget class="card">  
+                                                <div class="card-header">
+                                                        <span>Documentacion</span>
+                                                         
+                                                    </div> 
+                                              <div class="card-block widget-body">
+                                                    <form [formGroup]="siniestroCarDocumentationForm" class="row form-inline">
+                                                            
+                                                        <div class="col-md-10">
+                                                                    <div class="row row-input">
+                                                                    <div class="col-md-4">
+                                                                        <label for=""> Siniestro Ramo</label>
+                                                                    <ng-select
+                                                                        [(options)]="docs"
+                                                                        [placeholder]="Origen"
+                                                                        [multiple]="false"
+                                                                        formControlName="idSinisterDocumentationRamo">
+                                                                    </ng-select>
+                    
+                                                                    </div>
+                    
+                                                                    <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                                                                        <label for="">Cantidad</label>
+                                                                            <input type="text" formControlName="quantity" class="form-control" placeholder="">
+                                                                        </div>
+                                                                    
+                                                                
+                                                                    <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                                                                        <label for="">Descripcion</label>
+                                                                                <input type="text" formControlName="description" class="form-control" placeholder="">
+                                                                            </div>
+                                                                        
+                                                                    
+                                                                    </div>
+                                                                    <div class="row row-input">
+                                                                            <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                                                                                    <label for="">Responsable de Recepcion</label>
+                                                                                            <input type="text" formControlName="responsibleReception" class="form-control" placeholder="">
+                                                                                        </div>
+                                                                                    <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                                                                                        <label for="">Fecha de Recepcion</label>
+                                                                                            <input type="date" formControlName="receptionDate" class="form-control" placeholder="">
+                                                                                        </div>
+                                                                                        <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                                                                                                <label for="">Fecha de Envio</label>
+                                                                                                    <input type="date" formControlName="sendDate" class="form-control" placeholder="">
+                                                                                                </div>
+                                                                
+                                                                    
+                                                        
+                                                                    </div>
+                    
+                                                        </div>
+                                                        
+                                                            
+                                                        <div class="form-group col-md-2 col-sm-6" *ngIf="createDoc">
+                                                            <button [disabled]="!siniestroCarDocumentationForm.valid" (click)="addDoc()" type="submit" class="btn btn-primary">Guardar</button>
+                                                        </div>
+                                                        
+                                                        <div class="form-group col-md-2 col-sm-6" *ngIf="!createDoc">
+                                                            <button [disabled]="!siniestroCarDocumentationForm.valid" (click)="editruta()" type="submit" class="btn btn-primary">Editar</button>
+                                                        </div>
+                                                            
+                                                                                            
+                                                                                             
+                                                                                            
+                                                                                            
+                                                    </form> 
+                                                    <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Siniestro Ramo</th>
+                                                                        <th>Cantidad</th>
+                                                                        <th>Descripcion</th>
+                                                                        <th>Fecha Recepcion</th>
+                                                                        <th>Acciones</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let docSiniestroRamo of docSiniestroRamos">
+                                                                        <td>{{docSiniestroRamo.idSinisterDocumentationRamo}}</td>
+                                                                        <td>{{docSiniestroRamo.quantity}}</td>
+                                                                        <td>{{docSiniestroRamo.description}}</td>
+                                                                        <td>{{docSiniestroRamo.receptionDate}}</td>
+                                                                   
+                                                               
+                                                                    </tr>
+                                                                   
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                             
+                                              </div> 
+                                                
+                                          </div>
+
+                                         
+
+
+                                        
+                                
+                                
+                          
+                          
+                          
+                          
+                          
+                          
+                                        </div>
+                                
+                               
+                            </div>                   
+                        </div> 
+            </div>
+            <button type="submit" class="btn btn-primary transition">Guardar</button>
         </div>
     </div>
 </div>
 
-
-<div class="modal fade" id="new-city" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header state modal-primary">
-                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-file-o"></i>Nueva siniestro</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                </div>
-                                <div class="modal-body">
-                                            <div class="col-lg-12">
-                                                <div class="clearfix">
-                                                    <ul class="nav nav-tabs top pull-left w-100p">
-                                                        <li class="nav-item">
-                                                            <a class="nav-link active" data-toggle="tab" href="#ta">Datos de siniestro</a>
-                                                        </li>
-                                                                          
-                                                    </ul>
-                                                </div>
-                                                <div class="tab-content top">
-                                                    <div class="tab-pane active" id="ta">
-                                                          <form  [formGroup]="siniestroForm"  class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">siniestro Numero</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Certificado</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Ramo</label>
-                                                                        <ng-select
-                                                                            (selected)="getTasa()"
-                                                                            [(options)]="ramos"
-                                                                            [placeholder]="Ramos"
-                                                                            [multiple]="false"
-                                                                            formControlName="idRamo">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Cliente</label>
-                                                                        <ng-select
-                                                                            [(options)]="clients"
-                                                                            [placeholder]="Clientes"
-                                                                            [multiple]="false"
-                                                                            formControlName="idClient">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Grupo Cliente</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Vigencia Inicio</label>
-                                                                        <input  type="date" formControlName="startDate" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Forma siniestro</label>
-                                                                        <ng-select
-                                                                            [(options)]="policyTypes"
-                                                                            [placeholder]="Types"
-                                                                            [multiple]="false"
-                                                                            formControlName="idPolicyType">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Forma  de Pago</label>
-
-                                                                        
-                                                                        <ng-select
-                                                                            [(options)]="paymentTypes"
-                                                                            [placeholder]="Types"
-                                                                            [multiple]="false"
-                                                                            formControlName="idPaymentType">
-                                                                        </ng-select>
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Ciudad</label>
-                                                                        <ng-select
-                                                                            [(options)]="cities"
-                                                                            [placeholder]="Ciudades"
-                                                                            [multiple]="false"
-                                                                            formControlName="idCity">
-                                                                        </ng-select>
-                                                                    </div>
-
-
-                                                                
-
-                                                                                            
-                                                                    
-                                                                </div>
-
-                                                                <div class="col-md-6">
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Anexo</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
-                                                                                                    
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Aseguradora</label>
-                                                                    <ng-select
-                                                                            (selected)="getTasa()"
-                                                                            [(options)]="insurances"
-                                                                            [placeholder]="Aseguradoras"
-                                                                            [multiple]="false"
-                                                                            formControlName="idInsurance">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Porcentaje</label>
-                                                                        <input type="text" formControlName="percentageRamo" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Deducible</label>
-                                                                        <ng-select
-                                                                            
-                                                                            [(options)]="deductibles"
-                                                                            [placeholder]="Deducibles"
-                                                                            [multiple]="false"
-                                                                            formControlName="idDeductible">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Agente</label>
-                                                                        <ng-select
-                                                                            [(options)]="users"
-                                                                            [placeholder]="Usuarios"
-                                                                            [multiple]="false"
-                                                                            formControlName="idUser">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Asegurado</label>
-                                                                        <input  type="text" formControlName="insured" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Vigencia Final</label>
-                                                                        <input  type="date" formControlName="finishDate" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="from-group">    
-                                                                        <label for="exampleSelect1">DiasVigencia </label>
-                                                                        <input type="text" formControlName="daysofValidity" class="form-control">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Frecuencia de Pago</label>
-                                                                        <ng-select
-                                                                            [(options)]="frecuencyPayments"
-                                                                            [placeholder]="Frecuencia"
-                                                                            [multiple]="false"
-                                                                            formControlName="idFrequencyPayment">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Fecha Ingreso</label>
-                                                                        <input  type="date" formControlName="dateAdmission" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Fecha Anulacion</label>
-                                                                        <input  type="date" formControlName="dateCancellation" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                
-                                                                </div>
-
-
-                                                    
-
-                                                            
-                                                            </form>
-                                                    </div>
-                                                   
-                                                </div>                   
-                                            </div>
-                                  
-
-                                   
-                                </div>
-                                <div class="modal-footer">
-
-                                    <button [disabled]="!siniestroForm.valid" (click)="savesiniestro()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
-
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                </div>
-                            </div>
-                        </div>
-</div>
 
 <div class="modal fade" id="anexos-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
                         <div class="modal-dialog modal-lg" role="document">

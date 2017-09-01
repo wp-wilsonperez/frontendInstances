@@ -52,7 +52,7 @@ export class WalletComponent{
         error:any;
         toast:boolean = false;
         message:string;
-        public list:boolean = false;
+        public list:boolean = true;
         public create:boolean = true;
         itemPolicies:any =[];
 

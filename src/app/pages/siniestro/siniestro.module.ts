@@ -1,3 +1,5 @@
+import { sinisterCarComponent } from './sinisterCars/sinister-cars.component';
+import { SinisterStateComponent } from './sinisterState/sinister-state.component';
 import { SiniestroDocumentationComponent } from './sinisterDocumentation/sinister-documentation.component';
 import { SiniestroDocRamoComponent } from './sinisterDocumentationRamo/sinister-documentation-ramo.component';
 import { DataTableModule } from "angular2-datatable";
@@ -9,13 +11,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../../theme/directives/directives.module';
 import { SiniestroComponent } from './siniestro.component';
 import {SelectModule} from 'angular2-select';
+import { AgmCoreModule } from 'angular2-google-maps/core';
+
 
 
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
   { path: 'listado', component: SiniestroComponent, data: { breadcrumb: 'siniestros' } },
   { path: 'documentacion', component: SiniestroDocumentationComponent, data: { breadcrumb: 'documentacion' } },
-  { path: 'documentacion-ramo', component: SiniestroDocRamoComponent, data: { breadcrumb: 'documentacion ramo' } }
+  { path: 'documentacion-ramo', component: SiniestroDocRamoComponent, data: { breadcrumb: 'documentacion ramo' } },
+  { path: 'state', component: SinisterStateComponent, data: { breadcrumb: 'Estado' } },
+  { path: 'carros', component: sinisterCarComponent, data: { breadcrumb: 'Carros' } },
   
 ];
 
@@ -29,11 +35,17 @@ export const routes = [
     FormsModule,
     ReactiveFormsModule,
     SelectModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AgmCoreModule,
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyAD-u8RjZs7jh31RH7uTp2dyWOGD2KOv2A',
+      libraries: ["places"],
+    }),
+    
   ],
   declarations: [
 
-    SiniestroComponent,SiniestroDocRamoComponent,SiniestroDocumentationComponent
+    SiniestroComponent,SiniestroDocRamoComponent,SiniestroDocumentationComponent,SinisterStateComponent,sinisterCarComponent
 
   ],
   providers: []

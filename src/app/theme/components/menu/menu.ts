@@ -178,6 +178,13 @@ export const menuItems = [
         selected: false,
         expanded: false
       },
+      {
+        title: 'Dependiente',
+        routerLink: 'clientes/dependiente',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
   
       
     ]
@@ -346,6 +353,20 @@ export const menuItems = [
       {
         title: 'Documentacion Ramo',
         routerLink: 'siniestros/documentacion-ramo',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Siniestro de Carros',
+        routerLink: 'siniestros/carros',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Estados',
+        routerLink: 'siniestros/state',
         disabled: true,
         selected: false,
         expanded: false

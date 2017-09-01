@@ -1,9 +1,13 @@
 import { Router } from '@angular/router';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, ElementRef ,NgZone,OnInit} from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+import { MapsAPILoader} from 'angular2-google-maps/core';
+import {} from '@types/googlemaps';
+import * as mapTypes from 'angular2-google-maps/core' ;
+
 
 
 @Component({
@@ -15,6 +19,8 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 export class SiniestroComponent{
         public siniestroForm:FormGroup;
+        public siniestroCarForm:FormGroup;
+        public siniestroCarDocumentationForm:FormGroup;
          public editForm:FormGroup;
          public itemForm:FormGroup;
         public helpLinks:any;
@@ -42,37 +48,75 @@ export class SiniestroComponent{
 
          public citiesOptions:any = [];
         public cities:any;
-
+        public policies:any;
+        public policyOptions=[];
+        public states:any;
+        public stateOptions=[];
+        policyAnnexs:any;
+        policyAnnexsOptions:any = [];
+        resultAnnexs:any=[];
+        resultPolicies:any=[];
+        resultClients:any=[];
         error:any;
         toast:boolean = false;
         message:string;
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
+        @ViewChild("search")
+        public searchElementRef:ElementRef;
+        public lat=0;
+        public long=0;
+        event:any;
+        create:boolean= true;
+        createDoc:boolean = true;
+        docsOptions:any=[];
+        docs:any;
+        docSiniestroRamos:any=[];
+
+
+        constructor(public mapsApiLoader:MapsAPILoader,public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
         
             this.siniestroForm = this.formBuilder.group({
-                policyNumber:[],
-                idInsurance:[],
-                idRamo:[],
-                annexedNumber:[],
-                certificateNumber:[],
-                idUser:[],
-                idClient:[],
-                idDeductible:[],
-                insured:[],
-                startDate:[],
-                finishDate:[],
-                daysofValidity:[],
-                idPolicyType:[],
-                idFrequencyPayment:[],
-                idCity:[],
-                dateAdmission:[],
-                dateCancellation:[],
-                idPaymentType:[],
-                percentageRamo:[]
-            
-
-
-            
+                policyNumber:[''],
+                idInsurance:[''],
+                annexedNumber:[''],
+                certificateNumber:[''],
+                idUser:[''],
+                idClient:[''],
+                idPoliza:[''],
+                idDeductible:[''],
+                insured:[''],
+                startDate:[''],
+                finishDate:[''],
+                daysofValidity:[''],
+                idPolicyType:[''],
+                idFrequencyPayment:[''],
+                idCity:[''],
+                dateAdmission:[''],
+                dateCancellation:[''],
+                idPaymentType:[''],
+                percentageRamo:[''],
+                idPolicy:[''],
+                policyData:[''],//(se guardara la póliza para futuro si cambia algo tener un respaldo de que se reporte en esta fecha sin variación pro la relación)
+                idPolicyAnnex:[''],
+                annexDatar:[''],//(se guardara el anexo de la póliza para futuro si cambia algo tener un respaldo de que se reporte en esta fecha sin variación pro la relación)
+                clientData:[''], //(no necesariamente un cliente sino peude ser un Client, Bussines o Insurance pero solo necesitamos guardar de quien reporte ese siniestro)
+                compName:[''],// (Sera la compañía aseguradora osea el nombre del Insurance)
+                clientInsured:[''],
+                beneficiary:[''],
+                dateSinister:[''],
+                dateNotification:[''],
+                idRamo:[''],
+                direccionCliente:[''],
+                nombreCliente:[''],
+                telefonoCliente:[''],
+                cedCliente:[''],
+                anexo:[''],
+                fechaInicio:[''],
+                fechaFin:[''],
+                valorAsegurado:[''],
+                sinisterState:['']
                 
+
+
             });
 
             this.itemForm = this.formBuilder.group({
@@ -86,7 +130,50 @@ export class SiniestroComponent{
                 rc:[],
 
             });
+            this.siniestroCarForm = this.formBuilder.group({
+                    idCar:[],
+                    carDetails:[],// (se guardara todo en un solo como hacemos en los datos de los clientes ya que aunque se borre deberemos saber que vehículo fue afectado en este siniestro)
+                    sinisterDiagnosis:[],// (sera para las observacviones del siniestro o como ellos lo llaman en la imagen detalle objeto siniestro diagnostico)
+                    workshop:[],//
+                    arrangement:[],//
+                    rasa:[],//
+                    medicalExpense:[],//
+                    sinisterValue:[],//
+                    rc:[],//
+                    deductibleValue:[],//
+                    depreciation:[],//
+                    others1:[],//
+                    others2:[],//
+                    others3:[],//
+                    notCovered:[],//
+                    observationNotCovered:[],//
+                    liquidation:[],//
+                    liquidationDate:[],//
+                    deliverDate:[],//
+                    sinisterMap:[],// (necesitamos guardar el punto donde ocurrió el siniestro)
+                    marca:[''],
+                    modelo:[''],
+                    matricula:['']
+    
+                });
+                this.siniestroCarDocumentationForm = this.formBuilder.group({
+
+                    idSinisterDocumentationRamo:[''],
+                    quantity:[''],
+                    description:[''],// (esto nos devovlera de SinisterDocumentatión pero como es editable guardares no la relacion sino el valro que venga del formulario)
+                    sendDate:[''],
+                    responsibleReception:[''],
+                    receptionDate:['']
+                 
+                });
             this.editForm = this.formBuilder.group({
+                idSinisterCar:[],// ( como tenemos un modulo SinisterDocumentationRamo ya nos sacara la información de que documento se enviará para el ramo vehículos, es decir se le pasara el idRamo "vehículos y nos devolverá un listado donde el usuario podrá dar check a lo que envía")
+                idSinisterDocumentationRamo:[],
+                quantity:[''],
+                description:[''],// (esto nos devovlera de SinisterDocumentatión pero como es editable guardares no la relacion sino el valro que venga del formulario)
+                sendDate:[],
+                responsibleReception:[],
+                receptionDate:[],
                
             });
 
@@ -101,6 +188,40 @@ export class SiniestroComponent{
             this.loadPolicyTypes();
             this.loadPaymentTypes();
             this.loadCars();
+            this.loadPolicies();
+            this.loadStates();
+            this.loadDocumentationRamo();
+            setTimeout(()=>{
+                 this.mapsApiLoader.load().then(()=>{
+                    let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement,{
+                      types:['(regions)'],
+                      componentRestrictions: { country: 'EC' }
+                    });
+        
+                    autocomplete.addListener("place_changed",()=>{
+                    this.ngZone.run(()=>{
+                      //get the place result
+        
+                      let place : google.maps.places.PlaceResult = autocomplete.getPlace();
+        
+                      //verify result
+                      if (place.geometry === undefined || place.geometry === null) {
+                      return;
+                        }
+        
+                        //set latitude, longitude and zoom
+                        this.lat = place.geometry.location.lat();
+                        this.long = place.geometry.location.lng();
+                        console.log(this.lat,this.long);
+                        console.log("place: ",place);
+                        
+                    
+                  
+                    })
+                });
+            });
+            
+            },1000)
         }
 
         loadsiniestros(){
@@ -110,6 +231,48 @@ export class SiniestroComponent{
                     this.siniestros = result.policies;
 
                     console.log('siniestros',this.siniestros);
+            })
+            
+        }
+        loadStates(){
+            this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).map((res)=>{
+     
+                console.log('params',res.json());
+                
+                return res.json();
+            }).subscribe((result)=>{
+                    let states = result.params.sinisterState.list;
+
+                    states.map((result)=>{
+                       let obj = {
+                           value: result.id,
+                           label: result.name
+                       }
+                       this.stateOptions.push(obj);
+                       this.states = this.stateOptions;
+                   })
+                   console.log('states',this.states);
+            })
+
+        }
+
+        loadPolicies(){
+            this.http.get(config.url+'policy/list?access_token='+this.local.getUser().token).map((res)=>{
+                this.resultPolicies = res.json().policies;
+                console.log('policies',res.json());
+                
+                return res.json();
+            }).subscribe((result)=>{
+                    let policies = result.policies;
+                    policies.map((result)=>{
+                       let obj = {
+                           value: result._id,
+                           label: result.policyNumber
+                       }
+                       this.policyOptions.push(obj);
+                       this.policies = this.policyOptions;
+                   })
+                   console.log('polizas',this.policies);
             })
             
         }
@@ -213,7 +376,9 @@ export class SiniestroComponent{
         loadClients(){
 
             this.http.get(config.url+'client/list?access_token='+this.local.getUser().token).map((res)=>{
+                this.resultClients = res.json().clients;
                 return res.json();
+                
             }).subscribe((result)=>{
                      let clients = result.clients;
                      clients.map((result)=>{
@@ -228,6 +393,27 @@ export class SiniestroComponent{
             })
 
         }
+        loadDocumentationRamo(){
+            
+                        this.http.get(config.url+'sinisterDocumentationRamo/list?access_token='+this.local.getUser().token).map((res)=>{
+                            console.log('ramo doc ', res.json());
+                            
+                            return res.json();
+                            
+                        }).subscribe((result)=>{
+                                 let docs = result.sinisterDocumentationRamos;
+                                 docs.map((result)=>{
+                                    let obj = {
+                                        value: result._id,
+                                        label: result.idSinisterDocumentation
+                                    }
+                                    this.docsOptions.push(obj);
+                                    this.docs = this.docsOptions;
+                                })
+                                console.log('Clients',this.clients);
+                        })
+            
+                    }
         loadFrecuencyOfPayment(){
 
             this.http.get(config.url+'frequencyPayment/list?access_token='+this.local.getUser().token).map((res)=>{
@@ -326,8 +512,11 @@ export class SiniestroComponent{
 
     }
 
-        savesiniestro(){
-            this.http.post(config.url+'policy/add?access_token='+this.local.getUser().token,this.siniestroForm.value).map((result)=>{
+        saveSiniestro(){
+            let request = {
+
+            };
+            this.http.post(config.url+'sinister/add?access_token='+this.local.getUser().token,request).map((result)=>{
                 
                 
                 return result.json()
@@ -399,6 +588,90 @@ export class SiniestroComponent{
             })
 
     }
+    selectClient(event){
+        console.log(event);
+        let val = this.resultClients.find(res=>{
+            return res._id == event.value
+        });
+        this.siniestroForm.controls['nombreCliente'].setValue(val.name);
+        this.siniestroForm.controls['direccionCliente'].setValue(val.address);
+        this.siniestroForm.controls['cedCliente'].setValue(val.doc);
+        console.log('result value',val);
+        
+    }
+    selectPoliza(event){
+        let val = this.resultPolicies.find(res=>{
+            return res._id == event.value
+        });
+        this.siniestroForm.controls['fechaInicio'].setValue(val.dateAdmission);
+        this.siniestroForm.controls['fechaFin'].setValue(val.dateCancellation);
+        this.siniestroForm.controls['clientInsured'].setValue(val.insured);
+        console.log('result value',val);
+        
+        this.http.get(config.url+`policyAnnex/param/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
+            console.log('policy Annex',res.json()); 
+            return res.json();
+        }).subscribe((result)=>{
+                this.policyAnnexsOptions =[];
+                let policyAnnexs = [];
+                 policyAnnexs = result.policyAnnex;
+                 this.resultAnnexs = [];
+                 this.resultAnnexs = result.policyAnnex;
+                 policyAnnexs.map((result)=>{
+                    let obj = {
+                        value: result._id,
+                        label: result.annexNumber 
+                    }
+                    
+                    this.policyAnnexsOptions.push(obj);
+                    this.policyAnnexs = [];
+                    this.policyAnnexs = this.policyAnnexsOptions;
+                    
+                })
+                console.log('Policy Annexs',this.policyAnnexs);
+        })
+        
+    }
+    selectPolizaAnnex(event){
+       let val = this.resultAnnexs.find(result=>{
+            return result._id == event.value
+        });
+        this.siniestroForm.controls['valorAsegurado'].setValue(val.totalValue);
+        console.log(event);
+        console.log(val);
+        
+        
+    }
+    selectCar(event){
+
+        this.http.get(config.url+`car/view/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
+            return res.json()
+        }).subscribe((result)=>{
+            let car = result.car;
+            this.siniestroCarForm.controls['matricula'].setValue(car.placa);
+            this.siniestroCarForm.controls['modelo'].setValue(car.carModel);
+            this.siniestroCarForm.controls['marca'].setValue(car.carBrand);
+
+            console.log(result);
+            
+        });
+
+    }
+    markerDragEnd(m, $event: MouseEvent) {
+        console.log('dragEnd', m, $event);
+        this.event = $event;
+    
+        console.log(this.event.coords);
+  
+      }
+    changeView(){
+        this.create?this.create = false:this.create = true;
+     }
+
+     addDoc(){
+         this.docSiniestroRamos.push(this.siniestroCarDocumentationForm.value);
+         this.siniestroCarDocumentationForm.reset();
+     }
 
 
 }

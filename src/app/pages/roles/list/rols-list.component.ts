@@ -1057,7 +1057,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1204,6 +1204,13 @@ export class RolsListComponent {
         this.clientDelete?requestTwo.client['delete'] = true:null;
         this.clientEnable?requestTwo.client['enable'] = true:null
 
+        this.clientList?requestTwo.dependent['list'] = true:null;
+        this.clientList?requestTwo.dependent['view'] = true:null;
+        this.clientList?requestTwo.dependent['add'] = true:null;
+        this.clientList?requestTwo.dependent['edit'] = true:null;
+        this.clientList?requestTwo.dependent['delete'] = true:null;
+      
+
          //marital
             
         this.maritalStatusList?requestTwo.maritalStatus['list'] = true:null;
@@ -1226,6 +1233,7 @@ export class RolsListComponent {
         //Car
             
         this.carList?requestTwo.car['list'] = true:null;
+        this.carList?requestTwo.car['view'] = true:null;
         this.carCreate?requestTwo.car['add'] = true:null;
         this.carEdit?requestTwo.car['edit'] = true:null;
         this.carDelete?requestTwo.car['delete'] = true:null;
@@ -1295,7 +1303,13 @@ export class RolsListComponent {
         this.billingEdit?requestTwo.billing['edit'] = true:null;
         this.billingDelete?requestTwo.billing['delete'] = true:null;
         this.billingEnable?requestTwo.billing['enable'] = true:null
-        this.billingList?requestTwo.billing['ramoPercentageValue'] = true:null
+        this.billingList?requestTwo.billing['ramoPercentageValue'] = true:null;
+
+        this.billingList?requestTwo.wallet['list'] = true:null;
+        this.billingList?requestTwo.wallet['add'] = true:null;
+        this.billingList?requestTwo.wallet['edit'] = true:null;
+        this.billingList?requestTwo.wallet['delete'] = true:null;
+        this.billingList?requestTwo.wallet['enable'] = true:null;
         
 
 
