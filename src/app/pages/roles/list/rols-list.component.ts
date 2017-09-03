@@ -1057,7 +1057,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1112,6 +1112,40 @@ export class RolsListComponent {
         this.businessEdit?requestTwo.business['edit'] = true:null;
         this.businessDelete?requestTwo.business['delete'] = true:null;
         this.businessEnable?requestTwo.business['enable'] = true:null;
+
+
+        this.businessList?requestTwo.plan['list'] = true:null;
+        this.businessList?requestTwo.plan['view'] = true:null;
+        this.businessList?requestTwo.plan['add'] = true:null;
+        this.businessList?requestTwo.plan['edit'] = true:null;
+        this.businessList?requestTwo.plan['delete'] = true:null;
+        this.businessList?requestTwo.plan['enable'] = true:null;
+
+
+        this.businessList?requestTwo.planAssociation['list'] = true:null;
+        this.businessList?requestTwo.planAssociation['view'] = true:null;
+        this.businessList?requestTwo.planAssociation['add'] = true:null;
+        this.businessList?requestTwo.planAssociation['edit'] = true:null;
+        this.businessList?requestTwo.planAssociation['delete'] = true:null;
+        this.businessList?requestTwo.planAssociation['enable'] = true:null;
+
+
+        this.businessList?requestTwo.planAlternative['list'] = true:null;
+        this.businessList?requestTwo.planAlternative['view'] = true:null;
+        this.businessList?requestTwo.planAlternative['add'] = true:null;
+        this.businessList?requestTwo.planAlternative['edit'] = true:null;
+        this.businessList?requestTwo.planAlternative['delete'] = true:null;
+        this.businessList?requestTwo.planAlternative['enable'] = true:null;
+
+
+        this.businessList?requestTwo.alternative['list'] = true:null;
+        this.businessList?requestTwo.alternative['view'] = true:null;
+        this.businessList?requestTwo.alternative['add'] = true:null;
+        this.businessList?requestTwo.alternative['edit'] = true:null;
+        this.businessList?requestTwo.alternative['delete'] = true:null;
+        this.businessList?requestTwo.alternative['enable'] = true:null;
+
+        
 
           //ramo
             
@@ -1209,6 +1243,15 @@ export class RolsListComponent {
         this.clientList?requestTwo.dependent['add'] = true:null;
         this.clientList?requestTwo.dependent['edit'] = true:null;
         this.clientList?requestTwo.dependent['delete'] = true:null;
+
+        this.clientList?requestTwo.businessClient['list'] = true:null;
+        this.clientList?requestTwo.businessClient['view'] = true:null;
+        this.clientList?requestTwo.businessClient['add'] = true:null;
+        this.clientList?requestTwo.businessClient['edit'] = true:null;
+        this.clientList?requestTwo.businessClient['delete'] = true:null;
+
+
+        
       
 
          //marital

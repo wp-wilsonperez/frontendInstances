@@ -47,7 +47,35 @@ export const menuItems = [
         disabled: true,
         selected: false,
         expanded: false
-      }
+      },
+      {
+        title: 'Planes',
+        routerLink: 'empresas/plan',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Planes Alternativos',
+        routerLink: 'empresas/plan-alternativo',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Asociacion de Planes',
+        routerLink: 'empresas/asociaciones',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Alternativas',
+        routerLink: 'empresas/alternativas',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
       
     ]
   },
@@ -185,6 +213,14 @@ export const menuItems = [
         selected: false,
         expanded: false
       },
+      {
+        title: 'Empresas Clientes',
+        routerLink: 'clientes/empresas',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+   
   
       
     ]

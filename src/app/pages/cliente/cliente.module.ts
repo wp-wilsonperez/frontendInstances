@@ -1,3 +1,4 @@
+import { BussinesClientComponent } from './bussinesClient/bussines-client.component';
 import { DependienteComponent } from './dependiente/dependiente.component';
 import { DataTableModule } from "angular2-datatable";
 import { PipesModule } from '../../theme/pipes/pipes.module';
@@ -15,7 +16,8 @@ import {SelectModule} from 'angular2-select';
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
   { path: 'listado', component: ClienteComponent, data: { breadcrumb: 'Listado' } },
-  { path: 'dependiente', component: DependienteComponent, data: { breadcrumb: 'Dependientes' } }
+  { path: 'dependiente', component: DependienteComponent, data: { breadcrumb: 'Dependientes' } },
+  { path: 'empresas', component: BussinesClientComponent, data: { breadcrumb: 'Empresas' } }
 ];
 
 @NgModule({
@@ -33,7 +35,7 @@ export const routes = [
   ],
   declarations: [
 
-    ClienteComponent,ImageUploaderComponent,DependienteComponent
+    ClienteComponent,ImageUploaderComponent,DependienteComponent,BussinesClientComponent
 
   ],
   providers: []
