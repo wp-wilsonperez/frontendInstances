@@ -513,7 +513,7 @@ export class SiniestroComponent{
     }
 
         saveSiniestro(){
-            let item = {
+            var item = {
                 items:[]
             };
             Object.assign(item, this.siniestroCarForm.value);
@@ -523,6 +523,8 @@ export class SiniestroComponent{
                 item:item
 
             };
+            console.log(request);
+            
             this.http.post(config.url+'sinister/add?access_token='+this.local.getUser().token,request).map((result)=>{
                 
                 
