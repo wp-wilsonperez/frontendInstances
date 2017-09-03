@@ -585,7 +585,7 @@
                             </div>                   
                         </div> 
             </div>
-            <button type="submit" class="btn btn-primary transition">Guardar</button>
+            <button (click)="saveSiniestro()" [disabled]="!siniestroCarForm.valid && !siniestroForm.valid " type="submit" class="btn btn-primary transition">Guardar</button>
         </div>
     </div>
 </div>

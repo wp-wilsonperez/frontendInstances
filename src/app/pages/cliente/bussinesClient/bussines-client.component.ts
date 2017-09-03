@@ -197,8 +197,7 @@ export class BussinesClientComponent  {
                  if(res.msg == "OK"){
                        this.loadbussinesClients();
                         this.toast = true;
-                        this.message = "bussinesClients guardada"
-                        console.log('1saved');
+                        this.message = "bussinesClients guardada";
                         
 
                 }else{

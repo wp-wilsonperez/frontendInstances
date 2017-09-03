@@ -513,14 +513,22 @@ export class SiniestroComponent{
     }
 
         saveSiniestro(){
+            let item = {
+                items:[]
+            };
+            Object.assign(item, this.siniestroCarForm.value);
+            item.items = this.docSiniestroRamos;
             let request = {
+                sinister:this.siniestroForm.value,
+                item:item
 
             };
             this.http.post(config.url+'sinister/add?access_token='+this.local.getUser().token,request).map((result)=>{
                 
                 
                 return result.json()
-            }).subscribe(res=>{
+            }).subscribe(
+                res=>{
                  if(res.msg == "OK"){
                        this.loadsiniestros();
                         this.toast = true;
@@ -534,7 +542,13 @@ export class SiniestroComponent{
                 console.log(res);
                this.loadsiniestros();
                 
-            })
+            },
+            (err)=>{
+                console.log('there is an err',err);
+                
+            }
+        
+        )
         }
         idAssign(siniestroId){
                 this.siniestroId = siniestroId;
