@@ -267,6 +267,32 @@ export const menuItems = [
       
     ]
   },
+  {
+    title: 'Recepcion',
+    routerLink: 'presupuestos',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Rutas',
+        routerLink: 'polizas/rutas',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Ingresos',
+        routerLink: 'polizas/ingresos',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },   
+    ]
+  },
     {
     title: 'Polizas',
     routerLink: 'polizas',
@@ -289,21 +315,6 @@ export const menuItems = [
       {
         title: 'Tipo de Polizas',
         routerLink: 'polizas/tipo-polizas',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-
-       {
-        title: 'Rutas',
-        routerLink: 'polizas/rutas',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-       {
-        title: 'Ingresos',
-        routerLink: 'polizas/ingresos',
         disabled: true,
         selected: false,
         expanded: false
