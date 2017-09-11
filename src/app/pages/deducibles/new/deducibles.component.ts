@@ -30,7 +30,7 @@ export class DeduciblesComponent{
             this.loadRamos();
             this.deducibleForm = this.formBuilder.group({
                 idInsurance:['',Validators.compose([Validators.required])],
-                idBranch: ['',Validators.compose([Validators.required])],
+                idRamo: ['',Validators.compose([Validators.required])],
                 name:['',Validators.compose([Validators.required])],
                 description:['',Validators.compose([Validators.required])]
             })
