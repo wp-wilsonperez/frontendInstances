@@ -3,7 +3,7 @@
         <div widget class="card">
             <div class="card-header">
 
-                <span class="text-uppercase">Listado de siniestroMedicals</span>
+                <span class="text-uppercase">Listado de siniestros</span>
 
                 <div class="widget-controls"> 
                      <div class="col-md-4">
@@ -51,11 +51,11 @@
                         </thead>
                         <tbody>                           
 
-                            <tr *ngFor="let siniestroMedical of siniestroMedicals">
-                                <td><strong>  {{siniestroMedical.policyNumber}}   </strong></td>
-                                <td>{{siniestroMedical.insured}}</td>
-                                <td>{{siniestroMedical.startDate}}</td>
-                                 <td>{{siniestroMedical.finishDate}}</td>
+                            <tr *ngFor="let siniestro of siniestros">
+                                <td><strong>  {{siniestro.policyNumber}}   </strong></td>
+                                <td>{{siniestro.insured}}</td>
+                                <td>{{siniestro.startDate}}</td>
+                                 <td>{{siniestro.finishDate}}</td>
               
                                
 
@@ -65,12 +65,12 @@
                                                 <div class="row">
 
 
-                                                        <button type="button" [routerLink]="['/pages/siniestroMedicals/anexos',siniestroMedical._id]" class="btn btn-primary" data-toggle="modal" data-target="#anexos-modal">Anexos</button>
+                                                        <button type="button" [routerLink]="['/pages/siniestros/anexos',siniestro._id]" class="btn btn-primary" data-toggle="modal" data-target="#anexos-modal">Anexos</button>
 
                                                                 
                         
 
-                                                        <button type="button" (click)="idAssign(siniestroMedical._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                        <button type="button" (click)="idAssign(siniestro._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
 
                                                                         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                                                                             <div class="modal-dialog" role="document">
@@ -83,7 +83,7 @@
                                                                                        <!--Esta seguro-->
                                                                                     </div>
                                                                                     <div class="modal-footer">
-                                                                                        <button (click)="deletesiniestroMedical()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                        <button (click)="deletesiniestro()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                     </div>
                                                                                 </div>
@@ -112,10 +112,10 @@
                             <div class="clearfix">
                                 <ul class="nav nav-tabs top pull-left w-100p">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#ta">Datos de siniestroMedical</a>
+                                        <a class="nav-link active" data-toggle="tab" href="#ta">Datos de siniestro</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#tb">siniestroMedical Carro</a>
+                                        <a class="nav-link" data-toggle="tab" href="#tb">Siniestro Medico</a>
                                     </li>            
                                 </ul>
                             </div>
@@ -125,7 +125,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
             
-                                                    <label for="exampleSelect1">Fecha siniestroMedical</label>
+                                                    <label for="exampleSelect1">Fecha Siniestro</label>
                                                     <input  type="date" formControlName="dateSinister" class="form-control">
                                                         
             
@@ -154,7 +154,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     
-                                                <label for="exampleSelect1">Estado de siniestroMedical</label>
+                                                <label for="exampleSelect1">Estado de Siniestro</label>
                                                 <ng-select
                                               
                                                     [(options)]="states"
@@ -284,7 +284,7 @@
                                         </form>
                                 </div>
                                 <div class="tab-pane" id="tb">
-                                        <form  [formGroup]="siniestroMedicalCarForm"  class="row">
+                                        <form  [formGroup]="siniestroCarForm"  class="row">
 
                                                 <div class="col-md-6">
             
@@ -325,14 +325,14 @@
                                                     </div>
                                                     <div class="form-group">
                                                         
-                                                    <label for="exampleSelect1">Diagnosis del siniestroMedical</label>
+                                                    <label for="exampleSelect1">Diagnosis del siniestro</label>
                                                     <textarea  formControlName="sinisterDiagnosis" class="bg-light form-control"></textarea>
                                                         
         
                                                 </div>
                                                 <div class="form-group">
                                                         
-                                                        <label for="exampleSelect1">Valor del siniestroMedical</label>
+                                                        <label for="exampleSelect1">Valor del Siniestro</label>
                                                         <input  type="number" formControlName="sinisterValue" class="bg-primary text-white form-control">
                                                             
             
@@ -388,7 +388,7 @@
             
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                            <label for="">Lugar del siniestroMedical</label>
+                                                            <label for="">Lugar del siniestro</label>
                                                             <input placeholder="" formControlName="idCar" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control address-autocomplete" #search >
                                                    
 
@@ -475,12 +475,12 @@
                                                          
                                                     </div> 
                                               <div class="card-block widget-body">
-                                                    <form [formGroup]="siniestroMedicalCarDocumentationForm" class="row form-inline">
+                                                    <form [formGroup]="siniestroCarDocumentationForm" class="row form-inline">
                                                             
                                                         <div class="col-md-10">
                                                                     <div class="row row-input">
                                                                     <div class="col-md-4">
-                                                                        <label for=""> siniestroMedical Ramo</label>
+                                                                        <label for=""> Siniestro Ramo</label>
                                                                     <ng-select
                                                                         [(options)]="docs"
                                                                         [placeholder]="Origen"
@@ -525,11 +525,11 @@
                                                         
                                                             
                                                         <div class="form-group col-md-2 col-sm-6" *ngIf="createDoc">
-                                                            <button [disabled]="!siniestroMedicalCarDocumentationForm.valid" (click)="addDoc()" type="submit" class="btn btn-primary">Guardar</button>
+                                                            <button [disabled]="!siniestroCarDocumentationForm.valid" (click)="addDoc()" type="submit" class="btn btn-primary">Guardar</button>
                                                         </div>
                                                         
                                                         <div class="form-group col-md-2 col-sm-6" *ngIf="!createDoc">
-                                                            <button [disabled]="!siniestroMedicalCarDocumentationForm.valid" (click)="editruta()" type="submit" class="btn btn-primary">Editar</button>
+                                                            <button [disabled]="!siniestroCarDocumentationForm.valid" (click)="editruta()" type="submit" class="btn btn-primary">Editar</button>
                                                         </div>
                                                             
                                                                                             
@@ -541,7 +541,7 @@
                                                             <table class="table">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>siniestroMedical Ramo</th>
+                                                                        <th>Siniestro Ramo</th>
                                                                         <th>Cantidad</th>
                                                                         <th>Descripcion</th>
                                                                         <th>Fecha Recepcion</th>
@@ -549,11 +549,11 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr *ngFor="let docsiniestroMedicalRamo of docsiniestroMedicalRamos">
-                                                                        <td>{{docsiniestroMedicalRamo.idSinisterDocumentationRamo}}</td>
-                                                                        <td>{{docsiniestroMedicalRamo.quantity}}</td>
-                                                                        <td>{{docsiniestroMedicalRamo.description}}</td>
-                                                                        <td>{{docsiniestroMedicalRamo.receptionDate}}</td>
+                                                                    <tr *ngFor="let docSiniestroRamo of docSiniestroRamos">
+                                                                        <td>{{docSiniestroRamo.idSinisterDocumentationRamo}}</td>
+                                                                        <td>{{docSiniestroRamo.quantity}}</td>
+                                                                        <td>{{docSiniestroRamo.description}}</td>
+                                                                        <td>{{docSiniestroRamo.receptionDate}}</td>
                                                                    
                                                                
                                                                     </tr>
@@ -585,7 +585,7 @@
                             </div>                   
                         </div> 
             </div>
-            <button (click)="savesiniestroMedical()" [disabled]="!siniestroMedicalCarForm.valid && !siniestroMedicalForm.valid " type="submit" class="btn btn-primary transition">Guardar</button>
+            <button (click)="saveSiniestro()" [disabled]="!siniestroCarForm.valid && !siniestroForm.valid " type="submit" class="btn btn-primary transition">Guardar</button>
         </div>
     </div>
 </div>
@@ -619,11 +619,11 @@
                                                     
                                                     
                                                         <div class="form-group col-md-2 col-sm-6" *ngIf="create">
-                                                            <button  (click)="saveTiposiniestroMedical()" type="submit" class="btn btn-primary">Guardar</button>
+                                                            <button  (click)="saveTiposiniestro()" type="submit" class="btn btn-primary">Guardar</button>
                                                         </div>
                                                         
                                                         <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
-                                                            <button  (click)="editTiposiniestroMedical()" type="submit" class="btn btn-primary">Editar</button>
+                                                            <button  (click)="editTiposiniestro()" type="submit" class="btn btn-primary">Editar</button>
                                                         </div>
                                                     </form> 
                                                     <div class="table-responsive datatable">
@@ -641,8 +641,8 @@
                                                             </thead>
                                                             <tbody>                           
 
-                                                                <tr *ngFor="let tiposiniestroMedical of tiposiniestroMedicals">
-                                                                    <td><strong>  {{tiposiniestroMedical.name}}   </strong></td>
+                                                                <tr *ngFor="let tiposiniestro of tiposiniestros">
+                                                                    <td><strong>  {{tiposiniestro.name}}   </strong></td>
 
                                                                 
                                                                     <td><strong>    </strong></td>
@@ -660,12 +660,12 @@
                                                                                     <div class="row">
 
 
-                                                                                            <button type="button" (click)="tiposiniestroMedicalDetail(tiposiniestroMedical)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+                                                                                            <button type="button" (click)="tiposiniestroDetail(tiposiniestro)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
 
                                                                                                     
                                                             
 
-                                                                                            <button type="button" (click)="idAssign(tiposiniestroMedical._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                                                            <button type="button" (click)="idAssign(tiposiniestro._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
 
                                                                                                             <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                                                                                                                 <div class="modal-dialog" role="document">
@@ -678,7 +678,7 @@
                                                                                                                         <!--Esta seguro-->
                                                                                                                         </div>
                                                                                                                         <div class="modal-footer">
-                                                                                                                            <button (click)="deletetiposiniestroMedical()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                                                            <button (click)="deletetiposiniestro()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
                                                                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                                                         </div>
                                                                                                                     </div>
@@ -733,7 +733,7 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    <button [disabled]="!siniestroMedicalForm.valid" (click)="savesiniestroMedical()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                                    <button [disabled]="!siniestroForm.valid" (click)="savesiniestro()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
 
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
@@ -745,7 +745,7 @@
         <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                     <div class="modal-header state modal-primary">                                    
-                    <h4 class="modal-title" id="modal-primary-label"><i class="fa  fa-money"></i>Editar siniestroMedical</h4>
+                    <h4 class="modal-title" id="modal-primary-label"><i class="fa  fa-money"></i>Editar siniestro</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
@@ -770,7 +770,7 @@
                     </div>
                     </div>
                     <div class="modal-footer">
-                    <button [disabled]="!editForm.valid" (click)="editsiniestroMedical()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
+                    <button [disabled]="!editForm.valid" (click)="editsiniestro()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                     </div>

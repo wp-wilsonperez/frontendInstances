@@ -1,0 +1,398 @@
+<div class="row">
+    <div [ngClass]="{'col-md-12':!anexos,'col-md-6':anexos}">
+        <div widget class="card">
+            <div class="card-header">
+                 <button type="button" [routerLink]="['/pages/polizas/polizas']" class="btn btn-main btn-sm transition padding-back">Atras</button>
+                <span class="text-uppercase">Listado de Anexos Medicos : {{polizaId}}</span>
+
+      
+            </div>
+            
+            <div class="card-block widget-body">
+                  
+
+                        <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>{{message}} </strong> 
+                        </div>
+                       
+                        <div *ngIf="toast" class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>{{message}}</strong> 
+                        </div>
+                
+                         <form [formGroup]="polizaMedicalAnnexForm" class="row form-inline">
+                                    <div class="form-group col-md-10" [ngClass]="{}">
+                                        <div class="row">
+                                            <div class="col-md-4"> <input type="text" formControlName="annexNumber" class="form-control" placeholder="N. Anexo"></div>
+                                            <div class="col-md-4"> <input type="text" formControlName="certificateNumber" class="form-control" placeholder="N. Certificado"></div>
+                                            <div class="col-md-4"> 
+                                            <ng-select
+                                                [(options)]="planAssociations"
+                                                [placeholder]="Asociaciones"
+                                                [multiple]="false"
+                                                formControlName="idPlanAssociation">
+                                            </ng-select>
+                                            </div>
+                                            
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-md-4"> <input type="text" formControlName="detailAnnex" class="form-control" placeholder="Detalle"></div>
+                                            <div class="col-md-4"> <input type="text" (input)="getValorTotal()" formControlName="superBank" class="form-control" placeholder="Super"></div>
+                                            <div class="col-md-4"> <input type="text"  formControlName="iva" class="form-control" placeholder="Iva"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4"> <input type="text" (input)="getValorTotal()" formControlName="segCamp" class="form-control" placeholder="S. Campesino"></div>
+                                            <div class="col-md-4"> <input type="text" (input)="getValorTotal()" formControlName="valueIssue" class="form-control" placeholder="V. Issue"></div>
+                                            <div class="col-md-4"> <input type="text" disabled formControlName="totalValue" class="form-control" placeholder="V. Total"></div>
+                                        </div>
+                                        
+                                    </div>
+                                      
+                                 
+                                
+                                    <div class="form-group col-md-2 col-sm-6" *ngIf="create">
+                                        <button [disabled]="!polizaMedicalAnnexForm.valid" (click)="savepolizaMedicalAnnex()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
+                                    </div>
+                                    
+                                    <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
+                                        <button [disabled]="!polizaMedicalAnnexForm.valid" (click)="editpolizaMedicalAnnex()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
+                                    </div>
+                </form>  
+                <div style="padding-top: 10px;"class="table-responsive datatable">
+                    <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                        <thead>
+                            <tr>
+                                <th> <mfDefaultSorter by="name">Numero de anexo</mfDefaultSorter></th>                              
+                                <th><mfDefaultSorter by="phone">Numero de Certificado</mfDefaultSorter></th>
+                                 <th><mfDefaultSorter by="phone">Valor Total</mfDefaultSorter></th> 
+                              
+
+                                <th>Acciones</th>      
+                            </tr>
+                        </thead>
+                        <tbody>                           
+
+                            <tr  *ngFor="let polizaMedicalAnnex of polizaMedicalAnnexs">
+                                <td><strong>  {{polizaMedicalAnnex.annexNumber}}   </strong></td>
+                                <td>{{polizaMedicalAnnex.certificateNumber}}</td>
+                                <td>{{polizaMedicalAnnex.totalValue}}</td>
+              
+                               
+
+                                <td class="row col  bottom-15">
+                                  
+                                      <div class="d-inline-block">
+                                                <div class="row">
+
+
+                                                        <button type="button" (click)="openItems(polizaMedicalAnnex._id)" class="btn btn-primary btn-sm transition" data-toggle="modal" data-target="#anexos-modal">Articulos</button>
+
+                                                                
+
+                                                        <button type="button" (click)="polizaMedicalAnnexDetail(polizaMedicalAnnex)" class="btn btn-success btn-sm transition" >Editar</button>
+
+                                                        <button type="button" (click)="deletepolizaMedicalAnnex(polizaMedicalAnnex._id)" class="btn btn-danger btn-sm transition" >Borrar</button>
+
+                                                                        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header state modal-danger">                                    
+                                                                                        <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                       <!--Esta seguro-->
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button (click)="deletepolizaMedicalAnnex()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                </div>
+                                                
+                                            </div>
+                                </td>
+                                </tr>
+                          
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="12">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="anexos" class="col-md-6">  
+         <div widget class="card">
+            <div class="card-header">
+
+                <span class="text-uppercase"></span>
+                   <div class="widget-controls"> 
+                    <a data-widgster="close" (click)="closeItems()" class="transition"><i class="fa fa-times"></i></a>
+                </div>  
+      
+            </div>
+            
+            <div class="card-block widget-body">
+                <div class="list-group list-padding">
+                           <a class="list-group-item list-group-item-action list-group-item-primary ">
+                              <div class="col-10">
+                                Total Prima
+                            </div> 
+                            <div class="col-2">
+                                <span class="badge badge-main badge-pill primary">{{totalPrima}}</span>
+                               
+                            </div>  
+                            
+                            </a>
+
+                </div>
+                     <div  class="col-lg-12">
+                        <div class="clearfix">
+                            <ul class="nav nav-tabs top pull-left w-100p">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#ta">Carros</a>
+                                </li>                       
+                            </ul>
+                        </div>
+                        <div class="tab-content top">
+                            <div class="tab-pane active" id="ta">
+                                    <form [formGroup]="itemAnnexCarForm" class="row form-inline">
+                                        <div class="form-group col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                       <ng-select
+                                                            [(options)]="cars"
+                                                            [placeholder]="Matricula"
+                                                            [multiple]="false"
+                                                            formControlName="idCar"
+                                                      
+                                                        >
+                                                        </ng-select>
+                                                    </div>
+                                                <div class="col-md-4"> <input type="text" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
+                                                <div class="col-md-4"> <input type="text" formControlName="carValue" class="form-control" placeholder="Valor"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                        <ng-select
+                                                            [(options)]="carUses"
+                                                            [placeholder]="Uso"
+                                                            [multiple]="false"
+                                                            formControlName="carUse"
+                                                        >
+                                                        </ng-select>
+                                                    </div>
+                                                <div class="col-md-4"> <input type="text" formControlName="amparoPatrimonial" class="form-control" placeholder="Amparo"></div>
+                                                <div class="col-md-4"> <input type="text" formControlName="rc" class="form-control" placeholder="RC"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-2 col-sm-6" *ngIf="createItemCar">
+                                            <button [disabled]="!itemAnnexCarForm.valid" (click)="saveItemAnnexCar()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-2 col-sm-6" *ngIf="!createItemCar">
+                                            <button [disabled]="!polizaMedicalAnnexForm.valid" (click)="editItemAnnexCar()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
+                                        </div>
+                                </form> 
+                                <div style="padding-top: 10px;"class="table-responsive datatable">
+                                        <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                                            <thead>
+                                                <tr>
+                                                    <th> <mfDefaultSorter by="name">Placa</mfDefaultSorter></th>                              
+                                                    <th><mfDefaultSorter by="phone">Tasa</mfDefaultSorter></th>
+                                                    <th><mfDefaultSorter by="phone">Valor Total</mfDefaultSorter></th> 
+                                                
+
+                                                    <th>Acciones</th>      
+                                                </tr>
+                                            </thead>
+                                            <tbody>                           
+
+                                                <tr *ngFor="let carItem of itemCarAnnexs">
+                                                    <td><strong>  {{carItem}}   </strong></td>
+                                                    <td>{{carItem.tasa}}</td>
+                                                    <td>{{carItem.carValue}}</td>
+                                
+                                                
+
+                                                    <td class="row col  bottom-15">
+                                                    
+                                                        <div class="d-inline-block">
+                                                                    <div class="row">
+
+
+                                                                            <button type="button" (click)='getExtras(carItem._id)' class="btn btn-primary btn-sm transition" data-toggle="modal" data-target="#extra-modal">Extras</button>
+
+                                                                                
+
+                                                                            <button type="button" (click)="deleteCarItem(carItem._id)" class="btn btn-danger btn-sm transition">Borrar</button>
+
+                                                                                            <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                                                <div class="modal-dialog" role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header state modal-danger">                                    
+                                                                                                            <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                        <!--Esta seguro-->
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                            <button (click)="deletepolizaMedicalAnnex()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                    </td>
+                                                    </tr>
+                                            
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="12">
+                                                        <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                </div> 
+                                  
+                               
+                            </div>
+                           
+                           
+                        </div>                   
+                    </div>
+      
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="extra-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header state modal-primary">
+                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-file-o"></i>Extras</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                </div>
+                                <div class="modal-body">
+                                   
+                                 <form [formGroup]="itemExtraForm" class="row form-inline">
+                                        <div class="form-group col-md-10">
+                                            <div class="row">
+
+                            
+                                                <div class="col-md-4"> <input type="text" formControlName="extraDetails" class="form-control" placeholder="Extra Detalle"></div>
+                                                <div class="col-md-4"> <input type="text" formControlName="extraTasa" class="form-control" placeholder="Extra Valor"></div>
+                                                <div class="col-md-4"> <input type="text" formControlName="extraValue" class="form-control" placeholder="Extra Tasa"></div>
+                                                
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="form-group col-md-2 col-sm-6" *ngIf="createItemCar">
+                                            <button [disabled]="!itemAnnexCarForm.valid" (click)="saveItemAnnexExtra()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-2 col-sm-6" *ngIf="!createItemCar">
+                                            <button [disabled]="!polizaMedicalAnnexForm.valid" (click)="editItemAnnexExtra()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
+                                        </div>
+                                </form> 
+                                 <div style="padding-top: 10px;"class="table-responsive datatable">
+                                        <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                                            <thead>
+                                                <tr>
+                                                    <th> <mfDefaultSorter by="name">Detalles Extra</mfDefaultSorter></th>                              
+                                                    <th><mfDefaultSorter by="phone">Tasa Extra</mfDefaultSorter></th>
+                                                    <th><mfDefaultSorter by="phone">Valor Extra</mfDefaultSorter></th> 
+                                                
+
+                                                    <th>Acciones</th>      
+                                                </tr>
+                                            </thead>
+                                            <tbody>                           
+
+                                                <tr *ngFor="let extra of itemAnnexExtras">
+                                                    <td><strong>  {{extra.extraDetails}}   </strong></td>
+                                                    <td>{{extra.extraTasa}}</td>
+                                                    <td>{{extra.extraValue}}</td>
+                                
+                                                
+
+                                                    <td class="row col  bottom-15">
+                                                    
+                                                        <div class="d-inline-block">
+                                                                    <div class="row">
+
+
+                                                                           
+
+                                                                                    
+
+                                                                            
+
+                                                                            <button type="button" (click)="deleteCarItem(carItem._id)" class="btn btn-danger btn-sm transition">Borrar</button>
+
+                                                                                            <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                                                <div class="modal-dialog" role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header state modal-danger">                                    
+                                                                                                            <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                        <!--Esta seguro-->
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                            <button (click)="deletepolizaMedicalAnnex()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                    </td>
+                                                    </tr>
+                                            
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="12">
+                                                        <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                          
+                             
+                            </div>
+                                  
+                                                                
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+</div>

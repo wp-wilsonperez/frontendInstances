@@ -315,6 +315,14 @@ export const menuItems = [
         selected: false,
         expanded: false
       },
+      {
+        title: 'Listado Polizas Medicas',
+        routerLink: 'polizas/polizas-medicas',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+
   
       
     ]
@@ -336,7 +344,15 @@ export const menuItems = [
         disabled: true,
         selected: false,
         expanded: false
+      },
+      {
+        title: 'Notas de Credito',
+        routerLink: 'facturas/notas-credito',
+        disabled: true,
+        selected: false,
+        expanded: false
       }
+
       
     ]
   },
@@ -375,6 +391,13 @@ export const menuItems = [
       {
         title: 'Listado de Siniestros',
         routerLink: 'siniestros/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Siniestros Medicos',
+        routerLink: 'siniestros/medicos',
         disabled: true,
         selected: false,
         expanded: false

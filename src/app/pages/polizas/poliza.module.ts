@@ -1,3 +1,5 @@
+import { PolizaMedicalAnnexComponent } from './polizaMedical/polizaMedicalAnnex/poliza-medical-annex.component';
+import { PolizaMedicalComponent } from './polizaMedical/poliza-medical.component';
 import { PolizaAnnexComponent } from './polizaAnnex/polizaAnnex.component';
 import { FrecuencyComponent } from './frecuency/frecuency.component';
 import { IngresoComponent } from './ingresos/ingresos.component';
@@ -17,6 +19,8 @@ import {SelectModule} from 'angular2-select';
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
   { path: 'polizas', component: PolizaComponent, data: { breadcrumb: 'Polizas' } },
+  { path: 'polizas-medicas', component: PolizaMedicalComponent, data: { breadcrumb: 'Polizas Medicas' } },
+  { path: 'anexos-medicos/:id', component: PolizaMedicalAnnexComponent, data: { breadcrumb: 'Poliza Medica Anexo' } },
   { path: 'tipo-polizas', component: TipoPolizaComponent, data: { breadcrumb: 'Tipo de Polizas' } },
   { path: 'rutas', component: RutaComponent, data: { breadcrumb: 'Rutas' } },
   { path: 'ingresos', component: IngresoComponent, data: { breadcrumb: 'Ingresos' } },
@@ -38,7 +42,7 @@ export const routes = [
   ],
   declarations: [
 
-    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent
+    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent
 
   ],
   providers: []

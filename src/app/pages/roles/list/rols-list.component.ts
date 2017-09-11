@@ -1057,7 +1057,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1339,6 +1339,24 @@ export class RolsListComponent {
         this.policyEnable?requestTwo.policy['enable'] = true:null
         this.policyList?requestTwo.policy['ramoPercentageValue'] = true:null
 
+        this.policyList?requestTwo.policyMedicalBusiness['list'] = true:null;
+        this.policyList?requestTwo.policyMedicalBusiness['add'] = true:null;
+        this.policyList?requestTwo.policyMedicalBusiness['edit'] = true:null;
+        this.policyList?requestTwo.policyMedicalBusiness['delete'] = true:null;
+
+        this.policyList?requestTwo.annexMedicalBusiness['list'] = true:null;
+        this.policyList?requestTwo.annexMedicalBusiness['add'] = true:null;
+        this.policyList?requestTwo.annexMedicalBusiness['param'] = true:null;
+        this.policyList?requestTwo.annexMedicalBusiness['edit'] = true:null;
+        this.policyList?requestTwo.annexMedicalBusiness['delete'] = true:null;
+        
+        this.policyList?requestTwo.annexMedicalBusinessItem['list'] = true:null;
+        this.policyList?requestTwo.annexMedicalBusinessItem['add'] = true:null;
+        this.policyList?requestTwo.annexMedicalBusinessItem['edit'] = true:null;
+        this.policyList?requestTwo.annexMedicalBusinessItem['delete'] = true:null;
+        this.policyList?requestTwo.annexMedicalBusinessItem['param'] = true:null;
+        
+
          //billing
             
         this.billingList?requestTwo.billing['list'] = true:null;
@@ -1353,6 +1371,12 @@ export class RolsListComponent {
         this.billingList?requestTwo.wallet['edit'] = true:null;
         this.billingList?requestTwo.wallet['delete'] = true:null;
         this.billingList?requestTwo.wallet['enable'] = true:null;
+
+        this.billingList?requestTwo.creditNote['list'] = true:null;
+        this.billingList?requestTwo.creditNote['add'] = true:null;
+        this.billingList?requestTwo.creditNote['edit'] = true:null;
+        this.billingList?requestTwo.creditNote['delete'] = true:null;
+        this.billingList?requestTwo.creditNote['enable'] = true:null;
         
 
 

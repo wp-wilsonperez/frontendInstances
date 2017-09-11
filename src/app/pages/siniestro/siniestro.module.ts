@@ -1,3 +1,4 @@
+import { SiniestroMedicalComponent } from './sinisterMedical/siniestro-medical.component';
 import { sinisterCarComponent } from './sinisterCars/sinister-cars.component';
 import { SinisterStateComponent } from './sinisterState/sinister-state.component';
 import { SiniestroDocumentationComponent } from './sinisterDocumentation/sinister-documentation.component';
@@ -18,6 +19,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
   { path: 'listado', component: SiniestroComponent, data: { breadcrumb: 'siniestros' } },
+  { path: 'medicos', component: SiniestroMedicalComponent, data: { breadcrumb: 'Medicos' } },
   { path: 'documentacion', component: SiniestroDocumentationComponent, data: { breadcrumb: 'documentacion' } },
   { path: 'documentacion-ramo', component: SiniestroDocRamoComponent, data: { breadcrumb: 'documentacion ramo' } },
   { path: 'state', component: SinisterStateComponent, data: { breadcrumb: 'Estado' } },
@@ -45,7 +47,7 @@ export const routes = [
   ],
   declarations: [
 
-    SiniestroComponent,SiniestroDocRamoComponent,SiniestroDocumentationComponent,SinisterStateComponent,sinisterCarComponent
+    SiniestroComponent,SiniestroDocRamoComponent,SiniestroDocumentationComponent,SinisterStateComponent,sinisterCarComponent,SiniestroMedicalComponent
 
   ],
   providers: []

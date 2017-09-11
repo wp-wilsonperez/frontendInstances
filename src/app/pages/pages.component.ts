@@ -1,3 +1,4 @@
+import { SelectService } from './../providers/select.service';
 import { Router } from '@angular/router';
 import { UserSessionService } from './../providers/session.service';
 import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
@@ -9,7 +10,7 @@ import { AppState } from '../app.state';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
-  providers: [ AppState,UserSessionService ]
+  providers: [ AppState,UserSessionService,SelectService ]
 })
 export class PagesComponent implements OnInit {
 

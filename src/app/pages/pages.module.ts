@@ -12,11 +12,6 @@ import { BreadcrumbComponent } from '../theme/components/breadcrumb/breadcrumb.c
 import { BackTopComponent } from '../theme/components/back-top/back-top.component';
 import { SearchComponent } from './search/search.component';
 import { HttpModule } from '@angular/http';
-
-
-
-
-
 @NgModule({
   imports: [
     CommonModule,

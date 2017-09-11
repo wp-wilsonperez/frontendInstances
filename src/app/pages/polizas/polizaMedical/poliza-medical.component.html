@@ -1,0 +1,559 @@
+<div class="row">
+    <div class="col">
+        <div widget class="card">
+            <div class="card-header">
+
+                <span class="text-uppercase">Listado de Polizas Medicas</span>
+
+                <div class="widget-controls"> 
+                     <div class="col-md-4">
+                               <button data-toggle="modal" data-target="#new-city" class="btn btn-primary btn-rounded pull-right" ><i class="fa fa-plus"></i></button>
+                        </div>                        
+                   
+                </div>        
+            </div>
+            
+            <div class="card-block widget-body">
+                  
+
+                        <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>{{message}} </strong> 
+                        </div>
+                       
+                        <div *ngIf="toast" class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>{{message}}</strong> 
+                        </div>
+                
+                <div class="w-200 pull-right bottom-15">
+                    <div class="input-group input-group-sm">
+
+
+                        
+                    </div>
+                </div> 
+                <div class="table-responsive datatable">
+                    <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                        <thead>
+                            <tr>
+                                <th> <mfDefaultSorter by="name">Numero</mfDefaultSorter></th>                              
+                                <th><mfDefaultSorter by="phone">Asegurado</mfDefaultSorter></th>
+                                 <th><mfDefaultSorter by="phone">Fecha Inicio</mfDefaultSorter></th> 
+                                 <th><mfDefaultSorter by="phone">Fecha Fin</mfDefaultSorter></th>
+
+                                <th>Acciones</th>      
+                            </tr>
+                        </thead>
+                        <tbody>                           
+
+                            <tr *ngFor="let polizaMedical of polizaMedicals">
+                                <td><strong>  {{polizaMedical.policyNumber}}   </strong></td>
+                                <td>{{polizaMedical.insured}}</td>
+                                <td>{{polizaMedical.startDate}}</td>
+                                 <td>{{polizaMedical.finishDate}}</td>
+              
+                               
+
+                                <td class="row col  bottom-15">
+                                  
+                                      <div class="d-inline-block">
+                                                <div class="row">
+
+
+                                                        <button type="button" [routerLink]="['/pages/polizas/anexos-medicos',polizaMedical._id]" class="btn btn-primary">Anexos</button>
+
+                                                                
+                        
+
+                                                        <button type="button" (click)="idAssign(polizaMedical._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+
+                                                                        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header state modal-danger">                                    
+                                                                                        <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                       <!--Esta seguro-->
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button (click)="deletepolizaMedical()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                </div>
+                                                
+                                            </div>
+                                </td>
+                                </tr>
+                          
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="12">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="new-city" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header state modal-primary">
+                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-file-o"></i>Nueva polizaMedical</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                </div>
+                                <div class="modal-body">
+                                            <div class="col-lg-12">
+                                                <div class="clearfix">
+                                                    <ul class="nav nav-tabs top pull-left w-100p">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" data-toggle="tab" href="#ta">Datos de Poliza Medica</a>
+                                                        </li>
+                                                                          
+                                                    </ul>
+                                                </div>
+                                                <div class="tab-content top">
+                                                    <div class="tab-pane active" id="ta">
+                                                          <form  [formGroup]="polizaMedicalForm"  class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1"> Numero de Poliza</label>
+                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Certificado</label>
+                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Ramo</label>
+                                                                        <ng-select
+                                                                            (selected)="getTasa()"
+                                                                            [(options)]="ramos"
+                                                                            [placeholder]="Ramos"
+                                                                            [multiple]="false"
+                                                                            formControlName="idRamo">
+                                                                        </ng-select>
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Cliente</label>
+                                                                        <ng-select
+                                                                            [(options)]="clients"
+                                                                            [placeholder]="Clientes"
+                                                                            [multiple]="false"
+                                                                            formControlName="idClient">
+                                                                        </ng-select>
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Grupo Cliente</label>
+                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Vigencia Inicio</label>
+                                                                        <input  type="date" formControlName="startDate" class="form-control">
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Forma polizaMedical</label>
+                                                                        <ng-select
+                                                                            [(options)]="policyTypes"
+                                                                            [placeholder]="Types"
+                                                                            [multiple]="false"
+                                                                            formControlName="idPolicyType">
+                                                                        </ng-select>
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Forma  de Pago</label>
+
+                                                                        
+                                                                        <ng-select
+                                                                            [(options)]="paymentTypes"
+                                                                            [placeholder]="Types"
+                                                                            [multiple]="false"
+                                                                            formControlName="idPaymentType">
+                                                                        </ng-select>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Ciudad</label>
+                                                                        <ng-select
+                                                                            [(options)]="cities"
+                                                                            [placeholder]="Ciudades"
+                                                                            [multiple]="false"
+                                                                            formControlName="idCity">
+                                                                        </ng-select>
+                                                                    </div>
+
+
+                                                                
+
+                                                                                            
+                                                                    
+                                                                </div>
+
+                                                                <div class="col-md-6">
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Anexo</label>
+                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
+                                                                                                    
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Aseguradora</label>
+                                                                    <ng-select
+                                                                            (selected)="getTasa()"
+                                                                            [(options)]="insurances"
+                                                                            [placeholder]="Aseguradoras"
+                                                                            [multiple]="false"
+                                                                            formControlName="idInsurance">
+                                                                        </ng-select>
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Porcentaje</label>
+                                                                        <input type="text" formControlName="percentageRamo" class="form-control">
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Deducible</label>
+                                                                        <ng-select
+                                                                            
+                                                                            [(options)]="deductibles"
+                                                                            [placeholder]="Deducibles"
+                                                                            [multiple]="false"
+                                                                            formControlName="idDeductible">
+                                                                        </ng-select>
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Agente</label>
+                                                                        <ng-select
+                                                                            [(options)]="users"
+                                                                            [placeholder]="Usuarios"
+                                                                            [multiple]="false"
+                                                                            formControlName="idUser">
+                                                                        </ng-select>
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Asegurado</label>
+                                                                        <input  type="text" formControlName="insured" class="form-control">
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Vigencia Final</label>
+                                                                        <input  type="date" formControlName="finishDate" class="form-control">
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="from-group">    
+                                                                        <label for="exampleSelect1">DiasVigencia </label>
+                                                                        <input type="text" formControlName="daysofValidity" class="form-control">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Frecuencia de Pago</label>
+                                                                        <ng-select
+                                                                            [(options)]="frecuencyPayments"
+                                                                            [placeholder]="Frecuencia"
+                                                                            [multiple]="false"
+                                                                            formControlName="idFrequencyPayment">
+                                                                        </ng-select>
+                                                                            
+
+                                                                    </div>
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Fecha Ingreso</label>
+                                                                        <input  type="date" formControlName="dateAdmission" class="form-control">
+                                                                            
+
+                                                                    </div>
+
+                                                                    <div class="form-group">
+
+                                                                        <label for="exampleSelect1">Fecha Anulacion</label>
+                                                                        <input  type="date" formControlName="dateCancellation" class="form-control">
+                                                                            
+
+                                                                    </div>
+
+                                                                
+                                                                </div>
+
+
+                                                    
+
+                                                            
+                                                            </form>
+                                                    </div>
+                                                   
+                                                </div>                   
+                                            </div>
+                                  
+
+                                   
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button [disabled]="!polizaMedicalForm.valid" (click)="savepolizaMedical()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+</div>
+
+<div class="modal fade" id="anexos-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header state modal-primary">
+                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-file-o"></i>Anexos</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                          <div class="col-md-6">
+                                                    <form  class="row form-inline">
+                                                        
+                                                        <div class="col-md-10" [ngClass]="{}">
+                                                            <div class="row">
+                                                                 <div class=" col-md-6 form-group">
+                                                                <input type="text" class="form-control" placeholder="Nombre">
+                                                            </div>
+                                                             <div class="col-md-6 form-group">
+                                                                <input type="text" class="form-control" placeholder="Nombre">
+                                                            </div> 
+
+                                                            </div>
+                                                             
+
+                                                        </div>
+                                                    
+                                                    
+                                                        <div class="form-group col-md-2 col-sm-6" *ngIf="create">
+                                                            <button  (click)="saveTipopolizaMedical()" type="submit" class="btn btn-primary">Guardar</button>
+                                                        </div>
+                                                        
+                                                        <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
+                                                            <button  (click)="editTipopolizaMedical()" type="submit" class="btn btn-primary">Editar</button>
+                                                        </div>
+                                                    </form> 
+                                                    <div class="table-responsive datatable">
+                                                        <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th> <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>                              
+                                                                    <td><strong>    </strong></td>
+                                                                    <td><strong>    </strong></td>
+                                                                        <td><strong>    </strong></td>
+                                                                        <td><strong>    </strong></td>
+                                                                        <td><strong>    </strong></td>
+                                                                    <th>Acciones</th>      
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>                           
+
+                                                                <tr *ngFor="let tipopolizaMedical of tipopolizaMedicals">
+                                                                    <td><strong>  {{tipopolizaMedical.name}}   </strong></td>
+
+                                                                
+                                                                    <td><strong>    </strong></td>
+                                                                    <td><strong>    </strong></td>
+                                                                        <td><strong>    </strong></td>
+                                                                        <td><strong>    </strong></td>
+                                                                        <td><strong>    </strong></td>
+                                                            
+                                                
+                                                                
+
+                                                                    <td class="row col  bottom-15">
+                                                                    
+                                                                        <div class="d-inline-block">
+                                                                                    <div class="row">
+
+
+                                                                                            <button type="button" (click)="tipopolizaMedicalDetail(tipopolizaMedical)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+
+                                                                                                    
+                                                            
+
+                                                                                            <button type="button" (click)="idAssign(tipopolizaMedical._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+
+                                                                                                            <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                                                                <div class="modal-dialog" role="document">
+                                                                                                                    <div class="modal-content">
+                                                                                                                        <div class="modal-header state modal-danger">                                    
+                                                                                                                            <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                                                        </div>
+                                                                                                                        <div class="modal-body">
+                                                                                                                        <!--Esta seguro-->
+                                                                                                                        </div>
+                                                                                                                        <div class="modal-footer">
+                                                                                                                            <button (click)="deletetipopolizaMedical()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                    </td>
+                                                                    </tr>
+                                                            
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <td colspan="12">
+                                                                        <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                                                    </td>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                          
+                                            </div>
+                                            <div class="col-md-6">
+                                                 <div class="col-lg-12">
+                                                    <div class="clearfix">
+                                                        <ul class="nav nav-tabs top pull-left w-100p">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active" data-toggle="tab" href="#ta">Carros</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-toggle="tab" href="#tb">Extras</a>
+                                                            </li>
+                                                                               
+                                                        </ul>
+                                                    </div>
+                                                    <div class="tab-content top">
+                                                        <div class="tab-pane active" id="ta">
+                                                            <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+                                                        </div>
+                                                        <div class="tab-pane" id="tb">
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.</p>
+                                                        </div>
+                                                       
+                                                    </div>                   
+                                                </div>                      
+                                        </div>  
+
+                                    </div>   
+                                                                
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button [disabled]="!polizaMedicalForm.valid" (click)="savepolizaMedical()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+</div>
+
+ <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+        <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header state modal-primary">                                    
+                    <h4 class="modal-title" id="modal-primary-label"><i class="fa  fa-money"></i>Editar polizaMedical</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                    <div class="">
+                    <div widget class="card">
+
+                    <div class="card-block widget-body">
+
+                                <form  [formGroup]="editForm"  class="row">
+
+                                        
+
+                                    
+                                    </form>
+
+                        
+                        
+
+
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button [disabled]="!editForm.valid" (click)="editpolizaMedical()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+
