@@ -242,7 +242,7 @@ export class ClienteComponent implements OnInit{
 
     console.log(this.event.coords);
     this.coords = this.event.coords;
-    this.clientForm.controls['map'].setValue(this.coords);
+    this.clientForm.controls['map'].setValue(this.coords.lat + ',' +this.coords.lng );
     this.clientForm.controls['mapShow'].setValue("Latitud: "+this.coords.lat+" Longitud: "+this.coords.lng);
     
   }

@@ -55,9 +55,9 @@
 
                             <tr *ngFor="let tasa of tasas">
                                  <td><strong> {{tasa.name}}   </strong></td>
-                                <td> {{tasa.idInsurance}}  </td>
-                                <td>{{tasa.idDeductible}}</td>
-                                <td>{{tasa.idRamo}}</td>
+                                <td> {{tasa.insurance.bussinesName}}  </td>
+                                <td>{{tasa.deductible.name}}</td>
+                                <td>{{tasa.ramo.name}}</td>
                                  <td>{{tasa.carUse}}</td>
                                   <td>{{tasa.value}}</td>
                                

@@ -41,10 +41,11 @@
                     <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
                             <tr>
-                                <th> <mfDefaultSorter by="name">Nombre</mfDefaultSorter></th>                              
-                                <th><mfDefaultSorter by="phone">Mes</mfDefaultSorter></th>
-                                 <th><mfDefaultSorter by="phone">Interes</mfDefaultSorter></th> 
-                                 <th><mfDefaultSorter by="phone">Numero de Meses</mfDefaultSorter></th>
+                                <th> <mfDefaultSorter by="name">Placa</mfDefaultSorter></th>                              
+                                <th><mfDefaultSorter by="phone">Marca</mfDefaultSorter></th>
+                                 <th><mfDefaultSorter by="phone">Modelo</mfDefaultSorter></th> 
+                                 <th><mfDefaultSorter by="phone">Cliente</mfDefaultSorter></th>
+                      
 
                                 <th>Acciones</th>      
                             </tr>
@@ -52,10 +53,10 @@
                         <tbody>                           
 
                             <tr *ngFor="let auto of autos">
-                                <td><strong>  {{auto.name}}   </strong></td>
-                                <td>{{auto.month}}</td>
-                                <td>{{auto.interest}}</td>
-                                 <td>{{auto.totalMonths}}</td>
+                                    <td><strong>  {{auto.placa}}   </strong></td>
+                                <td><strong>  {{auto.carBrand.name}}   </strong></td>
+                                <td>{{auto.carModel.name}}</td>
+                                 <td>{{auto.client.name }} {{auto.client.lastName }}</td>
               
                                
 
