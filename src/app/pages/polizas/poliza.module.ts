@@ -1,3 +1,6 @@
+import { CarPolicyComponent } from './../../components/car-policy-component/car-policy.component';
+import { FirePolicyComponent } from './../../components/fire-policy-component/fire-policy.component';
+import { MedicalPolicyComponent } from './../../components/medical-policy-component/medical-policy.component';
 import { PolizaMedicalAnnexComponent } from './polizaMedical/polizaMedicalAnnex/poliza-medical-annex.component';
 import { PolizaMedicalComponent } from './polizaMedical/poliza-medical.component';
 import { PolizaAnnexComponent } from './polizaAnnex/polizaAnnex.component';
@@ -42,7 +45,7 @@ export const routes = [
   ],
   declarations: [
 
-    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent
+    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent
 
   ],
   providers: []

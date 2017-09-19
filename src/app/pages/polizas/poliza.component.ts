@@ -1,5 +1,7 @@
+import { MedicalPolicyComponent } from './../../components/medical-policy-component/medical-policy.component';
+import { CarPolicyComponent } from './../../components/car-policy-component/car-policy.component';
 import { Router } from '@angular/router';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
@@ -42,10 +44,12 @@ export class PolizaComponent{
 
          public citiesOptions:any = [];
         public cities:any;
-
+        public policyTypeForm:string = '';
         error:any;
         toast:boolean = false;
         message:string;
+        @ViewChild('car-policy-component') carPolicy:CarPolicyComponent;
+        @ViewChild('medical-policy-component') medicalPolicy:MedicalPolicyComponent;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
         
             this.polizaForm = this.formBuilder.group({
@@ -90,17 +94,9 @@ export class PolizaComponent{
                
             });
 
-            this.loadpolizas();
-            this.loadInsurances();
+     
             this.loadRamo();
-            this.loadUser();
-            this.loadClients();
-            this.loadDeductibles();
-            this.loadFrecuencyOfPayment();
-            this.loadCity();
-            this.loadPolicyTypes();
-            this.loadPaymentTypes();
-            this.loadCars();
+     
         }
 
         loadpolizas(){
@@ -309,6 +305,28 @@ export class PolizaComponent{
 
         }
 
+        loadRamos(){
+            this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).map((res)=>{
+     
+                console.log('params',res.json());
+                
+                return res.json();
+            }).subscribe((result)=>{
+                    let states = result.params.sinisterState.list;
+
+                    states.map((result)=>{
+                       let obj = {
+                           value: result.id,
+                           label: result.name
+                       }
+                       this.ramosOptions.push(obj);
+                       this.ramos = this.ramosOptions;
+                   })
+                   console.log('ramos',this.ramos);
+            })
+
+        }
+
         getTasa(){
 
         if(this.polizaForm.value.idInsurance != ''&& this.polizaForm.value.idRamo != '' ){
@@ -327,7 +345,7 @@ export class PolizaComponent{
     }
 
         savepoliza(){
-            this.http.post(config.url+'policy/add?access_token='+this.local.getUser().token,this.polizaForm.value).map((result)=>{
+            this.http.post(config.url+'policy/add?access_token='+this.local.getUser().token,this.carPolicy.polizaForm.value).map((result)=>{
                 
                 
                 return result.json()
@@ -398,6 +416,25 @@ export class PolizaComponent{
                 
             })
 
+    }
+    getForm(e){
+        console.log(e.value);
+        switch ( e.value) {
+
+            case '599222be7f05fc0933b643f3':
+                console.log(e.label);
+                this.policyTypeForm = e.label; 
+                break;
+
+                case '599222d07f05fc0933b643f5':
+                console.log(e.label);
+                this.policyTypeForm = e.label; 
+                break;
+        
+            default:
+                break;
+        }
+        
     }
 
 

@@ -14,8 +14,6 @@
             </div>
             
             <div class="card-block widget-body">
-                  
-
                         <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -29,83 +27,98 @@
                             </button>
                             <strong>{{message}}</strong> 
                         </div>
-                
-                <div class="w-200 pull-right bottom-15">
-                    <div class="input-group input-group-sm">
+                        <div class="clearfix">
+                                <ul class="nav nav-tabs top pull-left w-100p">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#car">Poliza Carro</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#medic">Poliza Medica</a>
+                                    </li>                         
+                                </ul>
+                            </div>
 
-
-                        
-                    </div>
-                </div> 
-                <div class="table-responsive datatable">
-                    <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
-                        <thead>
-                            <tr>
-                                <th> <mfDefaultSorter by="name">Numero</mfDefaultSorter></th>                              
-                                <th><mfDefaultSorter by="phone">Asegurado</mfDefaultSorter></th>
-                                 <th><mfDefaultSorter by="phone">Fecha Inicio</mfDefaultSorter></th> 
-                                 <th><mfDefaultSorter by="phone">Fecha Fin</mfDefaultSorter></th>
-
-                                <th>Acciones</th>      
-                            </tr>
-                        </thead>
-                        <tbody>                           
-
-                            <tr *ngFor="let poliza of polizas">
-                                <td><strong>  {{poliza.policyNumber}}   </strong></td>
-                                <td>{{poliza.insured}}</td>
-                                <td>{{poliza.startDate}}</td>
-                                 <td>{{poliza.finishDate}}</td>
-              
-                               
-
-                                <td class="row col  bottom-15">
-                                  
-                                      <div class="d-inline-block">
-                                                <div class="row">
-
-
-                                                        <button type="button" [routerLink]="['/pages/polizas/anexos',poliza._id]" class="btn btn-primary" data-toggle="modal" data-target="#anexos-modal">Anexos</button>
-
-                                                                
-                        
-
-                                                        <button type="button" (click)="idAssign(poliza._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
-
-                                                                        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
-                                                                            <div class="modal-dialog" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header state modal-danger">                                    
-                                                                                        <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                       <!--Esta seguro-->
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button (click)="deletepoliza()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
-                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                    </div>
+                            <div class="tab-content top">
+                                    <div class="tab-pane active" id="car">
+                                            <div class="table-responsive datatable">
+                                                    <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                                                        <thead>
+                                                            <tr>
+                                                                <th> <mfDefaultSorter by="name">Numero</mfDefaultSorter></th>                              
+                                                                <th><mfDefaultSorter by="phone">Asegurado</mfDefaultSorter></th>
+                                                                 <th><mfDefaultSorter by="phone">Fecha Inicio</mfDefaultSorter></th> 
+                                                                 <th><mfDefaultSorter by="phone">Fecha Fin</mfDefaultSorter></th>
+                                
+                                                                <th>Acciones</th>      
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>                           
+                                
+                                                            <tr *ngFor="let poliza of polizas">
+                                                                <td><strong>  {{poliza.policyNumber}}   </strong></td>
+                                                                <td>{{poliza.insured}}</td>
+                                                                <td>{{poliza.startDate}}</td>
+                                                                 <td>{{poliza.finishDate}}</td>
+                                              
+                                                               
+                                
+                                                                <td class="row col  bottom-15">
+                                                                  
+                                                                      <div class="d-inline-block">
+                                                                                <div class="row">
+                                
+                                
+                                                                                        <button type="button" [routerLink]="['/pages/polizas/anexos',poliza._id]" class="btn btn-primary" data-toggle="modal" data-target="#anexos-modal">Anexos</button>
+                                
+                                                                                                
+                                                        
+                                
+                                                                                        <button type="button" (click)="idAssign(poliza._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                
+                                                                                                        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                                                            <div class="modal-dialog" role="document">
+                                                                                                                <div class="modal-content">
+                                                                                                                    <div class="modal-header state modal-danger">                                    
+                                                                                                                        <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-body">
+                                                                                                                       <!--Esta seguro-->
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-footer">
+                                                                                                                        <button (click)="deletepoliza()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                
                                                                                 </div>
+                                                                                
                                                                             </div>
-                                                                        </div>
-
+                                                                </td>
+                                                                </tr>
+                                                          
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td colspan="12">
+                                                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                                                </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
                                                 </div>
-                                                
-                                            </div>
-                                </td>
-                                </tr>
-                          
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="12">
-                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                                    </div>
+                                    <div class="tab-pane" id="medic">
+                                        
+                                        
+                                    </div>
+                               
+                                </div> 
+         
+                
+                
             </div>
         </div>
     </div>
@@ -131,227 +144,23 @@
                                                 </div>
                                                 <div class="tab-content top">
                                                     <div class="tab-pane active" id="ta">
-                                                          <form  [formGroup]="polizaForm"  class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Poliza Numero</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Certificado</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Ramo</label>
-                                                                        <ng-select
-                                                                            (selected)="getTasa()"
-                                                                            [(options)]="ramos"
-                                                                            [placeholder]="Ramos"
-                                                                            [multiple]="false"
-                                                                            formControlName="idRamo">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Cliente</label>
-                                                                        <ng-select
-                                                                            [(options)]="clients"
-                                                                            [placeholder]="Clientes"
-                                                                            [multiple]="false"
-                                                                            formControlName="idClient">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Grupo Cliente</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Vigencia Inicio</label>
-                                                                        <input  type="date" formControlName="startDate" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Forma Poliza</label>
-                                                                        <ng-select
-                                                                            [(options)]="policyTypes"
-                                                                            [placeholder]="Types"
-                                                                            [multiple]="false"
-                                                                            formControlName="idPolicyType">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Forma  de Pago</label>
-
-                                                                        
-                                                                        <ng-select
-                                                                            [(options)]="paymentTypes"
-                                                                            [placeholder]="Types"
-                                                                            [multiple]="false"
-                                                                            formControlName="idPaymentType">
-                                                                        </ng-select>
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Ciudad</label>
-                                                                        <ng-select
-                                                                            [(options)]="cities"
-                                                                            [placeholder]="Ciudades"
-                                                                            [multiple]="false"
-                                                                            formControlName="idCity">
-                                                                        </ng-select>
-                                                                    </div>
-
-
-                                                                
-
-                                                                                            
-                                                                    
-                                                                </div>
-
-                                                                <div class="col-md-6">
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Anexo</label>
-                                                                        <input  type="text" formControlName="policyNumber" class="form-control">
-                                                                                                    
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Aseguradora</label>
+                                                            <div class="form-group">
+                                                                    <label for="exampleSelect1">Tipos de Poliza</label>
                                                                     <ng-select
-                                                                            (selected)="getTasa()"
-                                                                            [(options)]="insurances"
-                                                                            [placeholder]="Aseguradoras"
-                                                                            [multiple]="false"
-                                                                            formControlName="idInsurance">
-                                                                        </ng-select>
-                                                                            
+                                                                        (selected)="getForm($event)"
+                                                                        [(options)]="ramos"
+                                                                        [placeholder]="Ramos"
+                                                                        [multiple]="false"
+                                                                      >
+                                                                    </ng-select>
+                                                                        
 
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Porcentaje</label>
-                                                                        <input type="text" formControlName="percentageRamo" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Deducible</label>
-                                                                        <ng-select
-                                                                            
-                                                                            [(options)]="deductibles"
-                                                                            [placeholder]="Deducibles"
-                                                                            [multiple]="false"
-                                                                            formControlName="idDeductible">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Agente</label>
-                                                                        <ng-select
-                                                                            [(options)]="users"
-                                                                            [placeholder]="Usuarios"
-                                                                            [multiple]="false"
-                                                                            formControlName="idUser">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Asegurado</label>
-                                                                        <input  type="text" formControlName="insured" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Vigencia Final</label>
-                                                                        <input  type="date" formControlName="finishDate" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="from-group">    
-                                                                        <label for="exampleSelect1">DiasVigencia </label>
-                                                                        <input type="text" formControlName="daysofValidity" class="form-control">
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Frecuencia de Pago</label>
-                                                                        <ng-select
-                                                                            [(options)]="frecuencyPayments"
-                                                                            [placeholder]="Frecuencia"
-                                                                            [multiple]="false"
-                                                                            formControlName="idFrequencyPayment">
-                                                                        </ng-select>
-                                                                            
-
-                                                                    </div>
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Fecha Ingreso</label>
-                                                                        <input  type="date" formControlName="dateAdmission" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                    <div class="form-group">
-
-                                                                        <label for="exampleSelect1">Fecha Anulacion</label>
-                                                                        <input  type="date" formControlName="dateCancellation" class="form-control">
-                                                                            
-
-                                                                    </div>
-
-                                                                
                                                                 </div>
+                                                                <car-policy-component *ngIf="policyTypeForm == 'Vehículos' "></car-policy-component>
 
+                                                                <medical-policy-component *ngIf="policyTypeForm == 'Asistencia Médica' "></medical-policy-component>
+                                                        
 
-                                                    
-
-                                                            
-                                                            </form>
                                                     </div>
                                                    
                                                 </div>                   
@@ -362,7 +171,9 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    <button [disabled]="!polizaForm.valid" (click)="savepoliza()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                                    <button *ngIf="policyTypeForm == 'Vehículos' " [disabled]="!polizaForm.valid" (click)="savepoliza()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+
+                                    <button *ngIf="policyTypeForm == 'Asistencia Médica' " [disabled]="!polizaForm.valid" (click)="savePolizaMedica()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
 
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>

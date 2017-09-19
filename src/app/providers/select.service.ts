@@ -24,6 +24,159 @@ export class SelectService {
         })
         
     }
+    loadUsers(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'user/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.users;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name +' '+result.lastName
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+    loadClients(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'client/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.clients;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name +' '+result.lastName
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+    loadDeductible(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'deductible/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.deductibles;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+    loadInsurances(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'insurance/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.insurances;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.bussinesName
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+    loadFrecuencyOfPayments(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'frequencyPayment/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.frequencyPayments;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+    loadCities(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'city/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.cities;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+    loadPaymentTypes(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'paymentType/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.paymentTypes;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+    loadPolicyTypes(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'policyType/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.policyTypes;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+    loadCars(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'car/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.cars;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.placa
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
     loadPolicies(){  
         let policyOptions = [];
       return   this.http.get(config.url+'policy/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
