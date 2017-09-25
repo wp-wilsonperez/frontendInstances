@@ -13,7 +13,7 @@ import { config } from '../../../config/project-config';
 })
 
 export class CarPolicyComponent implements OnInit {
-    polizaForm:FormGroup;
+    public polizaForm:FormGroup;
     users:any;
     clients:any;
     deductibles:any;

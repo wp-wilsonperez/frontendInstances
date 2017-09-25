@@ -1,10 +1,10 @@
+import { SelectService } from './../../../providers/select.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
-
 
 @Component({
     selector:'polizaAnnex-component',
@@ -47,7 +47,9 @@ export class PolizaAnnexComponent{
         messageCar:string;
         iva:any;
         totalPrima:any;
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute ){
+        ramos:any;
+        itemTypeForm:string="";
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute,public selectService:SelectService){
         
             this.polizaAnnexForm = this.formBuilder.group({
                 
@@ -94,6 +96,11 @@ export class PolizaAnnexComponent{
                
             });
               this.loadCars();
+              this.selectService.loadRamos().then(result=>{
+                  this.ramos = result;
+                  console.log('ramos',this.ramos);
+                  
+              })
               this.loadCarUse();
               this.loadSettings();
               this.polizaAnnexForm.controls['totalPrima'].setValue(0);
@@ -109,6 +116,25 @@ export class PolizaAnnexComponent{
 
                     console.log('polizaAnnexs',this.polizaAnnexs);
             })
+            
+        }
+        getForm(e){
+            console.log(e.value);
+            switch ( e.value) {
+    
+                case '599222be7f05fc0933b643f3':
+                    console.log(e.label);
+                    this.itemTypeForm = e.label; 
+                    break;
+    
+                    case '599222d07f05fc0933b643f5':
+                    console.log(e.label);
+                    this.itemTypeForm = e.label; 
+                    break;
+            
+                default:
+                    break;
+            }
             
         }
         loadCars(){

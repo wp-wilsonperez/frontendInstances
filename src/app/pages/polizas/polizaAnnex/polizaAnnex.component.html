@@ -156,12 +156,24 @@
                         <div class="clearfix">
                             <ul class="nav nav-tabs top pull-left w-100p">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#ta">Carros</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#ta">Datos de Articulos</a>
                                 </li>                       
                             </ul>
                         </div>
                         <div class="tab-content top">
                             <div class="tab-pane active" id="ta">
+                                    <div class="form-group">
+                                            <label for="exampleSelect1">Tipos de Articulo</label>
+                                            <ng-select
+                                                (selected)="getForm($event)"
+                                                [(options)]="ramos"
+                                                [placeholder]="Ramos"
+                                                [multiple]="false"
+                                              >
+                                            </ng-select>
+                                                
+
+                                        </div>
                                     <form [formGroup]="itemAnnexCarForm" class="row form-inline">
                                         <div class="form-group col-md-10">
                                             <div class="row">

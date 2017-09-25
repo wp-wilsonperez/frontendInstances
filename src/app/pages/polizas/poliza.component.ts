@@ -21,6 +21,7 @@ export class PolizaComponent{
          public itemForm:FormGroup;
         public helpLinks:any;
         public polizas:any;
+        public polizasMedicas:any;
         public helpLinkId:any;
         public polizaId:any;
         public insurances:any = [];
@@ -42,14 +43,14 @@ export class PolizaComponent{
         public carOptions:any=[];
         public cars:any;
 
-         public citiesOptions:any = [];
+        public citiesOptions:any = [];
         public cities:any;
         public policyTypeForm:string = '';
         error:any;
         toast:boolean = false;
         message:string;
-        @ViewChild('car-policy-component') carPolicy:CarPolicyComponent;
-        @ViewChild('medical-policy-component') medicalPolicy:MedicalPolicyComponent;
+        @ViewChild(CarPolicyComponent) carPolicy:CarPolicyComponent;
+        @ViewChild(MedicalPolicyComponent) medicalPolicy:MedicalPolicyComponent;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
         
             this.polizaForm = this.formBuilder.group({
@@ -96,6 +97,8 @@ export class PolizaComponent{
 
      
             this.loadRamo();
+            this.loadpolizas();
+            this.loadmedicalPolizas();
      
         }
 
@@ -106,6 +109,16 @@ export class PolizaComponent{
                     this.polizas = result.policies;
 
                     console.log('Polizas',this.polizas);
+            })
+            
+        }
+        loadmedicalPolizas(){
+            this.http.get(config.url+'policyMedicalBusiness/list?access_token='+this.local.getUser().token).map((res)=>{             
+                return res.json();
+            }).subscribe((result)=>{
+                this.polizasMedicas = result.policyMedicalBusinesses;
+                console.log('polizas medicas',this.polizasMedicas);
+                
             })
             
         }
@@ -354,7 +367,7 @@ export class PolizaComponent{
                        this.loadpolizas();
                         this.toast = true;
                         this.message = "Poliza guardada"
-                        this.polizaForm.reset();
+                        this.carPolicy.polizaForm.reset();
                 }else{
                       this.error = true;
                     this.message = "No tiene privilegios de guardar poliza"
@@ -362,6 +375,28 @@ export class PolizaComponent{
                 }
                 console.log(res);
                this.loadpolizas();
+                
+            })
+        }
+
+        savePolizaMedica(){
+            this.http.post(config.url+'policyMedicalBusiness/add?access_token='+this.local.getUser().token,this.medicalPolicy.polizaMedicalForm.value).map((result)=>{
+                
+                
+                return result.json()
+            }).subscribe(res=>{
+                 if(res.msg == "OK"){
+                       this.loadmedicalPolizas();
+                        this.toast = true;
+                        this.message = "Poliza Medica guardada"
+                        this.medicalPolicy.polizaMedicalForm.reset();
+                }else{
+                      this.error = true;
+                    this.message = "No tiene privilegios de guardar poliza"
+                   
+                }
+                console.log(res);
+               this.loadmedicalPolizas();
                 
             })
         }

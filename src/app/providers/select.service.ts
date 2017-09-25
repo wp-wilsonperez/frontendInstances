@@ -126,6 +126,23 @@ export class SelectService {
         })
         
     }
+    loadRamos(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'ramo/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.ramos;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
     loadPaymentTypes(){  
         let policyOptions = [];
       return   this.http.get(config.url+'paymentType/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{

@@ -189,7 +189,7 @@ export class NotaCreditoComponent{
                  if(res.msg == "OK"){
                        this.loadnotaCreditos();
                         this.toast = true;
-                        this.message = "notaCredito guardada"
+                        this.message = "Nota Credito guardada"
                         this.notaCreditoForm.reset();
                 }else{
                       this.error = true;
