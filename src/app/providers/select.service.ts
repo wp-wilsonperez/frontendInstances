@@ -143,6 +143,23 @@ export class SelectService {
         })
         
     }
+    loadCarUse(){
+        //caruse
+        let policyOptions = [];
+       return this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).toPromise().then(result=>{
+             let apiResult = result.json();
+             apiResult.params.carUse.list.forEach((element)=>{
+                 let obj ={
+                     value:element.id,
+                     label:element.name
+                 }
+                 policyOptions.push(obj)
+             })
+            return policyOptions;
+             
+             
+         })
+        }
     loadPaymentTypes(){  
         let policyOptions = [];
       return   this.http.get(config.url+'paymentType/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{

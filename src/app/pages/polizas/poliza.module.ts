@@ -1,3 +1,7 @@
+import { ItemAnnexRc } from './../../components/itemAnnexs/itemAnnexRc/item-annex-rc';
+import { ItemAnnexProfit } from './../../components/itemAnnexs/itemAnnexProfit/item-annex-profit.component';
+import { ItemAnnexFire } from './../../components/itemAnnexs/itemAnnexFire/item-annex-fire.component';
+import { ItemAnnexCar } from './../../components/itemAnnexs/itemAnnexCar/itemAnnexCar';
 import { CarPolicyComponent } from './../../components/car-policy-component/car-policy.component';
 import { FirePolicyComponent } from './../../components/fire-policy-component/fire-policy.component';
 import { MedicalPolicyComponent } from './../../components/medical-policy-component/medical-policy.component';
@@ -45,7 +49,7 @@ export const routes = [
   ],
   declarations: [
 
-    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent
+    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent,ItemAnnexCar,ItemAnnexFire,ItemAnnexProfit,ItemAnnexRc
 
   ],
   providers: []

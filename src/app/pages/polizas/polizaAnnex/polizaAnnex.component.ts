@@ -1,6 +1,9 @@
+import { ItemAnnexProfit } from './../../../components/itemAnnexs/itemAnnexProfit/item-annex-profit.component';
+import { ItemAnnexFire } from './../../../components/itemAnnexs/itemAnnexFire/item-annex-fire.component';
+import { ItemAnnexCar } from './../../../components/itemAnnexs/itemAnnexCar/itemAnnexCar';
 import { SelectService } from './../../../providers/select.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
@@ -49,6 +52,9 @@ export class PolizaAnnexComponent{
         totalPrima:any;
         ramos:any;
         itemTypeForm:string="";
+        @ViewChild(ItemAnnexCar) itemCar:ItemAnnexCar;
+        @ViewChild(ItemAnnexFire) itemFire:ItemAnnexFire;
+        @ViewChild(ItemAnnexProfit) itemProfit:ItemAnnexProfit;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute,public selectService:SelectService){
         
             this.polizaAnnexForm = this.formBuilder.group({
@@ -125,11 +131,24 @@ export class PolizaAnnexComponent{
                 case '599222be7f05fc0933b643f3':
                     console.log(e.label);
                     this.itemTypeForm = e.label; 
+                    console.log(this.itemTypeForm);
+                    break;
+
+                case '599223137f05fc0933b643fa':
+              
+                    this.itemTypeForm = 'rc'; 
+                    console.log(this.itemTypeForm);
                     break;
     
-                    case '599222d07f05fc0933b643f5':
-                    console.log(e.label);
-                    this.itemTypeForm = e.label; 
+                case '599222fe7f05fc0933b643f7':
+                  
+                    this.itemTypeForm ='profit'; 
+                    console.log(this.itemTypeForm);
+                    break;
+                case '599222d77f05fc0933b643f6':
+                    
+                    this.itemTypeForm ='fire'; 
+                    console.log(this.itemTypeForm);
                     break;
             
                 default:

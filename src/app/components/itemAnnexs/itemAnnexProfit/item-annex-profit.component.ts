@@ -2,8 +2,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'selector-name',
-    templateUrl: 'name.component.html'
+    selector: 'item-annex-profit',
+    templateUrl: 'item-annex-profit.html'
 })
 
 export class ItemAnnexProfit implements OnInit {
