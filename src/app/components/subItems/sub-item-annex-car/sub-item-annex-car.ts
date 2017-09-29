@@ -2,11 +2,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'sub-item-annex-rc',
-    templateUrl: 'sub-item-annex-rc.html'
+    selector: 'sub-item-annex-car',
+    templateUrl: 'sub-item-annex-car.html'
 })
 
-export class SubItemAnnexRc implements OnInit {
+export class SubItemAnnexCar implements OnInit {
     public itemExtraForm:FormGroup;
     constructor(public formBuilder:FormBuilder) {
         this.itemExtraForm = this.formBuilder.group({
