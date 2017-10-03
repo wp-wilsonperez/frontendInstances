@@ -1,0 +1,39 @@
+<form [formGroup]="itemAnnexCarForm" class="row form-inline">
+        <div class="form-group col-md-10">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">Carro</label>
+                       <ng-select
+                            [(options)]="cars"
+                            [placeholder]="Matricula"
+                            [multiple]="false"
+                            formControlName="idCar"
+                      
+                        >
+                        </ng-select>
+                    </div>
+                <div class="col-md-4"> <input type="text" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
+                <div class="col-md-4"> <input type="text" formControlName="carValue" class="form-control" placeholder="Valor"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                        <label for="">Uso de Carro</label>
+                        <ng-select
+                            [(options)]="carUses"
+                            [placeholder]="Uso"
+                            [multiple]="false"
+                            formControlName="carUse"
+                        >
+                        </ng-select>
+                    </div>
+                <div class="col-md-4"> <input type="text" formControlName="amparoPatrimonial" class="form-control" placeholder="Amparo"></div>
+                <div class="col-md-4"> <input type="text" formControlName="rc" class="form-control" placeholder="RC"></div>
+            </div>
+        </div>
+        <div class="form-group col-md-2 col-sm-6">
+            <button [disabled]="!itemAnnexCarForm.valid" (click)="saveItemAnnexCar()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
+        </div>
+      
+    
+      
+</form> 
