@@ -1,0 +1,42 @@
+<form [formGroup]="itemAnnexRcForm" class="row form-inline">
+        <div class="form-group col-md-10">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">Valor T.</label>
+                    <input type="text" formControlName="totalValueItem" class="form-control">
+                </div>
+                <div class="col-md-4">
+                        <label for="">Valor Prima</label>
+                        <input type="text" formControlName="totalValuePrimaItem" class="form-control">
+                </div>
+                <div class="col-md-4">
+                        <label for="">Detalles</label>
+                        <input type="text" formControlName="totalValuePrimaItem" class="form-control">
+                </div>
+
+                
+            </div>
+            <div class="row">
+                    <div class="col-md-4">
+                            <label for="">Observaciones.</label>
+                            <input type="text" formControlName="totalValueItem" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                                <label for="">Dias Validos</label>
+                                <input type="text" formControlName="totalValuePrimaItem" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                                <label for="">Inclusion</label>
+                                <input type="date" formControlName="totalValuePrimaItem" class="form-control">
+                        </div>
+               
+        
+            </div>
+        </div>
+        <div class="form-group col-md-2 col-sm-6">
+            <button [disabled]="!itemAnnexRcForm.valid" (click)="saveItemAnnexCar()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
+        </div>
+      
+    
+      
+</form> 
