@@ -32,13 +32,12 @@
 </div>
 <nav class="container"  > 
     
-                    <a href="#" class="buttons" tooltip="Ayuda3"></a>
+                  
                     
-                    <a href="#" class="buttons" tooltip="Ayuda2"></a>
-                    
-                    <a href="#" class="buttons" tooltip="Ayuda1"></a>
+                    <a href="{{help.link}}" *ngFor="let help of helpLinks" class="buttons" data-toggle="tooltip" data-animation="false"
+                    data-placement="left" title="{{help.name}}"  tooltip=""> <i class="fa fa-link"></i></a>
 
-                    <a class="buttons" tooltip="Ayuda" href="#"></a>
+                    <a class="buttons" title="Abrir Ayuda" tooltip="Ayuda" href="#"><i class="fa fa-question"></i></a>
 
  </nav>
  

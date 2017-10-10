@@ -207,6 +207,15 @@ body::before{
 }
 
 /* Show tooltip content on hover */
+[tooltip]{
+    text-align: center;
+    font-size: 1.5em;
+}
+[tooltip] i{
+    position:absolute;
+    top:30%;
+    left:40%;
+}
 
 [tooltip]:before {
   bottom: 25%;
@@ -215,7 +224,7 @@ body::before{
   border-radius: 2px;
   background: #585858;
   color: #fff;
-  content: attr(tooltip);
+  content: attr(title);
   font-size: 12px;
   visibility: hidden;
   opacity: 0;

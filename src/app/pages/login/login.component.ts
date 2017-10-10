@@ -18,16 +18,22 @@ export class LoginComponent implements OnInit {
     
     public router: Router;
     public form:FormGroup;
+    public recoverForm:FormGroup;
     public cedula:AbstractControl;
     public password:AbstractControl;
     public loginErr:boolean= false;
     public user:any;
+    public recover:boolean = false;
 
     constructor(router:Router, fb:FormBuilder,public http:Http,public local:UserSessionService) {
         this.router = router;
         this.form = fb.group({
             'cedula': ['', Validators.compose([Validators.required])],
             'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+        },{validator: ValidationService.validacionCedula('cedula')});
+
+        this.recoverForm = fb.group({
+            'cedula': ['', Validators.compose([Validators.required])],
         },{validator: ValidationService.validacionCedula('cedula')});
 
         this.cedula = this.form.controls['cedula'];
@@ -85,6 +91,10 @@ export class LoginComponent implements OnInit {
             
         }
     }
+    showRecover(val){
+        this.recover = val;
+    }
+
 }
 
 export function emailValidator(control: FormControl): {[key: string]: any} {

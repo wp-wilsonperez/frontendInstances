@@ -102,6 +102,26 @@ export const menuItems = [
         disabled: true,
         selected: false,
         expanded: false
+      },
+      {
+        title: 'Deducibles',
+        subMenu: [
+          {
+            title: 'Crear deducible',
+            routerLink: 'deducibles/crear',
+            disabled: true,
+            selected: false,
+            expanded: false
+          },
+           {
+            title: 'Deducibles',
+            routerLink: 'deducibles/listado',
+            disabled: true,
+            selected: false,
+            expanded: false
+          }
+          
+        ]
       }
       
     ]
@@ -445,33 +465,6 @@ export const menuItems = [
     ]
   },
    {
-    title: 'Deducibles',
-    routerLink: 'seguros',
-
-    icon: 'fa-building',
-
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Crear deducible',
-        routerLink: 'deducibles/crear',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-       {
-        title: 'Deducibles',
-        routerLink: 'deducibles/listado',
-        disabled: true,
-        selected: false,
-        expanded: false
-      }
-      
-    ]
-  },
-   {
     title: 'Banco',
     routerLink: 'bancos',
     icon: 'fa-building',
@@ -574,36 +567,6 @@ export const menuItems = [
     ]
   },
    {
-    title: 'Sucursales',
-    routerLink: 'tables',
-
-    icon: 'fa-building',
-
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Nueva Sucursal',
-        routerLink: 'sucursales/crear',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-       {
-        title: 'Listado de Sucursales',
-        routerLink: 'sucursales/listado',
-        disabled: true,
-        selected: false,
-        expanded: false
-      }
-      
-    ]
-  },
-
-  
-
-   {
     title: 'Roles',
     routerLink: 'tables',
     icon: 'fa fa-tasks',
@@ -637,11 +600,30 @@ export const menuItems = [
     order: 400,
     subMenu: [
       {
-        title: 'Configuracion de sistema',
+        title: 'Configuracion de Cuenta',
         routerLink: 'usuarios/configuracion',
         disabled: true,
         selected: false,
         expanded: false
+      },
+      {
+        title: 'Sucursales',
+        subMenu: [
+          {
+            title: 'Nueva Sucursal',
+            routerLink: 'sucursales/crear',
+            disabled: true,
+            selected: false,
+            expanded: false
+          },
+           {
+            title: 'Listado de Sucursales',
+            routerLink: 'sucursales/listado',
+            disabled: true,
+            selected: false,
+            expanded: false
+          }
+        ]
       },
        {
         title: 'Configuracion de cuenta',

@@ -11,9 +11,11 @@
                 </div>
 
                 <h2 class="card-title">YTODOSEGURO</h2>
-                <p>Si no tienes una cuenta, contactate con el administrador del sistema!</p>
+                <p *ngIf="!recover">Si no tienes una cuenta, contactate con el administrador del sistema!</p>
 
-                <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class=" text-left">
+                <p *ngIf="recover">Recuperar Contrasena</p>
+
+                <form *ngIf="!recover" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class=" text-left">
                     <div class="form-group">
                         <input maxlength="10" [formControl]="cedula" class="form-control checking-field" placeholder="Cedula" type="text">                      
                         <span class="help-block text-danger" *ngIf="form.get('cedula').touched && form.get('cedula').hasError('required')">Cedula Obligatoria</span>                              
@@ -30,12 +32,33 @@
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description align-middle">Recuerdame.</span>
                         </label>
-                        <a class="btn btn-link forgot transition pull-right" href="javascript:void(0);">Olvidaste tú Contraseña?</a>                     
+                        <a *ngIf="!recover" class="btn btn-link forgot transition pull-right" (click)="showRecover(true)" href="javascript:void(0);">Olvidaste tú Contraseña?</a>                     
+                       
+                                            
                     </div>
                     <div class="form-group">
                         <button [disabled]="!form.valid" class="btn btn-main btn-block btn-login" type="submit">Iniciar Sesión</button>
                     </div>
                 </form>
+
+                <form *ngIf="recover" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class=" text-left">
+                    <div class="form-group">
+                        <input maxlength="10" [formControl]="cedula" class="form-control checking-field" placeholder="Cedula" type="text">                      
+                        <span class="help-block text-danger" *ngIf="form.get('cedula').touched && form.get('cedula').hasError('required')">Cedula Obligatoria</span>                              
+                        <span class="help-block text-danger" *ngIf="form.get('cedula').touched && form.get('cedula').hasError('invalidCedula')">Cedula Incorrecta</span>
+                    </div>
+                
+                    <div class="form-group">
+                     
+                        <a *ngIf="recover" class="btn btn-link forgot transition pull-right" (click)="showRecover(false)" href="javascript:void(0);">Volver</a>                     
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <button [disabled]="!form.valid" class="btn btn-main btn-block btn-login" type="submit">Iniciar Sesión</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
