@@ -1,35 +1,45 @@
+import { Observable } from 'rxjs/Observable';
+import { MessagingService } from './../providers/messaging.service';
+import { AyudaListComponent } from './ayuda/ayuda-list.component';
 import { Http } from '@angular/http';
 import { SelectService } from './../providers/select.service';
 import { Router } from '@angular/router';
 import { UserSessionService } from './../providers/session.service';
-import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild,OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { AppState } from '../app.state';
 import { config } from '../../config/project-config';
 import 'rxjs/add/operator/map';
+import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'az-pages',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
-  providers: [ AppState,UserSessionService,SelectService ]
+  providers: [ AppState,UserSessionService,SelectService,MessagingService ]
 })
 export class PagesComponent implements OnInit {
 
     helpLinks:Array<any>= [];
     public isMenuCollapsed:boolean = false;
+    subscription: Subscription;
   
     constructor(private _state:AppState, 
                 private _location:Location,
                 public local:UserSessionService,
                 public router:Router,
-                public http:Http
+                public http:Http,
+                public messageService: MessagingService
+    
                 ) {
         this.local.checkUser()?null:this.router.navigate(['/login']);
+       
         this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
             this.isMenuCollapsed = isCollapsed;
         }); 
+        
 
       
     }
@@ -38,6 +48,10 @@ export class PagesComponent implements OnInit {
          
         this.getCurrentPageName();
         this.loadLinks();
+        
+      
+        
+         
     }
 
     public getCurrentPageName():void{       
@@ -58,7 +72,7 @@ export class PagesComponent implements OnInit {
     public ngAfterViewInit(): void {
         document.getElementById('preloader').style['display'] = 'none';
     }
-    loadLinks(){
+    public loadLinks(){
         this.http.get(config.url+'helpLink/list?access_token='+this.local.getUser().token).map((res)=>{
             return res.json();
         }).subscribe((result)=>{

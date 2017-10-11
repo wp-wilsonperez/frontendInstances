@@ -1,15 +1,17 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { PagesComponent } from './../pages.component';
+import { MessagingService } from './../../providers/messaging.service';
+import { Component, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
-
 @Component({
     selector:'ayuda-list',
     encapsulation:  ViewEncapsulation.None,
     templateUrl: './ayuda-list.component.html',
-    styleUrls:['./ayuda-list.component.scss']
+    styleUrls:['./ayuda-list.component.scss'],
+    providers:[MessagingService]
 })
 
 export class AyudaListComponent{
@@ -20,7 +22,7 @@ export class AyudaListComponent{
         error:any;
         toast:boolean = false;
         message:string;
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public messageService:MessagingService,public parent:PagesComponent ){
         
             this.linkForm = this.formBuilder.group({
                 name: ['',Validators.compose([Validators.required])],
@@ -31,6 +33,7 @@ export class AyudaListComponent{
                 link:['',Validators.compose([Validators.required])]
             });
             this.loadLinks();
+            
         }
         loadLinks(){
             this.http.get(config.url+'helpLink/list?access_token='+this.local.getUser().token).map((res)=>{
@@ -47,14 +50,16 @@ export class AyudaListComponent{
                  if(res.msg == "OK"){
                        this.loadLinks();
                         this.toast = true;
-                        this.message = "Link guardado"
+                        this.message = "Link guardado";
+                        this.parent.loadLinks();
+
                 }else{
                       this.error = true;
                     this.message = "No tiene privilegios de guardar links"
                    
                 }
-                console.log(res);
-                this.loadLinks();
+           
+               
                 
             })
         }
@@ -101,7 +106,8 @@ export class AyudaListComponent{
                 if(res.msg == "OK"){
                         this.helpLinks = res.update; 
                         this.toast = true;
-                        this.message = "Link Borrado"
+                        this.message = "Link Borrado";
+                        this.parent.loadLinks();
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de editar links"
@@ -109,6 +115,15 @@ export class AyudaListComponent{
                 
             })
 
+    }
+    sendMessage(): void {
+        // send message to subscribers via observable subject
+        this.messageService.sendMessage('Message from Home Component to App Component!');
+    }
+
+    clearMessage(): void {
+        // clear message
+        this.messageService.clearMessage();
     }
 
 }

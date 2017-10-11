@@ -1,3 +1,4 @@
+import { MessagingService } from './../providers/messaging.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DirectivesModule } from '../theme/directives/directives.module';

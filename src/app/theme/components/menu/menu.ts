@@ -1,5 +1,90 @@
 export const menuItems = [
   {
+    title: 'Configuracion',
+    routerLink: 'tables',
+    icon: 'fa fa-cog',
+    selected: false,
+    expanded: false,
+    order: 400,
+    subMenu: [
+      {
+        title: 'Configuracion de Cuenta',
+        routerLink: 'usuarios/configuracion',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Sucursales',
+        subMenu: [
+          {
+            title: 'Nueva Sucursal',
+            routerLink: 'sucursales/crear',
+            disabled: true,
+            selected: false,
+            expanded: false
+          },
+           {
+            title: 'Listado de Sucursales',
+            routerLink: 'sucursales/listado',
+            disabled: true,
+            selected: false,
+            expanded: false
+          }
+        ]
+      },
+       {
+        title: 'Configuracion de sistema',
+        routerLink: 'cuenta/ver',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Links de ayuda',
+        routerLink: 'usuarios/links',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Logs del sistema',
+        routerLink: 'usuarios/logs',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      
+    ]
+
+  }
+  ,
+  {
+    title: 'Roles',
+    routerLink: 'tables',
+    icon: 'fa fa-tasks',
+    selected: false,
+    expanded: false,
+    order: 400,
+    subMenu: [
+      {
+        title: 'Nuevo Rol',
+        routerLink: 'usuarios/nuevo_rol',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Listado de Roles',
+        routerLink: 'usuarios/roles',
+        disabled: true,
+        selected: false,
+        expanded: false
+      }
+    ]
+
+  },
+  {
     title: 'Usuarios',
     routerLink: 'tables',
     icon: 'fa-user',
@@ -48,37 +133,46 @@ export const menuItems = [
         selected: false,
         expanded: false
       },
-      {
-        title: 'Planes',
-        routerLink: 'empresas/plan',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-      {
-        title: 'Planes Alternativos',
-        routerLink: 'empresas/plan-alternativo',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-      {
-        title: 'Asociacion de Planes',
-        routerLink: 'empresas/asociaciones',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-      {
-        title: 'Alternativas',
-        routerLink: 'empresas/alternativas',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
+   
       
     ]
   },
+  {
+    title: 'Ramos',
+    routerLink: 'seguros',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Crear Ramo',
+        routerLink: 'seguros/crear',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Listado de Ramos',
+        routerLink: 'seguros/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+       {
+        title: 'Porcentaje del Ramo',
+        routerLink: 'seguros/porcentaje',
+        disabled: true,
+        selected: false,
+        expanded: false
+      }
+      
+    ]
+  },
+
+
   {
     title: 'Aseguradoras',
     routerLink: 'seguros',
@@ -122,13 +216,90 @@ export const menuItems = [
           }
           
         ]
-      }
+      },
+      {
+        title: 'Derechos de Emision',
+        routerLink: 'emision',
+        icon: 'fa-building',
+    
+        selected: false,
+        expanded: false,
+        order: 0,
+        subMenu: [
+          {
+            title: 'Listado',
+            routerLink: 'emision/listado',
+            disabled: false,
+            selected: false,
+            expanded: false
+          }
+          
+        ]
+      },
+      
+      {
+        title: 'Tipos de Pago',
+        routerLink: 'bancos',
+        icon: 'fa-building',
+    
+        selected: false,
+        expanded: false,
+        order: 0,
+        subMenu: [
+          {
+            title: 'Listado',
+            routerLink: 'pagos/listado',
+            disabled: false,
+            selected: false,
+            expanded: false
+          }
+          
+        ]
+      },
+      {
+        title: 'Tasas',
+        routerLink: 'tasas',
+        icon: 'fa-building',
+    
+        selected: false,
+        expanded: false,
+        order: 0,
+        subMenu: [
+          {
+            title: 'Listado de Tasas',
+            routerLink: 'tasas/tasa',
+            disabled: false,
+            selected: false,
+            expanded: false
+          }
+          
+        ]
+      },
+      {
+        title: 'Formato Carta Accidente',
+        routerLink: 'cartas',
+        icon: 'fa-building',
+    
+        selected: false,
+        expanded: false,
+        order: 0,
+        subMenu: [
+          {
+            title: 'Listado de Formatos',
+            routerLink: 'cartas/listado',
+            disabled: false,
+            selected: false,
+            expanded: false
+          }
+          
+        ]
+      },
       
     ]
   },
   {
-    title: 'Ramos',
-    routerLink: 'seguros',
+    title: 'Recepcion',
+    routerLink: 'presupuestos',
 
     icon: 'fa-building',
 
@@ -137,31 +308,123 @@ export const menuItems = [
     order: 0,
     subMenu: [
       {
-        title: 'Crear Ramo',
-        routerLink: 'seguros/crear',
+        title: 'Rutas',
+        routerLink: 'polizas/rutas',
         disabled: true,
         selected: false,
         expanded: false
       },
        {
-        title: 'Listado de Ramos',
-        routerLink: 'seguros/listado',
+        title: 'Ingresos',
+        routerLink: 'polizas/ingresos',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },   
+    ]
+  },
+  {
+    title: 'AMV',
+    routerLink: 'presupuestos',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Planes',
+        routerLink: 'empresas/plan',
         disabled: true,
         selected: false,
         expanded: false
       },
-       {
-        title: 'Porcentaje del Ramo',
-        routerLink: 'seguros/porcentaje',
+      {
+        title: 'Alternativas',
+        routerLink: 'empresas/alternativas',
         disabled: true,
         selected: false,
         expanded: false
-      }
+      },
+      {
+        title: 'Planes Alternativos',
+        routerLink: 'empresas/plan-alternativo',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Asociacion de Planes',
+        routerLink: 'empresas/asociaciones',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      
+     
+    ]
+  },
+  {
+    title: 'Clientes',
+    routerLink: 'clientes',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado',
+        routerLink: 'clientes/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Tipo de Clientes',
+        routerLink: 'tipoClientes',
+    
+        icon: 'fa-building',
+    
+        selected: false,
+        expanded: false,
+        order: 0,
+        subMenu: [
+          {
+            title: 'Listado',
+            routerLink: 'tipoClientes/listado',
+            disabled: true,
+            selected: false,
+            expanded: false
+          },
+      
+          
+        ]
+      },
+      {
+        title: 'Empresas Clientes',
+        routerLink: 'clientes/empresas',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Dependiente',
+        routerLink: 'clientes/dependiente',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+    
+   
+  
       
     ]
   },
    {
-    title: 'Autos',
+    title: 'Carros',
     routerLink: 'clientes',
 
     icon: 'fa-car',
@@ -210,9 +473,8 @@ export const menuItems = [
     ]
   },
   {
-    title: 'Clientes',
-    routerLink: 'clientes',
-
+    title: 'Bancos',
+    routerLink: 'bancos',
     icon: 'fa-building',
 
     selected: false,
@@ -220,100 +482,23 @@ export const menuItems = [
     order: 0,
     subMenu: [
       {
-        title: 'Listado',
-        routerLink: 'clientes/listado',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-      {
-        title: 'Dependiente',
-        routerLink: 'clientes/dependiente',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-      {
-        title: 'Empresas Clientes',
-        routerLink: 'clientes/empresas',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-   
-  
-      
-    ]
-  },
-   {
-    title: 'Tipo de Clientes',
-    routerLink: 'tipoClientes',
-
-    icon: 'fa-building',
-
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Listado',
-        routerLink: 'tipoClientes/listado',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-  
-      
-    ]
-  },
-    {
-    title: 'Cotizaciones',
-    routerLink: 'presupuestos',
-
-    icon: 'fa-building',
-
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Listado',
-        routerLink: 'presupuestos/listado',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-  
-      
-    ]
-  },
-  {
-    title: 'Recepcion',
-    routerLink: 'presupuestos',
-
-    icon: 'fa-building',
-
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Rutas',
-        routerLink: 'polizas/rutas',
-        disabled: true,
+        title: 'Listado de Bancos',
+        routerLink: 'bancos/banco',
+        disabled: false,
         selected: false,
         expanded: false
       },
        {
-        title: 'Ingresos',
-        routerLink: 'polizas/ingresos',
-        disabled: true,
+        title: 'Banco Seguro',
+        routerLink: 'bancos/banco-seguro',
+        disabled: false,
         selected: false,
         expanded: false
-      },   
+      }
+      
     ]
   },
-    {
+  {
     title: 'Polizas',
     routerLink: 'polizas',
 
@@ -358,6 +543,28 @@ export const menuItems = [
       
     ]
   },
+  
+    {
+    title: 'Cotizaciones',
+    routerLink: 'presupuestos',
+
+    icon: 'fa-building',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+      {
+        title: 'Listado',
+        routerLink: 'presupuestos/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+    ]
+  },
+
+
     {
     title: 'Facturacion',
     routerLink: 'polizas',
@@ -464,192 +671,10 @@ export const menuItems = [
       
     ]
   },
-   {
-    title: 'Banco',
-    routerLink: 'bancos',
-    icon: 'fa-building',
 
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Listado de Bancos',
-        routerLink: 'bancos/banco',
-        disabled: false,
-        selected: false,
-        expanded: false
-      },
-       {
-        title: 'Banco Seguro',
-        routerLink: 'bancos/banco-seguro',
-        disabled: false,
-        selected: false,
-        expanded: false
-      }
-      
-    ]
-  },
-  {
-    title: 'Derechos de Emision',
-    routerLink: 'emision',
-    icon: 'fa-building',
 
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Listado',
-        routerLink: 'emision/listado',
-        disabled: false,
-        selected: false,
-        expanded: false
-      }
-      
-    ]
-  },
-   {
-    title: 'Tipos de Pago',
-    routerLink: 'bancos',
-    icon: 'fa-building',
 
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Listado',
-        routerLink: 'pagos/listado',
-        disabled: false,
-        selected: false,
-        expanded: false
-      }
-      
-    ]
-  },
-  {
-    title: 'Tasas',
-    routerLink: 'tasas',
-    icon: 'fa-building',
 
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Listado de Tasas',
-        routerLink: 'tasas/tasa',
-        disabled: false,
-        selected: false,
-        expanded: false
-      }
-      
-    ]
-  },
-  {
-    title: 'Formato Carta Accidente',
-    routerLink: 'cartas',
-    icon: 'fa-building',
-
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Listado de Formatos',
-        routerLink: 'cartas/listado',
-        disabled: false,
-        selected: false,
-        expanded: false
-      }
-      
-    ]
-  },
-   {
-    title: 'Roles',
-    routerLink: 'tables',
-    icon: 'fa fa-tasks',
-    selected: false,
-    expanded: false,
-    order: 400,
-    subMenu: [
-      {
-        title: 'Nuevo Rol',
-        routerLink: 'usuarios/nuevo_rol',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-       {
-        title: 'Listado de Roles',
-        routerLink: 'usuarios/roles',
-        disabled: true,
-        selected: false,
-        expanded: false
-      }
-    ]
-
-  },
-  {
-    title: 'Configuracion',
-    routerLink: 'tables',
-    icon: 'fa fa-cog',
-    selected: false,
-    expanded: false,
-    order: 400,
-    subMenu: [
-      {
-        title: 'Configuracion de Cuenta',
-        routerLink: 'usuarios/configuracion',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-      {
-        title: 'Sucursales',
-        subMenu: [
-          {
-            title: 'Nueva Sucursal',
-            routerLink: 'sucursales/crear',
-            disabled: true,
-            selected: false,
-            expanded: false
-          },
-           {
-            title: 'Listado de Sucursales',
-            routerLink: 'sucursales/listado',
-            disabled: true,
-            selected: false,
-            expanded: false
-          }
-        ]
-      },
-       {
-        title: 'Configuracion de cuenta',
-        routerLink: 'cuenta/ver',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-      {
-        title: 'Logs del sistema',
-        routerLink: 'usuarios/logs',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-       {
-        title: 'Links de ayuda',
-        routerLink: 'usuarios/links',
-        disabled: true,
-        selected: false,
-        expanded: false
-      }
-    ]
-
-  }
-  
   
   
 ];
