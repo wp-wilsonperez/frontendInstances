@@ -1,3 +1,4 @@
+import { SafePipe } from './urlSatinize/urlSatinize';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -14,13 +15,15 @@ import { SearchPipe } from './search/search.pipe';
         AppPicturePipe, 
         ProfilePicturePipe,
         MailSearchPipe,
-        SearchPipe
+        SearchPipe,
+        SafePipe
     ],
     exports: [
         AppPicturePipe,
         ProfilePicturePipe,
         MailSearchPipe,
-        SearchPipe
+        SearchPipe,
+        SafePipe
     ]
 })
 export class PipesModule { }

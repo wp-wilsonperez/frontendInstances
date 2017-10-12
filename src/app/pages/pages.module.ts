@@ -1,3 +1,4 @@
+import { ExternalLinkComponent } from './../components/external-link-modal/external-link-modal';
 import { MessagingService } from './../providers/messaging.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -30,6 +31,7 @@ import { HttpModule } from '@angular/http';
     BreadcrumbComponent,
     BackTopComponent,
     SearchComponent ,
+    ExternalLinkComponent
 
 
   ]

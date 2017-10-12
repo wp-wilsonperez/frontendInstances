@@ -1,3 +1,4 @@
+import { ExternalLinkComponent } from './../components/external-link-modal/external-link-modal';
 import { Observable } from 'rxjs/Observable';
 import { MessagingService } from './../providers/messaging.service';
 import { AyudaListComponent } from './ayuda/ayuda-list.component';
@@ -5,7 +6,7 @@ import { Http } from '@angular/http';
 import { SelectService } from './../providers/select.service';
 import { Router } from '@angular/router';
 import { UserSessionService } from './../providers/session.service';
-import { Component, OnInit, ViewEncapsulation, ViewChild,OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, OnDestroy, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import { AppState } from '../app.state';
 import { config } from '../../config/project-config';
@@ -21,10 +22,11 @@ import { Subscription } from 'rxjs/Subscription';
   providers: [ AppState,UserSessionService,SelectService,MessagingService ]
 })
 export class PagesComponent implements OnInit {
-
+    @ViewChild(ExternalLinkComponent) extLink:ExternalLinkComponent;
     helpLinks:Array<any>= [];
     public isMenuCollapsed:boolean = false;
     subscription: Subscription;
+    urlTo:any;
   
     constructor(private _state:AppState, 
                 private _location:Location,
@@ -79,6 +81,12 @@ export class PagesComponent implements OnInit {
                 this.helpLinks = result.helpLinks;
                 console.log('helpLinks',this.helpLinks);
         })
+    }
+    sendUrl(url){
+        this.urlTo = url;
+        this.extLink.getLink(this.urlTo);
+        console.log(url);
+        
     }
 
 }

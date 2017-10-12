@@ -34,10 +34,13 @@
     
                   
                     
-                    <a href="{{help.link}}" *ngFor="let help of helpLinks" class="buttons" data-toggle="tooltip" data-animation="false"
-                    data-placement="left" title="{{help.name}}"  tooltip=""> <i class="fa fa-link"></i></a>
+                    <a *ngFor="let help of helpLinks" class="buttons" data-toggle="tooltip" href='{{help.link}}' target="_blank"   data-animation="false"
+                    data-placement="left" title="{{help.name}}"    tooltip=""> <i class="fa fa-link"></i></a>
 
-                    <a class="buttons" title="Abrir Ayuda" tooltip="Ayuda" href="#"><i class="fa fa-question"></i></a>
+                    <a class="buttons"  title="Abrir Ayuda" tooltip="Ayuda"><i class="fa fa-question"></i></a>
 
  </nav>
+ <external-modal [url]="urlTo">
+
+ </external-modal>
  
