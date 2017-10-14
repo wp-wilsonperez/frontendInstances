@@ -63,7 +63,7 @@ export class SettingsComponent{
     
   }
   loadSettings(){
-    this.http.get(config.url+'setting/view/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token).map((result:Response)=>{
+    this.http.get(config.url+'setting/view/599222be7f05fc0933b643f3?access_token='+this.local.getUser().token).map((result:Response)=>{
         console.log(result.json());
         return result.json().setting;
 
@@ -98,7 +98,7 @@ export class SettingsComponent{
       Object.assign(request,this.settingsForm.value);
 
       console.log(request);
-      this.http.post(config.url+'setting/edit/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token,request).toPromise().then(result=>{
+      this.http.post(config.url+'setting/edit/599222be7f05fc0933b643f3?access_token='+this.local.getUser().token,request).toPromise().then(result=>{
           console.log(result.json());
           this.loadSettings();
           
