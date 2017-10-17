@@ -1,3 +1,5 @@
+import { SelectModule } from 'angular2-select';
+import { ClearanceTimeComponent } from './../clearance-time/clearance-time.component';
 
 import { SettingsComponent } from './../settings/settings.component';
 import { RolesComponent } from './../roles/new/roles.component';
@@ -23,7 +25,8 @@ export const routes = [
   { path: 'roles', component:  RolsListComponent, data: { breadcrumb: 'Roles' } },
   { path: 'configuracion', component:  SettingsComponent, data: { breadcrumb: 'Configuracion' } },
    { path: 'logs', component:  LogsComponent, data: { breadcrumb: 'Logs' } },
-    { path: 'links', component:  AyudaListComponent, data: { breadcrumb: 'Links de Ayuda' } }
+    { path: 'links', component:  AyudaListComponent, data: { breadcrumb: 'Links de Ayuda' } },
+    { path: 'tiempos-liquidaciones', component: ClearanceTimeComponent, data: { breadcrumb: 'Tiempos Liquidaciones' } }
 
 
 
@@ -37,12 +40,13 @@ export const routes = [
     DirectivesModule,
     CommonModule,
     FormsModule,
+    SelectModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
 
-    UserComponent,UserListComponent,RolesComponent,RolsListComponent, SettingsComponent,ImageUploaderComponent,LogsComponent,AyudaListComponent
+    UserComponent,UserListComponent,RolesComponent,RolsListComponent, SettingsComponent,ImageUploaderComponent,LogsComponent,AyudaListComponent,ClearanceTimeComponent
 
   ],
   providers: []

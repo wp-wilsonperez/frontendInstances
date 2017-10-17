@@ -200,6 +200,13 @@
                                         <div widget class="card">
                                             
                                             <div class="card-block widget-body">
+                                                    <div *ngIf="maritalMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            <strong>Usted no Tiene Privilegios necesarios para esta accion</strong>
+                                                          
+                                                        </div>
                                                     <form [formGroup]="maritalForm" class="row">
 
                                                         <div class="form-group col-md-12">

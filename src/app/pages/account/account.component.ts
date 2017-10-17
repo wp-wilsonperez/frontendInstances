@@ -36,7 +36,7 @@ export class AccountComponent{
 
     }
     loadAccount(){
-    this.http.get(config.url+'account/view/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token).map((result:Response)=>{
+    this.http.get(config.url+'account/view/599222be7f05fc0933b643f3?access_token='+this.local.getUser().token).map((result:Response)=>{
         //console.log(result.json());
         return result.json();
 
@@ -81,7 +81,7 @@ export class AccountComponent{
     console.log('this is the request',this.formAccount.value);
     
 
-    this.http.post(config.url+'account/edit/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token,this.formAccount.value).toPromise().then(result=>{
+    this.http.post(config.url+'account/edit/599222be7f05fc0933b643f3?access_token='+this.local.getUser().token,this.formAccount.value).toPromise().then(result=>{
 
         let apiResult = result.json();
 
@@ -89,7 +89,7 @@ export class AccountComponent{
 
         if(apiResult.msg == 'OK'){
             this.toast = true;
-            this.message = 'Account saved';
+            this.message = 'Cuenta Guardada';
             
         }
         

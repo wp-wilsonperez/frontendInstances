@@ -41,6 +41,13 @@ export const menuItems = [
         expanded: false
       },
       {
+        title: 'Tiempos de Liquidaciones',
+        routerLink: 'usuarios/tiempos-liquidaciones',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
         title: 'Links de ayuda',
         routerLink: 'usuarios/links',
         disabled: true,

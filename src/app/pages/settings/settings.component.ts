@@ -26,6 +26,7 @@ export class SettingsComponent{
   public setting:any;
   public addresses = [];
   public maritalStatuses=[];
+  public maritalMsg ;
   
 
   constructor(private fromBuilder:FormBuilder,public http:Http,public local:UserSessionService){
@@ -121,7 +122,15 @@ export class SettingsComponent{
       this.http.post(config.url+'maritalStatus/add?access_token='+this.local.getUser().token,this.maritalForm.value).map((result)=>{
         return result.json()
       }).subscribe((res)=>{
-        this.loadMarital();
+        console.log(res);
+        if(res.msg == "OK"){
+          this.loadMarital();
+          this.maritalForm.reset();
+        }else{
+          this.maritalMsg = 'No tiene Privilegios'
+        }
+        
+        
       })
   }
   rmMarital(id){
