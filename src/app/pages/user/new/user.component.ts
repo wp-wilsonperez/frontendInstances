@@ -35,6 +35,7 @@ export class UserComponent {
     public permission:boolean = false;
 
     public branches:any;
+    public currentDate;
 
 
      @ViewChild(ImageUploaderComponent)
@@ -52,12 +53,12 @@ export class UserComponent {
 
         this.accountForm = this.formBuilder.group({
             'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-            'confirmPassword': ['', Validators.required],
+            'confirmPassword': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
             'email': ['', Validators.compose([Validators.required, ValidationService.emailValidator])]            
         }, {validator: ValidationService.matchingPasswords('password', 'confirmPassword')});
 
         this.personalForm = this.formBuilder.group({
-            'name': ['', Validators.required],
+            'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
             'lastName': ['', Validators.required],
             'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
             'telefono':['',Validators.compose([ValidationService.phoneValidator])],
@@ -78,6 +79,7 @@ export class UserComponent {
 
         this.loadRols();   
         this.loadBranches();  
+        this.currentDateFormat();
 
     }
 
@@ -310,6 +312,22 @@ export class UserComponent {
         })
 
     }
+    currentDateFormat(){
+        var today:any = new Date();
+        var dd:any = today.getDate();
+        var mm:any = today.getMonth()+1; 
+
+        var yyyy = today.getFullYear();
+        if(dd<10){
+            dd='0'+dd;
+        } 
+        if(mm<10){
+            mm='0'+mm;
+        } 
+        var return_date = yyyy+'-'+mm+'-'+dd;
+        this.currentDate = return_date;
+  }
+
 
   
 
