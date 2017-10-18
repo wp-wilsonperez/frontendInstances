@@ -166,7 +166,7 @@
 
                         <div class="form-group col-md-12">
                              <label for="exampleSelect1">Rol de Usuario</label>
-                                <select formControlName="idRol" class="form-control">
+                                <select formControlName="idRole" class="form-control">
                                     <option *ngFor="let rol of roles" value="{{rol._id}}">{{rol.name}}</option>
                                   
                                 </select>
@@ -229,7 +229,7 @@
 
                 <div class="row"> 
                     <div class="col-12">
-                        hola {{personalForm.get('name').hasError('spaceInvalid')}} length {{personalForm.get('name').hasError('lengthInvalid')}}
+                       
                         <button *ngIf="!steps[0].active" class="btn btn-primary pull-left" (click)="prev()"><i class="fa fa-chevron-left arrow"></i>&nbsp; Atras</button>
                         <button *ngIf="!steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="next()">Siguiente &nbsp;<i class="fa fa-chevron-right arrow"></i></button>
                         <button *ngIf="steps[steps.length-1].active" class="btn btn-primary pull-right" (click)="saveUser()">Confirmar &nbsp;<i class="fa fa-check arrow"></i></button>

@@ -42,7 +42,7 @@ export class UserListComponent {
             'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
             'phone': ['', Validators.required],
             'dateBirthday': [''],
-            'idRol':[''],
+            'idRole':[''],
             'userImg': [''],
             'mail':['',Validators.compose([Validators.required])]
         },{validator: ValidationService.validacionCedula('cedula')});
@@ -99,7 +99,7 @@ export class UserListComponent {
         console.log(this.userId);
         console.log(user);
         
-        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,dateBirthday: user.dateBirthday,mail:user.mail,userImg:user.userImg,idRol : user.idRol});
+        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,dateBirthday: user.dateBirthday,mail:user.mail,userImg:user.userImg,idRole : user.idRole});
         
         
         

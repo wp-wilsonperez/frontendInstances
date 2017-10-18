@@ -68,8 +68,7 @@ export class UserComponent {
         },{validator: ValidationService.validacionCedula('cedula')});
 
         this.rolForm = this.formBuilder.group({
-            'idRol': ['',Validators.compose([Validators.required])],
-
+            'idRole': ['',Validators.compose([Validators.required])],
             'idBranch': ['',Validators.compose([Validators.required])]
 
         }); 
@@ -106,7 +105,7 @@ export class UserComponent {
                         }                      
                     }
                     if(step.name=='Informacion Personal'){
-                        if (personalForm.valid) {
+                        if (accountForm.valid) {
                         
                             step.active = false;
                             step.valid = true;
@@ -163,7 +162,7 @@ export class UserComponent {
             "phone" :   this.details.telefono ,
             "dateBirthday" : this.details.birthDate,
             "userImg":'',
-            "idRol": this.rolForm.value.idRol,
+            "idRole": this.rolForm.value.idRole,
             "idBranch" : this.rolForm.value.idBranch
 
         }
