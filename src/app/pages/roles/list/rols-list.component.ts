@@ -299,6 +299,14 @@ export class RolsListComponent {
     public sinisterDelete:boolean = false;
     public sinisterEnable:boolean = false;
 
+     //Tiempos Liquidacion
+
+     public clearenceTimeList:boolean = false;
+     public clearenceTimeCreate:boolean = false;
+     public clearenceTimeEdit:boolean = false;
+     public clearenceTimeDelete:boolean = false;
+     public clearenceTimeEnable:boolean = false;
+
 
 
     //checkbox log
@@ -591,6 +599,18 @@ export class RolsListComponent {
                 this.sinisterEdit = false;
                 this.sinisterDelete = false;
                 this.sinisterEnable = false;
+
+                //clearance time
+
+                this.clearenceTimeList = false; 
+                this.clearenceTimeCreate = false; 
+                this.clearenceTimeEdit = false;
+                this.clearenceTimeDelete = false;
+                this.clearenceTimeEnable = false;
+               
+               
+
+              
 
             
            
@@ -975,7 +995,7 @@ export class RolsListComponent {
 
                if(this.grant.maritalStatus != undefined){
                 this.grant.maritalStatus.list == true ?   this.maritalStatusList = true:    this.maritalStatusList = false;
-                this.grant.maritalStatus.create == true ?   this.maritalStatusCreate = true:    this.maritalStatusCreate = false;
+                this.grant.maritalStatus.add == true ?   this.maritalStatusCreate = true:    this.maritalStatusCreate = false;
                 this.grant.maritalStatus.edit == true ?   this.maritalStatusEdit = true:    this.maritalStatusEdit = false;
                 this.grant.maritalStatus.delete == true ?   this.maritalStatusDelete = true:    this.maritalStatusDelete = false;
                 this.grant.maritalStatus.enable == true ?   this.maritalStatusEnable = true:    this.maritalStatusEnable = false;
@@ -1013,6 +1033,15 @@ export class RolsListComponent {
                 this.grant.sinister.enable  == true? this.sinisterEnable = true:  this.sinisterEnable = false; 
                
              }
+
+             if(this.grant.clearanceTime != undefined){
+              this.grant.clearanceTime.list == true ?   this.clearenceTimeList = true:    this.clearenceTimeList = false;
+              this.grant.clearanceTime.add   == true ?  this.clearenceTimeCreate = true:  this.clearenceTimeCreate = false; 
+              this.grant.clearanceTime.edit  == true ?  this.clearenceTimeEdit = true:    this.clearenceTimeEdit = false;
+              this.grant.clearanceTime.delete  == true? this.clearenceTimeDelete = true:  this.clearenceTimeDelete = false; 
+              this.grant.clearanceTime.enable  == true? this.clearenceTimeEnable = true:  this.clearenceTimeEnable = false; 
+             
+           }
 
              //
 
@@ -1057,7 +1086,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1454,6 +1483,15 @@ export class RolsListComponent {
         this.sinisterList?requestTwo.sinisterDocumentationRamo['edit'] = true:null;
         this.sinisterList?requestTwo.sinisterDocumentationRamo['delete'] = true:null;
         this.sinisterList?requestTwo.sinisterDocumentationRamo['enable'] = true:null;
+
+          //clearance
+          this.clearenceTimeList?requestTwo.clearanceTime['list'] = true:null;
+          this.clearenceTimeCreate?requestTwo.clearanceTime['add'] = true:null;
+          this.clearenceTimeEdit?requestTwo.clearanceTime['edit'] = true:null;
+          this.clearenceTimeDelete?requestTwo.clearanceTime['delete'] = true:null;
+          this.clearenceTimeEnable?requestTwo.clearanceTime['enable'] = true:null;
+
+        
        
 
 
