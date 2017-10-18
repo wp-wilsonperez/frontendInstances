@@ -37,9 +37,9 @@ export class ClearanceTimeComponent{
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public select:SelectService ){
         
             this.clearanceTimeForm = this.formBuilder.group({
-                idPlanAssociation: ['',Validators.compose([Validators.required])],
-                idAlternative:['',Validators.compose([Validators.required])],
-                value:['',Validators.compose([Validators.required])]           
+                idRamo: ['',Validators.compose([Validators.required])],
+                idInsurance:['',Validators.compose([Validators.required])],
+                time:['',Validators.compose([Validators.required])]           
               
             });
             this.editForm = this.formBuilder.group({
@@ -82,10 +82,10 @@ export class ClearanceTimeComponent{
                  if(res.msg == "OK"){
                        this.loadclearanceTimes();
                         this.toast = true;
-                        this.message = "clearanceTime guardado"
+                        this.message = "Tiempo guardado"
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar clearanceTime"
+                    this.message = "No tiene privilegios de guardar"
                    
                 }
                 console.log(res);
@@ -101,7 +101,7 @@ export class ClearanceTimeComponent{
         this.create = false;
         this.clearanceTimeId = clearanceTime._id;
         
-        this.clearanceTimeForm.setValue({idPlanAssociation: clearanceTime.idPlanAssociation,idAlternative:clearanceTime.idAlternative,value:clearanceTime.value});
+        this.clearanceTimeForm.setValue({idRamo: clearanceTime.idRamo,idInsurance:clearanceTime.idInsurance,time:clearanceTime.time});
         
         
         
@@ -117,7 +117,7 @@ export class ClearanceTimeComponent{
                 if(res.msg == "OK"){
                         this.clearanceTimes = res.update; 
                         this.toast = true;
-                        this.message = "Asociacion Editado";
+                        this.message = "Tiempo Editado";
                         this.create = true;
                         this.clearanceTimeForm.reset();
                 }else{
@@ -142,7 +142,7 @@ export class ClearanceTimeComponent{
                 if(res.msg == "OK"){
                         this.clearanceTimes = res.update; 
                         this.toast = true;
-                        this.message = "clearanceTime Borrado"
+                        this.message = "Tiempo de Liquidacion Borrado"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

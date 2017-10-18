@@ -30,7 +30,7 @@
                                                 [(options)]="ramos"
                                                 [placeholder]="ramosLabel"
                                                 [multiple]="false"
-                                                formControlName="idPlanAssociation">
+                                                formControlName="idRamo">
                                             </ng-select>
                                              
                                         </div>
@@ -40,12 +40,12 @@
                                                 [(options)]="aseguradoras"
                                                 [placeholder]="aseguradorasLabel"
                                                 [multiple]="false"
-                                                formControlName="idAlternative">
+                                                formControlName="idInsurance">
                                             </ng-select>
                                         </div>
                                         <div class="col-md-4"> 
                                        
-                                               <input formControlName="value" type="number" class="form-control" placeholder="Indique Tiempo...">
+                                               <input formControlName="time" type="number" class="form-control" placeholder="Indique Tiempo...">
                                            </div>
                                         
                                     </div>
@@ -70,9 +70,9 @@
                     <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
                             <tr>
-                                <th> <mfDefaultSorter by="name">Asociacion de Plan</mfDefaultSorter></th>      
-                                <th> <mfDefaultSorter by="name">Alternativa</mfDefaultSorter></th>  
-                                <th> <mfDefaultSorter by="name">Valor</mfDefaultSorter></th>                             
+                                <th> <mfDefaultSorter by="name">Ramo</mfDefaultSorter></th>      
+                                <th> <mfDefaultSorter by="name">Aseguradora</mfDefaultSorter></th>  
+                                <th> <mfDefaultSorter by="name">Tiempo</mfDefaultSorter></th>                             
                                     <td><strong>    </strong></td>
                                     <td><strong>    </strong></td>
                                     <td><strong>    </strong></td>
@@ -82,9 +82,9 @@
                         <tbody>                           
 
                             <tr *ngFor="let clearanceTime of clearanceTimes">
-                                <td><strong>  {{clearanceTime.idPlanAssociation}}   </strong></td>
-                                <td><strong>  {{clearanceTime.idAlternative}}   </strong></td>
-                                <td><strong>  {{clearanceTime.value}}   </strong></td>
+                                <td><strong>  {{clearanceTime.idRamo}}   </strong></td>
+                                <td><strong>  {{clearanceTime.insurance.bussinesName}}   </strong></td>
+                                <td><strong>  {{clearanceTime.time}}   </strong></td>
                                    <td><strong>    </strong></td>
                                     <td><strong>    </strong></td>
                                      <td><strong>    </strong></td>
