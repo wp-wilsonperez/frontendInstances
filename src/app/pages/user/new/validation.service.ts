@@ -24,6 +24,20 @@ export class ValidationService {
         }
     }
 
+    static spacesValidator(control): {[key: string]: any} {
+        var notSpaceRegexp = /^[^\s]+(\s+[^\s]+)*$/;  
+        if (control.value && notSpaceRegexp.test(control.value)) {
+            return {spaceInvalid: true};
+        }
+    }
+
+    static lengthValidator(control): {[key: string]: any} {
+        var lengthRegexp = /^([a-zA-Z0-9_-]){4,40}$/;  
+        if (control.value && lengthRegexp.test(control.value)) {
+            return {lengthInvalid: true};
+        }
+    }
+
    static phoneValidator(control): {[key: string]: any} {
 
         var onlyNumberRegexp = /.*[^0-9].*/;  

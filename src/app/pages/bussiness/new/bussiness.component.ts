@@ -33,7 +33,7 @@ export class BussinessComponent {
         
         this.bussinessForm= this.formBuilder.group({
             'ruc':['',Validators.compose([Validators.required,ValidationService.rucValidator])],
-            'name':['',Validators.compose([Validators.required, Validators.minLength(4)])],
+            'name':['',Validators.compose([Validators.required, ValidationService.lengthValidator, ValidationService.spacesValidator])],
             'phones':['',Validators.compose([Validators.required])],
             'cellPhone':['',Validators.compose([Validators.required,ValidationService.mobileValidator])],
             'address':['',Validators.compose([Validators.required])],
