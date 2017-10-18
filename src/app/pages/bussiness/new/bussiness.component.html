@@ -41,13 +41,13 @@
 
          
             
-        <div class="form-group col-md-5" [ngClass]="{'has-danger' :  bussinessForm.get('name').hasError('required') && bussinessForm.get('name').value != ''
-                    , 'has-success' : !bussinessForm.get('name').hasError('required') }">
+        <div class="form-group col-md-5" [ngClass]="{'has-danger' :  bussinessForm.get('name').hasError('required') && bussinessForm.get('name').value != '' && bussinessForm.get('name').hasError('minlength')
+                    , 'has-success' : !bussinessForm.get('name').hasError('required') && !bussinessForm.get('name').hasError('minlength') }">
             <label class="form-control-label">Nombre</label>
             <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                    <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('name').hasError('required') && bussinessForm.get('name').value != ''
-                    , 'form-control-success' :  !bussinessForm.get('name').hasError('required') }" type="text"> 
+                    <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  bussinessForm.get('name').hasError('required') && bussinessForm.get('name').hasError('minlength') && bussinessForm.get('name').value != ''
+                    , 'form-control-success' :  !bussinessForm.get('name').hasError('required') && bussinessForm.get('name').hasError('minlength') }" type="text"> 
             </div>
         
             <span class="help-block text-danger" *ngIf="bussinessForm.get('name').hasError('required') && bussinessForm.get('name').value != ''">Nombre no puede estar vacio</span>                             

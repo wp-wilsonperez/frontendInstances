@@ -83,17 +83,17 @@
 
                     <form *ngIf="step.name=='Informacion Personal'" [formGroup]="personalForm" class="row">
                         <div class="col-md-8">
-                        <div class="form-group " [ngClass]="{'has-danger' : personalForm.get('name').value != '' && personalForm.get('name').hasError('required'), 'has-success' : !personalForm.get('name').hasError('required') }">
+                        <div class="form-group " [ngClass]="{'has-danger' : personalForm.get('name').value != '' && personalForm.get('name').hasError('minlength'), 'has-success' : !personalForm.get('name').hasError('required') && !personalForm.get('name').hasError('minlength')}">
                             <label class="form-control-label">Nombre</label>
                             <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                     <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('name').hasError('required'), 'form-control-success' :  !personalForm.get('name').hasError('required') }" type="text"> 
+                                     <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('name').hasError('required') || personalForm.get('name').hasError('minlength'), 'form-control-success' :  !personalForm.get('name').hasError('required') && !personalForm.get('name').hasError('minlength') }" type="text"> 
                             </div>
                            
                             <span class="help-block text-danger" *ngIf="personalForm.get('name').value != '' && personalForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
                         </div>
 
-                        <div class="form-group" [ngClass]="{'has-danger' : step.hasError && personalForm.get('lastName').hasError('required'), 'has-success' : !personalForm.get('lastName').hasError('required') }">
+                        <div class="form-group" [ngClass]="{'has-danger' : personalForm.get('lastName').value != '' && personalForm.get('lastName').hasError('minlength') , 'has-success' : !personalForm.get('lastName').hasError('required') && !personalForm.get('lastName').hasError('minlength') }">
                             <label class="form-control-label">Apellido</label>
                             <div class="input-group">  
                                  <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
