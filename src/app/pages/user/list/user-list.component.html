@@ -51,7 +51,7 @@
                                  <td class="avatar"> 
 
 
-                                                <img *ngIf="user.userImg != null" src="http://localhost:3001/uploads/user/{{user.userImg}}" alt="" class="img-circle-list user-img"> 
+                                                <img *ngIf="user.userImg != null" src="{{config.url}}uploads/user/{{user.userImg}}" alt="" class="img-circle-list user-img"> 
 
                                                 <img *ngIf="user.userImg == null" src="../../../assets/img/users/user.png" class="img-circle-list user-img" alt="">
                                      

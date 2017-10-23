@@ -1,7 +1,9 @@
+import { Observable } from 'rxjs';
+import { ImageUploaderComponent } from './../image-uploader/image-uploader.component';
 import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
 import { ValidationService } from './../new/validation.service';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { UserService } from './dynamic-tables.service';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {config} from './../../../../config/project-config';
@@ -30,6 +32,10 @@ export class UserListComponent {
     public error;
     public modalError;
     public roles;
+    @ViewChild(ImageUploaderComponent)
+    public  imageComponent: ImageUploaderComponent;
+    config = config;
+    imgResult:any;
 
     constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService){
         this.local = this.userSession.getUser(); 
@@ -43,8 +49,11 @@ export class UserListComponent {
             'phone': ['', Validators.required],
             'dateBirthday': [''],
             'idRole':[''],
+            'idBranch':[''],
             'userImg': [''],
-            'mail':['',Validators.compose([Validators.required])]
+            'mail':['',Validators.compose([Validators.required])],
+            'Enabled':['']
+        
         },{validator: ValidationService.validacionCedula('cedula')});
     }
     borrar(id){
@@ -93,37 +102,73 @@ export class UserListComponent {
             today = yyyy+'-'+mm+'-'+dd;
             this.today  = today;
             console.log(today);
+            this.userId = user._id;
+            console.log('user id',this.userId);
             
 
-        this.userId = user._id;
-        console.log(this.userId);
-        console.log(user);
+            this.imageComponent.placeHolderImg = config.url+'uploads/user/'+user.userImg;   
         
-        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,dateBirthday: user.dateBirthday,mail:user.mail,userImg:user.userImg,idRole : user.idRole});
+        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,dateBirthday: user.dateBirthday,mail:user.mail,userImg:user.userImg,idRole : user.idRole,idBranch:user.idBranch,Enabled:1});
         
         
         
     }
     editUser(){
-            
-            
-            this.editForm.value.Enabled = 1;
-            console.log(this.editForm.value)
-            console.log(this.userId);
-            this.http.post(config.url+'user/edit/'+this.userId+"?access_token="+this.local.token,this.editForm.value).toPromise().then(result=>{
-                let apiResult = result.json(); 
 
-                if(apiResult.msg == "OK"){
-                        this.usersData = apiResult.update;
-                }else{
-                    this.error = true;
-                    this.message = "No tiene privilegios de editar usuario"
-                }
-
+            if(this.imageComponent.file){
+                this.editForm.controls['Enabled'].setValue(1);
                 
-          
-                 
-            })
+                this.makeFileRequest(config.url+'user/adduserImg?access_token='+this.local.token,this.imageComponent.file).map(res => {
+                    return (res);
+                }).subscribe(result=>{
+                    this.imgResult = result;
+                    console.log(this.imgResult.userImg);
+                    this.editForm.controls['userImg'].setValue(this.imgResult.userImg);
+                    
+                    this.http.post(config.url+'user/edit/'+this.userId+'?access_token='+this.local.token,this.editForm.value).toPromise().then(result=>{
+
+                           let apiResult = result.json();
+                           console.log(apiResult);
+                           
+                          apiResult.msg == "OK"?  this.usersData = apiResult.update:null;
+                           if(apiResult.msg == "ERR"){
+
+                               this.error = true;
+                               this.message = apiResult.err.message;
+                               console.log('hay un error');
+                               
+
+                           }
+
+
+                    })
+                    
+                    
+                })
+
+            }else{
+                this.editForm.controls['Enabled'].setValue(1);
+                console.log(this.editForm.value)
+                console.log(this.userId);
+                this.http.post(config.url+'user/edit/'+this.userId+"?access_token="+this.local.token,this.editForm.value).toPromise().then(result=>{
+                    let apiResult = result.json(); 
+    
+                    if(apiResult.msg == "OK"){
+                            this.usersData = apiResult.update;
+                    }else{
+                        this.error = true;
+                        this.message = apiResult.err.message;
+                    }
+    
+                    
+              
+                     
+                })
+
+            }
+            
+            
+         
             
     }
     getItems(event:any){
@@ -161,6 +206,27 @@ export class UserListComponent {
                 
         })
     }
+    makeFileRequest(url: string, file: any) {
+        
+            return Observable.fromPromise(new Promise((resolve, reject) => {
+                let formData: any = new FormData()
+                let xhr = new XMLHttpRequest()
+           
+                    formData.append("userImg", file, file.name)
+                
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            resolve(JSON.parse(xhr.response))
+                        } else {
+                            reject(xhr.response)
+                        }
+                    }
+                }
+                xhr.open("POST", url, true)
+                xhr.send(formData)
+            }));
+        }
      
 }
 

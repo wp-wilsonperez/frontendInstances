@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, Input } from '@angular/core';
 
 @Component({
   selector: 'az-image-uploader',
@@ -9,6 +9,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class ImageUploaderComponent {
     public image:any;
     public file:any;
+    @Input() placeHolderImg:any = 'assets/img/app/no-image.png';
   
     fileChange(input){
         console.log(input.files[0]);

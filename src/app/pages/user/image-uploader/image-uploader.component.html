@@ -8,6 +8,6 @@
 <div class="image-wrapper">
     <i *ngIf="image" class="fa fa-times delete-img" (click)="removeImage()"></i>
     <img [attr.src]="image" *ngIf="image" width="100%">
-    <img src="assets/img/app/no-image.png" *ngIf="!image" width="100%">
+    <img [src]="placeHolderImg" *ngIf="!image" width="100%">
 </div>
 
