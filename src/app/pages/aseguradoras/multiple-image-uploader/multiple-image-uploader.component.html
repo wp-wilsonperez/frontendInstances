@@ -13,13 +13,18 @@
     <h6>Logo:</h6>
     <div  class="m-logo-wrapper">
         <i class="fa fa-times m-delete-img" (click)="removeImage(i)"></i>
-        <img [attr.src]="logo"> 
+        <img *ngIf="logo != undefined" [attr.src]="logo"> 
+        <img  *ngIf="logo == undefined && logoEdit != '' " [src]="logoEdit" alt="">
     </div>
 
     <h6>Imagenes:</h6>
+
+ 
+    
     
     <div *ngFor="let image of images; let i=index;" class="m-image-wrapper">
         <i class="fa fa-times m-delete-img" (click)="removeImage(i)"></i>
-        <img [attr.src]="image"> 
+        <img  [attr.src]="image"> 
+      
     </div> 
 </div>

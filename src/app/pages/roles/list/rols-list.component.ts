@@ -1123,6 +1123,9 @@ export class RolsListComponent {
           this.accountEdit?requestTwo.account['edit'] = true:null
         this.accountDelete?requestTwo.account['delete'] = true:null
 
+        this.accountList?requestTwo.account['addaccountImg'] = true:null
+        
+
         //insurance
             
         this.insuranceList?requestTwo.insurance['list'] = true:null;

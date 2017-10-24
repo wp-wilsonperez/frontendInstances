@@ -1,8 +1,10 @@
+import { AseguradorasListComponent } from './../list/aseguradoras-list.component';
 import { config } from '../../../../config/project-config';
 import { Http } from '@angular/http';
-import { Component, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { UserSessionService } from './../../../providers/session.service';
 import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'az-multiple-image-uploader',
@@ -16,8 +18,17 @@ export class MultipleImageUploaderComponent {
     public input:any;
     public logoImg:any;
     public secImgs:any = [];
+    public resImg:any;
+    public logoEdit= '';
+    public img1= '';
+    public img2= '';
+    public img3= '';
+    config = config;
+
+    @Output() change =new EventEmitter();
   
-    constructor( private changeDetectorRef: ChangeDetectorRef,public http:Http,public local:UserSessionService ) {
+    constructor( public changeDetectorRef: ChangeDetectorRef,public http:Http,public local:UserSessionService) {
+    
     }    
     
     fileChange(input){
@@ -53,6 +64,8 @@ export class MultipleImageUploaderComponent {
                          this.logoImg = result;
                          console.log(this.logoImg);
                          
+                         this.change.emit(['logo',this.logoImg.accountImg]);
+                         
                          
                      })
                   /*  this.http.post(config.url+'account/addaccountImg?access_token='+this.local.getUser().token,files[index]).toPromise().then(result=>{
@@ -66,7 +79,18 @@ export class MultipleImageUploaderComponent {
                     return result;
                 }).subscribe(res=>{
                     console.log(res);
-                    this.secImgs.push(res);
+                    this.resImg = res;
+                    this.secImgs.push(this.resImg.accountImg);
+                    
+                    if(this.secImgs.length == 2){
+                     
+                        this.change.emit(['img2',this.secImgs[1]]);
+                    }else if(this.secImgs.length == 1){
+                        this.change.emit(['img1',this.secImgs[0]]);
+                    }else if(this.secImgs.length == 3){
+                        this.change.emit(['img3',this.secImgs[2]]);
+                }
+                    
                     console.log(this.secImgs);
                     
                     

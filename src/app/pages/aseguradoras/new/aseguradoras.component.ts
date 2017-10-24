@@ -17,7 +17,7 @@ export class AseguradorasComponent{
     account:any;
     toast:boolean = false;
     message:string='';
-    formAseguradora:FormGroup;
+    public formAseguradora:FormGroup;
     public permission:boolean = false;
     public error:boolean = false;
     public errorList;any;
@@ -39,6 +39,10 @@ export class AseguradorasComponent{
                 img2: ['',],
                 img3: ['',],
 
+            })
+            this.formAseguradora.valueChanges.subscribe((res)=>{
+                console.log(res);
+                
             })
 
     }
@@ -94,6 +98,22 @@ export class AseguradorasComponent{
           
     })  
   }
+  setImg(val){
+    if(val[0] == 'logo'){
+        this.formAseguradora.controls['logo'].setValue(val[1]);
+        
+    }else if(val[0] == 'img1'){
+        this.formAseguradora.controls['img1'].setValue(val[1]);
+    }
+    else if(val[0] == 'img2'){
+        this.formAseguradora.controls['img2'].setValue(val[1]);
+    }
+    else if(val[0] == 'img3'){
+        this.formAseguradora.controls['img3'].setValue(val[1]);
+    }
+
+    
+}
 
 
 

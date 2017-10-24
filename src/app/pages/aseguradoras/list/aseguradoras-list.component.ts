@@ -1,7 +1,8 @@
+import { MultipleImageUploaderComponent } from './../multiple-image-uploader/multiple-image-uploader.component';
 import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
 import { ValidationService } from './../new/validation.service';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { UserService } from './dynamic-tables.service';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {config} from './../../../../config/project-config';
@@ -31,7 +32,9 @@ export class AseguradorasListComponent {
     public modalError;
     public roles;
     public aseguradoras;
-    formAseguradora:FormGroup;
+    public formAseguradora:FormGroup;
+    @ViewChild(MultipleImageUploaderComponent) imageUploader:MultipleImageUploaderComponent;
+    
 
     constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService){
         this.local = this.userSession.getUser(); 
@@ -40,18 +43,23 @@ export class AseguradorasListComponent {
        
        this.formAseguradora = this.formBuilder.group({
                 ruc: ['',Validators.compose([Validators.required])],
-               razonSocial: ['',Validators.compose([Validators.required])],
+               bussinesName: ['',Validators.compose([Validators.required])],
                 cellPhone: [''],
                 phones: [''],
                 address: ['',Validators.compose([Validators.required])],
                 parking: ['',],
                 mail: ['',],
                 web: ['',],
+                logo: ['',],
                 img1: ['',],
                 img2: ['',],
                 img3: ['',],
 
             })
+        this.formAseguradora.valueChanges.subscribe((res)=>{
+            console.log(res);
+            
+        })
     }
     borrar(id){
 
@@ -80,8 +88,13 @@ export class AseguradorasListComponent {
         this.aseguradoraId = aseguradora._id;
         console.log(this.aseguradoraId);
         console.log(aseguradora);
+         this.imageUploader.logoEdit= config.url+'uploads/account/'+aseguradora.logo;
+         this.imageUploader.images.push(config.url+'uploads/account/'+aseguradora.img1);
+         this.imageUploader.images.push(config.url+'uploads/account/'+aseguradora.img2);
+         this.imageUploader.images.push(config.url+'uploads/account/'+aseguradora.img3);
+ 
         
-        this.formAseguradora.setValue({ruc: aseguradora.ruc,cellPhone: aseguradora.cellPhone,address:aseguradora.address,mail:aseguradora.mail,web:aseguradora.web,phones:aseguradora.phones,img1:aseguradora.img1,img2:aseguradora.img2 ,img3:aseguradora.img3,razonSocial:'',parking:aseguradora.parking});
+        this.formAseguradora.setValue({ruc: aseguradora.ruc,cellPhone: aseguradora.cellPhone,address:aseguradora.address,mail:aseguradora.mail,web:aseguradora.web,phones:aseguradora.phones,img1:aseguradora.img1,img2:aseguradora.img2 ,img3:aseguradora.img3,bussinesName:aseguradora.bussinesName,parking:aseguradora.parking,logo:''});
         
         
         
@@ -142,6 +155,22 @@ export class AseguradorasListComponent {
                 this.aseguradoras = apiResult.insurances;
                 
         })
+    }
+    setImg(val){
+        if(val[0] == 'logo'){
+            this.formAseguradora.controls['logo'].setValue(val[1]);
+            
+        }else if(val[0] == 'img1'){
+            this.formAseguradora.controls['img1'].setValue(val[1]);
+        }
+        else if(val[0] == 'img2'){
+            this.formAseguradora.controls['img2'].setValue(val[1]);
+        }
+        else if(val[0] == 'img3'){
+            this.formAseguradora.controls['img3'].setValue(val[1]);
+        }
+    
+        
     }
      
 }
