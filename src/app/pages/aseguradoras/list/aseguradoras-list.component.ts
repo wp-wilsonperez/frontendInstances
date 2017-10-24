@@ -89,6 +89,7 @@ export class AseguradorasListComponent {
         console.log(this.aseguradoraId);
         console.log(aseguradora);
          this.imageUploader.logoEdit= config.url+'uploads/account/'+aseguradora.logo;
+         this.imageUploader.images = [];
          this.imageUploader.images.push(config.url+'uploads/account/'+aseguradora.img1);
          this.imageUploader.images.push(config.url+'uploads/account/'+aseguradora.img2);
          this.imageUploader.images.push(config.url+'uploads/account/'+aseguradora.img3);
