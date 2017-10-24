@@ -25,7 +25,7 @@ export class ValidationService {
     }
 
     static spacesValidator(control): {[key: string]: any} {
-        var notSpaceRegexp = /^[^\s]+(\s+[^\s]+)*$/;  
+        var notSpaceRegexp = /^[^-\s][a-zA-Z0-9_\s-]+$/;  
         if (control.value && notSpaceRegexp.test(control.value)) {
             return {spaceInvalid: true};
         }

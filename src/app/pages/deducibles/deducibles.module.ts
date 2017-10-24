@@ -1,3 +1,4 @@
+import { SelectModule } from 'angular2-select';
 import { DataTableModule } from "angular2-datatable";
 import { PipesModule } from '../../theme/pipes/pipes.module';
 import { NgModule } from '@angular/core';
@@ -26,7 +27,8 @@ export const routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SelectModule
   ],
   declarations: [
     DeduciblesComponent,DeduciblesListComponent

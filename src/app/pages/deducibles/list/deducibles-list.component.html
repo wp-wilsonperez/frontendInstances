@@ -63,12 +63,73 @@
                                                 <div class="row">
 
 
-                                                        <button type="button" (click)="branchDetail(branch)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+                                                        <button type="button" (click)="deducibleDetail(deducible)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+
+                                                        <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header state modal-primary">                                    
+                                                                        <h4 class="modal-title" id="modal-error-label"><i class="fa fa-money"></i>Editar Deducible</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                            <form [formGroup]="deductibleForm">
+                                                                                    
+                                                                                                        <div class="form-group col-md-12">
+                                                                                                            <label for="exampleSelect1">Aseguradora</label>
+                                                                                                            <ng-select
+                                                                                                           
+                                                                                                            [(options)]="aseguradoras"
+                                                                                                            formControlName="idInsurance"
+                                                                                                        
+                                                                                                           
+                                                                                                          >
+                                                                                                        </ng-select>
+                                                                                                               
+                                                                                            
+                                                                                                            
+                                                                                                        </div>
+                                                                                                        <div class="form-group col-md-12">
+                                                                                                                                    <label for="exampleSelect1">Ramo</label>
+                                                                                                                                    <ng-select
+                                                                                                                                    
+                                                                                                                                        [(options)]="ramos"
+                                                                                                                                        formControlName="idRamo"
+                                                                                                                                    
+                                                                                                                                        
+                                                                                                                                    >
+                                                                                                                                    </ng-select>
+                                                                                                                                    
+                                                                                                                    
+                                                                                                                                    
+                                                                                                        </div>
+                                                                                    
+                                                                                                          <div class="form-group col-md-12">
+                                                                                                                                    <label for="exampleSelect1">Nombre</label>
+                                                                                                                                       <input type="text" formControlName="name" class="form-control">
+                                                                                                                                    
+                                                                                                        </div>
+                                                                                    
+                                                                                        
+                                                                                                    
+                                                                                                       
+                                                                                                      
+                                                                                                
+                                                                                                    </form>
+                                                                       
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button (click)="editarDeductible()" type="button" class="btn btn-primary" data-dismiss="modal">Editar</button>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
                                                                 
                         
 
-                                                        <button type="button" (click)="idAssign(branch._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                        <button type="button" (click)="idAssign(deducible._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
 
                                                                         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                                                                             <div class="modal-dialog" role="document">
@@ -81,7 +142,7 @@
                                                                                         Al Borrar esta sucursal borraria usuarios ligados a este
                                                                                     </div>
                                                                                     <div class="modal-footer">
-                                                                                        <button (click)="borrar()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                        <button (click)="deleteDeductible()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                                                                     </div>
                                                                                 </div>

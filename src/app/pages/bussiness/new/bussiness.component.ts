@@ -50,8 +50,6 @@ export class BussinessComponent {
         let request = {
         };
         Object.assign(request, this.bussinessForm.value )
-
-        if(this.bussinessForm.valid){
                 console.log(request);
                 
                 this.http.post(config.url+'business/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
@@ -86,11 +84,7 @@ export class BussinessComponent {
                 
         })
 
-        }else{
-
-              this.attempt.valid = false;
-        }
-      
+  
        
         
         
