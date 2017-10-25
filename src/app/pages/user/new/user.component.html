@@ -83,24 +83,24 @@
 
                     <form *ngIf="step.name=='Informacion Personal'" [formGroup]="personalForm" class="row">
                         <div class="col-md-8">
-                        <div class="form-group " [ngClass]="{'has-danger' : personalForm.get('name').value != '' &&  !personalForm.get('name').hasError('lengthInvalid'), 'has-success' : personalForm.get('name').hasError('spaceInvalid') && personalForm.get('name').hasError('lengthInvalid') }">
+                        <div class="form-group " [ngClass]="{ 'has-success' : !personalForm.get('name').hasError('required') }">
                             <label class="form-control-label">Nombre</label>
                             <div class="input-group">
                                       <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                     <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('name').value != '' && (!personalForm.get('name').hasError('spaceInvalid') || !personalForm.get('name').hasError('lengthInvalid')), 'form-control-success' :  personalForm.get('name').hasError('spaceInvalid') && personalForm.get('name').hasError('lengthInvalid') }" type="text"> 
+                                     <input formControlName="name" class="form-control" [ngClass]="{ 'form-control-success' : !personalForm.get('name').hasError('required') }" type="text"> 
                             </div>
                            
                           
                         </div>
 
-                        <div class="form-group " [ngClass]="{'has-danger' : personalForm.get('lastName').value != '' && (!personalForm.get('lastName').hasError('spaceInvalid') || !personalForm.get('lastName').hasError('lengthInvalid')), 'has-success' : personalForm.get('lastName').hasError('spaceInvalid') && personalForm.get('lastName').hasError('lengthInvalid') }">
+                        <div class="form-group " [ngClass]="{ 'has-success' : !personalForm.get('lastName').hasError('required') }">
                                 <label class="form-control-label">Apellido</label>
                                 <div class="input-group">
                                           <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                         <input formControlName="lastName" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('lastName').value != '' && (!personalForm.get('lastName').hasError('spaceInvalid') || !personalForm.get('lastName').hasError('lengthInvalid')), 'form-control-success' :  personalForm.get('lastName').hasError('spaceInvalid') && personalForm.get('lastName').hasError('lengthInvalid') }" type="text"> 
+                                         <input formControlName="lastName" class="form-control" [ngClass]="{ 'form-control-success' : !personalForm.get('name').hasError('required') }" type="text"> 
                                 </div>
                                
-                                <span class="help-block text-danger" *ngIf="personalForm.get('lastName').value != '' && !personalForm.get('lastName').hasError('lengthInvalid')">No se permiten espacios al inicio o final del apellido o menor a 4 caracteres</span>                             
+                               
                             </div>
                                            
                         <div class="form-group" [ngClass]="{'has-danger' : (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('required')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('minlength')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidNumber')) || (personalForm.get('cedula').value != '' && personalForm.get('cedula').hasError('invalidCedula')), 

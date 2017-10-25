@@ -58,8 +58,8 @@ export class UserComponent {
         }, {validator: ValidationService.matchingPasswords('password', 'confirmPassword')});
 
         this.personalForm = this.formBuilder.group({
-            'name': ['', Validators.compose([Validators.required ,ValidationService.spacesValidator,ValidationService.lengthValidator])],
-            'lastName': ['', Validators.compose([Validators.required,ValidationService.spacesValidator,ValidationService.lengthValidator])],
+            'name': ['', Validators.compose([Validators.required ])],
+            'lastName': ['', Validators.compose([Validators.required])],
             'cedula': ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
             'telefono':['',Validators.compose([ValidationService.phoneValidator])],
             'birthDate': [''],
