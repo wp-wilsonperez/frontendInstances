@@ -14,7 +14,7 @@
     <div  class="m-logo-wrapper">
         <i class="fa fa-times m-delete-img" (click)="removeImage(i)"></i>
         <img *ngIf="logo != undefined" [attr.src]="logo"> 
-        <img  *ngIf="logo == undefined && logoEdit != '' " [src]="logoEdit" alt="">
+        <img  *ngIf="logo == undefined " [src]="logoEdit" alt="">
     </div>
 
     <h6>Imagenes:</h6>

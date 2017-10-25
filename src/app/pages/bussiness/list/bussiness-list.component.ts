@@ -52,24 +52,7 @@ export class BussinessListComponent {
 
     
     }
-    borrar(id){
-
-
-       this.bussinessService.delete(this.bussinessId).then(result=>{
-            let apiResult = result;
-            if(apiResult.msg == "OK"){
-                   this.usersData = apiResult.update;
-                   this.toast = true;
-                   this.message = "Empresa Borrada"
-               }else{
-                   this.error = true;
-                   this.message = "No tiene privilegios para borrar empresas"
-               }
-
-           
-       });
-       
-    } 
+   
     loadEmpresas(){
        this.http.get(config.url+'business/list?access_token='+this.local.getUser().token).toPromise().then(result=>{
             
@@ -174,7 +157,30 @@ export class BussinessListComponent {
                 
         })
     }
-    asignId(id){
-            this.bussinessId = id;
-    }
+    borrar(id){
+        
+                
+              this.http.delete(config.url+'business/delete/'+this.bussinessId+'?access_token='+this.local.getUser().token).toPromise().then(result=>{
+                   let apiResult = result.json();
+                   console.log(apiResult);
+                   
+                   if(apiResult.msg == "OK"){
+                       this.toast = true;
+                       this.message ="Empresa Borrada";
+                       this.loadEmpresas();
+                   }else{
+                        this.error = true;
+                       this.message ="No tiene privilegios";
+                    
+        
+                   }
+                   
+               })
+               
+            } 
+             idAssign(id){
+                    this.bussinessId = id;
+                    console.log(this.bussinessId);
+                    
+            }
 }
