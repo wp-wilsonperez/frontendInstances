@@ -95,7 +95,7 @@ export class AseguradorasListComponent {
          this.imageUploader.images.push(config.url+'uploads/account/'+aseguradora.img3);
  
         
-        this.formAseguradora.setValue({ruc: aseguradora.ruc,cellPhone: aseguradora.cellPhone,address:aseguradora.address,mail:aseguradora.mail,web:aseguradora.web,phones:aseguradora.phones,img1:aseguradora.img1,img2:aseguradora.img2 ,img3:aseguradora.img3,bussinesName:aseguradora.bussinesName,parking:aseguradora.parking,logo:''});
+        this.formAseguradora.setValue({ruc: aseguradora.ruc,cellPhone: aseguradora.cellPhone,address:aseguradora.address,mail:aseguradora.mail,web:aseguradora.web,phones:aseguradora.phones,img1:aseguradora.img1,img2:aseguradora.img2 ,img3:aseguradora.img3,bussinesName:aseguradora.bussinesName,parking:aseguradora.parking,logo:aseguradora.logo});
         
         
         

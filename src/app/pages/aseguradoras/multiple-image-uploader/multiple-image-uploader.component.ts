@@ -63,7 +63,6 @@ export class MultipleImageUploaderComponent {
                      }).subscribe(result=>{
                          this.logoImg = result;
                          console.log(this.logoImg);
-                         
                          this.change.emit(['logo',this.logoImg.accountImg]);
                          
                          
