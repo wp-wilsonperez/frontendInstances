@@ -52,8 +52,8 @@
                         <tbody>                           
 
                             <tr *ngFor="let porcentaje of  porcentajes">
-                                <td><strong>  {{porcentaje.idInsurance}}   </strong></td>
-                                  <td><strong>  {{porcentaje.idRamo}}   </strong></td>
+                                <td><strong>  {{porcentaje.insurance.bussinesName}}   </strong></td>
+                                  <td><strong>  {{porcentaje.ramo.name}}   </strong></td>
                                 <td>{{porcentaje.value}}</td>
               
                                
@@ -64,12 +64,12 @@
                                                 <div class="row">
 
 
-                                                        <button type="button" (click)="branchDetail(branch)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+                                                        <button type="button" (click)="porcentajeDetail(porcentaje)" class="btn btn-primary" data-toggle="modal" data-target="#new-city">Editar</button>
 
                                                                 
                         
 
-                                                        <button type="button" (click)="idAssign(branch._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                        <button type="button" (click)="idAssign(porcentaje._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
 
                                                                         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                                                                             <div class="modal-dialog" role="document">
@@ -151,8 +151,9 @@
                                    
                                 </div>
                                 <div class="modal-footer">
+                                        <button *ngIf="!create" [disabled]="!porcentajeForm.valid" (click)="editPorcentaje()" type="button" class="btn btn-primary" data-dismiss="modal">Editar</button>
 
-                                    <button [disabled]="!porcentajeForm.valid" (click)="savePorcentaje()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                                    <button *ngIf="create" [disabled]="!porcentajeForm.valid" (click)="savePorcentaje()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
 
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>

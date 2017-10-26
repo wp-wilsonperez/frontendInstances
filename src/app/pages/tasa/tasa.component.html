@@ -142,7 +142,7 @@
                                                     </div>
                                                      <div class="form-group col-md-12">
                                                          <label for="exampleSelect1">Ramo</label>
-                                                            <select formControlName="idRamo" class="form-control">
+                                                            <select (change)="seeVal()" formControlName="idRamo" class="form-control">
                                                                 <option *ngFor="let ramo of ramos" value="{{ramo._id}}">{{ramo.name}}</option>
                                                     
                                                             </select>
@@ -156,9 +156,9 @@
                                                             </select>
                                                     </div>
 
-                                                    <div class="form-group col-md-12">
+                                                    <div *ngIf="tasaForm.value.idRamo == '599222be7f05fc0933b643f3' " class="form-group col-md-12">
                                                          <label for="exampleSelect1">Uso de Automovil</label>
-                                                            <select formControlName="carUse" class="form-control">
+                                                            <select  formControlName="carUse" class="form-control">
                                                                 <option *ngFor="let car of carUses" value="{{car.name}}">{{car.name}}</option>
                                                     
                                                             </select>

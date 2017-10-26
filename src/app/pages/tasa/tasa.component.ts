@@ -34,7 +34,7 @@ export class TasaComponent{
                 idInsurance:['',Validators.compose([Validators.required])],
                 idDeductible:['',Validators.compose([Validators.required])],
                 idRamo:['',Validators.compose([Validators.required])],
-                carUse:['',Validators.compose([Validators.required])],
+                carUse:[''],
                 value:['',Validators.compose([Validators.required])]
             });
             this.editForm = this.formBuilder.group({
@@ -171,6 +171,10 @@ export class TasaComponent{
                 
             })
 
+    }
+    seeVal(){
+        console.log(this.tasaForm.value.idRamo);
+        
     }
 
 }

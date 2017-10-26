@@ -16,7 +16,7 @@ export class PorcentajeComponent{
         
         public insurances:any;
          porcentajeForm:FormGroup;
-         ramoId:any;
+         porcentajeId:any;
          error:any;
          errorList:any = [];
          message:any;
@@ -24,6 +24,7 @@ export class PorcentajeComponent{
          ramos:any = [];
          aseguradoras:any = [];
          porcentajes:any;
+         create = true;
 
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder){
             
@@ -77,31 +78,32 @@ export class PorcentajeComponent{
                 
             }))
         }
-        ramoDetail(insurance){
+        porcentajeDetail(porcentaje){
     
-        this.ramoId = insurance._id;
-        console.log(this.ramoId);
-        console.log(insurance);
-        
-        this.porcentajeForm.setValue({name:insurance.name,description:insurance.description});
+        this.porcentajeId = porcentaje._id;
+        this.create = false
+        this.porcentajeForm.setValue({ idRamo:porcentaje.idRamo,
+        idInsurance:porcentaje.idInsurance,
+        value:porcentaje.value});
         
         
         
     }
-    editRamo(){
+    editPorcentaje(){
             
             
             console.log(this.porcentajeForm.value)
-            console.log(this.ramoId);
-            this.http.post(config.url+'ramo/edit/'+this.ramoId+"?access_token="+this.local.getUser().token,this.porcentajeForm.value).toPromise().then(result=>{
+            console.log(this.porcentajeId);
+            this.http.post(config.url+'percentageRamo/edit/'+this.porcentajeId+"?access_token="+this.local.getUser().token,this.porcentajeForm.value).toPromise().then(result=>{
                 let apiResult = result.json(); 
                 console.log(result.json());
                 
                 if(apiResult.msg == "OK"){
-                        this.insurances = apiResult.update;
+                        this.loadPorcentajes();
+                        this.create = true;
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar Ramo"
+                    this.message = "No tiene privilegios de editar "
                 }
 
                 
@@ -113,14 +115,14 @@ export class PorcentajeComponent{
      borrar(id){
 
         
-      this.http.delete(config.url+'ramo/delete/'+this.ramoId+'?access_token='+this.local.getUser().token).toPromise().then(result=>{
+      this.http.delete(config.url+'percentageRamo/delete/'+this.porcentajeId+'?access_token='+this.local.getUser().token).toPromise().then(result=>{
            let apiResult = result.json();
            console.log(apiResult);
            
            if(apiResult.msg == "OK"){
                this.toast = true;
-               this.message ="Ramo Borrado";
-               this.insurances = apiResult.update;
+               this.message ="Porcentaje Borrado";
+               this.loadPorcentajes();
            }else{
                 this.error = true;
                this.message ="No tiene privilegios";
@@ -132,8 +134,8 @@ export class PorcentajeComponent{
        
     } 
      idAssign(id){
-            this.ramoId = id;
-            console.log(this.ramoId);
+            this.porcentajeId = id;
+            console.log(this.porcentajeId);
             
     }
 }

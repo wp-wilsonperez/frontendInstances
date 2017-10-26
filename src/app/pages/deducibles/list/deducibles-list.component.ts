@@ -64,7 +64,7 @@ export class DeduciblesListComponent{
                 this.deductibleForm.setValue({idInsurance:deductible.idInsurance,
                 idRamo: deductible.idRamo,
                 name:deductible.name,
-                description:''});
+                description:deductible.description});
                 
                 
                 
@@ -102,5 +102,26 @@ export class DeduciblesListComponent{
                     
                     
                 }
+
+                deleteDeductible(){
+                    this.http.delete(config.url+'deductible/delete/'+this.deductibleId+'?access_token='+this.local.getUser().token).toPromise().then(result=>{
+                        
+                                   let apiResult = result.json();
+                                   console.log(apiResult);
+                                   
+                                   if(apiResult.msg == "OK"){
+                                      this.loadDeducibles();
+                                       
+                                       
+                        
+                                   }else{
+                                      
+                                    
+                        
+                                   }
+                                   
+                               })
+                }
+
             
 }
