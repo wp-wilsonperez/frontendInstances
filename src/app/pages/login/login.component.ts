@@ -61,18 +61,10 @@ export class LoginComponent implements OnInit {
                     let id = apiResult.user.idRol;
                     let token = apiResult.user.token
                     this.user = apiResult.user;
-
-                    this.http.get(config.url+'role/viewgrant/'+id+'?access_token='+token).toPromise().then(result=>{
-                       let  rolResult = result.json();
-                       Object.assign(this.user,rolResult);
-                        this.local.setUser(this.user);
-                        this.router.navigate(['pages/'])
-                        
-
-                       
-
-                        
-                    })
+                    let  rolResult = result.json();
+                    Object.assign(this.user,rolResult);
+                     this.local.setUser(this.user);
+                     this.router.navigate(['pages/'])
                     
             
 

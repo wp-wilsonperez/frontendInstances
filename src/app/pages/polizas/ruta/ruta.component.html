@@ -30,7 +30,7 @@
                                       
                                                 <ng-select
                                                     [(options)]="opt"
-                                                    [placeholder]="Origen"
+                                                    [placeholder]="userSendLabel"
                                                     [multiple]="false"
                                                     formControlName="idUserSend">
                                                 </ng-select>
@@ -41,7 +41,7 @@
 
                                                 <ng-select
                                                     [(options)]="opt2"
-                                                    [placeholder]="Destinatario"
+                                                    [placeholder]="receiveLabel"
                                                     [multiple]="false"
 
                                                     formControlName="idClientRecipient">
@@ -97,6 +97,7 @@
                                     <td><strong>   Detalles </strong></td>
                                     <td><strong>  Observaciones  </strong></td>
                                     <td><strong>   Destino </strong></td>
+                                    <td><strong>   Estatus de Ruta </strong></td>
                                 <th>Acciones</th>      
                             </tr>
                         </thead>
@@ -109,8 +110,10 @@
                                   <td><strong>   {{ruta.dateCreate | date: 'dd/MM/yyyy'}} </strong></td>
                                    <td><strong>  {{ruta.idUserSend}}  </strong></td>
                                     <td><strong>  {{ruta.details}}  </strong></td>
-                                     <td><strong>   {{ruta.observations}}  </strong></td>
+                                    <td><strong> {{ruta.observations}}    </strong></td>
                                     <td><strong>    </strong></td>
+                                     <td><strong>   {{ruta.observations}}  </strong></td>
+                                 
                          
               
                                

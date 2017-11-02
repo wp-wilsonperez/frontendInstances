@@ -1,5 +1,5 @@
 <nav class="nav az-navbar fixed-top">
-    <a class="navbar-brand" routerLink="/pages/dashboard">
+    <a class="navbar-brand" routerLink="/pages/panel">
         <img src="assets/img/logo/az_logo_full.png" alt="" class="hidden-sm-down"> 
         <img src="assets/img/logo/az_logo.png" alt="" class="hidden-md-up"> 
     </a>
@@ -17,15 +17,15 @@
         <li class="nav-item">
           <div class="dropdown float-right user-menu">
               <a class="dropdown-toggle user-link" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                    <img *ngIf="userInfo.userImg == undefined" src="assets/img/logo/az_logo.png" alt="user-img" class="img-circle user-img">                    
-                  <img  *ngIf="userInfo.userImg != undefined" src="http://localhost:3001/uploads/user/{{userInfo.userImg}}" alt="user-img" class="img-circle user-img">
+                    <img *ngIf="userInfo.userImg == undefined || userInfo.userImg == '' " src="assets/img/profile/holder.png" alt="" class="img-circle user-img">                    
+                  <img  *ngIf="userInfo.userImg != undefined || userInfo.userImg != '' " src="http://localhost:3001/uploads/user/{{userInfo.userImg}}" alt="" class="img-circle user-img">
                   <span class="hidden-md-down">{{userInfo.name}} {{userInfo.lastName}}</span>
               </a>
 
               <ul class="dropdown-menu">
                   <li class="user-info">
-                      <img *ngIf="userInfo.userImg == undefined" src="assets/img/logo/az_logo.png" alt="user-img" class="img-circle user-img">                    
-                      <img *ngIf="userInfo.userImg != undefined"  src="http://localhost:3001/uploads/user/{{userInfo.userImg}}" alt="user-img" class="img-circle user-img">                    
+                      <img *ngIf="userInfo.userImg == undefined  || userInfo.userImg == ''" src="assets/img/profile/holder.png" alt="" class="img-circle user-img">                    
+                      <img *ngIf="userInfo.userImg != undefined || userInfo.userImg != ''"  src="http://localhost:3001/uploads/user/{{userInfo.userImg}}" alt="" class="img-circle user-img">                    
                       <p>
                           {{userInfo.name}} {{userInfo.lastName}}
                           <small>Cedula : {{userInfo.cedula}}</small>

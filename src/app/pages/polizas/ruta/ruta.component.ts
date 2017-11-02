@@ -23,6 +23,9 @@ export class RutaComponent  {
         public business:any= [];
         public clients:any= [];
         public destinatario:any= [];
+        public userSendLabel='Origen...';
+
+        public receiveLabel='Quien recibe...';
         error:any;
         toast:boolean = false;
         message:string;
