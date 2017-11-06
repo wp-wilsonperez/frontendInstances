@@ -36,8 +36,7 @@ export class PlanComponent{
             });
 
             this.loadplans();
-            this.planForm.controls['value'].setValue(2.25);
-            this.planForm.controls['name'].setValue('plan6000');
+    
         }
 
         loadplans(){
@@ -57,7 +56,8 @@ export class PlanComponent{
                  if(res.msg == "OK"){
                        this.loadplans();
                         this.toast = true;
-                        this.message = "plan guardado"
+                        this.message = "plan guardado";
+                        this.planForm.reset();
                 }else{
                       this.error = true;
                     this.message = "No tiene privilegios de guardar plan"
@@ -108,9 +108,9 @@ export class PlanComponent{
         
         
     }
-    deleteplan(id){
+    deleteplan(){
 
-        this.http.delete(config.url+`plan/delete/${id}?access_token=`+this.local.getUser().token,{}).map((result)=>{
+        this.http.delete(config.url+`plan/delete/${this.planId}?access_token=`+this.local.getUser().token,{}).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){

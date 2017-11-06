@@ -117,9 +117,9 @@ export class PlanAlternativoComponent{
         
         
     }
-    deleteplanAlternativo(id){
+    deleteplanAlternativo(){
 
-        this.http.delete(config.url+`planAlternative/delete/${id}?access_token=`+this.local.getUser().token).map((result)=>{
+        this.http.delete(config.url+`planAlternative/delete/${this.planAlternativoId}?access_token=`+this.local.getUser().token).map((result)=>{
             console.log('log',result.json());
                 
             return result.json()
@@ -128,7 +128,8 @@ export class PlanAlternativoComponent{
                 if(res.msg == "OK"){
                         this.planAlternativos = res.update; 
                         this.toast = true;
-                        this.message = "planAlternativo Borrado"
+                        this.message = "planAlternativo Borrado";
+                        this.planAlternativoForm.reset();
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

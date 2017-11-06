@@ -117,9 +117,9 @@ export class PlanAsociacionComponent{
         
         
     }
-    deleteplanAsociacion(id){
+    deleteplanAsociacion(){
 
-        this.http.delete(config.url+`planAssociation/delete/${id}?access_token=`+this.local.getUser().token).map((result)=>{
+        this.http.delete(config.url+`planAssociation/delete/${this.planAsociacionId}?access_token=`+this.local.getUser().token).map((result)=>{
             console.log('log',result.json());
                 
             return result.json()
@@ -128,7 +128,8 @@ export class PlanAsociacionComponent{
                 if(res.msg == "OK"){
                         this.planAsociacions = res.update; 
                         this.toast = true;
-                        this.message = "planAsociacion Borrado"
+                        this.message = "Plan Asociacion Borrado";
+                        this.planAsociacionForm.reset();
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

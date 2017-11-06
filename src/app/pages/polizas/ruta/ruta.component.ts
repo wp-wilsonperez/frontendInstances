@@ -1,8 +1,10 @@
+import { SelectService } from './../../../providers/select.service';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -17,6 +19,7 @@ export class RutaComponent  {
          public editForm:FormGroup
         public helpLinks:any;
         public rutas:any;
+        public rutasCopy:any;
         public helpLinkId:any;
         public rutaId:any;
         public users:any= [];
@@ -34,7 +37,9 @@ export class RutaComponent  {
          myOptions2:Array<object> = [];
         opt:any;
         opt2:any;
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
+        filtered:boolean = false;
+        recipients:any;
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public select:SelectService ){
             
             
         
@@ -57,6 +62,14 @@ export class RutaComponent  {
             this.loadUsers();
             this.loadInsurances();
             this.loadrutas();
+            this.select.loadClientsRecipient().then(clients=>{
+                this.select.loadBussinesRecipient().then(bussines=>{
+                    this.select.loadInsurancesRecipient().then(insurances=>{
+                        this.recipients = clients.concat(bussines,insurances);
+                        console.log('recipients',this.recipients);
+                    })
+                })
+            })
 
    
             
@@ -70,8 +83,10 @@ export class RutaComponent  {
                 return res.json();
             }).subscribe((result)=>{
                     this.rutas = result.routes;
+                    this.rutasCopy = this.rutas;
                     
                     console.log('rutas',this.rutas);
+                    this.filtered = false;
             })
             
         }
@@ -172,6 +187,7 @@ export class RutaComponent  {
                         this.toast = true;
                         this.message = "ruta guardada"
                         console.log('1saved');
+                        this.rutaForm.reset();
                         
 
                 }else{
@@ -193,10 +209,25 @@ export class RutaComponent  {
 
         this.create = false;
         this.rutaId = ruta._id;
-        console.log(this.rutaId);
+        console.log(ruta);
         
         
-        this.rutaForm.setValue({name: ruta.name});
+        this.rutaForm.setValue({
+            typeReception:'',
+            idUserSend:'',
+            idClientRecipient:'',
+            idBusinessRecipent:'',
+            idInsuranceRecipent:'',
+            dateRoute:'',
+            dateReception:'',
+            dateMessenger:'',
+            dateReEntry:'',
+            dateReturn:'',
+            details:ruta.details ,
+            observations:ruta.observations ,
+
+
+        });
         
         
         
@@ -237,6 +268,18 @@ export class RutaComponent  {
                 
             })
 
+    }
+    filterRuta(estatus){
+        console.log(estatus);
+        this.rutas = this.rutasCopy;
+        
+       let result =  this.rutas.filter((res)=>{
+                return res.routeNumber == estatus;
+        });
+
+        console.log(result);
+        this.rutas = result;
+        this.filtered = true;
     }
         
 

@@ -92,6 +92,7 @@ export class SelectService {
         })
         
     }
+   
     loadFrecuencyOfPayments(){  
         let policyOptions = [];
       return   this.http.get(config.url+'frequencyPayment/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
@@ -254,4 +255,59 @@ export class SelectService {
         })
         
     }
+
+    loadClientsRecipient(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'client/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.clients;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: 'Cliente : '+result.name +' '+result.lastName
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+
+    loadInsurancesRecipient(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'insurance/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.insurances;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: 'Aseguradora: '+result.bussinesName
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+    loadBussinesRecipient(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'business/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.businesses;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: 'Empresa: '+result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+
+   
 }

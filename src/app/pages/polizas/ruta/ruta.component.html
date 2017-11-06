@@ -40,7 +40,7 @@
                                                 <div class="col-md-3">
 
                                                 <ng-select
-                                                    [(options)]="opt2"
+                                                    [(options)]="recipients"
                                                     [placeholder]="receiveLabel"
                                                     [multiple]="false"
 
@@ -80,13 +80,24 @@
                                 
                                 
                 </form>               
-                <div class="w-200 pull-right bottom-15">
-                    <div class="input-group input-group-sm">
+                <div class="w-200 bottom-15">
+                    
+                            <div class="d-inline-block">
+                                    <div class="btn-group btn-group" role="group" aria-label="Basic example">
+                                            <button (click)="loadrutas()" type="button" class="btn">Todos</button>
+                                        <button (click)="filterRuta(1)" type="button" class="btn btn-primary">Enviados</button>
+                                        <button (click)="filterRuta(2)"  type="button" class="btn btn-success">Transporte</button>
+                                        <button (click)="filterRuta(3)" type="button" class="btn btn-warning">Reingresados</button>
+                                        <button (click)="filterRuta(4)" type="button" class="btn btn-main">Devueltos</button>
+                
+                                    </div>
+                            </div>
 
 
                         
-                    </div>
+                    
                 </div> 
+               
                 <div class="table-responsive datatable">
                     <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
@@ -94,9 +105,9 @@
                                 <th> <mfDefaultSorter by="name">No. Ruta</mfDefaultSorter></th>                              
                                   <td><strong>   Fecha Creacion </strong></td>
                                    <td><strong>   Origen </strong></td>
+                                   <td><strong>   Quien Recibe </strong></td>
                                     <td><strong>   Detalles </strong></td>
                                     <td><strong>  Observaciones  </strong></td>
-                                    <td><strong>   Destino </strong></td>
                                     <td><strong>   Estatus de Ruta </strong></td>
                                 <th>Acciones</th>      
                             </tr>
@@ -108,6 +119,7 @@
 
                               
                                   <td><strong>   {{ruta.dateCreate | date: 'dd/MM/yyyy'}} </strong></td>
+                                   <td><strong>  {{ruta.idUserSend}}  </strong></td>
                                    <td><strong>  {{ruta.idUserSend}}  </strong></td>
                                     <td><strong>  {{ruta.details}}  </strong></td>
                                     <td><strong> {{ruta.observations}}    </strong></td>

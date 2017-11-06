@@ -111,15 +111,15 @@ export class AlternativaComponent{
         
         
     }
-    deletealternativa(id){
+    deletealternativa(){
 
-        this.http.delete(config.url+`alternative/delete/${id}?access_token=`+this.local.getUser().token,{}).map((result)=>{
+        this.http.delete(config.url+`alternative/delete/${this.alternativaId}?access_token=`+this.local.getUser().token,{}).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
                         this.alternativas = res.update; 
                         this.toast = true;
-                        this.message = "alternativa Borrado"
+                        this.message = "Alternativa Borrada"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"
