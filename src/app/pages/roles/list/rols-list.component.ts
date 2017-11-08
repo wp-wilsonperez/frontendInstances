@@ -1,3 +1,4 @@
+import { SelectService } from './../../../providers/select.service';
 import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
 import { Component, ViewEncapsulation } from '@angular/core';
@@ -24,13 +25,17 @@ export class RolsListComponent {
     public idRol;
     public modalError:boolean = false;
     public error:boolean = false;
+    public typeListLabel ='Seleccione Acceso...'
 
   //checkbox user
+  
+  public userTypeList = ''; 
   public userList:boolean = false; 
   public userCreate:boolean = false;
   public userEdit:boolean = false;
   public userDelete:boolean = false;
   //checkbox rols
+  public rolTypeList = '';
    public rolList:boolean = false; 
   public rolCreate:boolean = false;
   public rolEdit:boolean = false;
@@ -38,18 +43,21 @@ export class RolsListComponent {
     public rolGrantAdd:boolean = false;
     public rolGrantView:boolean = false;
     //checkbox branch
+    public branchTypeList = '';
      public branchList:boolean = false;
     public branchCreate:boolean = false;
     public branchEdit:boolean = false;
     public branchDelete:boolean = false;
 
        //checkbox city
+       public cityTypeList = '';
      public cityList:boolean = false;
     public cityCreate:boolean = false;
     public cityEdit:boolean = false;
     public cityDelete:boolean = false;
 
       //checkbox setting
+      public settingTypeList = '';
      public settingList:boolean = false;
     public settingCreate:boolean = false;
     public settingEdit:boolean = false;
@@ -57,6 +65,7 @@ export class RolsListComponent {
 
 
      //checkbox schedules
+     public schedulesTypeList = '';
     public scheView:boolean = false;
     public scheCreate:boolean = false;
     public scheEdit:boolean = false;
@@ -64,6 +73,7 @@ export class RolsListComponent {
     //
 
     //checkbox account
+    public accountTypeList = '';
     public accountList:boolean = false;
     public accountCreate:boolean = false;
     public accountEdit:boolean = false;
@@ -71,6 +81,7 @@ export class RolsListComponent {
     //
 
       //checkbox Insurance
+      public insuranceTypeList = '';
     public insuranceList:boolean = false;
     public insuranceCreate:boolean = false;
     public insuranceEdit:boolean = false;
@@ -79,6 +90,7 @@ export class RolsListComponent {
     //
 
     //checkbox Business
+    public businessTypeList = '';
     public businessList:boolean = false;
     public businessCreate:boolean = false;
     public businessEdit:boolean = false;
@@ -86,6 +98,7 @@ export class RolsListComponent {
     public businessEnable:boolean = false;
 
      //checkbox Ramo
+     public ramoTypeList = '';
     public ramoList:boolean = false;
     public ramoCreate:boolean = false;
     public ramoEdit:boolean = false;
@@ -93,6 +106,7 @@ export class RolsListComponent {
     public ramoEnable:boolean = false;
 
      //checkbox porcentje
+     public porcentajeTypeList = '';
     public porcentajeList:boolean = false;
     public porcentajeCreate:boolean = false;
     public porcentajeEdit:boolean = false;
@@ -101,6 +115,7 @@ export class RolsListComponent {
     //
 
      //checkbox deductible
+     public deductibleTypeList = '';
     public deductibleList:boolean = false;
     public deductibleCreate:boolean = false;
     public deductibleEdit:boolean = false;
@@ -109,6 +124,7 @@ export class RolsListComponent {
     //
 
     //checkbox helpLinks
+    public helpLinkTypeList = '';
     public helpLinkList:boolean = false;
     public helpLinkCreate:boolean = false;
     public helpLinkEdit:boolean = false;
@@ -117,6 +133,7 @@ export class RolsListComponent {
     //
 
     //checkbox bank
+    public bankTypeList = '';
     public bankList:boolean = false;
     public bankCreate:boolean = false;
     public bankEdit:boolean = false;
@@ -125,6 +142,7 @@ export class RolsListComponent {
     //
 
     //checkbox tasa
+    public tasaTypeList = '';
     public tasaList:boolean = false;
     public tasaCreate:boolean = false;
     public tasaEdit:boolean = false;
@@ -132,6 +150,7 @@ export class RolsListComponent {
     public tasaEnable:boolean = false;
     //
     //checkbox tasa
+    public letterAccidentTypeList = '';
     public letterAccidentList:boolean = false;
     public letterAccidentCreate:boolean = false;
     public letterAccidentEdit:boolean = false;
@@ -139,6 +158,7 @@ export class RolsListComponent {
     public letterAccidentEnable:boolean = false;
 
     //checkbox paymentType
+    public paymentTypeTypeList = '';
     public paymentTypeList:boolean = false;
     public paymentTypeCreate:boolean = false;
     public paymentTypeEdit:boolean = false;
@@ -146,6 +166,7 @@ export class RolsListComponent {
     public paymentTypeEnable:boolean = false;
     //
     //checkbox paymentType
+    public quoteTypeList = '';
     public quoteList:boolean = false;
     public quoteCreate:boolean = false;
     public quoteEdit:boolean = false;
@@ -153,7 +174,7 @@ export class RolsListComponent {
     public quoteEnable:boolean = false;
 
      //checkbox issue
-
+     public issueTypeList = '';
     public issueList:boolean = false;
     public issueCreate:boolean = false;
     public issueEdit:boolean = false;
@@ -162,7 +183,8 @@ export class RolsListComponent {
 
 
         //checkbox issue
-
+    
+    public clientTypeList = '';
     public clientList:boolean = false;
     public clientCreate:boolean = false;
     public clientEdit:boolean = false;
@@ -171,7 +193,7 @@ export class RolsListComponent {
 
 
       //marital
-
+      public maritalStatusTypeList = '';
     public maritalStatusList:boolean = false;
     public maritalStatusCreate:boolean = false;
     public maritalStatusEdit:boolean = false;
@@ -179,7 +201,7 @@ export class RolsListComponent {
     public maritalStatusEnable:boolean = false;
 
      //checkbox issue
-
+     public typeClientTypeList = '';
     public typeClientList:boolean = false;
     public typeClientCreate:boolean = false;
     public typeClientEdit:boolean = false;
@@ -188,7 +210,7 @@ export class RolsListComponent {
 
 
      //car
-
+     public carTypeTypeList = '';
     public carList:boolean = false;
     public carCreate:boolean = false;
     public carEdit:boolean = false;
@@ -196,7 +218,7 @@ export class RolsListComponent {
     public carEnable:boolean = false;
 
      //carType
-
+     public carTypeTypeTypeList = '';
     public carTypeList:boolean = false;
     public carTypeCreate:boolean = false;
     public carTypeEdit:boolean = false;
@@ -204,7 +226,7 @@ export class RolsListComponent {
     public carTypeEnable:boolean = false;
 
     //carBrand
-
+    public carBrandTypeList = '';
     public carBrandList:boolean = false;
     public carBrandCreate:boolean = false;
     public carBrandEdit:boolean = false;
@@ -212,7 +234,7 @@ export class RolsListComponent {
     public carBrandEnable:boolean = false;
 
     //carColor
-
+    public carColorTypeList = '';
     public carColorList:boolean = false;
     public carColorCreate:boolean = false;
     public carColorEdit:boolean = false;
@@ -220,7 +242,7 @@ export class RolsListComponent {
     public carColorEnable:boolean = false;
 
     //carColor
-
+    public carModelTypeList = '';
     public carModelList:boolean = false;
     public carModelCreate:boolean = false;
     public carModelEdit:boolean = false;
@@ -228,7 +250,7 @@ export class RolsListComponent {
     public carModelEnable:boolean = false;
 
     //policyType
-
+    public policyTypeTypeList = '';
     public policyTypeList:boolean = false;
     public policyTypeCreate:boolean = false;
     public policyTypeEdit:boolean = false;
@@ -244,7 +266,7 @@ export class RolsListComponent {
     public policyEnable:boolean = false;
 
      //billing
-
+     public billingTypeList = '';
     public billingList:boolean = false;
     public billingCreate:boolean = false;
     public billingEdit:boolean = false;
@@ -252,7 +274,7 @@ export class RolsListComponent {
     public billingEnable:boolean = false;
 
      //policyAnnex
-
+     public policyAnnexTypeList="";
     public policyAnnexList:boolean = false;
     public policyAnnexCreate:boolean = false;
     public policyAnnexEdit:boolean = false;
@@ -260,7 +282,7 @@ export class RolsListComponent {
     public policyAnnexEnable:boolean = false;
 
     //route
-
+    public routeTypeList="";
     public routeList:boolean = false;
     public routeCreate:boolean = false;
     public routeEdit:boolean = false;
@@ -268,7 +290,7 @@ export class RolsListComponent {
     public routeEnable:boolean = false;
 
     //income
-
+    public incomeTypeList="";
     public incomeList:boolean = false;
     public incomeCreate:boolean = false;
     public incomeEdit:boolean = false;
@@ -276,7 +298,7 @@ export class RolsListComponent {
     public incomeEnable:boolean = false;
 
      //frequencyPayment
-
+     public frequencyPaymentTypeList="";
     public frequencyPaymentList:boolean = false;
     public frequencyPaymentCreate:boolean = false;
     public frequencyPaymentEdit:boolean = false;
@@ -284,7 +306,7 @@ export class RolsListComponent {
     public frequencyPaymentEnable:boolean = false;
 
      //bankInsurance
-
+     public bankInsuranceTypeList="";
     public bankInsuranceList:boolean = false;
     public bankInsuranceCreate:boolean = false;
     public bankInsuranceEdit:boolean = false;
@@ -292,7 +314,7 @@ export class RolsListComponent {
     public bankInsuranceEnable:boolean = false;
 
     //Sinister
-
+    public sinisterTypeList="";
     public sinisterList:boolean = false;
     public sinisterCreate:boolean = false;
     public sinisterEdit:boolean = false;
@@ -300,7 +322,7 @@ export class RolsListComponent {
     public sinisterEnable:boolean = false;
 
      //Tiempos Liquidacion
-
+     public clearanceTimeTypeList="";
      public clearenceTimeList:boolean = false;
      public clearenceTimeCreate:boolean = false;
      public clearenceTimeEdit:boolean = false;
@@ -319,20 +341,27 @@ export class RolsListComponent {
     controllers:any;
     grant:any;
     userSession:any;
+    typeList:any =[];
 
 
 
-    constructor(public http:Http,public local:UserSessionService){
+    constructor(public http:Http,public local:UserSessionService,public select:SelectService){
         this.userSession = this.local.getUser();
         console.log(this.userSession);
      
         
         this.loadRols();
+        this.select.loadTypeList().then((res)=>{
+          console.log('type list',res);
+          this.typeList = res;
+          
+        })
       
     } 
 
    reset(){
         //checkbox user
+                
                 this.userList = false; 
                 this.userCreate = false;
                 this.userEdit = false;
