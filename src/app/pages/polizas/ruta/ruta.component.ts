@@ -1,6 +1,7 @@
+import { Observable } from 'rxjs';
 import { SelectService } from './../../../providers/select.service';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
@@ -29,6 +30,7 @@ export class RutaComponent  {
         public userSendLabel='Origen...';
 
         public receiveLabel='Quien recibe...';
+        public statusSelect:number = 0;
         error:any;
         toast:boolean = false;
         message:string;
@@ -39,6 +41,7 @@ export class RutaComponent  {
         opt2:any;
         filtered:boolean = false;
         recipients:any;
+        routesList= [];
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public select:SelectService ){
             
             
@@ -46,9 +49,7 @@ export class RutaComponent  {
             this.rutaForm = this.formBuilder.group({
                 typeReception:[''],
                 idUserSend:[''],
-                idClientRecipient:[''],
-                idBusinessRecipent:[''],
-                idInsuranceRecipent:[''],
+                idRecipient:[''],
                 dateRoute:[''],
                 dateReception:[''],
                 dateMessenger:[''],
@@ -56,6 +57,10 @@ export class RutaComponent  {
                 dateReturn:[''],
                 details:[''] ,
                 observations:[''] ,
+                routeStatus:[''],
+                typeRecipient:[''],
+                recipient:['']
+                
              
             });
 
@@ -69,7 +74,8 @@ export class RutaComponent  {
                         console.log('recipients',this.recipients);
                     })
                 })
-            })
+            });
+            
 
    
             
@@ -174,9 +180,10 @@ export class RutaComponent  {
         }
         saveruta(){
         
-            //this.rutaForm.controls['idClientRecipient'].setValue();
-            this.rutaForm.controls['idBusinessRecipent'].setValue('596e3b612c54d9185e28765f');
-             this.rutaForm.controls['idInsuranceRecipent'].setValue('596e3b612c54d9185e28467f');
+            
+             this.rutaForm.controls['routeStatus'].setValue(1);
+             let date = new Date('');
+             this.rutaForm.controls['dateReception'].setValue(date);
             console.log('form value ',this.rutaForm.value);
             
             this.http.post(config.url+'route/add?access_token='+this.local.getUser().token,this.rutaForm.value).map((result)=>{
@@ -185,9 +192,9 @@ export class RutaComponent  {
                  if(res.msg == "OK"){
                        this.loadrutas();
                         this.toast = true;
-                        this.message = "ruta guardada"
-                        console.log('1saved');
+                        this.message = "ruta guardada";
                         this.rutaForm.reset();
+                        this.statusSelect = 0;
                         
 
                 }else{
@@ -214,10 +221,7 @@ export class RutaComponent  {
         
         this.rutaForm.setValue({
             typeReception:'',
-            idUserSend:'',
-            idClientRecipient:'',
-            idBusinessRecipent:'',
-            idInsuranceRecipent:'',
+            idUserSend:ruta.idUserSend,
             dateRoute:'',
             dateReception:'',
             dateMessenger:'',
@@ -225,6 +229,10 @@ export class RutaComponent  {
             dateReturn:'',
             details:ruta.details ,
             observations:ruta.observations ,
+            idRecipient:ruta.idRecipient,
+            routeStatus:ruta.routeStatus,
+            typeRecipient:ruta.typeRecipient,
+            recipient: ruta.recipient
 
 
         });
@@ -233,25 +241,27 @@ export class RutaComponent  {
         
     }
     editruta(){
+        
+        this.http.post(config.url+`route/edit/${this.rutaId}?access_token=`+this.local.getUser().token,this.rutaForm.value).map((result)=>{
+            return result.json()
+        }).subscribe(res=>{
+            if(res.msg == "OK"){
+                    this.loadrutas(); 
+                    this.toast = true;
+                    this.rutaForm.reset();
+                    this.create = false;
+                    this.message = "Ruta Editada"
+            }else{
+                this.error = true;
+                this.message = "No tiene privilegios de editar"
+            }
             
-            this.http.post(config.url+`route/edit/${this.rutaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
-                return result.json()
-            }).subscribe(res=>{
-                if(res.msg == "OK"){
-                        this.rutas = res.update; 
-                        this.toast = true;
-                        this.message = "ruta editado"
-                }else{
-                    this.error = true;
-                    this.message = "No tiene privilegios de editar rutas"
-                }
-                
-            })
-      
-        
-        
-        
-    }
+        })
+  
+    
+    
+    
+}
     deleteruta(){
 
         this.http.delete(config.url+`route/delete/${this.rutaId}?access_token=`+this.local.getUser().token,this.rutaForm.value).map((result)=>{
@@ -269,18 +279,168 @@ export class RutaComponent  {
             })
 
     }
-    filterRuta(estatus){
-        console.log(estatus);
-        this.rutas = this.rutasCopy;
-        
-       let result =  this.rutas.filter((res)=>{
-                return res.routeNumber == estatus;
-        });
+    filterRuta(){
+        console.log(this.statusSelect);
 
-        console.log(result);
-        this.rutas = result;
-        this.filtered = true;
+        if(this.statusSelect == 0){
+            this.loadrutas();
+        }else{
+            this.routesList = [];
+            this.rutas = this.rutasCopy;
+            
+           let result =  this.rutas.filter((res)=>{
+                    return res.routeStatus == this.statusSelect;
+            });
+    
+            console.log(result);
+            this.rutas = result;
+            this.filtered = true;
+            
+        }
+       
     }
+   
+   
+   
+   
+   
+    addRoute(event,route){
+        if(event.target.checked){
+            let item = {
+                _id: route._id
+            };
+            
+            this.routesList.push(item);
+            console.log(this.routesList);
+            
+        }else{
+            let copy = this.routesList;
+            let val =  copy.forEach((res,index)=>{
+                if(res._id == route._id){
+                    this.routesList.splice(index,1);
+                } 
+            })
+            console.log(this.routesList);
+            
+            
+        }
+    }
+    getType(val){
+       console.log(val.label);
+        if(val.label.search("Cliente") > -1){
+                this.rutaForm.controls['typeRecipient'].setValue('Cliente');
+
+                this.getRecipient('client',val.value).subscribe((res)=>{       
+                    this.rutaForm.controls['recipient'].setValue(res.client);
+                     
+             })
+           
+       }else
+        if(val.label.search("Empresa") > -1){
+            this.getRecipient('business',val.value).subscribe((res)=>{       
+                this.rutaForm.controls['recipient'].setValue(res.business);
+                 
+         })
+            this.rutaForm.controls['typeRecipient'].setValue('Empresa');
+   }else 
+        if(val.label.search("Aseguradora") > -1){
+        this.getRecipient('insurance',val.value).subscribe((res)=>{
+               this.rutaForm.controls['recipient'].setValue(res.insurance);
+                
+        })
+        this.rutaForm.controls['typeRecipient'].setValue('Cliente');
+    }        
+        
+    }
+
+    getRecipient(model,id){
+       return  this.http.get(`${config.url}${model}/view/${id}?access_token=${this.local.getUser().token}`)
+            
+        .map((res: Response) => res.json())
+        .catch(this.handleError);
+        
+    }
+
+    changeStatus(status){
+        var val = 0;
+        if(this.statusSelect== 1){
+            val = 2
+        }
+        if(this.statusSelect== 2){
+            val = 3
+        }
+        if(this.statusSelect== 3){
+            val = 4
+        }
+        let request ={
+            idsDate:{
+                ids:this.routesList,
+                status: val
+            }
+
+        }
+        if(this.statusSelect == 1){
+
+            this.http.post(config.url+`route/dateMessenger?access_token=`+this.local.getUser().token,request).map((result)=>{
+                return result.json()
+            }).subscribe(res=>{
+                if(res.msg == "OK"){
+                       this.loadrutas();
+                        this.toast = true;
+                        this.message = "Estatus Cambiado";
+                        this.routesList = [];
+                }else{
+                    this.error = true;
+                    this.message = "No tiene privilegios de Estatus"
+                }
+                
+            })
+
+        }
+        if(this.statusSelect == 2){
+            
+                        this.http.post(config.url+`route/dateReEntry?access_token=`+this.local.getUser().token,request).map((result)=>{
+                            return result.json()
+                        }).subscribe(res=>{
+                            if(res.msg == "OK"){
+                                    this.loadrutas();
+                                    this.toast = true;
+                                    this.message = "Estatus Cambiado";
+                                    this.routesList = [];
+                            }else{
+                                this.error = true;
+                                this.message = "No tiene privilegios de Estatus"
+                            }
+                            
+                        })
+            
+                    }
+                    if(this.statusSelect == 3){
+                        
+                                    this.http.post(config.url+`route/dateReturn?access_token=`+this.local.getUser().token,request).map((result)=>{
+                                        return result.json()
+                                    }).subscribe(res=>{
+                                        if(res.msg == "OK"){
+                                                this.loadrutas();
+                                                this.toast = true;
+                                                this.message = "Estatus Cambiado";
+                                                this.routesList = [];
+                                        }else{
+                                            this.error = true;
+                                            this.message = "No tiene privilegios de Estatus"
+                                        }
+                                        
+                                    })
+                        
+                                }
+        
+    }
+    private handleError (error: any) {
+        let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        return Observable.throw(errMsg);
+      }
+
+   
         
 
 }

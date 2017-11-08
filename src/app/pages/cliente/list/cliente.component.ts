@@ -184,7 +184,31 @@ export class ClienteComponent implements OnInit{
         console.log(this.clientId);
         console.log(this.clientId);
         
-        this.editForm.setValue({name: client.name,month:client.month,interest:client.interest,totalMonths:client.totalMonths});
+        this.editForm.setValue({
+                    name: '',
+                    doc: '',
+                    docType: '',
+                    lastName:'',
+                    phone: '',
+                    cellPhone: '',
+                    mail: '',
+                    address: '',
+                    nameEmergency: '',
+                    lastNameEmergency: '',
+                    phoneEmergency: '',
+                    nameWork: '',
+                    phoneWork: '',
+                    map: '',
+                    birthDate: '',
+                    copyDoc: '',
+                    copyRegister: '',
+                    copyVote: '',
+                    copyBasicService:'',
+                    copyGroup:'',
+                    idTypeClient:'',
+                    idCity:'',
+                    idMaritalStatus:''
+        });
         
         
         
@@ -217,7 +241,7 @@ export class ClienteComponent implements OnInit{
                 if(res.msg == "OK"){
                         this.clients = res.update; 
                         this.toast = true;
-                        this.message = "Banco Borrado"
+                        this.message = "Cliente Borrado"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

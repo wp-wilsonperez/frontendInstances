@@ -43,8 +43,9 @@
                                                     [(options)]="recipients"
                                                     [placeholder]="receiveLabel"
                                                     [multiple]="false"
+                                                    (selected)="getType($event)"
 
-                                                    formControlName="idClientRecipient">
+                                                    formControlName="idRecipient">
                                                 </ng-select>
 
                                                 </div>
@@ -72,7 +73,7 @@
                                     </div>
                                     
                                     <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
-                                        <button [disabled]="!rutaForm.valid" (click)="editruta()" type="submit" class="btn btn-primary">Editar</button>
+                                        <button  [disabled]="!rutaForm.valid" (click)="editruta()" type="submit" class="btn btn-primary">Editar</button>
                                     </div>
 
                                 
@@ -80,18 +81,33 @@
                                 
                                 
                 </form>               
-                <div class="w-200 bottom-15">
-                    
-                            <div class="d-inline-block">
-                                    <div class="btn-group btn-group" role="group" aria-label="Basic example">
-                                            <button (click)="loadrutas()" type="button" class="btn">Todos</button>
-                                        <button (click)="filterRuta(1)" type="button" class="btn btn-primary">Enviados</button>
-                                        <button (click)="filterRuta(2)"  type="button" class="btn btn-success">Transporte</button>
-                                        <button (click)="filterRuta(3)" type="button" class="btn btn-warning">Reingresados</button>
-                                        <button (click)="filterRuta(4)" type="button" class="btn btn-main">Devueltos</button>
-                
+                <div class="col-md-6">
+                    <div class="row">
+                            <div class="col">
+                                    <div class="form-group">
+                                        <select [(ngModel)]="statusSelect" (change)="filterRuta()" class="form-control" name="" id="">
+                                            <option value="0" >Todos</option>
+                                            <option value="1" >Enviados</option>
+                                            <option value="2" >Transporte</option>
+                                            <option value="3" >Reingresados</option>
+                                            <option value="4" >Devueltos</option>
+                                        </select>
+        
                                     </div>
+                               
+        
                             </div>
+                            <div class="col">
+                                   <button [disabled]="routesList.length == 0" (click)="changeStatus(statusSelect)" class="btn btn-warning ">
+                                    <i class="fa fa-envelope-o "></i> <span *ngIf="statusSelect == 0"> Cambiar Estatus</span> <span *ngIf="statusSelect == 1"> Cambiar a Transporte</span>  <span *ngIf="statusSelect == 2"> Cambiar a Reingresado</span> <span *ngIf="statusSelect == 3"> Cambiar a Devuelto</span><span *ngIf="statusSelect == 4">Cambiar Estatus </span>
+                                   </button>
+        
+                            </div>
+
+                    </div>
+                    
+                    
+                           
 
 
                         
@@ -109,6 +125,7 @@
                                     <td><strong>   Detalles </strong></td>
                                     <td><strong>  Observaciones  </strong></td>
                                     <td><strong>   Estatus de Ruta </strong></td>
+                                    <th>Seleccionar</th>   
                                 <th>Acciones</th>      
                             </tr>
                         </thead>
@@ -119,24 +136,38 @@
 
                               
                                   <td><strong>   {{ruta.dateCreate | date: 'dd/MM/yyyy'}} </strong></td>
-                                   <td><strong>  {{ruta.idUserSend}}  </strong></td>
-                                   <td><strong>  {{ruta.idUserSend}}  </strong></td>
+                                   <td><strong>  {{ruta.userSend.name}}  </strong></td>
+                                   <td><strong>  {{ruta.recipient.name}}{{ruta.recipient.bussinesName}}  </strong></td>
                                     <td><strong>  {{ruta.details}}  </strong></td>
                                     <td><strong> {{ruta.observations}}    </strong></td>
-                                    <td><strong>    </strong></td>
-                                     <td><strong>   {{ruta.observations}}  </strong></td>
+                                    <td><strong>  <div *ngIf="ruta.routeStatus == 1"> <i class="fa fa-paper-plane"></i> Enviado </div>     <div *ngIf="ruta.routeStatus == 2"> <i class="fa fa-motorcycle"></i> Transporte </div>  <div *ngIf="ruta.routeStatus == 3"> <i class="fa fa-envelope-o"></i> Reingresado  </div>  <div *ngIf="ruta.routeStatus == 4"> <i class="fa fa-envelope">Develto</i>  </div> </strong></td>
+                         
+                                     <td>      
+                                         <div class="form-group">
+                                        <div class="custom-controls-stacked">
+                                        
+                                            <label *ngIf="filtered" class="custom-control custom-checkbox">
+                                                <input (click)="addRoute($event,ruta)" type="checkbox" class="custom-control-input checkbox-primary">
+                                                <span class="custom-control-indicator"></span>
+                                               
+                                            </label>
+                                  
+                                        </div>
+                                    </div>
+                                
+                                </td>
                                  
                          
               
                                
 
-                                <td class="row col  bottom-15">
+                                <td>
                                   
                                       <div class="d-inline-block">
                                                 <div class="row">
 
 
-                                                        <button type="button" (click)="rutaDetail(ruta)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+                                                        <button type="button" *ngIf="ruta.routeStatus == 1" (click)="rutaDetail(ruta)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
 
                                                                 
                         
