@@ -247,7 +247,7 @@ export class IngresoComponent  {
                         this.loadingresos(); 
                         this.toast = true;
                         this.ingresoForm.reset();
-                        this.create = false;
+                        this.create = true;
                         this.message = "ingreso editado"
                 }else{
                     this.error = true;
