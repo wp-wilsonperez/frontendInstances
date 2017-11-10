@@ -71,7 +71,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                                 
-                                <input maxlength="8" formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('invalidPhone') || personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('required') , 'form-control-success' :  !personalForm.get('phone').hasError('required') && !personalForm.get('phone').hasError('invalidPhone') }"> 
+                                <input maxlength="9" formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('invalidPhone') || personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('required') , 'form-control-success' :  !personalForm.get('phone').hasError('required') && !personalForm.get('phone').hasError('invalidPhone') }"> 
                             </div>
                             <span class="help-block text-danger" *ngIf="personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('required')">Telefono esta vacio</span>                             
                             <span class="help-block text-danger" *ngIf="personalForm.get('phone').value != '' &&  personalForm.get('phone').hasError('invalidPhone')">Telefono Invalido</span>                             
@@ -86,7 +86,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
                                 
-                                <input maxlength="9" formControlName="movil" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('invalidMobile') || personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('required') , 'form-control-success' :  !personalForm.get('movil').hasError('required') && !personalForm.get('movil').hasError('invalidMobile') }"> 
+                                <input maxlength="10" formControlName="movil" class="form-control" [ngClass]="{'form-control-danger' : personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('invalidMobile') || personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('required') , 'form-control-success' :  !personalForm.get('movil').hasError('required') && !personalForm.get('movil').hasError('invalidMobile') }"> 
                             </div>
                             <span class="help-block text-danger" *ngIf="personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('required')">Movil esta vacio</span>                             
                             <span class="help-block text-danger" *ngIf="personalForm.get('movil').value != '' &&  personalForm.get('movil').hasError('invalidMobile')">Movil Invalido</span>                             

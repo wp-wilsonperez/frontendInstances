@@ -22,6 +22,7 @@ export class BranchListComponent {
     public message:string;
     public userInfo:any;
     public branchForm: FormGroup;
+    public scheduleForm: FormGroup;
     public branchId;
     public searchTxt:any;
     public resultData:any;
@@ -30,6 +31,8 @@ export class BranchListComponent {
     public local:any;
     public error;
     public modalError;
+    public schedules:any;
+    days:any;
 
     public cities;
 
@@ -37,6 +40,16 @@ export class BranchListComponent {
     constructor(private branchService:BranchService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService){
         
         this.local = this.userSession.getUser(); 
+        this.days = [
+            '',
+            'Lunes',
+            'Martes',
+            'Miercoles',
+            'Jueves',
+            'Viernes',
+            'Sabado',
+            'Domingo'
+        ]
 
 
        this.loadBranches();
@@ -47,10 +60,19 @@ export class BranchListComponent {
             'phone':['',Validators.compose([ValidationService.phoneValidator])],
             'movil':['',Validators.compose([Validators.required,ValidationService.mobileValidator])],
             'address' : ['',Validators.compose([Validators.required])],
-            'idCity' : ['',Validators.compose([Validators.required])]
+            'idCity' : ['',Validators.compose([Validators.required])],
+            'schedule':['']
 
 
         });
+        this.scheduleForm = this.formBuilder.group({
+            'date_start':['',Validators.compose([Validators.required])],
+           'date_end':['',Validators.compose([Validators.required])],
+           'start':['',Validators.compose([Validators.required])],
+           'end':['',Validators.compose([Validators.required])]
+
+       });
+
     }
     borrar(id){
 
@@ -84,7 +106,7 @@ export class BranchListComponent {
         this.branchService.branchList().then(result=>{
                     this.branchData = result.branches;
                     this.listBranchComplete = result.branches;
-                    console.log('Users from Api: ',this.branchData);
+                    console.log('branches from Api: ',this.branchData);
 
                     
                     
@@ -98,15 +120,15 @@ export class BranchListComponent {
         console.log(this.branchId);
         console.log(branch);
         
-        this.branchForm.setValue({name: branch.name, phone: branch.phone ,movil: branch.movil,idCity : branch.idCity,address: branch.address});
-
+        this.branchForm.setValue({name: branch.name, phone: branch.phone ,movil: branch.movil,idCity : branch.idCity,address: branch.address,schedule:branch.schedule});
+        this.schedules = branch.schedule;
         
         
         
     }
 
     editBranch(){
-            
+            this.branchForm.controls['schedule'].setValue(this.schedules);
             
             console.log(this.branchForm.value)
             console.log(this.branchId);
@@ -164,6 +186,26 @@ export class BranchListComponent {
                 
         })
     }
+    addSchedule(){
+        let addFormat = {
+            date_start: this.scheduleForm.value.date_start,
+            date_end:this.scheduleForm.value.date_end,
+            hours:{ 
+                 start:this.scheduleForm.value.start,
+                 end:this.scheduleForm.value.end
+             }
+                            
+        }
+ 
+        this.schedules.push(addFormat);
+       
+         
+     }
+       deleteSchedule(index){
+         console.log(index);
+         this.schedules.splice(index);
+         
+     }
      
 }
 

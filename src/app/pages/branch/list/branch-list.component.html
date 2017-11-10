@@ -72,85 +72,188 @@
                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                                                                     </div>
                                                                                     <div class="modal-body">
-                                                                                        <form [formGroup]="branchForm">
+                                                                                            <div class="clearfix">
+                                                                                                    <ul class="nav nav-tabs top pull-left w-100p">
+                                                                                                        <li class="nav-item">
+                                                                                                            <a class="nav-link active" data-toggle="tab" href="#ta">Datos</a>
+                                                                                                        </li>
+                                                                                                        <li class="nav-item">
+                                                                                                            <a class="nav-link" data-toggle="tab" href="#tb">Horarios</a>
+                                                                                                        </li>
+                                                         
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                                <div class="tab-content top">
+                                                                                                        <div class="tab-pane active" id="ta">
+                                                                                                                <form [formGroup]="branchForm">
+                                                                                                                        
+                                                                                                                                                                                                                     <div class="form-group  col-md-12" [ngClass]="{'has-danger' : branchForm.get('name').value != '' && branchForm.get('name').hasError('required'), 'has-success' : !branchForm.get('name').hasError('required') }">
+                                                                                                                                                                                                                            <label class="form-control-label">Nombre</label>
+                                                                                                                                                                                                                            <div class="input-group">
+                                                                                                                                                                                                                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                                                                                                                                                                                                    <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  branchForm.get('name').hasError('required'), 'form-control-success' :  !branchForm.get('name').hasError('required') }" type="text"> 
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                        
+                                                                                                                                                                                                                            <span class="help-block text-danger" *ngIf="branchForm.get('address').value != '' && branchForm.get('address').hasError('required')">Direccion no puede estar vacia</span>                             
+                                                                                                                                                                                                                        </div>
+                                                                                                                        
+                                                                                                                        
+                                                                                                                                                                                                                          <div class="form-group  col-md-6" [ngClass]="{'has-danger' : branchForm.get('phone').value != '' && branchForm.get('phone').hasError('required') || branchForm.get('phone').value != '' && branchForm.get('phone').hasError('invalidPhone') , 
+                                                                                                                                                                                                                                                                        'has-success' : !branchForm.get('phone').hasError('required') && !branchForm.get('phone').hasError('invalidPhone')  }">
+                                                                                                                                                                                                                            <label class="form-control-label">Telefono</label>
+                                                                                                                                                                                                                            <div class="input-group">
+                                                                                                                                                                                                                                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                <input maxlength="9" formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' : branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('invalidPhone') || branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('required') , 'form-control-success' :  !branchForm.get('phone').hasError('required') && !branchForm.get('phone').hasError('invalidPhone') }"> 
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                            <span class="help-block text-danger" *ngIf="branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('required')">Telefono esta vacio</span>                             
+                                                                                                                                                                                                                            <span class="help-block text-danger" *ngIf="branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('invalidPhone')">Telefono Invalido</span>                             
+                                                                                                                                                                                                                            <span class="help-block text-danger" *ngIf="branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('minLength')">Telefono  debe tener minimo 6 caracteres</span>                             
+                                                                                                                                                                                                                        </div>
+                                                                                                                        
+                                                                                                                                                                                                                       
+                                                                                                                                                                                                                       
+                                                                                                                                                                                                                       
+                                                                                                                                                                                                                       
+                                                                                                                                                                                                                        <div class="form-group  col-md-6" [ngClass]="{'has-danger' : branchForm.get('movil').value != '' && branchForm.get('movil').hasError('required') || branchForm.get('movil').value != '' && branchForm.get('movil').hasError('invalidMobile') , 
+                                                                                                                                                                                                                                                                        'has-success' : !branchForm.get('movil').hasError('required') && !branchForm.get('movil').hasError('invalidMobile')  }">
+                                                                                                                                                                                                                            <label class="form-control-label">Movil</label>
+                                                                                                                                                                                                                            <div class="input-group">
+                                                                                                                                                                                                                                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                <input maxlength="10" formControlName="movil" class="form-control" [ngClass]="{'form-control-danger' : branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('invalidMobile') || branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('required') , 'form-control-success' :  !branchForm.get('movil').hasError('required') && !branchForm.get('movil').hasError('invalidMobile') }"> 
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                            <span class="help-block text-danger" *ngIf="branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('required')">Movil esta vacio</span>                             
+                                                                                                                                                                                                                            <span class="help-block text-danger" *ngIf="branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('invalidMobile')">Movil Invalido</span>                             
+                                                                                                                                                                                                                            <span class="help-block text-danger" *ngIf="branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('minLength')">Movil  debe tener minimo 6 caracteres</span>                             
+                                                                                                                                                                                                                        </div>
+                                                                                                                        
+                                                                                                                        
+                                                                                                                                                                                                                        <div class="form-group  col-md-12" [ngClass]="{'has-danger' : branchForm.get('address').value != '' && branchForm.get('address').hasError('required'), 'has-success' : !branchForm.get('address').hasError('required') }">
+                                                                                                                                                                                                                            <label class="form-control-label">Direccion</label>
+                                                                                                                                                                                                                            <div class="input-group">
+                                                                                                                                                                                                                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                                                                                                                                                                                                    <textarea formControlName="address" class="form-control" [ngClass]="{'form-control-danger' :  branchForm.get('address').hasError('required'), 'form-control-success' :  !branchForm.get('address').hasError('required') }" > 
+                                                                                                                                                                                                                                    </textarea>
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                        
+                                                                                                                                                                                                                            <span class="help-block text-danger" *ngIf="branchForm.get('address').value != '' && branchForm.get('address').hasError('required')">Direccion no puede estar vacia</span>                             
+                                                                                                                                                                                                                        </div>
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                                                                                                                            <label for="exampleSelect1">Ciudad</label>
+                                                                                                                                                                                                                                <select formControlName="idCity" class="form-control">
+                                                                                                                                                                                                                                    <option *ngFor="let city of cities" value="{{city._id}}">{{city.name}}</option>
+                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                </select>
+                                                                                                                                                                                                                                <span class="help-block text-danger" *ngIf="branchForm.get('idCity').hasError('required')">Ciudad no puede estar Vacia</span>                              
+                                                                                                                                                                                                                            
+                                                                                                                                                                                                                        </div>
+                                                                                                                        
+                                                                                                                                                                                                                       
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                                                                                                            
+                                                                                                                                             
+                                                                                                                        
+                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                
+                                                                                                                                                                                                                            
+                                                                                                                                                                                                                            
+                                                                                                                                                                                                                </form>
 
-                                                                                             <div class="form-group  col-md-12" [ngClass]="{'has-danger' : branchForm.get('name').value != '' && branchForm.get('name').hasError('required'), 'has-success' : !branchForm.get('name').hasError('required') }">
-                                                                                                    <label class="form-control-label">Nombre</label>
-                                                                                                    <div class="input-group">
-                                                                                                            <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                                                            <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  branchForm.get('name').hasError('required'), 'form-control-success' :  !branchForm.get('name').hasError('required') }" type="text"> 
-                                                                                                    </div>
+                                                                                                        </div>
+
                                                                                                 
-                                                                                                    <span class="help-block text-danger" *ngIf="branchForm.get('address').value != '' && branchForm.get('address').hasError('required')">Direccion no puede estar vacia</span>                             
-                                                                                                </div>
-
-
-                                                                                                  <div class="form-group  col-md-6" [ngClass]="{'has-danger' : branchForm.get('phone').value != '' && branchForm.get('phone').hasError('required') || branchForm.get('phone').value != '' && branchForm.get('phone').hasError('invalidPhone') , 
-                                                                                                                                                'has-success' : !branchForm.get('phone').hasError('required') && !branchForm.get('phone').hasError('invalidPhone')  }">
-                                                                                                    <label class="form-control-label">Telefono</label>
-                                                                                                    <div class="input-group">
-                                                                                                        <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                                                                                                        
-                                                                                                        <input maxlength="8" formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' : branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('invalidPhone') || branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('required') , 'form-control-success' :  !branchForm.get('phone').hasError('required') && !branchForm.get('phone').hasError('invalidPhone') }"> 
-                                                                                                    </div>
-                                                                                                    <span class="help-block text-danger" *ngIf="branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('required')">Telefono esta vacio</span>                             
-                                                                                                    <span class="help-block text-danger" *ngIf="branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('invalidPhone')">Telefono Invalido</span>                             
-                                                                                                    <span class="help-block text-danger" *ngIf="branchForm.get('phone').value != '' &&  branchForm.get('phone').hasError('minLength')">Telefono  debe tener minimo 6 caracteres</span>                             
-                                                                                                </div>
-
-                                                                                               
-                                                                                               
-                                                                                               
-                                                                                               
-                                                                                                <div class="form-group  col-md-6" [ngClass]="{'has-danger' : branchForm.get('movil').value != '' && branchForm.get('movil').hasError('required') || branchForm.get('movil').value != '' && branchForm.get('movil').hasError('invalidMobile') , 
-                                                                                                                                                'has-success' : !branchForm.get('movil').hasError('required') && !branchForm.get('movil').hasError('invalidMobile')  }">
-                                                                                                    <label class="form-control-label">Movil</label>
-                                                                                                    <div class="input-group">
-                                                                                                        <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                                                                                                        
-                                                                                                        <input maxlength="9" formControlName="movil" class="form-control" [ngClass]="{'form-control-danger' : branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('invalidMobile') || branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('required') , 'form-control-success' :  !branchForm.get('movil').hasError('required') && !branchForm.get('movil').hasError('invalidMobile') }"> 
-                                                                                                    </div>
-                                                                                                    <span class="help-block text-danger" *ngIf="branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('required')">Movil esta vacio</span>                             
-                                                                                                    <span class="help-block text-danger" *ngIf="branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('invalidMobile')">Movil Invalido</span>                             
-                                                                                                    <span class="help-block text-danger" *ngIf="branchForm.get('movil').value != '' &&  branchForm.get('movil').hasError('minLength')">Movil  debe tener minimo 6 caracteres</span>                             
-                                                                                                </div>
-
-
-                                                                                                <div class="form-group  col-md-12" [ngClass]="{'has-danger' : branchForm.get('address').value != '' && branchForm.get('address').hasError('required'), 'has-success' : !branchForm.get('address').hasError('required') }">
-                                                                                                    <label class="form-control-label">Direccion</label>
-                                                                                                    <div class="input-group">
-                                                                                                            <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                                                            <textarea formControlName="address" class="form-control" [ngClass]="{'form-control-danger' :  branchForm.get('address').hasError('required'), 'form-control-success' :  !branchForm.get('address').hasError('required') }" > 
-                                                                                                            </textarea>
-                                                                                                    </div>
                                                                                                 
-                                                                                                    <span class="help-block text-danger" *ngIf="branchForm.get('address').value != '' && branchForm.get('address').hasError('required')">Direccion no puede estar vacia</span>                             
-                                                                                                </div>
-
-
-
-                                                                                                <div class="form-group col-md-12">
-                                                                                                    <label for="exampleSelect1">Ciudad</label>
-                                                                                                        <select formControlName="idCity" class="form-control">
-                                                                                                            <option *ngFor="let city of cities" value="{{city._id}}">{{city.name}}</option>
-                                                                                                        
-                                                                                                        </select>
-                                                                                                        <span class="help-block text-danger" *ngIf="branchForm.get('idCity').hasError('required')">Ciudad no puede estar Vacia</span>                              
-                                                                                                    
-                                                                                                </div>
-
-                                                                                               
-
-
-
+                                                                                                        <div class="tab-pane" id="tb">
+                                                                                                                <div widget class="card">
+                                                                                                                        
+                                                                                                                            <div class="card-block widget-body">
                                                                                     
-                     
+                                                                                                                                <table class="table table-bordered">
+                                                                                                                                    <thead>
+                                                                                                                                        <tr>
+                                                                                                                                            
+                                                                                                                                            <th>Dias</th>
+                                                                                                                                            <th>Horas</th>
+                                                                                                                                            <th></th>
+                                                                                                                                        </tr>
+                                                                                                                                    </thead>
+                                                                                                                                    <tbody>
+                                                                                                                                        <tr *ngFor="let schedule of schedules; let i = index">
+                                                                                                                                        
+                                                                                                                                            <td>{{days[schedule.date_start]}} - {{days[schedule.date_end]}} </td>
+                                                                                                                                            <td>{{schedule.hours.start}} - {{schedule.hours.end}}</td>
+                                                                                                                                            <td> <button (click)="deleteSchedule(i)" type="button" class="btn btn-danger btn-rounded btn-sm">-</button></td>
+                                                                                                                                        
+                                                                                                                                        </tr>
+                                                                                                                                    </tbody>
+                                                                                                                                </table>
+                                                                                    
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                <form [formGroup]="scheduleForm" class="row">
+                                                                                                                        <div class="form-group col-md-4">
+                                                                
+                                                                                                                                    <label for="exampleSelect1">Dia Inicio</label>
+                                                                                                                                        <select formControlName="date_start"  class="form-control">
+                                                                                                                                            <option  value="1"> Lunes</option>
+                                                                                                                                            <option  value="2"> Martes</option>
+                                                                                                                                            <option  value="3"> Miercoles</option>
+                                                                                                                                            <option  value="4"> Jueves</option>
+                                                                                                                                            <option  value="5"> Viernes</option>
+                                                                                                                                            <option  value="6"> Sabado</option>
+                                                                                                                                            <option  value="7"> Domingo</option>
+                                                                                                                                        
+                                                                                                                                        </select>
+                                                                                                                                        
+                                                                                                                                    
+                                                                                                                                </div>
+                                                                
+                                                                                                                        <div class="form-group col-md-4">
+                                                                                                                                <label for="exampleSelect1">Dia Fin</label>
+                                                                                                                                    <select formControlName="date_end"  class="form-control">
+                                                                                                                                            <option  value="1"> Lunes</option>
+                                                                                                                                            <option  value="2"> Martes</option>
+                                                                                                                                            <option  value="3"> Miercoles</option>
+                                                                                                                                            <option  value="4"> Jueves</option>
+                                                                                                                                            <option  value="5"> Viernes</option>
+                                                                                                                                            <option  value="6"> Sabado</option>
+                                                                                                                                            <option  value="7"> Domingo</option>
+                                                                                                                                        
+                                                                                                                                        </select>
+                                                                                                                                    
+                                                                                                                                
+                                                                                                                            </div>
+                                                                
+                                                                                                                        <div class="form-group col-md-2">
+                                                                                                                                    <label for="start">Hora Inicio:</label>
+                                                                                                                                    <input formControlName="start" type="time" class="form-control" id="start">
+                                                                                                                        </div>
+                                                                                                                         <div class="form-group col-md-2">
+                                                                                                                                    <label for="end">Hora Final:</label>
+                                                                                                                                    <input formControlName="end" type="time" class="form-control" id="end">
+                                                                                                                        </div>
+                                                                                                                      
+                                                                                                                       
+                                                                                                                    
+                                                                                                                
+                                                                                                                        
+                                                                                                                        <button [disabled]="!scheduleForm.valid || modalError"  class="btn btn-primary pull-right" (click)="addSchedule()">Agregar &nbsp;<i class="fa fa-add arrow"></i></button>
+                                                                
+                                                                                                                    </form>  
+                                                                                                               
 
-                                                                                            
-                                                                                                        
-                                                                                                    
-                                                                                                    
-                                                                                        </form>
+                                                                                                        </div>
+
+                                                                                                </div>
+                                                                                       
+
+                                                                                        
                                                                                        
                                                                                     </div>
                                                                                     <div class="modal-footer">

@@ -1,3 +1,4 @@
+import { SelectService } from './../../../providers/select.service';
 import { Component, ViewEncapsulation, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
@@ -39,11 +40,12 @@ export class ClienteComponent implements OnInit{
         maritalStatuses:any;
         typeClients:any;
         result:any;
+        docTypes = [];
 
         @ViewChild(SebmGoogleMap) map: SebmGoogleMap;
 
         
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public loader:MapsAPILoader,public element:ElementRef){
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public loader:MapsAPILoader,public element:ElementRef,public select:SelectService){
 
             
         
@@ -117,6 +119,12 @@ export class ClienteComponent implements OnInit{
 
         ngOnInit(){
            // this.resize();
+           this.select.loadDocTypes().then((res)=>{
+            this.docTypes = res;
+            console.log('doctypes',this.docTypes);
+            
+            
+        })
         }
 
         loadclients(){

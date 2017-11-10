@@ -1,3 +1,4 @@
+import { SelectService } from './../../../providers/select.service';
 import { Component, ViewEncapsulation, ViewChild, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
@@ -35,7 +36,7 @@ export class ClienteComponent implements OnInit{
         @ViewChild(SebmGoogleMap) map: SebmGoogleMap;
 
         
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public loader:MapsAPILoader){
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public loader:MapsAPILoader,public select:SelectService){
 
             
         
@@ -96,10 +97,12 @@ export class ClienteComponent implements OnInit{
             });
 
             this.loadclients();
+       
         }
 
         ngOnInit(){
             this.map.triggerResize();
+        
         }
 
         loadclients(){

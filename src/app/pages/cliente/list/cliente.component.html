@@ -144,11 +144,11 @@
                                         <form  [formGroup]="clientForm"  class="row">
                                                 <div class="col-md-6">
                                                         <label for="exampleSelect1">Tipo de Documento</label>
-                                                                    <select formControlName="docType" class="form-control">
-                                                                        <option  value="0">Cedula</option>
-                                                                        <option  value="1">Pasaporte</option>
-                                                            
-                                                                    </select>
+                                                        <select formControlName="docType" class="form-control">
+                                                                <option *ngFor="let docType of docTypes" value="{{docType.value}}">{{docType.label}}</option>
+                                                        
+                                                    
+                                                            </select>
                                                         <div *ngIf="clientForm.value.docType == 0 " class="form-group" [ngClass]="{'has-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')), 
                                                                                             'has-success' : !clientForm.get('doc').hasError('invalidCedula') }">
                                                                 <label class="form-control-label">Cedula*</label> 
@@ -478,71 +478,72 @@
                     <form  [formGroup]="editForm"  class="row">
                             <div class="col-md-6">
                                     <label for="exampleSelect1">Tipo de Documento</label>
-                                                <select formControlName="docType" class="form-control">
-                                                    <option  value="0">Cedula</option>
-                                                    <option  value="1">Pasaporte</option>
-                                        
-                                                </select>
-                                    <div *ngIf="clientForm.value.docType == 0 " class="form-group" [ngClass]="{'has-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')), 
-                                                                        'has-success' : !clientForm.get('doc').hasError('invalidCedula') }">
+                                             
+                                    <select formControlName="docType" class="form-control">
+                                            <option *ngFor="let docType of docTypes" value="{{docType.value}}">{{docType.label}}</option>
+                                    
+                                
+                                        </select>
+                                    <div *ngIf="editForm.value.docType == 0 " class="form-group" [ngClass]="{'has-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')), 
+                                                                        'has-success' : !editForm.get('doc').hasError('invalidCedula') }">
                                             <label class="form-control-label">Cedula*</label> 
                                             <div class="input-group"> 
                                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
-                                                <input formControlName="doc" class="form-control" [ngClass]="{'form-control-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')),                                                                                                        
-                                                'form-control-success' : !clientForm.get('doc').hasError('required') && !clientForm.get('doc').hasError('minlength') && !clientForm.get('doc').hasError('invalidNumber') && !clientForm.get('doc').hasError('invliddoc')}" type="text" maxlength="10">
+                                                <input formControlName="doc" class="form-control" [ngClass]="{'form-control-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')),                                                                                                        
+                                                'form-control-success' : !editForm.get('doc').hasError('required') && !editForm.get('doc').hasError('minlength') && !editForm.get('doc').hasError('invalidNumber') && !editForm.get('doc').hasError('invliddoc')}" type="text" maxlength="10">
                                             </div>
-                                            <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')">doc es Necesaria</span>                              
-                                            <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')">La doc debe tener  10 caracteres</span>                            
-                                            <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')">La doc debe tener solo numeros</span> 
-                                            <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('required')">doc es Necesaria</span>                              
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')">La doc debe tener  10 caracteres</span>                            
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')">La doc debe tener solo numeros</span> 
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
                                         </div>
 
-                                        <div *ngIf="clientForm.value.docType == 1 " class="form-group" [ngClass]="{'has-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')), 
-                                                                        'has-success' : !clientForm.get('doc').hasError('required') && !clientForm.get('doc').hasError('minlength') && !clientForm.get('doc').hasError('invalidNumber') && !clientForm.get('doc').hasError('invaliddoc') }">
+                                        <div *ngIf="editForm.value.docType == 1 " class="form-group" [ngClass]="{'has-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')), 
+                                                                        'has-success' : !editForm.get('doc').hasError('required') && !editForm.get('doc').hasError('minlength') && !editForm.get('doc').hasError('invalidNumber') && !editForm.get('doc').hasError('invaliddoc') }">
                                             <label class="form-control-label">Pasaporte*</label> 
                                             <div class="input-group"> 
                                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
-                                                <input formControlName="doc" class="form-control" [ngClass]="{'form-control-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invaliddoc')),                                                                                                        
-                                                'form-control-success' : !clientForm.get('doc').hasError('required') && !clientForm.get('doc').hasError('minlength') && !clientForm.get('doc').hasError('invalidNumber') && !clientForm.get('doc').hasError('invliddoc')}" type="text" maxlength="10">
+                                                <input formControlName="doc" class="form-control" [ngClass]="{'form-control-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invaliddoc')),                                                                                                        
+                                                'form-control-success' : !editForm.get('doc').hasError('required') && !editForm.get('doc').hasError('minlength') && !editForm.get('doc').hasError('invalidNumber') && !editForm.get('doc').hasError('invliddoc')}" type="text" maxlength="10">
                                             </div>
-                                            <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')">doc es Necesaria</span>                              
-                                            <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')">La doc debe tener  10 caracteres</span>                            
-                                            <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')">La doc debe tener solo numeros</span> 
-                                            <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('required')">doc es Necesaria</span>                              
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')">La doc debe tener  10 caracteres</span>                            
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')">La doc debe tener solo numeros</span> 
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
                                         </div>
-                            <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('name').value != '' && clientForm.get('name').hasError('required'), 'has-success' : !clientForm.get('name').hasError('required') }">
+                            <div class="form-group " [ngClass]="{'has-danger' : editForm.get('name').value != '' && editForm.get('name').hasError('required'), 'has-success' : !editForm.get('name').hasError('required') }">
                                 <label class="form-control-label">Nombre*</label>
                                 <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                        <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('name').hasError('required'), 'form-control-success' :  !clientForm.get('name').hasError('required') }" type="text"> 
+                                        <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('name').hasError('required'), 'form-control-success' :  !editForm.get('name').hasError('required') }" type="text"> 
                                 </div>
                             
-                                <span class="help-block text-danger" *ngIf="clientForm.get('name').value != '' && clientForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
+                                <span class="help-block text-danger" *ngIf="editForm.get('name').value != '' && editForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
                             </div>
-                            <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('lastName').value != '' && clientForm.get('lastName').hasError('required'), 'has-success' : !clientForm.get('lastName').hasError('required') }">
+                            <div class="form-group " [ngClass]="{'has-danger' : editForm.get('lastName').value != '' && editForm.get('lastName').hasError('required'), 'has-success' : !editForm.get('lastName').hasError('required') }">
                                 <label class="form-control-label">Apellido*</label>
                                 <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                        <input formControlName="lastName" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('lastName').hasError('required'), 'form-control-success' :  !clientForm.get('lastName').hasError('required') }" type="text"> 
+                                        <input formControlName="lastName" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('lastName').hasError('required'), 'form-control-success' :  !editForm.get('lastName').hasError('required') }" type="text"> 
                                 </div>
                             
-                                <span class="help-block text-danger" *ngIf="clientForm.get('lastName').value != '' && clientForm.get('lastName').hasError('required')">Apellido no puede estar vacio</span>                             
+                                <span class="help-block text-danger" *ngIf="editForm.get('lastName').value != '' && editForm.get('lastName').hasError('required')">Apellido no puede estar vacio</span>                             
                             </div>
 
-                        <div class="form-group " [ngClass]="{'has-danger': clientForm.get('cellPhone').hasError('invalidMobile') && clientForm.get('cellPhone').value != '' , 'has-success': !clientForm.get('cellPhone').hasError('invalidMobile')  }">
+                        <div class="form-group " [ngClass]="{'has-danger': editForm.get('cellPhone').hasError('invalidMobile') && editForm.get('cellPhone').value != '' , 'has-success': !editForm.get('cellPhone').hasError('invalidMobile')  }">
                                             <label class="form-control-label">Celular*</label>
                                             <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                            <input formControlName="cellPhone" [ngClass]="{'form-control-danger' : clientForm.get('cellPhone').value != ''  && clientForm.get('cellPhone').hasError('invalidMobile') , 'form-control-success' :  !clientForm.get('cellPhone').hasError('invalidMobile')  }" maxlength="10" type="text" class="form-control" >
+                                            <input formControlName="cellPhone" [ngClass]="{'form-control-danger' : editForm.get('cellPhone').value != ''  && editForm.get('cellPhone').hasError('invalidMobile') , 'form-control-success' :  !editForm.get('cellPhone').hasError('invalidMobile')  }" maxlength="10" type="text" class="form-control" >
                                             </div>
                                             
                         </div>
 
-                        <div class="form-group " [ngClass]="{'has-danger': clientForm.get('phone').hasError('required') && clientForm.get('phone').value != '' , 'has-success': !clientForm.get('phone').hasError('required')  && clientForm.get('phone').value != ''  }">
+                        <div class="form-group " [ngClass]="{'has-danger': editForm.get('phone').hasError('required') && editForm.get('phone').value != '' , 'has-success': !editForm.get('phone').hasError('required')  && editForm.get('phone').value != ''  }">
                                             <label class="form-control-label">Telefonos*</label>
                                             <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                            <textarea formControlName="phone" type="number" [ngClass]="{'form-control-danger' : clientForm.get('phone').value != ''  && clientForm.get('phone').hasError('required') , 'form-control-success' :  !clientForm.get('phone').hasError('required')  }"  class="form-control" ></textarea>
+                                            <textarea formControlName="phone" type="number" [ngClass]="{'form-control-danger' : editForm.get('phone').value != ''  && editForm.get('phone').hasError('required') , 'form-control-success' :  !editForm.get('phone').hasError('required')  }"  class="form-control" ></textarea>
                                             </div>
                                             
                         </div>
@@ -550,11 +551,11 @@
                                 <label for="input-12">Fecha de Nacimiento</label>
                                 <input type="date" formControlName="birthDate" class="form-control" value="2011-08-19" id="input-12">
                             </div>
-                        <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('mail').value != '' && clientForm.get('mail').hasError('required')  || clientForm.get('mail').value != ''  && clientForm.get('mail').hasError('invalidEmail')   ,
-                                    'has-success' : !clientForm.get('mail').hasError('required') && !clientForm.get('mail').hasError('invalidEmail') }">
+                        <div class="form-group " [ngClass]="{'has-danger' : editForm.get('mail').value != '' && editForm.get('mail').hasError('required')  || editForm.get('mail').value != ''  && editForm.get('mail').hasError('invalidEmail')   ,
+                                    'has-success' : !editForm.get('mail').hasError('required') && !editForm.get('mail').hasError('invalidEmail') }">
                                             <label class="form-control-label">Email*</label>
                                             <div class="input-group">
-                                            <input formControlName="mail"  [ngClass]="{'form-control-danger' : clientForm.get('mail').value != ''  && clientForm.get('mail').hasError('required') || clientForm.get('mail').value != ''  && clientForm.get('mail').hasError('invalidEmail'), 'form-control-success' :  !clientForm.get('mail').hasError('required') && !clientForm.get('mail').hasError('invalidEmail') }" type="text" class="form-control" >
+                                            <input formControlName="mail"  [ngClass]="{'form-control-danger' : editForm.get('mail').value != ''  && editForm.get('mail').hasError('required') || editForm.get('mail').value != ''  && editForm.get('mail').hasError('invalidEmail'), 'form-control-success' :  !editForm.get('mail').hasError('required') && !editForm.get('mail').hasError('invalidEmail') }" type="text" class="form-control" >
                                             </div>
                                             
                         </div>
@@ -574,7 +575,7 @@
                                         
                                                 </select>  
 
-                                <label for="exampleSelect1">Tipo de Cliente</label>
+                                <label for="exampleSelect1">Tipo de edite</label>
                                                 <select formControlName="idTypeClient" class="form-control">
                                                     <option *ngFor="let typeClient of typeClients" value="{{typeClient._id}}">{{typeClient.name}}</option>
                                                 
@@ -585,11 +586,11 @@
                                 <label class="form-control-label">Direccion*</label>
                                 <div class="input-group">
                                         <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                        <textarea formControlName="address" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('address').hasError('required'), 'form-control-success' :  !clientForm.get('address').hasError('required') }">
+                                        <textarea formControlName="address" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('address').hasError('required'), 'form-control-success' :  !editForm.get('address').hasError('required') }">
                                         </textarea>
                                 </div>
                             
-                                <span class="help-block text-danger" *ngIf="clientForm.get('address').value != '' && clientForm.get('address').hasError('required')">Direccion no puede estar vacio</span>                             
+                                <span class="help-block text-danger" *ngIf="editForm.get('address').value != '' && editForm.get('address').hasError('required')">Direccion no puede estar vacio</span>                             
                             </div>
 
 
@@ -605,34 +606,34 @@
                                             <div class="card-block">
                                                 <h5 class="card-title">Emergencia</h5>
 
-                                                <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('nameEmergency').value != '' && clientForm.get('nameEmergency').hasError('required'), 'has-success' : !clientForm.get('nameEmergency').hasError('required') }">
+                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('nameEmergency').value != '' && editForm.get('nameEmergency').hasError('required'), 'has-success' : !editForm.get('nameEmergency').hasError('required') }">
                                                     <label class="form-control-label">Nombre*</label>
                                                     <div class="input-group">
                                                             <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                            <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('nameEmergency').hasError('required'), 'form-control-success' :  !clientForm.get('nameEmergency').hasError('required') }" type="text"> 
+                                                            <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('nameEmergency').hasError('required'), 'form-control-success' :  !editForm.get('nameEmergency').hasError('required') }" type="text"> 
                                                     </div>
                                                 
-                                                    <span class="help-block text-danger" *ngIf="clientForm.get('nameEmergency').value != '' && clientForm.get('nameEmergency').hasError('required')">Nombre no puede estar vacio</span>                             
+                                                    <span class="help-block text-danger" *ngIf="editForm.get('nameEmergency').value != '' && editForm.get('nameEmergency').hasError('required')">Nombre no puede estar vacio</span>                             
                                                 </div>
 
-                                                <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('lastNameEmergency').value != '' && clientForm.get('lastNameEmergency').hasError('required'), 'has-success' : !clientForm.get('lastNameEmergency').hasError('required') }">
+                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('lastNameEmergency').value != '' && editForm.get('lastNameEmergency').hasError('required'), 'has-success' : !editForm.get('lastNameEmergency').hasError('required') }">
                                                         <label class="form-control-label">Apellido*</label>
                                                         <div class="input-group">
                                                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                <input formControlName="lastNameEmergency" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('lastNameEmergency').hasError('required'), 'form-control-success' :  !clientForm.get('lastNameEmergency').hasError('required') }" type="text"> 
+                                                                <input formControlName="lastNameEmergency" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('lastNameEmergency').hasError('required'), 'form-control-success' :  !editForm.get('lastNameEmergency').hasError('required') }" type="text"> 
                                                         </div>
                                                     
-                                                        <span class="help-block text-danger" *ngIf="clientForm.get('lastNameEmergency').value != '' && clientForm.get('lastNameEmergency').hasError('required')">Apellido no puede estar vacio</span>                             
+                                                        <span class="help-block text-danger" *ngIf="editForm.get('lastNameEmergency').value != '' && editForm.get('lastNameEmergency').hasError('required')">Apellido no puede estar vacio</span>                             
                                                     </div>
 
-                                                <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('phoneEmergency').value != '' && clientForm.get('phoneEmergency').hasError('required'), 'has-success' : !clientForm.get('phoneEmergency').hasError('required') }">
+                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('phoneEmergency').value != '' && editForm.get('phoneEmergency').hasError('required'), 'has-success' : !editForm.get('phoneEmergency').hasError('required') }">
                                                         <label class="form-control-label">Telefono*</label>
                                                         <div class="input-group">
                                                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                <input formControlName="phoneEmergency" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('phoneEmergency').hasError('required'), 'form-control-success' :  !clientForm.get('phoneEmergency').hasError('required') }" type="number"> 
+                                                                <input formControlName="phoneEmergency" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('phoneEmergency').hasError('required'), 'form-control-success' :  !editForm.get('phoneEmergency').hasError('required') }" type="number"> 
                                                         </div>
                                                     
-                                                        <span class="help-block text-danger" *ngIf="clientForm.get('phoneEmergency').value != '' && clientForm.get('phoneEmergency').hasError('required')">Telefono emergencia no puede estar vacio</span>                             
+                                                        <span class="help-block text-danger" *ngIf="editForm.get('phoneEmergency').value != '' && editForm.get('phoneEmergency').hasError('required')">Telefono emergencia no puede estar vacio</span>                             
                                                     </div>
 
                                             
@@ -649,21 +650,21 @@
                                             <div class="card-block">
                                                 <h5 class="card-title">Trabajo</h5>
 
-                                                <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('nameWork').value != '' && clientForm.get('nameWork').hasError('required'), 'has-success' : !clientForm.get('nameWork').hasError('required') }">
+                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('nameWork').value != '' && editForm.get('nameWork').hasError('required'), 'has-success' : !editForm.get('nameWork').hasError('required') }">
                                                     <label class="form-control-label">Nombre*</label>
                                                     <div class="input-group">
                                                             <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                            <input formControlName="nameWork" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('nameWork').hasError('required'), 'form-control-success' :  !clientForm.get('nameWork').hasError('required') }" type="text"> 
+                                                            <input formControlName="nameWork" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('nameWork').hasError('required'), 'form-control-success' :  !editForm.get('nameWork').hasError('required') }" type="text"> 
                                                     </div>
                                                 
-                                                    <span class="help-block text-danger" *ngIf="clientForm.get('nameWork').value != '' && clientForm.get('nameWork').hasError('required')">Nombre no puede estar vacio</span>                             
+                                                    <span class="help-block text-danger" *ngIf="editForm.get('nameWork').value != '' && editForm.get('nameWork').hasError('required')">Nombre no puede estar vacio</span>                             
                                                 </div>
 
-                                                <div class="form-group " [ngClass]="{'has-danger': clientForm.get('phoneWork').hasError('required') && clientForm.get('phoneWork').value != '' , 'has-success': !clientForm.get('phoneWork').hasError('required')  && clientForm.get('phoneWork').value != ''  }">
+                                                <div class="form-group " [ngClass]="{'has-danger': editForm.get('phoneWork').hasError('required') && editForm.get('phoneWork').value != '' , 'has-success': !editForm.get('phoneWork').hasError('required')  && editForm.get('phoneWork').value != ''  }">
                                                             <label class="form-control-label">Telefonos*</label>
                                                             <div class="input-group">
                                                             <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                            <textarea formControlName="phoneWork" type="number" [ngClass]="{'form-control-danger' : clientForm.get('phoneWork').value != ''  && clientForm.get('phoneWork').hasError('required') , 'form-control-success' :  !clientForm.get('phoneWork').hasError('required')  }"  class="form-control" ></textarea>
+                                                            <textarea formControlName="phoneWork" type="number" [ngClass]="{'form-control-danger' : editForm.get('phoneWork').value != ''  && editForm.get('phoneWork').hasError('required') , 'form-control-success' :  !editForm.get('phoneWork').hasError('required')  }"  class="form-control" ></textarea>
                                                             </div>
                                             
                                                     </div>
@@ -682,14 +683,14 @@
                                             <div class="card-block">
                                                 <h5 class="card-title">Localizacion</h5>
 
-                                                <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('map').value != '' && clientForm.get('map').hasError('required'), 'has-success' : !clientForm.get('map').hasError('required') }">
+                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('map').value != '' && editForm.get('map').hasError('required'), 'has-success' : !editForm.get('map').hasError('required') }">
                                                     <label class="form-control-label">Coordenadas</label>
                                                     <div class="input-group">
                                                             <div (click)="resize()" data-toggle="modal" data-target="#map-modal" class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                                            <input formControlName="map" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('map').hasError('required'), 'form-control-success' :  !clientForm.get('map').hasError('required') }" type="text"> 
+                                                            <input formControlName="map" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('map').hasError('required'), 'form-control-success' :  !editForm.get('map').hasError('required') }" type="text"> 
                                                     </div>
                                                 
-                                                    <span class="help-block text-danger" *ngIf="clientForm.get('map').value != '' && clientForm.get('map').hasError('required')">Mapa no puede estar vacio</span>                             
+                                                    <span class="help-block text-danger" *ngIf="editForm.get('map').value != '' && editForm.get('map').hasError('required')">Mapa no puede estar vacio</span>                             
                                                 </div>
 
 
@@ -773,7 +774,7 @@
             </div>
             <div class="modal-footer">
 
-                <button  (click)="saveclient()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                <button  (click)="editClient()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
 
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
