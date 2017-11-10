@@ -83,6 +83,7 @@
                                                                                     </div>
                                                                                     <div class="modal-body">
                                                                                        <!--Esta seguro-->
+                                                                                       {{messages.sure_delete}}
                                                                                     </div>
                                                                                     <div class="modal-footer">
                                                                                         <button (click)="deletedependiente()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
@@ -126,24 +127,43 @@
 
                                         
 
-                                        <div class="form-group col-md-12">
-                                            <label for="exampleSelect1">Nombre</label>
-                                                <input  type="text" formControlName="name" class="form-control">
-                                                                              
-                                            
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                                <label for="exampleSelect1">Apellido</label>
-                                                    <input  type="text" formControlName="lastName" class="form-control">
-                                                                                  
-                                                
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                                <label for="exampleSelect1">Cedula</label>
-                                                    <input  type="text" formControlName="cedula" class="form-control">
-                                                                                  
-                                                
-                                        </div> 
+                                            <div class="form-group col-md-12 " [ngClass]="{ 'has-success' : !dependienteForm.get('name').hasError('required') }">
+                                                   
+                                                <div class="form-group">
+
+                                                </div>
+                                                <label class="form-control-label">Nombre</label>
+                                                    <div class="input-group">
+                                                              <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                             <input formControlName="name" class="form-control" [ngClass]="{ 'form-control-success' : !dependienteForm.get('name').hasError('required') }" type="text"> 
+                                                    </div>
+                                                   
+                                                  
+                                                </div>
+                        
+                                                <div class="form-group col-md-12 " [ngClass]="{ 'has-success' : !dependienteForm.get('lastName').hasError('required') }">
+                                                        <label class="form-control-label">Apellido</label>
+                                                        <div class="input-group">
+                                                                  <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                                 <input formControlName="lastName" class="form-control" [ngClass]="{ 'form-control-success' : !dependienteForm.get('name').hasError('required') }" type="text"> 
+                                                        </div>
+                                                       
+                                                       
+                                                    </div>
+                                                                   
+                                                <div class="form-group col-md-12" [ngClass]="{'has-danger' : (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('required')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('minlength')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidNumber')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidCedula')), 
+                                                                                             'has-success' : !dependienteForm.get('cedula').hasError('required') && !dependienteForm.get('cedula').hasError('minlength') && !dependienteForm.get('cedula').hasError('invalidNumber') && !dependienteForm.get('cedula').hasError('invalidCedula') }">
+                                                    <label class="form-control-label">Cedula</label> 
+                                                    <div class="input-group"> 
+                                                        <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
+                                                        <input formControlName="cedula" class="form-control" [ngClass]="{'form-control-danger' : (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('required')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('minlength')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidNumber')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidCedula')),                                                                                                        
+                                                        'form-control-success' : !dependienteForm.get('cedula').hasError('required') && !dependienteForm.get('cedula').hasError('minlength') && !dependienteForm.get('cedula').hasError('invalidNumber') && !dependienteForm.get('cedula').hasError('invlidCedula')}" type="text" maxlength="10">
+                                                    </div>
+                                                    <span class="help-block text-danger" *ngIf="dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('required')">Cedula es Necesaria</span>                              
+                                                    <span class="help-block text-danger" *ngIf="dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('minlength')">La cedula debe tener  10 caracteres</span>                            
+                                                    <span class="help-block text-danger" *ngIf="dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidNumber')">La cedula debe tener solo numeros</span> 
+                                                    <span class="help-block text-danger" *ngIf="dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
+                                                </div>
                                         <div class="form-group col-md-12">
                                                 <label for="exampleSelect1">Fecha de Nacimiento</label>
                                                     <input  type="date" formControlName="birthdate" class="form-control">
@@ -178,20 +198,18 @@
                                         <div class="form-group col-md-12">
                                                 <label for="exampleSelect1">Relacion</label>
                                             <ng-select
-                                                [(options)]="clients"
+                                                [(options)]="relationships"
                                                 [placeholder]="Clientes"
                                                 [multiple]="false"
-                                                formControlName="idRelationship">
+                                                formControlName="relationship">
                                             </ng-select>
 
                                         </div>
                                         <div class="form-group col-md-12">
                                                 <label for="exampleSelect1">Sexo</label>
                                             <ng-select
-                                                [(options)]="sex"
-                                                [placeholder]="Clientes"
-                                                [multiple]="false"
-                                                formControlName="idSex">
+                                                [(options)]="sexList"
+                                                formControlName="sex">
                                             </ng-select>
 
                                         </div>
@@ -233,12 +251,92 @@
 
                                         
 
-                                        <div class="form-group col-md-12">
-                                            <label for="exampleSelect1">Nombre</label>
-                                                <input  type="text" formControlName="name" class="form-control">
-                                                                              
-                                            
-                                        </div>
+                                        <div class="form-group col-md-12 " [ngClass]="{ 'has-success' : !dependienteForm.get('name').hasError('required') }">
+                                                
+                                             <div class="form-group">
+
+                                             </div>
+                                             <label class="form-control-label">Nombre</label>
+                                                 <div class="input-group">
+                                                           <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                          <input formControlName="name" class="form-control" [ngClass]="{ 'form-control-success' : !dependienteForm.get('name').hasError('required') }" type="text"> 
+                                                 </div>
+                                                
+                                               
+                                             </div>
+                     
+                                             <div class="form-group col-md-12 " [ngClass]="{ 'has-success' : !dependienteForm.get('lastName').hasError('required') }">
+                                                     <label class="form-control-label">Apellido</label>
+                                                     <div class="input-group">
+                                                               <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                                                              <input formControlName="lastName" class="form-control" [ngClass]="{ 'form-control-success' : !dependienteForm.get('name').hasError('required') }" type="text"> 
+                                                     </div>
+                                                    
+                                                    
+                                                 </div>
+                                                                
+                                             <div class="form-group col-md-12" [ngClass]="{'has-danger' : (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('required')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('minlength')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidNumber')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidCedula')), 
+                                                                                          'has-success' : !dependienteForm.get('cedula').hasError('required') && !dependienteForm.get('cedula').hasError('minlength') && !dependienteForm.get('cedula').hasError('invalidNumber') && !dependienteForm.get('cedula').hasError('invalidCedula') }">
+                                                 <label class="form-control-label">Cedula</label> 
+                                                 <div class="input-group"> 
+                                                     <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
+                                                     <input formControlName="cedula" class="form-control" [ngClass]="{'form-control-danger' : (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('required')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('minlength')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidNumber')) || (dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidCedula')),                                                                                                        
+                                                     'form-control-success' : !dependienteForm.get('cedula').hasError('required') && !dependienteForm.get('cedula').hasError('minlength') && !dependienteForm.get('cedula').hasError('invalidNumber') && !dependienteForm.get('cedula').hasError('invlidCedula')}" type="text" maxlength="10">
+                                                 </div>
+                                                 <span class="help-block text-danger" *ngIf="dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('required')">Cedula es Necesaria</span>                              
+                                                 <span class="help-block text-danger" *ngIf="dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('minlength')">La cedula debe tener  10 caracteres</span>                            
+                                                 <span class="help-block text-danger" *ngIf="dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidNumber')">La cedula debe tener solo numeros</span> 
+                                                 <span class="help-block text-danger" *ngIf="dependienteForm.get('cedula').value != '' && dependienteForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
+                                             </div>
+                                     <div class="form-group col-md-12">
+                                             <label for="exampleSelect1">Fecha de Nacimiento</label>
+                                                 <input  type="date" formControlName="birthdate" class="form-control">
+                                                                               
+                                             
+                                     </div>  
+                                     <div class="form-group col-md-12">
+                                             <label for="exampleSelect1">Detalles de Trabajo</label>
+                                                 <input  type="text" formControlName="workingDetails" class="form-control">
+                                                                               
+                                             
+                                     </div>  
+                                     <div class="form-group col-md-12">
+                                             <label class="custom-control custom-checkbox">
+                                                     <input formControlName="notCovered" type="checkbox" class="custom-control-input">
+                                                     <span class="custom-control-indicator"></span>
+                                                     <span class="custom-control-description">No Cubierto</span>
+                                                 </label>
+                                     </div>  
+                                     
+                                    
+                                     <div class="form-group col-md-12">
+                                             <label for="exampleSelect1">Clientes</label>
+                                         <ng-select
+                                             [(options)]="clients"
+                                             [placeholder]="Clientes"
+                                             [multiple]="false"
+                                             formControlName="idClient">
+                                         </ng-select>
+
+                                     </div>
+                                     <div class="form-group col-md-12">
+                                             <label for="exampleSelect1">Relacion</label>
+                                         <ng-select
+                                             [(options)]="relationships"
+                                             [placeholder]="Clientes"
+                                             [multiple]="false"
+                                             formControlName="relationship">
+                                         </ng-select>
+
+                                     </div>
+                                     <div class="form-group col-md-12">
+                                             <label for="exampleSelect1">Sexo</label>
+                                         <ng-select
+                                             [(options)]="sexList"
+                                             formControlName="sex">
+                                         </ng-select>
+
+                                     </div>
 
 
                                 

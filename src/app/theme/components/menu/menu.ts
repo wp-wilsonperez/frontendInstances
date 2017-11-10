@@ -8,7 +8,7 @@ export const menuItems = [
     order: 400,
     subMenu: [
       {
-        title: 'Configuracion de Cuenta',
+        title: 'Configuracion de Sistema',
         routerLink: 'usuarios/configuracion',
         disabled: true,
         selected: false,
@@ -34,7 +34,7 @@ export const menuItems = [
         ]
       },
        {
-        title: 'Configuracion de sistema',
+        title: 'Configuracion de Cuenta',
         routerLink: 'cuenta/ver',
         disabled: true,
         selected: false,

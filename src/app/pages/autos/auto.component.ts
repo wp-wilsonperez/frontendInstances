@@ -1,3 +1,4 @@
+import { messages } from './../../../config/project-config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
@@ -27,6 +28,8 @@ export class AutoComponent{
         ramos:any;
         carBrands:any;
         carModels:any;
+        carColors:any;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.autoForm = this.formBuilder.group({
@@ -34,16 +37,18 @@ export class AutoComponent{
                 idRamo:[''],
                 idCarBrand:[''],
                 idCarModel:[''],
+                idCarColor:[''],
                 chasis:['',Validators.compose([Validators.required])],
                 motor:['',Validators.compose([Validators.required])],
                 placa:['',Validators.compose([Validators.required])],
                 carUse:[''],
                 extras:[''],
                 extrasValue:[''],
+            
 
             });
             this.editForm = this.formBuilder.group({
-               idClient:[''],
+                 idClient:[''],
                 idRamo:[''],
                 idCarBrand:[''],
                 idCarModel:[''],
@@ -53,6 +58,7 @@ export class AutoComponent{
                 carUse:[''],
                 extras:[''],
                 extrasValue:[''],
+                idCarColor:['']
             });
 
            // this.loadautos();
@@ -61,6 +67,7 @@ export class AutoComponent{
             this.loadClients();
             this.loadModel();
             this.loadBrand();
+            this.loadColor();
             this.loadautos();
         }
 
@@ -77,13 +84,15 @@ export class AutoComponent{
             this.http.post(config.url+'car/add?access_token='+this.local.getUser().token,this.autoForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
+                console.log(res);
+                
                  if(res.msg == "OK"){
                        this.loadautos();
                         this.toast = true;
                         this.message = "auto guardado"
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar auto"
+                    this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -96,23 +105,26 @@ export class AutoComponent{
         }
 
         autoDetail(auto){
+            console.log(auto);
+            
     
         this.autoId = auto._id;
         console.log(this.autoId);
         console.log(this.autoId);
         
-        this.editForm.setValue({name: auto.name,month:auto.month,interest:auto.interest,totalMonths:auto.totalMonths});
+        this.editForm.setValue({idClient:auto.idClient,idRamo:auto.idRamo,idCarBrand:auto.idCarBrand,idCarModel:auto.idCarModel,chasis:auto.chasis,motor:auto.motor,placa:auto.placa,carUse:auto.carUse,extras:auto.extras,extrasValue:auto.extrasValue,idCarColor:auto.idCarColor});
         
         
         
     }
     editauto(){
             
-            this.http.post(config.url+`auto/edit/${this.autoId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`car/edit/${this.autoId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.autos = res.update; 
+                        console.log(res);
+                            this.loadautos();
                         this.toast = true;
                         this.message = "auto editado"
                 }else{
@@ -128,13 +140,13 @@ export class AutoComponent{
     }
     deleteauto(){
 
-        this.http.delete(config.url+`auto/delete/${this.autoId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`car/delete/${this.autoId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
                         this.autos = res.update; 
                         this.toast = true;
-                        this.message = "auto Borrado"
+                        this.message = messages.delete;
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"
@@ -197,6 +209,17 @@ export class AutoComponent{
             })
 
     }
+    loadColor(){
+        
+        
+                      this.http.get(config.url+'carColor/list?access_token='+this.local.getUser().token).map((res)=>{
+                        return res.json();
+                    }).subscribe((result)=>{
+                            this.carColors = result.carColors;
+                          console.log('car colors',result)
+                    })
+        
+            }
 
     loadModel(){
 

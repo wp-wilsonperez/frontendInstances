@@ -32,7 +32,7 @@
                                                     [(options)]="bussines"
                                                     [placeholder]="Origen"
                                                     [multiple]="false"
-                                                    formControlName="idBussines">
+                                                    formControlName="idBusiness">
                                                 </ng-select>
 
                                                 </div>
@@ -71,8 +71,9 @@
                                              </div>
                                              <div class="row row-input">    
                                                  <div class="form-group col-md-4">
-                                                     <label for="">Fecha Inicial</label>
-                                                    <input type="date" class="form-control" fromControlName="initialDate" >
+                                                     <label for="">Fecha de Inclusion</label>
+                                                   <input type="date" formControlName="inclusionDate" class="form-control">
+                                        
                                                 </div>   
                                                 <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
                                                         
@@ -83,8 +84,8 @@
                                                         </label>
                                                 </div>  
                                                 <div class="form-group col-md-4">
-                                                        <label for="">Fecha Exclusion</label>
-                                                       <input type="text" class="form-control" fromControlName="exclusionDate" >
+                                                        <label for="">Fecha de Exclusion</label>
+                                                        <input type="date" formControlName="exclusionDate" class="form-control">
                                                    </div>   
                                     
                                              </div>
@@ -129,13 +130,13 @@
                         <tbody>                           
 
                             <tr *ngFor="let bussinesClient of bussinesClients">
-                                <td><strong>   {{bussinesClient.incomeNumber}}  </strong></td>
-                                  <td><strong>   {{bussinesClient.dateCreate | date: 'dd/MM/yyyy'}} </strong></td>
-                                   <td><strong>  {{bussinesClient.idUserSend}}  </strong></td>
-                                    <td><strong>  {{bussinesClient.details}}  </strong></td>
-                                    <td><strong>  {{bussinesClient.details}}  </strong></td>
-                                     <td><strong>   {{bussinesClient.observations}}  </strong></td>
-                                    <td><strong>    </strong></td>
+                                <td><strong>   {{bussinesClient.business.name}}  </strong></td>
+                                  <td><strong>   {{bussinesClient.client.name}} </strong></td>
+                                   <td><strong>  {{bussinesClient.alternative.name}}  </strong></td>
+                                    <td><strong> <span *ngIf="bussinesClient.initial">Si</span> <span *ngIf="!bussinesClient.initial">No</span>  </strong></td>
+                                    <td><strong>   <span *ngIf="bussinesClient.exclusion">Si</span> <span *ngIf="!bussinesClient.exclusion">No</span> </strong></td>
+                                     <td><strong>   {{bussinesClient.inclusionDate | date: 'mediumDate'}}  </strong></td>
+                                    <td><strong>  {{bussinesClient.exclusionDate | date: 'mediumDate' }}   </strong></td>
                          
               
                                
@@ -162,6 +163,7 @@
                                                                                     </div>
                                                                                     <div class="modal-body">
                                                                                        <!--Esta seguro-->
+                                                                                       {{messages.sure_delete}}
                                                                                     </div>
                                                                                     <div class="modal-footer">
                                                                                         <button (click)="deletebussinesClient()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>

@@ -218,17 +218,8 @@ export class UserComponent {
                          apiResult.msg == "OK"? this.router.navigate(['pages/usuarios/listado']):null;
                              if(apiResult.msg == "ERR"){
 
-                                 if(apiResult.err ="No privileges"){
-                                     this.permission = true;
-                                     this.message = "No tiene privilegios de crear usuarios"
-                                 }else{
-
-                                     this.error = true;
-                                    this.message = apiResult.err.message;
-                                    this.errorList = apiResult.err.errors;
-                                    console.log('hay un error');
-
-                                 }
+                                this.error = true;
+                                this.message = apiResult.err.message
 
                                  
                                  

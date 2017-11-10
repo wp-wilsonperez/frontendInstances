@@ -1,3 +1,6 @@
+import { messages } from './../../../../config/project-config';
+import { SelectService } from './../../../providers/select.service';
+import { ValidationService } from './../../user/new/validation.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
@@ -24,29 +27,51 @@ export class DependienteComponent{
         error:any;
         toast:boolean = false;
         message:string;
-        sex:any;
+        sexList:any;
         sexOptions:any=[];
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
+        relationships:any;
+        messages = messages;
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public select:SelectService ){
         
             this.dependienteForm = this.formBuilder.group({
                 idClient:[],
-                cedula:[],
-                name:[],
-                lastName:[],
-                idRelationship:[],// (conyugue e hijos o hijastro esto sacara de un modulo quemado)
+                name: ['', Validators.compose([Validators.required ])],
+                lastName: ['', Validators.compose([Validators.required])],
+                cedula: ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
+                relationship:[],// (conyugue e hijos o hijastro esto sacara de un modulo quemado)
                 birthdate:[],
                 workingDetails:[],// (detalle)
-                idSex:[],// (esto sera masculino o femenino que vendrá de un modulo quemado que ya existía).
+                sex:[],// (esto sera masculino o femenino que vendrá de un modulo quemado que ya existía).
                 notCovered:[],// (será una bandera para saber si esta cubierto o no)
                 docRelationship:[]
-            });
+            },{validator: ValidationService.validacionCedula('cedula')});
+
             this.editForm = this.formBuilder.group({
-                name: ['',Validators.compose([Validators.required])]
-            });
+                idClient:[],
+                name: ['', Validators.compose([Validators.required ])],
+                lastName: ['', Validators.compose([Validators.required])],
+                cedula: ['', Validators.compose([Validators.required, Validators.minLength(10), ValidationService.numberValidator ])],
+                relationship:[],// (conyugue e hijos o hijastro esto sacara de un modulo quemado)
+                birthdate:[],
+                workingDetails:[],// (detalle)
+                sex:[],// (esto sera masculino o femenino que vendrá de un modulo quemado que ya existía).
+                notCovered:[],// (será una bandera para saber si esta cubierto o no)
+                docRelationship:[]
+            },{validator: ValidationService.validacionCedula('cedula')});
 
             this.loaddependientes();
             this.loadClients();
             this.loadSex();
+            this.select.loadRelationship().then((res)=>{
+                this.relationships = res;
+               
+                
+            });
+            this.dependienteForm.valueChanges.subscribe((res)=>{
+                console.log(res);
+                
+            })
+
         }
 
         loaddependientes(){
@@ -65,7 +90,7 @@ export class DependienteComponent{
                  if(res.msg == "OK"){
                        this.loaddependientes();
                         this.toast = true;
-                        this.message = "Dependiente Guardado"
+                        this.message = this.messages.edit;
                 }else{
                       this.error = true;
                     this.message = "No tiene privilegios de guardar "
@@ -86,7 +111,19 @@ export class DependienteComponent{
         console.log(this.dependienteId);
         console.log(this.dependienteId);
         
-        this.editForm.setValue({name: dependiente.name});
+        this.editForm.setValue({
+            idClient:dependiente.idClient,
+            name:dependiente.name ,
+            lastName:dependiente.lastName ,
+            cedula:dependiente.cedula ,
+            relationship:dependiente.relationship,
+            birthdate:dependiente.birthdate,
+            workingDetails:dependiente.workingDetails,
+            sex:dependiente.sex,
+            notCovered:dependiente.notCovered,
+            docRelationship:dependiente.docRelationship
+
+        });
         
         
         
@@ -99,10 +136,10 @@ export class DependienteComponent{
                 if(res.msg == "OK"){
                         this.dependientes = res.update; 
                         this.toast = true;
-                        this.message = "Marca de Carro Editada"
+                        this.message = this.messages.edit;
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar Marca de Carro"
+                    this.message = "No tiene privilegios"
                 }
                 
             })
@@ -163,14 +200,14 @@ export class DependienteComponent{
                         let sex = result.params.sex.list;
                             sex.map((result,index)=>{
                             let obj = {
-                                value: result._id,
+                                value: result.id,
                                 label: result.name
                             }
                         this.sexOptions.push(obj);
         
                         })
-                        this.sex = this.sexOptions;
-                        console.log(this.sex)
+                        this.sexList = this.sexOptions;
+                        console.log('sexos',this.sexList)
                         
                 });
         

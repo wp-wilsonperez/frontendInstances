@@ -5,7 +5,7 @@ import { ValidationService } from './../new/validation.service';
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { UserService } from './dynamic-tables.service';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {config} from './../../../../config/project-config';
+import { config, messages } from './../../../../config/project-config';
 
 
 @Component({
@@ -33,6 +33,7 @@ export class AseguradorasListComponent {
     public roles;
     public aseguradoras;
     public formAseguradora:FormGroup;
+    messages = messages;
     @ViewChild(MultipleImageUploaderComponent) imageUploader:MultipleImageUploaderComponent;
     
 

@@ -82,6 +82,7 @@
                                                                                     </div>
                                                                                     <div class="modal-body">
                                                                                        <!--Esta seguro-->
+                                                                                       {{messages.sure_delete}}
                                                                                     </div>
                                                                                     <div class="modal-footer">
                                                                                         <button (click)="deleteauto()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
@@ -132,6 +133,10 @@
                                                             <select formControlName="idCarBrand" class="form-control">
                                                                 <option *ngFor="let marca of carBrands" value="{{marca._id}}">{{marca.name}}</option>
                                                              </select>
+                                            <label for="exampleSelect1">Color</label>
+                                                            <select formControlName="idCarColor" class="form-control">
+                                                                <option *ngFor="let color of carColors" value="{{color._id}}">{{color.name}}</option>
+                                                            </select>
 
                                         <div class="form-group " [ngClass]="{'has-danger' : autoForm.get('chasis').value != '' && autoForm.get('chasis').hasError('required'), 'has-success' : !autoForm.get('chasis').hasError('required') }">
                                                     <label class="form-control-label">Chasis*</label>
@@ -160,7 +165,7 @@
                                                      <label class="form-control-label">Extras*</label>
                                                  <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-car"></i></div>
-                                                        <input formControlName="extras" type="text" class="form-control">
+                                                        <input formControlName="extras" type="number" class="form-control">
                                                     </div>
 
                                             </div>
@@ -230,15 +235,18 @@
 
                                 <form  [formGroup]="editForm"  class="row">
                                             <div class="col-md-6">  
-                                             <label for="exampleSelect1">Cliente</label>
+                                                    <label for="exampleSelect1">Cliente</label>
                                                             <select formControlName="idClient" class="form-control">
-                                                                <option *ngFor="let client of clients" value="{{client._id}}">{{client._name}}</option>
-                                                             </select>
-
+                                                                <option *ngFor="let client of clientes" value="{{client._id}}">{{client.name}}</option>
+                                                            </select>
                                              <label for="exampleSelect1">Marca</label>
                                                             <select formControlName="idCarBrand" class="form-control">
                                                                 <option *ngFor="let marca of carBrands" value="{{marca._id}}">{{marca.name}}</option>
                                                              </select>
+                                            <label for="exampleSelect1">Color</label>
+                                                            <select formControlName="idCarColor" class="form-control">
+                                                                <option *ngFor="let color of carColors" value="{{color._id}}">{{color.name}}</option>
+                                                            </select>
 
                                         <div class="form-group " [ngClass]="{'has-danger' : autoForm.get('chasis').value != '' && autoForm.get('chasis').hasError('required'), 'has-success' : !autoForm.get('chasis').hasError('required') }">
                                                     <label class="form-control-label">Chasis*</label>

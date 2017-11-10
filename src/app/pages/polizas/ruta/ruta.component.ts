@@ -249,7 +249,7 @@ export class RutaComponent  {
                     this.loadrutas(); 
                     this.toast = true;
                     this.rutaForm.reset();
-                    this.create = true;
+                    this.create = true ;
                     this.message = "Ruta Editada"
             }else{
                 this.error = true;

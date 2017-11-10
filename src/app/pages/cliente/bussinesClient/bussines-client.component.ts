@@ -1,3 +1,4 @@
+import { messages } from './../../../../config/project-config';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
@@ -36,21 +37,22 @@ export class BussinesClientComponent  {
         clientOptions:any=[];
         opt:any;
         opt2:any;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
             
             
         
             this.bussinesClientsForm = this.formBuilder.group({
-                idBussines:[''],
-                idClient:[''],
-                idAlternative:[''],
+                idBusiness:['',Validators.compose([Validators.required])],
+                idClient:['',Validators.compose([Validators.required])],
+                idAlternative:['',Validators.compose([Validators.required])],
                 dataAlternative:[''],// (guarda el objeto Alternative)
                 initial:[''],// (esto sera una bandera para saber si se crea al inicio de la poliza.)
                 initialDate:[''],
                 inclusion:[''],//(sera la bandera donde nos dira si depues de la creación del plan se incluye mas empleados)
                 inclusionDate:[''],
                 exclusion:[],//(sera la bandera donde nos dira si depues de la creación del plan se excluye mas empleados)
-                exclusionDate:['',Validators.compose([Validators.required])]
+                exclusionDate:['']
              
             });
 
@@ -61,6 +63,10 @@ export class BussinesClientComponent  {
             this.loadbussinesClients();
             this.loadClients();
 
+            this.bussinesClientsForm.valueChanges.subscribe((res)=>{
+                console.log(res);
+                
+            })
    
             
         }
@@ -74,7 +80,7 @@ export class BussinesClientComponent  {
             }).subscribe((result)=>{
                     this.bussinesClients = result.businessClients;
                     
-                    console.log('bussinesClients',this.bussinesClients);
+                    console.log('aquiiii',this.bussinesClients);
             })
             
         }
@@ -99,9 +105,7 @@ export class BussinesClientComponent  {
                     
 
                     })
-                    console.log(this.myOptions)
-                    console.log('oninit')
-                    
+            
             });
 
           
@@ -125,8 +129,7 @@ export class BussinesClientComponent  {
                     this.opt2 = this.myOptions2;
 
                     })
-                    console.log(this.myOptions2)
-                    console.log('oninit')
+           
                     
             });
             
@@ -144,7 +147,7 @@ export class BussinesClientComponent  {
                         this.alternativesOptions.push(obj);
                         this.alternatives = this.alternativesOptions;
                     })
-                    console.log('alternatives',this.alternatives);
+     
             })
             
         }
@@ -164,7 +167,7 @@ export class BussinesClientComponent  {
                         this.bussinesOptions.push(obj);
                         this.bussines = this.bussinesOptions;
                     })
-                    console.log('Bussines',this.bussines);
+        
             })
             
         }
@@ -185,7 +188,7 @@ export class BussinesClientComponent  {
                         this.clientOptions.push(obj);
                         this.clients = this.clientOptions;
                     })
-                    console.log('clients',this.clients);
+              
             })
             
         }
@@ -198,6 +201,7 @@ export class BussinesClientComponent  {
                        this.loadbussinesClients();
                         this.toast = true;
                         this.message = "bussinesClients guardada";
+                        this.bussinesClientsForm.reset();
                         
 
                 }else{
@@ -205,8 +209,7 @@ export class BussinesClientComponent  {
                     this.message = "No tiene privilegios de guardar bussinesClients"
                    
                 }
-                console.log(res);
-                
+     
             })
         }
 
@@ -215,27 +218,44 @@ export class BussinesClientComponent  {
                 this.bussinesClientsId = bussinesClientsId;
         }
 
-    bussinesClientsDetail(bussinesClients){
+    bussinesClientDetail(bussinesClient){
 
         this.create = false;
-        this.bussinesClientsId = bussinesClients._id;
-        console.log(this.bussinesClientsId);
+        this.bussinesClientsId = bussinesClient._id;
         
         
-        this.bussinesClientsForm.setValue({name: bussinesClients.name});
+        this.bussinesClientsForm.setValue({
+            idBusiness:bussinesClient.idBusiness,
+            idClient:bussinesClient.idClient,
+            idAlternative:bussinesClient.idAlternative,
+            dataAlternative:'',
+            initial:bussinesClient.initial,
+            initialDate:bussinesClient.initialDate, 
+            inclusion:bussinesClient.inclusion,
+            inclusionDate:bussinesClient.inclusionDate,
+            exclusion:bussinesClient.exclusion,
+            exclusionDate:bussinesClient.exclusionDate,
+ 
+
+
+
+        });
+
+      
         
         
         
     }
-    editbussinesClients(){
+    editbussinesClient(){
             
-            this.http.post(config.url+`income/edit/${this.bussinesClientsId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`businessClient/edit/${this.bussinesClientsId}?access_token=`+this.local.getUser().token,this.bussinesClientsForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.bussinesClients = res.update; 
+                     this.loadBussines();
                         this.toast = true;
-                        this.message = "bussinesClients editado"
+                        this.message = messages.edit;
+                        this.bussinesClientsForm.reset();
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de editar bussinesClientss"
@@ -247,15 +267,15 @@ export class BussinesClientComponent  {
         
         
     }
-    deletebussinesClients(){
+    deletebussinesClient(){
 
-        this.http.delete(config.url+`income/delete/${this.bussinesClientsId}?access_token=`+this.local.getUser().token,this.bussinesClientsForm.value).map((result)=>{
+        this.http.delete(config.url+`businessClient/delete/${this.bussinesClientsId}?access_token=`+this.local.getUser().token,this.bussinesClientsForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.bussinesClients = res.update; 
+                        this.loadbussinesClients();
                         this.toast = true;
-                        this.message = "bussinesClients Borrada"
+                        this.message = messages.delete;
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

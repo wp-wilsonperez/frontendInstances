@@ -1,3 +1,4 @@
+import { messages } from './../../../../config/project-config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
@@ -22,6 +23,7 @@ export class CarColorComponent{
         error:any;
         toast:boolean = false;
         message:string;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.carColorForm = this.formBuilder.group({
