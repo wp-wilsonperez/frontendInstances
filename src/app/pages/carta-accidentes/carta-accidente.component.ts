@@ -1,3 +1,4 @@
+import { messages } from './../../../config/project-config';
 import { Component, ViewEncapsulation, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
@@ -32,6 +33,7 @@ export class CartaAccidenteComponent{
         file:any;
         image:any;
         pdfSrc:any;
+        messages=messages;
         
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public element:ElementRef ){
         
@@ -50,7 +52,6 @@ export class CartaAccidenteComponent{
             this.loadAseguradoras();
             this.loadDeductible();
             this.loadRamos();
-            this.loadCarUse();
             this.loadFormatos();
         }
 
@@ -93,16 +94,7 @@ export class CartaAccidenteComponent{
             })
 
         }
-        loadCarUse(){
-
-             this.http.get(config.url+'param/list/carUse?access_token='+this.local.getUser().token).map((res)=>{
-                return res.json();
-            }).subscribe((result)=>{
-                    this.carUses = result.params;
-                  console.log('car use',result)
-            })
-
-        }
+    
         loadFormatos(){
 
               this.http.get(config.url+'letterAccident/list?access_token='+this.local.getUser().token).map((res)=>{

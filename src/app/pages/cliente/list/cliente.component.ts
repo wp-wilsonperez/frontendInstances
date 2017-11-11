@@ -115,6 +115,12 @@ export class ClienteComponent implements OnInit{
             this.loadMaritalStatus();
             this.loadTypeClient();
             this.loadclients();
+        
+
+            this.clientForm.valueChanges.subscribe((res)=>{
+                console.log(res);
+                
+            })
         }
 
         ngOnInit(){

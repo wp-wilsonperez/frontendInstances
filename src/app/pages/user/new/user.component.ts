@@ -105,7 +105,7 @@ export class UserComponent {
                         }                      
                     }
                     if(step.name=='Informacion Personal'){
-                        if (accountForm.valid) {
+                        if (!personalForm.get('cedula').hasError('invalidCedula') && !personalForm.get('name').hasError('required') && !personalForm.get('lastName').hasError('required') && !personalForm.get('telefono').hasError('required') && !personalForm.get('birthDate').hasError('required') ) {
                         
                             step.active = false;
                             step.valid = true;

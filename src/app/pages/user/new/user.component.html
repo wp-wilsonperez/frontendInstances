@@ -37,6 +37,7 @@
                     <div class="row form-title">
                         <h4><i class="fa {{ step.icon }}"></i> {{step.name}}</h4>
                     </div>
+                 
                         
                     <form *ngIf="step.name=='Informacion de Cuenta'" [formGroup]="accountForm" class="row">
                              <div class="form-group col-md-12" [ngClass]="{'has-danger' : (accountForm.get('email').value != '' && accountForm.get('email').hasError('required')) || (accountForm.get('email').value != '' && accountForm.get('email').hasError('invalidEmail')), 

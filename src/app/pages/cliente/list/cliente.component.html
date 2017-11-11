@@ -149,7 +149,7 @@
                                                         
                                                     
                                                             </select>
-                                                        <div *ngIf="clientForm.value.docType == 0 " class="form-group" [ngClass]="{'has-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')), 
+                                                        <div *ngIf="clientForm.value.docType == '99097f2c1f' "  class="form-group" [ngClass]="{'has-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')), 
                                                                                             'has-success' : !clientForm.get('doc').hasError('invalidCedula') }">
                                                                 <label class="form-control-label">Cedula*</label> 
                                                                 <div class="input-group"> 
@@ -163,7 +163,7 @@
                                                                 <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
                                                             </div>
 
-                                                            <div *ngIf="clientForm.value.docType == 1 " class="form-group" [ngClass]="{'has-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')), 
+                                                            <div *ngIf="clientForm.value.docType == '99097f2c1c' " class="form-group" [ngClass]="{'has-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')), 
                                                                                             'has-success' : !clientForm.get('doc').hasError('required') && !clientForm.get('doc').hasError('minlength') && !clientForm.get('doc').hasError('invalidNumber') && !clientForm.get('doc').hasError('invaliddoc') }">
                                                                 <label class="form-control-label">Pasaporte*</label> 
                                                                 <div class="input-group"> 
@@ -176,7 +176,23 @@
                                                                 <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')">La doc debe tener solo numeros</span> 
                                                                 <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
                                                             </div>
-                                                <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('name').value != '' && clientForm.get('name').hasError('required'), 'has-success' : !clientForm.get('name').hasError('required') }">
+                                                            <div *ngIf="clientForm.value.docType == '99097f2c1d' " class="form-group" [ngClass]="{'has-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')), 
+                                                            'has-success' : !clientForm.get('doc').hasError('required') && !clientForm.get('doc').hasError('minlength') && !clientForm.get('doc').hasError('invalidNumber') && !clientForm.get('doc').hasError('invaliddoc') }">
+                                                                <label class="form-control-label">Ruc*</label> 
+                                                                <div class="input-group"> 
+                                                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
+                                                                    <input formControlName="doc" class="form-control" [ngClass]="{'form-control-danger' : (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')) || (clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invaliddoc')),                                                                                                        
+                                                                    'form-control-success' : !clientForm.get('doc').hasError('required') && !clientForm.get('doc').hasError('minlength') && !clientForm.get('doc').hasError('invalidNumber') && !clientForm.get('doc').hasError('invliddoc')}" type="text" maxlength="10">
+                                                                </div>
+                                                                <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('required')">doc es Necesaria</span>                              
+                                                                <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('minlength')">La doc debe tener  10 caracteres</span>                            
+                                                                <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidNumber')">La doc debe tener solo numeros</span> 
+                                                                <span class="help-block text-danger" *ngIf="clientForm.get('doc').value != '' && clientForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
+                                                            </div>
+
+
+
+                                                         <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('name').value != '' && clientForm.get('name').hasError('required'), 'has-success' : !clientForm.get('name').hasError('required') }">
                                                     <label class="form-control-label">Nombre*</label>
                                                     <div class="input-group">
                                                             <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
@@ -453,7 +469,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header state modal-primary">
-                <h4 class="modal-title" id="modal-label"><i class="fa fa-user"></i>Nuevo cliente</h4>
+                <h4 class="modal-title" id="modal-label"><i class="fa fa-user"></i>Editar Cliente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
@@ -477,14 +493,14 @@
                 
                     <form  [formGroup]="editForm"  class="row">
                             <div class="col-md-6">
-                                    <label for="exampleSelect1">Tipo de Documento</label>
+                                    <label for="exampleSelect1">Tipo de Documento {{editForm.value.docType}}</label>
                                              
                                     <select formControlName="docType" class="form-control">
                                             <option *ngFor="let docType of docTypes" value="{{docType.value}}">{{docType.label}}</option>
                                     
                                 
                                         </select>
-                                    <div *ngIf="editForm.value.docType == 0 " class="form-group" [ngClass]="{'has-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')), 
+                                    <div   *ngIf="editForm.value.docType == 99097f2c1f " class="form-group" [ngClass]="{'has-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')), 
                                                                         'has-success' : !editForm.get('doc').hasError('invalidCedula') }">
                                             <label class="form-control-label">Cedula*</label> 
                                             <div class="input-group"> 
@@ -498,9 +514,26 @@
                                             <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
                                         </div>
 
-                                        <div *ngIf="editForm.value.docType == 1 " class="form-group" [ngClass]="{'has-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')), 
+                            
+
+                                        <div *ngIf="editForm.value.docType == 99097f2c1c " class="form-group" [ngClass]="{'has-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')), 
                                                                         'has-success' : !editForm.get('doc').hasError('required') && !editForm.get('doc').hasError('minlength') && !editForm.get('doc').hasError('invalidNumber') && !editForm.get('doc').hasError('invaliddoc') }">
                                             <label class="form-control-label">Pasaporte*</label> 
+                                            <div class="input-group"> 
+                                                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
+                                                <input formControlName="doc" class="form-control" [ngClass]="{'form-control-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invaliddoc')),                                                                                                        
+                                                'form-control-success' : !editForm.get('doc').hasError('required') && !editForm.get('doc').hasError('minlength') && !editForm.get('doc').hasError('invalidNumber') && !editForm.get('doc').hasError('invliddoc')}" type="text" maxlength="10">
+                                            </div>
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('required')">doc es Necesaria</span>                              
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')">La doc debe tener  10 caracteres</span>                            
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')">La doc debe tener solo numeros</span> 
+                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
+                                        </div>
+
+
+                                            <div *ngIf="editForm.value.docType == 99097f2c1d " class="form-group" [ngClass]="{'has-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')), 
+                                                                        'has-success' : !editForm.get('doc').hasError('required') && !editForm.get('doc').hasError('minlength') && !editForm.get('doc').hasError('invalidNumber') && !editForm.get('doc').hasError('invaliddoc') }">
+                                            <label class="form-control-label">Ruc*</label> 
                                             <div class="input-group"> 
                                                 <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
                                                 <input formControlName="doc" class="form-control" [ngClass]="{'form-control-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invaliddoc')),                                                                                                        
