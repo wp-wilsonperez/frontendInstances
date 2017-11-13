@@ -46,8 +46,15 @@ export class ClienteComponent implements OnInit{
         result:any;
         docTypes = [];
         messages= messages;
+        config = config;
 
         @ViewChild(SebmGoogleMap) map: SebmGoogleMap;
+        @ViewChild('docFile') docFile:any;
+        @ViewChild('registro') registro:any;
+        @ViewChild('vote') vote:any;
+        @ViewChild('basic') basic:any;
+        @ViewChild('group') group:any;
+
 
         
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public loader:MapsAPILoader,public element:ElementRef,public select:SelectService){
@@ -309,8 +316,7 @@ export class ClienteComponent implements OnInit{
   }
 
   subirDoc(input){
-         console.log(input.files[0]);
-         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token ,this.docFile.nativeElement.files[0]).map((res)=>{
              return res;
          }).subscribe((result)=>{
              this.result = result;
@@ -327,8 +333,7 @@ export class ClienteComponent implements OnInit{
       
   }
    subirRegister(input){
-         console.log(input.files[0]);
-         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , this.registro.nativeElement.files[0]).map((res)=>{
              return res;
          }).subscribe((result)=>{
              this.result = result;
@@ -343,8 +348,7 @@ export class ClienteComponent implements OnInit{
       
   }
   subirVote(input){
-         console.log(input.files[0]);
-         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , this.vote.nativeElement.files[0]).map((res)=>{
              return res;
          }).subscribe((result)=>{
              this.result = result;
@@ -359,8 +363,7 @@ export class ClienteComponent implements OnInit{
       
   }
    subirBasic(input){
-         console.log(input.files[0]);
-         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , this.basic.nativeElement.files[0]).map((res)=>{
              return res;
          }).subscribe((result)=>{
              this.result = result;
@@ -376,8 +379,7 @@ export class ClienteComponent implements OnInit{
   }
 
    subirGroup(input){
-         console.log(input.files[0]);
-         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , input.files[0]).map((res)=>{
+         this.makeFileRequest(config.url+'client/addclientImg?access_token='+this.local.getUser().token , this.group.nativeElement.files[0]).map((res)=>{
              return res;
          }).subscribe((result)=>{
              this.result = result;

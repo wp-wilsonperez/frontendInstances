@@ -768,7 +768,7 @@
                  <div class="col-md-4">
                      <label class="form-control-label">Copia de cedula o Pasaporte</label>
 
-                   <input type="file" #docFile (change)="subirDoc(docFile)" >
+                   <input type="file" #docFile (change)="subirDoc($event)" >
                               
                 </div>
                 <div class="col-md-4">
@@ -804,8 +804,8 @@
             <div class="row">
 
                     <div style="padding:30px;" class="btn-group">
-                           <a href=""><button type="button" class="btn btn-primary" id="regi1">Cedula o Pasaporte</button></a> 
-                            <button type="button" class="btn btn-success" id="regi2">Copia de Registro</button>
+                           <a href="{{config.url}}uploads/client/{{editForm.value.copyDoc}}" target="_blank"><button type="button" class="btn btn-primary" id="regi1">Cedula o Pasaporte</button></a> 
+                           <a href="{{config.url}}uploads/client/{{editForm.value.copyRegister}}" target="_blank"><button type="button" class="btn btn-success" id="regi2">Copia de Registro</button></a>
                         
                         </div>
 
@@ -813,9 +813,9 @@
             </div>
             <div style="padding:30px;" class="row">
                     <div class="btn-group">
-                            <button type="button" class="btn btn-warning" id="regi3">Copia de Papeleta de Votacion</button>
-                            <button type="button" class="btn btn-success" id="regi2">Copia de Servicio Basico</button>
-                            <button type="button" class="btn btn-warning" id="regi3">Copia de Grupo</button>
+                            <a href="{{config.url}}uploads/client/{{editForm.value.copyVote}}" target="_blank"><button type="button" class="btn btn-warning" id="regi3">Copia de Papeleta de Votacion</button></a>
+                            <a href="{{config.url}}uploads/client/{{editForm.value.copyBasicService}}" target="_blank"> <button type="button" class="btn btn-success" id="regi2">Copia de Servicio Basico</button></a>
+                            <a href="{{config.url}}uploads/client/{{editForm.value.copyGroup}}" target="_blank"><button type="button" class="btn btn-warning" id="regi3">Copia de Grupo</button></a>
                         
                     </div>
             </div>
