@@ -1,9 +1,11 @@
+import { messages } from './../../../config/project-config';
 import { SelectService } from './../../providers/select.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -33,6 +35,7 @@ export class ClearanceTimeComponent{
         ramosOptions:any=[];
         ramosLabel ='Seleccione Ramo...';
         aseguradorasLabel ='Seleccione Aseguradora...';
+        messages = messages;
 
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public select:SelectService ){
         
@@ -131,9 +134,9 @@ export class ClearanceTimeComponent{
         
         
     }
-    deleteclearanceTime(id){
+    deleteclearanceTime(){
 
-        this.http.delete(config.url+`clearanceTime/delete/${id}?access_token=`+this.local.getUser().token).map((result)=>{
+        this.http.delete(config.url+`clearanceTime/delete/${this.clearanceTimeId}?access_token=`+this.local.getUser().token).map((result)=>{
             console.log('log',result.json());
                 
             return result.json()
