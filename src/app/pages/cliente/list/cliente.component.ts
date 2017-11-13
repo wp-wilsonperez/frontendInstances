@@ -1,6 +1,6 @@
 import { messages } from './../../../../config/project-config';
 import { SelectService } from './../../../providers/select.service';
-import { Component, ViewEncapsulation, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, OnInit, ElementRef, NgZone } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
@@ -9,7 +9,7 @@ import { ValidationService } from '../../bussiness/new/validation.service';
 import * as mapTypes from 'angular2-google-maps/core' ;
 import { SebmGoogleMap, MapsAPILoader } from 'angular2-google-maps/core';
 import { Observable } from 'rxjs/Observable';
-import { log } from 'util';
+import {} from '@types/googlemaps';
 
 
 
@@ -38,7 +38,7 @@ export class ClienteComponent implements OnInit{
         _mapResolver: (value?: mapTypes.SebmGoogleMap) => void;
          lat: number = -2.896617;
         lng: number = -79.007621;
-        zoom: number = 7;
+        zoom: number = 15;
         coords:any;
         event:any;
         maritalStatuses:any;
@@ -47,6 +47,7 @@ export class ClienteComponent implements OnInit{
         docTypes = [];
         messages= messages;
         config = config;
+        create:boolean =  true;
 
         @ViewChild(SebmGoogleMap) map: SebmGoogleMap;
         @ViewChild('docFile') docFile:any;
@@ -54,13 +55,14 @@ export class ClienteComponent implements OnInit{
         @ViewChild('vote') vote:any;
         @ViewChild('basic') basic:any;
         @ViewChild('group') group:any;
+        @ViewChild("searchAddress") search:any;
 
 
         
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public loader:MapsAPILoader,public element:ElementRef,public select:SelectService){
+        constructor(public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder , public loader:MapsAPILoader,public element:ElementRef,public select:SelectService){
 
             
-        
+
             this.clientForm = this.formBuilder.group({
 
                 name: ['',Validators.compose([Validators.required])],
@@ -150,6 +152,42 @@ export class ClienteComponent implements OnInit{
             
             
         })
+
+        setTimeout(()=>{
+            console.log(this.search.nativeElement);
+
+            this.loader.load().then(()=>{
+               let autocomplete = new google.maps.places.Autocomplete(this.search.nativeElement,{
+                 types:['(regions)'],
+                 componentRestrictions: { country: 'EC' }
+               });
+
+               autocomplete.addListener("place_changed",()=>{
+               this.ngZone.run(()=>{
+                 //get the place result
+   
+                 let place : google.maps.places.PlaceResult = autocomplete.getPlace();
+   
+                 //verify result
+                 if (place.geometry === undefined || place.geometry === null) {
+                 return;
+                   }
+   
+                   //set latitude, longitude and zoom
+                   this.lat = place.geometry.location.lat();
+                   this.lng = place.geometry.location.lng();
+                   console.log(this.lat,this.lng);
+                   console.log("place: ",place);
+                   
+               
+             
+               })
+           });
+       });
+       
+       },1000)
+
+
         }
 
         loadclients(){
@@ -189,6 +227,10 @@ export class ClienteComponent implements OnInit{
             
         }
         saveclient(){
+            this.clientForm.controls['map'].setValue({
+                latitude: this.lat,
+                longitude: this.lng
+            })
             console.log('este es el request',this.clientForm.value);
 
             this.clientForm.value.docType == '99097f2c1c'?this.clientForm.controls['doc'].setValue(this.clientForm.value.passport):null;
@@ -211,6 +253,7 @@ export class ClienteComponent implements OnInit{
                 }
                 console.log(res);
                this.loadclients();
+               this.restartValues();
                 
             })
         }
@@ -219,16 +262,18 @@ export class ClienteComponent implements OnInit{
         }
 
         clientDetail(client){
-    
-        this.clientId = client._id;
-        console.log(this.clientId);
-        console.log(client);
-        
-        this.editForm.setValue({
+            this.resize();
+            this.create = false;
+            this.clientId = client._id;
+            console.log(this.clientId);
+            console.log(client);
+            this.lat = client.map.latitude;
+            this.lng = client.map.longitude;
+            console.log(this.lat,this.lng)
+            this.clientForm.setValue({
                     name: client.name,
                     doc: client.doc,
-                    
-                    
+                    mapShow:'',
                     docType: client.docType,
                     lastName:client.lastName,
                     phones: client.phones,
@@ -240,7 +285,7 @@ export class ClienteComponent implements OnInit{
                     phoneEmergency: client.phoneEmergency,
                     nameWork: client.nameWork,
                     phoneWork: client.phoneWork,
-                    map: '',
+                    map: client.map,
                     birthdate: client.birthdate,
                     copyDoc: client.copyDoc,
                     copyRegister: client.copyRegister,
@@ -259,13 +304,15 @@ export class ClienteComponent implements OnInit{
     }
     editclient(){
             
-            this.http.post(config.url+`client/edit/${this.clientId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`client/edit/${this.clientId}?access_token=`+this.local.getUser().token,this.clientForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.clients = res.update; 
+                        this.loadclients();
                         this.toast = true;
-                        this.message = "Banco editado"
+                        this.message = "Cliente editado";
+                        this.create = true;
+                        this.restartValues();
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de editar clients"
@@ -412,7 +459,37 @@ export class ClienteComponent implements OnInit{
         }     
     })
 }
+restartValues(){
+    this.clientForm.setValue({
+        name: '',
+        doc: '',
+        mapShow:'',
+        docType: '',
+        lastName:'',
+        phones: '',
+        cellPhone: '',
+        mail: '',
+        address: '',
+        nameEmergency: '',
+        lastNameEmergency: '',
+        phoneEmergency: '',
+        nameWork: '',
+        phoneWork: '',
+        map: '',
+        birthdate: '',
+        copyDoc: '',
+        copyRegister: '',
+        copyVote: '',
+        copyBasicService:'',
+        copyGroup:'',
+        idTypeClient:'',
+        idCity:'',
+        idMaritalStatus:'',
+        ruc:'',
+        passport:'',
+});
 
+}
    makeFileRequest(url: string, file: any) {
 
     return Observable.fromPromise(new Promise((resolve, reject) => {

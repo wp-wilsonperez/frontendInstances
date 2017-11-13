@@ -8,7 +8,7 @@
 
                 <div class="widget-controls"> 
                      <div class="col-md-4">
-                               <button data-toggle="modal" data-target="#new-city" class="btn btn-primary btn-rounded pull-right" ><i class="fa fa-plus"></i></button>
+                               <button (click)="resize()" data-toggle="modal" data-target="#new-city" class="btn btn-primary btn-rounded pull-right" ><i class="fa fa-plus"></i></button>
                         </div>                        
                    
                 </div>        
@@ -33,6 +33,7 @@
                 
                 <div class="w-200 pull-right bottom-15">
                     <div class="input-group input-group-sm">
+                          
 
 
                         
@@ -66,7 +67,7 @@
                                                 <div class="row">
 
 
-                                                        <button type="button" (click)="clientDetail(client)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+                                                        <button type="button" (click)="clientDetail(client)" class="btn btn-primary" data-toggle="modal" data-target="#new-city">Editar</button>
 
                                                                 
                         
@@ -237,7 +238,7 @@
                                             <div class="form-group">
                                                     <label for="input-12">Fecha de Nacimiento</label>
                                                     <input type="date" formControlName="birthdate" class="form-control" value="2011-08-19" id="input-12">
-                                                </div>
+                                            </div>
                                             <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('mail').value != '' && clientForm.get('mail').hasError('required')  || clientForm.get('mail').value != ''  && clientForm.get('mail').hasError('invalidEmail')   ,
                                                         'has-success' : !clientForm.get('mail').hasError('required') && !clientForm.get('mail').hasError('invalidEmail') }">
                                                                 <label class="form-control-label">Email*</label>
@@ -371,15 +372,21 @@
                                                                 <div class="card-block">
                                                                     <h5 class="card-title">Localizacion</h5>
 
-                                                                    <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('map').value != '' && clientForm.get('map').hasError('required'), 'has-success' : !clientForm.get('map').hasError('required') }">
-                                                                        <label class="form-control-label">Coordenadas</label>
-                                                                        <div class="input-group">
-                                                                                <div (click)="resize()" data-toggle="modal" data-target="#map-modal" class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                                                                <input formControlName="map" class="form-control" [ngClass]="{'form-control-danger' :  clientForm.get('map').hasError('required'), 'form-control-success' :  !clientForm.get('map').hasError('required') }" type="text"> 
-                                                                        </div>
+                                                                    <div class="form-group">
+                                                                            
+                                                                                <input #searchAddress placeholder="Indique Lugar"  autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control address-autocomplete"  >
+                                                                                <sebm-google-map [(latitude)]="lat" [(longitude)]="lng" [zoom]="zoom" [mapTypeControl]="true">
+                                                                                        <sebm-google-map-marker #marker (dragEnd)="markerDragEnd(marker, $event)" [latitude]="lat" [longitude]="lng" [markerDraggable]="true">
+                                                                                        </sebm-google-map-marker>
+                                                                                    </sebm-google-map>
                                                                     
-                                                                        <span class="help-block text-danger" *ngIf="clientForm.get('map').value != '' && clientForm.get('map').hasError('required')">Mapa no puede estar vacio</span>                             
+                                        
                                                                     </div>
+
+
+                                                                
+
+                                                                  
 
 
                                                                     
@@ -445,11 +452,25 @@
                                     </div>
 
                                 </div>
-
-                                   
-                           
-                          
-                           
+                                <div class="row">
+                                        
+                                <div style="padding:30px;" class="btn-group">
+                                        <a href="{{config.url}}uploads/client/{{editForm.value.copyDoc}}" target="_blank"><button type="button" class="btn btn-primary" id="regi1">Cedula o Pasaporte</button></a> 
+                                        <a href="{{config.url}}uploads/client/{{editForm.value.copyRegister}}" target="_blank"><button type="button" class="btn btn-success" id="regi2">Copia de Registro</button></a>
+                                    
+                                    </div>
+            
+                                
+                        </div>
+                        <div style="padding:30px;" class="row">
+                                <div class="btn-group">
+                                        <a href="{{config.url}}uploads/client/{{editForm.value.copyVote}}" target="_blank"><button type="button" class="btn btn-warning" id="regi3">Copia de Papeleta de Votacion</button></a>
+                                        <a href="{{config.url}}uploads/client/{{editForm.value.copyBasicService}}" target="_blank"> <button type="button" class="btn btn-success" id="regi2">Copia de Servicio Basico</button></a>
+                                        <a href="{{config.url}}uploads/client/{{editForm.value.copyGroup}}" target="_blank"><button type="button" class="btn btn-warning" id="regi3">Copia de Grupo</button></a>
+                                    
+                                </div>
+                        </div>
+                     
                         </div>  
                                         
                     </div>
@@ -462,7 +483,9 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    <button  (click)="saveclient()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                                    <button *ngIf="create" (click)="saveclient()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+
+                                    <button *ngIf="!create"  (click)="editclient()" type="button" class="btn btn-primary" data-dismiss="modal">Editar</button>
 
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>
@@ -472,401 +495,8 @@
 
 
 
-<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header state modal-primary">
-                <h4 class="modal-title" id="modal-label"><i class="fa fa-user"></i>Editar Cliente</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">
 
-                  <div class="col-lg-12 col-12 bottom-30">
-    <div class="clearfix">
-        <ul class="nav nav-tabs top pull-left w-100p">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#tc">Datos de Cliente</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#td">Archivos de Cliente</a>
-            </li>
-       
-        
-                                  
-        </ul>
-    </div>
-    <div class="tab-content top">
-        <div class="tab-pane active" id="tc">
-                
-                    <form  [formGroup]="editForm"  class="row">
-                            <div class="col-md-6">
-                                    <label for="exampleSelect1">Tipo de Documento</label>
-                                             
-                                    <select formControlName="docType" class="form-control">
-                                            <option *ngFor="let docType of docTypes" value="{{docType.value}}">{{docType.label}}</option>
-                                    
-                                
-                                        </select>
-                                        <div *ngIf="editForm.value.docType == '99097f2c1f' "  class="form-group" [ngClass]="{'has-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')), 
-                                                                        'has-success' : !editForm.get('doc').hasError('invalidCedula') }">
-                                            <label class="form-control-label">Cedula*</label> 
-                                            <div class="input-group"> 
-                                                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
-                                                <input formControlName="doc" class="form-control" [ngClass]="{'form-control-danger' : (editForm.get('doc').value != '' && editForm.get('doc').hasError('required')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')) || (editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')),                                                                                                        
-                                                'form-control-success' : !editForm.get('doc').hasError('required') && !editForm.get('doc').hasError('minlength') && !editForm.get('doc').hasError('invalidNumber') && !editForm.get('doc').hasError('invliddoc')}" type="text" maxlength="10">
-                                            </div>
-                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('required')">doc es Necesaria</span>                              
-                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('minlength')">La doc debe tener  10 caracteres</span>                            
-                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidNumber')">La doc debe tener solo numeros</span> 
-                                            <span class="help-block text-danger" *ngIf="editForm.get('doc').value != '' && editForm.get('doc').hasError('invalidCedula')">Cedula Invalida</span>                            
-                                        </div>
 
-                                        <div *ngIf="editForm.value.docType == '99097f2c1c' " class="form-group" [ngClass]="{
-                                                                        'has-danger':   editForm.get('passport').hasError('minlength'),
-                                                                        'has-success' : !editForm.get('passport').hasError('required') && !editForm.get('passport').hasError('minlength') && !editForm.get('passport').hasError('invalidNumber')
-                                                                
-                                                                    }">
-                                            <label class="form-control-label"> Pasaporte*</label> 
-                                            <div class="input-group"> 
-                                                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
-                                                <input formControlName="passport" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('passport').hasError('minlength') ,                                                                                                        
-                                                'form-control-success' : !editForm.get('passport').hasError('required') &&  !editForm.get('passport').hasError('minlength') && !editForm.get('passport').hasError('minlength') 
-                                                ,'form-control-danger': editForm.get('passport').hasError('minlength') 
-                                            }" type="text" maxlength="10">
-                                            </div>
-                                            
-
-                                        </div>
-
-                                        <div *ngIf="editForm.value.docType == '99097f2c1d' " class="form-group" [ngClass]="{
-                                            'has-danger': editForm.value.ruc.length > 0  && editForm.get('ruc').hasError('invalidRuc'),
-                                            'has-success' : !editForm.get('ruc').hasError('required') && !editForm.get('ruc').hasError('minlength') && !editForm.get('ruc').hasError('invalidNumber') &&  !editForm.get('ruc').hasError('invalidRuc')
-                                                                        }">
-                                                <label class="form-control-label"> Ruc*</label> 
-                                                <div class="input-group"> 
-                                                    <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
-                                                    <input formControlName="ruc" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('ruc').hasError('minlength') ,                                                                                                        
-                                                    'form-control-success' : !editForm.get('ruc').hasError('required') &&  !editForm.get('ruc').hasError('minlength') && !editForm.get('ruc').hasError('invalidRuc') 
-                                                    ,'form-control-danger':editForm.value.ruc.length > 0  && (editForm.get('ruc').hasError('minlength') || editForm.get('ruc').hasError('invalidRuc'))
-                                                }" type="text" maxlength="14">
-                                                </div>
-                                        </div>
-
-                            <div class="form-group " [ngClass]="{'has-danger' : editForm.get('name').value != '' && editForm.get('name').hasError('required'), 'has-success' : !editForm.get('name').hasError('required') }">
-                                <label class="form-control-label">Nombre*</label>
-                                <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                        <input formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('name').hasError('required'), 'form-control-success' :  !editForm.get('name').hasError('required') }" type="text"> 
-                                </div>
-                            
-                                <span class="help-block text-danger" *ngIf="editForm.get('name').value != '' && editForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
-                            </div>
-                            <div class="form-group " [ngClass]="{'has-danger' : editForm.get('lastName').value != '' && editForm.get('lastName').hasError('required'), 'has-success' : !editForm.get('lastName').hasError('required') }">
-                                <label class="form-control-label">Apellido*</label>
-                                <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                        <input formControlName="lastName" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('lastName').hasError('required'), 'form-control-success' :  !editForm.get('lastName').hasError('required') }" type="text"> 
-                                </div>
-                            
-                                <span class="help-block text-danger" *ngIf="editForm.get('lastName').value != '' && editForm.get('lastName').hasError('required')">Apellido no puede estar vacio</span>                             
-                            </div>
-
-                        <div class="form-group " [ngClass]="{'has-danger': editForm.get('cellPhone').hasError('invalidMobile') && editForm.get('cellPhone').value != '' , 'has-success': !editForm.get('cellPhone').hasError('invalidMobile')  }">
-                                            <label class="form-control-label">Celular*</label>
-                                            <div class="input-group">
-                                            <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                            <input formControlName="cellPhone" [ngClass]="{'form-control-danger' : editForm.get('cellPhone').value != ''  && editForm.get('cellPhone').hasError('invalidMobile') , 'form-control-success' :  !editForm.get('cellPhone').hasError('invalidMobile')  }" maxlength="10" type="text" class="form-control" >
-                                            </div>
-                                            
-                        </div>
-
-                        <div class="form-group " [ngClass]="{'has-danger': editForm.get('phones').hasError('required') && editForm.get('phones').value != '' , 'has-success': !editForm.get('phones').hasError('required')  && editForm.get('phones').value != ''  }">
-                                            <label class="form-control-label">Telefonos*</label>
-                                            <div class="input-group">
-                                            <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                            <textarea formControlName="phones" type="number" [ngClass]="{'form-control-danger' : editForm.get('phones').value != ''  && editForm.get('phones').hasError('required') , 'form-control-success' :  !editForm.get('phones').hasError('required')  }"  class="form-control" ></textarea>
-                                            </div>
-                                            
-                        </div>
-                        <div class="form-group">
-                                <label for="input-12">Fecha de Nacimiento</label>
-                                <input type="date" formControlName="birthdate" class="form-control" value="2011-08-19" id="input-12">
-                            </div>
-                        <div class="form-group " [ngClass]="{'has-danger' : editForm.get('mail').value != '' && editForm.get('mail').hasError('required')  || editForm.get('mail').value != ''  && editForm.get('mail').hasError('invalidEmail')   ,
-                                    'has-success' : !editForm.get('mail').hasError('required') && !editForm.get('mail').hasError('invalidEmail') }">
-                                            <label class="form-control-label">Email*</label>
-                                            <div class="input-group">
-                                            <input formControlName="mail"  [ngClass]="{'form-control-danger' : editForm.get('mail').value != ''  && editForm.get('mail').hasError('required') || editForm.get('mail').value != ''  && editForm.get('mail').hasError('invalidEmail'), 'form-control-success' :  !editForm.get('mail').hasError('required') && !editForm.get('mail').hasError('invalidEmail') }" type="text" class="form-control" >
-                                            </div>
-                                            
-                        </div>
-
-                        <label for="exampleSelect1">Ciudad</label>
-                        <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                <select formControlName="idCity" class="form-control">
-                                        <option *ngFor="let city of cities" value="{{city._id}}">{{city.name}}</option>
-                                    </select>
-                        </div>
-                                             
-
-
-                            <label for="exampleSelect1">Estado Civil</label>
-                                                <select formControlName="idMaritalStatus" class="form-control">
-                                                    <option *ngFor="let maritalStatus of maritalStatuses" value="{{maritalStatus._id}}">{{maritalStatus.name}}</option>
-                                                
-                                        
-                                                </select>  
-
-                                <label for="exampleSelect1">Tipo de edite</label>
-                                                <select formControlName="idTypeClient" class="form-control">
-                                                    <option *ngFor="let typeClient of typeClients" value="{{typeClient._id}}">{{typeClient.name}}</option>
-                                                
-                                        
-                                                </select>                      
-
-                        <div class="form-group " [ngClass]="{'has-danger' : clientForm.get('address').value != '' && clientForm.get('address').hasError('required'), 'has-success' : !clientForm.get('address').hasError('required') }">
-                                <label class="form-control-label">Direccion*</label>
-                                <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                        <textarea formControlName="address" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('address').hasError('required'), 'form-control-success' :  !editForm.get('address').hasError('required') }">
-                                        </textarea>
-                                </div>
-                            
-                                <span class="help-block text-danger" *ngIf="editForm.get('address').value != '' && editForm.get('address').hasError('required')">Direccion no puede estar vacio</span>                             
-                            </div>
-
-
-                                </div> 
-                                
-                                
-                                
-            <div class="col-md-6">
-
-                                <div class="card-group">
-
-                                    <div class="card">
-                                            <div class="card-block">
-                                                <h5 class="card-title">Emergencia</h5>
-
-                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('nameEmergency').value != '' && editForm.get('nameEmergency').hasError('required'), 'has-success' : !editForm.get('nameEmergency').hasError('required') }">
-                                                    <label class="form-control-label">Nombre de Emergencia*</label>
-                                                    <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                            <input formControlName="nameEmergency" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('nameEmergency').hasError('required'), 'form-control-success' :  !editForm.get('nameEmergency').hasError('required') }" type="text"> 
-                                                    </div>
-                                                
-                                                    <span class="help-block text-danger" *ngIf="editForm.get('nameEmergency').value != '' && editForm.get('nameEmergency').hasError('required')">Nombre no puede estar vacio</span>                             
-                                                </div>
-
-                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('lastNameEmergency').value != '' && editForm.get('lastNameEmergency').hasError('required'), 'has-success' : !editForm.get('lastNameEmergency').hasError('required') }">
-                                                        <label class="form-control-label">Apellido*</label>
-                                                        <div class="input-group">
-                                                                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                <input formControlName="lastNameEmergency" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('lastNameEmergency').hasError('required'), 'form-control-success' :  !editForm.get('lastNameEmergency').hasError('required') }" type="text"> 
-                                                        </div>
-                                                    
-                                                        <span class="help-block text-danger" *ngIf="editForm.get('lastNameEmergency').value != '' && editForm.get('lastNameEmergency').hasError('required')">Apellido no puede estar vacio</span>                             
-                                                    </div>
-
-                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('phoneEmergency').value != '' && editForm.get('phoneEmergency').hasError('required'), 'has-success' : !editForm.get('phoneEmergency').hasError('required') }">
-                                                        <label class="form-control-label">Telefono*</label>
-                                                        <div class="input-group">
-                                                                <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                                <input formControlName="phoneEmergency" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('phoneEmergency').hasError('required'), 'form-control-success' :  !editForm.get('phoneEmergency').hasError('required') }" type="number"> 
-                                                        </div>
-                                                    
-                                                        <span class="help-block text-danger" *ngIf="editForm.get('phoneEmergency').value != '' && editForm.get('phoneEmergency').hasError('required')">Telefono emergencia no puede estar vacio</span>                             
-                                                    </div>
-
-                                            
-                                                
-                                                
-                                            </div>
-                                    </div>
-                            
-                            
-                                </div>
-                                <div class="card-group" padding>
-
-                                    <div class="card">
-                                            <div class="card-block">
-                                                <h5 class="card-title">Trabajo</h5>
-
-                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('nameWork').value != '' && editForm.get('nameWork').hasError('required'), 'has-success' : !editForm.get('nameWork').hasError('required') }">
-                                                    <label class="form-control-label">Nombre*</label>
-                                                    <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                            <input formControlName="nameWork" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('nameWork').hasError('required'), 'form-control-success' :  !editForm.get('nameWork').hasError('required') }" type="text"> 
-                                                    </div>
-                                                
-                                                    <span class="help-block text-danger" *ngIf="editForm.get('nameWork').value != '' && editForm.get('nameWork').hasError('required')">Nombre no puede estar vacio</span>                             
-                                                </div>
-
-                                                <div class="form-group " [ngClass]="{'has-danger': editForm.get('phoneWork').hasError('required') && editForm.get('phoneWork').value != '' , 'has-success': !editForm.get('phoneWork').hasError('required')  && editForm.get('phoneWork').value != ''  }">
-                                                            <label class="form-control-label">Telefonos*</label>
-                                                            <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
-                                                            <textarea formControlName="phoneWork" type="number" [ngClass]="{'form-control-danger' : editForm.get('phoneWork').value != ''  && editForm.get('phoneWork').hasError('required') , 'form-control-success' :  !editForm.get('phoneWork').hasError('required')  }"  class="form-control" ></textarea>
-                                                            </div>
-                                            
-                                                    </div>
-
-                                                
-                                                
-                                            </div>
-                                    </div>
-                            
-                            
-                                </div>
-
-                                <div class="card-group" padding>
-
-                                    <div class="card">
-                                            <div class="card-block">
-                                                <h5 class="card-title">Localizacion</h5>
-
-                                                <div class="form-group " [ngClass]="{'has-danger' : editForm.get('map').value != '' && editForm.get('map').hasError('required'), 'has-success' : !editForm.get('map').hasError('required') }">
-                                                    <label class="form-control-label">Coordenadas</label>
-                                                    <div class="input-group">
-                                                            <div (click)="resize()" data-toggle="modal" data-target="#map-modal" class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                                            <input formControlName="map" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('map').hasError('required'), 'form-control-success' :  !editForm.get('map').hasError('required') }" type="text"> 
-                                                    </div>
-                                                
-                                                    <span class="help-block text-danger" *ngIf="editForm.get('map').value != '' && editForm.get('map').hasError('required')">Mapa no puede estar vacio</span>                             
-                                                </div>
-
-
-                                                
-                                                
-                                            </div>
-                                    </div>
-                            
-                            
-                                </div>
-
-                                    
-
-
-
-
-            </div>
-
-
-
-
-                        
-
-                        
-                        </form>
-              
-        </div>
-        <div class="tab-pane" id="td">
-
-            <div class="row">
-
-                 <div class="col-md-4">
-                     <label class="form-control-label">Copia de cedula o Pasaporte</label>
-
-                   <input type="file" #docFile (change)="subirDoc($event)" >
-                              
-                </div>
-                <div class="col-md-4">
-                     <label class="form-control-label">Copia de Registro</label>
-
-                   <input type="file" #registro (change)="subirRegister(registro)" >
-                              
-                </div>
-
-                <div class="col-md-4">
-                     <label class="form-control-label">Copia de Papeleta de Votacion</label>
-
-                   <input type="file" #vote (change)="subirVote(vote)" >
-                              
-                </div>
-
-                 <div class="col-md-4">
-                     <label class="form-control-label">Copia de Servicio Basico</label>
-
-                   <input type="file" #basic (change)="subirBasic(basic)" >
-                              
-                </div>
-
-                <div class="col-md-4">
-                     <label class="form-control-label">Copia de Grupo</label>
-
-                   <input type="file" #group (change)="subirGroup(group)" >
-                              
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                    <div style="padding:30px;" class="btn-group">
-                           <a href="{{config.url}}uploads/client/{{editForm.value.copyDoc}}" target="_blank"><button type="button" class="btn btn-primary" id="regi1">Cedula o Pasaporte</button></a> 
-                           <a href="{{config.url}}uploads/client/{{editForm.value.copyRegister}}" target="_blank"><button type="button" class="btn btn-success" id="regi2">Copia de Registro</button></a>
-                        
-                        </div>
-
-                    
-            </div>
-            <div style="padding:30px;" class="row">
-                    <div class="btn-group">
-                            <a href="{{config.url}}uploads/client/{{editForm.value.copyVote}}" target="_blank"><button type="button" class="btn btn-warning" id="regi3">Copia de Papeleta de Votacion</button></a>
-                            <a href="{{config.url}}uploads/client/{{editForm.value.copyBasicService}}" target="_blank"> <button type="button" class="btn btn-success" id="regi2">Copia de Servicio Basico</button></a>
-                            <a href="{{config.url}}uploads/client/{{editForm.value.copyGroup}}" target="_blank"><button type="button" class="btn btn-warning" id="regi3">Copia de Grupo</button></a>
-                        
-                    </div>
-            </div>
-
-               
-       
-      
-       
-    </div>  
-                    
-</div>
-
-
-
-
-
-</div>                    
-            </div>
-            <div class="modal-footer">
-
-                <button  (click)="editClient()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
-
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="modal fade" id="map-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
-    <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                <div class="modal-header state modal-primary">                                    
-                <h4 class="modal-title" id="modal-primary-label"><i class="fa  fa-map-marker"></i>Mapa</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body">
-                          <sebm-google-map [(latitude)]="lat" [(longitude)]="lng" [zoom]="zoom" [mapTypeControl]="true">
-                                <sebm-google-map-marker #marker (dragEnd)="markerDragEnd(marker, $event)" [latitude]="lat" [longitude]="lng" [markerDraggable]="true">
-                                </sebm-google-map-marker>
-                            </sebm-google-map>
-                     
-             
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="modal fade" id="add-city" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">

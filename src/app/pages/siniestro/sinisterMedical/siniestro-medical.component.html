@@ -284,7 +284,7 @@
                                         </form>
                                 </div>
                                 <div class="tab-pane" id="tb">
-                                        <form  [formGroup]="siniestroCarForm"  class="row">
+                                        <form  [formGroup]="siniestroMedicalCarForm"  class="row">
 
                                                 <div class="col-md-6">
             
@@ -389,7 +389,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                             <label for="">Lugar del siniestro</label>
-                                                            <input placeholder="" formControlName="idCar" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control address-autocomplete" #search >
+                                                            <input placeholder="Indique Lugar" formControlName="sinisterMap" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control address-autocomplete" id="search" >
                                                    
 
                                                     </div>
@@ -475,7 +475,7 @@
                                                          
                                                     </div> 
                                               <div class="card-block widget-body">
-                                                    <form [formGroup]="siniestroCarDocumentationForm" class="row form-inline">
+                                                    <form [formGroup]="siniestroMedicalCarDocumentationForm" class="row form-inline">
                                                             
                                                         <div class="col-md-10">
                                                                     <div class="row row-input">

@@ -30,7 +30,10 @@ export const routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    AgmCoreModule,
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyAD-u8RjZs7jh31RH7uTp2dyWOGD2KOv2A',
+      libraries: ["places"],
+    }),
     SelectModule
   ],
   declarations: [

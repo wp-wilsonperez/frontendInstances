@@ -1,5 +1,6 @@
 .sebm-google-map-container {
-  height: 60vh;
+  height: 200px;
 
 }
-.modal { overflow: auto !important; }
+.modal { overflow: auto !important; };
+.pac-container { z-index: 100000; };
