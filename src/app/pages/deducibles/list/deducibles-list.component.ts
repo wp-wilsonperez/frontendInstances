@@ -1,9 +1,11 @@
+import { messages } from './../../../../config/project-config';
 import { SelectService } from './../../../providers/select.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
+
 
 
 @Component({
@@ -20,6 +22,7 @@ export class DeduciblesListComponent{
         public deductibleForm:FormGroup;
         ramos:any;
         aseguradoras:any;
+        messages = messages;
 
         constructor(public http:Http,public local:UserSessionService, public formBuilder:FormBuilder,public select:SelectService){
 

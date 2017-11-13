@@ -196,7 +196,7 @@ export class BranchComponent {
 
         
         let request = {
-                schedules: this.schedules
+                schedule: this.schedules
 
 
         };

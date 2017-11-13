@@ -1,3 +1,4 @@
+import { messages } from './../../../config/project-config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
@@ -19,6 +20,7 @@ export class TasaComponent{
          public editForm:FormGroup
         public tasas:any;
         public tasaId:any;
+        public messages = messages;
         error:any;
         toast:boolean = false;
         message:string;

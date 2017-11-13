@@ -1,3 +1,4 @@
+import { messages } from './../../../../config/project-config';
 import { SelectService } from './../../../providers/select.service';
 import { Component, ViewEncapsulation, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
@@ -8,6 +9,8 @@ import { ValidationService } from '../../bussiness/new/validation.service';
 import * as mapTypes from 'angular2-google-maps/core' ;
 import { SebmGoogleMap, MapsAPILoader } from 'angular2-google-maps/core';
 import { Observable } from 'rxjs/Observable';
+import { log } from 'util';
+
 
 
 
@@ -21,7 +24,8 @@ import { Observable } from 'rxjs/Observable';
 
 export class ClienteComponent implements OnInit{
         public clientForm:FormGroup;
-        public editForm:FormGroup
+        public editForm:FormGroup;
+        public cityForm:FormGroup;
         public helpLinks:any;
         public clients:any;
         public cities:any;
@@ -41,6 +45,7 @@ export class ClienteComponent implements OnInit{
         typeClients:any;
         result:any;
         docTypes = [];
+        messages= messages;
 
         @ViewChild(SebmGoogleMap) map: SebmGoogleMap;
 
@@ -52,10 +57,12 @@ export class ClienteComponent implements OnInit{
             this.clientForm = this.formBuilder.group({
 
                 name: ['',Validators.compose([Validators.required])],
-                doc: [''],
+                doc: ['',Validators.compose([Validators.required])],
+                ruc:['',Validators.compose([Validators.required,ValidationService.rucValidator,Validators.minLength(5)])],
+                passport:['',Validators.compose([Validators.required,Validators.minLength(6)])],
                 docType: ['',Validators.compose([Validators.required])],
                 lastName:['',Validators.compose([Validators.required])],
-                phone: ['',Validators.compose([Validators.required])],
+                phones: ['',Validators.compose([Validators.required])],
                 cellPhone: ['',Validators.compose([ValidationService.mobileValidator])],
                 mail: ['',Validators.compose([ValidationService.emailValidator,Validators.required])],
                 address: ['',Validators.compose([Validators.required])],
@@ -66,7 +73,7 @@ export class ClienteComponent implements OnInit{
                 phoneWork: ['',Validators.compose([Validators.required])],
                 map: ['',Validators.compose([Validators.required])],
                 mapShow: ['',Validators.compose([Validators.required])],
-                birthDate: ['',Validators.compose([Validators.required])],
+                birthdate: ['',Validators.compose([Validators.required])],
                 copyDoc: [''],
                 copyRegister: [''],
                 copyVote: [''],
@@ -86,9 +93,11 @@ export class ClienteComponent implements OnInit{
             this.editForm = this.formBuilder.group({
                  name: ['',Validators.compose([Validators.required])],
                 doc: ['',Validators.compose([Validators.required,ValidationService.rucValidator])],
+                ruc:[''],
+                passport:['',Validators.compose([Validators.required])],
                 docType: ['',Validators.compose([Validators.required])],
                 lastName:['',Validators.compose([Validators.required])],
-                phone: ['',Validators.compose([ValidationService.mobileValidator])],
+                phones: ['',Validators.compose([ValidationService.mobileValidator])],
                 cellPhone: ['',Validators.compose([ValidationService.mobileValidator])],
                 mail: ['',Validators.compose([ValidationService.emailValidator,Validators.required])],
                 address: ['',Validators.compose([Validators.required])],
@@ -98,7 +107,7 @@ export class ClienteComponent implements OnInit{
                 nameWork: ['',Validators.compose([Validators.required])],
                 phoneWork: ['',Validators.compose([Validators.required])],
                 map: ['',Validators.compose([Validators.required])],
-                birthDate: ['',Validators.compose([Validators.required])],
+                birthdate: ['',Validators.compose([Validators.required])],
                 copyDoc: [''],
                 copyRegister: [''],
                 copyVote: [''],
@@ -110,17 +119,20 @@ export class ClienteComponent implements OnInit{
 
             });
 
+           this.cityForm = this.formBuilder.group({
+               name: ['',Validators.compose([Validators.required])],
+               description :['',Validators.compose([Validators.required])]
+           }); 
+
+           this.editForm.valueChanges.subscribe((res)=>{
+               console.log(res);
+           })
+
             this.loadclients();
             this.loadcities();
             this.loadMaritalStatus();
             this.loadTypeClient();
             this.loadclients();
-        
-
-            this.clientForm.valueChanges.subscribe((res)=>{
-                console.log(res);
-                
-            })
         }
 
         ngOnInit(){
@@ -170,6 +182,13 @@ export class ClienteComponent implements OnInit{
             
         }
         saveclient(){
+            console.log('este es el request',this.clientForm.value);
+
+            this.clientForm.value.docType == '99097f2c1c'?this.clientForm.controls['doc'].setValue(this.clientForm.value.passport):null;
+            this.clientForm.value.docType == '99097f2c1d'?this.clientForm.controls['doc'].setValue(this.clientForm.value.ruc):null;
+
+            console.log('value of the form',this.clientForm.value);
+            
             this.http.post(config.url+'client/add?access_token='+this.local.getUser().token,this.clientForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
@@ -196,32 +215,36 @@ export class ClienteComponent implements OnInit{
     
         this.clientId = client._id;
         console.log(this.clientId);
-        console.log(this.clientId);
+        console.log(client);
         
         this.editForm.setValue({
-                    name: '',
-                    doc: '',
-                    docType: '',
-                    lastName:'',
-                    phone: '',
-                    cellPhone: '',
-                    mail: '',
-                    address: '',
-                    nameEmergency: '',
-                    lastNameEmergency: '',
-                    phoneEmergency: '',
-                    nameWork: '',
-                    phoneWork: '',
+                    name: client.name,
+                    doc: client.doc,
+                    
+                    
+                    docType: client.docType,
+                    lastName:client.lastName,
+                    phones: client.phones,
+                    cellPhone: client.cellPhone,
+                    mail: client.mail,
+                    address: client.address,
+                    nameEmergency: client.nameEmergency,
+                    lastNameEmergency: client.lastNameEmergency,
+                    phoneEmergency: client.phoneEmergency,
+                    nameWork: client.nameWork,
+                    phoneWork: client.phoneWork,
                     map: '',
-                    birthDate: '',
-                    copyDoc: '',
-                    copyRegister: '',
-                    copyVote: '',
-                    copyBasicService:'',
-                    copyGroup:'',
-                    idTypeClient:'',
-                    idCity:'',
-                    idMaritalStatus:''
+                    birthdate: client.birthdate,
+                    copyDoc: client.copyDoc,
+                    copyRegister: client.copyRegister,
+                    copyVote: client.copyVote,
+                    copyBasicService:client.copyBasicService,
+                    copyGroup:client.copyGroup,
+                    idTypeClient:client.idTypeClient,
+                    idCity:client.idCity,
+                    idMaritalStatus:client.idMaritalStatus,
+                    ruc:client.doc,
+                    passport:client.doc,
         });
         
         
@@ -368,6 +391,25 @@ export class ClienteComponent implements OnInit{
          
       
   }
+  saveCity(){
+  
+    this.http.post(config.url+'city/add?access_token='+this.local.getUser().token,this.cityForm.value).toPromise().then(result=>{
+        let apiResult= result.json();
+        console.log(apiResult);
+        if(apiResult.msg == 'OK'){
+
+             this.loadcities();
+             this.cityForm.reset();
+
+        }else{
+
+            this.error = true;
+        this.message = apiResult.err.message;
+        console.log('hay un error');
+
+        }     
+    })
+}
 
    makeFileRequest(url: string, file: any) {
 

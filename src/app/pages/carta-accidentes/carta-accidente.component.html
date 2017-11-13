@@ -72,6 +72,10 @@
                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                                                                     </div>
                                                                                     <div class="modal-body">
+                                                                                        <div class="row" style="margin:10px;">
+                                                                                               <a href="{{pdfSrc}}" target="_blank"> <button class="btn btn-warning"><i class="fa fa-download" aria-hidden="true"></i>Descargar</button></a>
+                                                                                        </div>
+                                                                                        
                                                                                           <pdf-viewer [src]="pdfSrc" 
                                                                                                       [page]="1" 
                                                                                                       [original-size]="true" 
@@ -163,8 +167,8 @@
                                                     </div>
 
                                                      <div class="form-group col-md-12">
-                                                         <label for="exampleSelect1">Archivo</label>
-                                                        <input  (change)="fileChange(input1)" #input1 class='form-control' type="file" >
+                                                         <label for="exampleSelect1">Archivo (solo pdf)</label>
+                                                        <input accept="application/pdf"  (change)="fileChange(input1)" #input1 class='form-control' type="file" >
                                                     </div>
 
 

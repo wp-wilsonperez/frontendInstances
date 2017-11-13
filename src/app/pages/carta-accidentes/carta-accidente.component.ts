@@ -235,7 +235,7 @@ export class CartaAccidenteComponent{
 
     }
     verPdf(formato){
-            
+  
             this.pdfSrc = config.url+'uploads/letterAccident/'+formato.file;
             console.log(this.pdfSrc);
             

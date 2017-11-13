@@ -1,8 +1,10 @@
+import { messages } from './../../../../config/project-config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -29,6 +31,7 @@ export class PlanAsociacionComponent{
         plansOptions:any=[];
         plans:any;
         ramosOptions:any=[];
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.planAsociacionForm = this.formBuilder.group({

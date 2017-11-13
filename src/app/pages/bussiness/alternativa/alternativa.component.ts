@@ -1,3 +1,4 @@
+import { messages } from './../../../../config/project-config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
@@ -23,6 +24,7 @@ export class AlternativaComponent{
         toast:boolean = false;
         message:string;
         create:boolean=true;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.alternativaForm = this.formBuilder.group({

@@ -87,8 +87,8 @@
                         <tbody>                           
 
                             <tr *ngFor="let planAsociacion of planAsociacions">
-                                <td><strong>  {{planAsociacion.idPlan}}   </strong></td>
-                                <td><strong>  {{planAsociacion.ramo}}   </strong></td>
+                                <td><strong>  {{planAsociacion.plan.name}}   </strong></td>
+                                <td><strong>  {{planAsociacion.ramo.name}}   </strong></td>
                                 <td><strong>  {{planAsociacion.insurance.bussinesName}}   </strong></td>
                                    <td><strong>    </strong></td>
                                     <td><strong>    </strong></td>
@@ -119,7 +119,7 @@
                                                                                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                                                                                                                             </div>
                                                                                                                                             <div class="modal-body">
-                                                                                                                                                Esta seguro?
+                                                                                                                                                {{messages.sure_delete}}
                                                                                                                                             </div>
                                                                                                                                             <div class="modal-footer">
                                                                                                                                                 <button (click)="deleteplanAsociacion()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>

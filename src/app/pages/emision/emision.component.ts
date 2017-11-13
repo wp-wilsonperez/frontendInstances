@@ -1,8 +1,10 @@
+import { messages } from './../../../config/project-config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -22,6 +24,7 @@ export class EmisionComponent{
         error:any;
         toast:boolean = false;
         message:string;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.emisionForm = this.formBuilder.group({

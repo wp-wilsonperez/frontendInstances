@@ -1,3 +1,4 @@
+import { messages } from './../../../../config/project-config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
@@ -29,6 +30,7 @@ export class PlanAlternativoComponent{
         planAssociationOptions:any=[];
         planAssociations:any;
         ramosOptions:any=[];
+        messages = messages;
 
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
