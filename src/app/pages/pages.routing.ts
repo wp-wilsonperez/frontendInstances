@@ -32,6 +32,7 @@ export const routes: Routes = [
             { path: 'polizas', loadChildren: 'app/pages/polizas/poliza.module#PolizaModule', data: { breadcrumb: 'Polizas' } },
             { path: 'siniestros', loadChildren: 'app/pages/siniestro/siniestro.module#SiniestroModule', data: { breadcrumb: 'Siniestros' } },
             { path: 'tipoClientes', loadChildren: 'app/pages/tipoCliente/tipoCliente.module#TipoClienteModule', data: { breadcrumb: 'Tipo de Clientes' } },
+            { path: 'renovacion', loadChildren: 'app/pages/renovacion/renovacion.module#RenovacionModule', data: { breadcrumb: 'Renovacion' } },
         
         ]
     }

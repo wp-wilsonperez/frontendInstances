@@ -1115,7 +1115,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},noRenewal:{},noRenewalRamo:{}};
 
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
@@ -1531,7 +1531,20 @@ export class RolsListComponent {
           this.clearenceTimeDelete?requestTwo.clearanceTime['delete'] = true:null;
           this.clearenceTimeEnable?requestTwo.clearanceTime['enable'] = true:null;
 
-        
+
+          //renewal
+          requestTwo.noRenewal['list'] = true
+          requestTwo.noRenewal['add'] = true
+          requestTwo.noRenewal['edit'] = true
+          requestTwo.noRenewal['delete'] = true
+          requestTwo.noRenewal['enable'] = true
+
+          //no renewal
+          requestTwo.noRenewalRamo['list'] = true
+          requestTwo.noRenewalRamo['add'] = true
+          requestTwo.noRenewalRamo['edit'] = true
+          requestTwo.noRenewalRamo['delete'] = true
+          requestTwo.noRenewalRamo['enable'] = true
        
 
 

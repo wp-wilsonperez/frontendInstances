@@ -92,6 +92,23 @@ export class SelectService {
         })
         
     }
+    loadNoRenewal(){  
+            let policyOptions = [];
+        return   this.http.get(config.url+'noRenewal/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+                let res = result.json();
+                let policies = res.noRenewal;
+                policies.map((result)=>{
+                    let obj = {
+                        value: result._id,
+                        label: result.name
+                    }
+                    policyOptions.push(obj);
+                    
+                })
+                return  policyOptions;
+            })
+            
+        }
    
     loadFrecuencyOfPayments(){  
         let policyOptions = [];
