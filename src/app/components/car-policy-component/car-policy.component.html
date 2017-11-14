@@ -106,6 +106,7 @@
 
                 <label for="exampleSelect1">Aseguradora</label>
             <ng-select
+
                     (selected)="getTasa()"
                     [(options)]="insurances"
                     [placeholder]="Aseguradoras"
@@ -162,7 +163,7 @@
             <div class="form-group">
 
                 <label for="exampleSelect1">Vigencia Final</label>
-                <input  type="date" formControlName="finishDate" class="form-control">
+                <input  type="date" formControlName="finishDate" (blur)="getDiffDates()" class="form-control">
                     
 
             </div>

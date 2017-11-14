@@ -160,7 +160,7 @@
         <div class="form-group">
 
             <label for="exampleSelect1">Vigencia Final</label>
-            <input  type="date" formControlName="finishDate" class="form-control">
+            <input (blur)="getDiffDates()"  type="date" formControlName="finishDate" class="form-control">
                 
 
         </div>

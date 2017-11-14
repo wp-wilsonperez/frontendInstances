@@ -112,6 +112,7 @@ export class PolizaComponent{
             })
             
         }
+       
         loadmedicalPolizas(){
             this.http.get(config.url+'policyMedicalBusiness/list?access_token='+this.local.getUser().token).map((res)=>{             
                 return res.json();

@@ -82,13 +82,11 @@ export class MedicalPolicyComponent implements OnInit {
     getTasa(){
         
      
-                this.http.get(config.url+'policy/ramoPercentageValue?access_token='+this.local.getUser().token+'&idInsurance='+this.polizaMedicalForm.value.idInsurance+'&idRamo=599222be7f05fc0933b643f3')
+                this.http.get(config.url+'percentageRamo/value?access_token='+this.local.getUser().token+'&idInsurance='+this.polizaMedicalForm.value.idInsurance+'&idRamo=599222d07f05fc0933b643f5')
                 .toPromise().then(
                     result=>{
-
-                                let apiResult = result.json();
-                            console.log(apiResult);
-                            
+                             console.log(result.json());
+                             result.json().value?this.polizaMedicalForm.controls['percentageRamo'].setValue(result.json().value):this.polizaMedicalForm.controls['percentageRamo'].setValue(0);      
                 
                 },
                 err=>{
@@ -103,4 +101,12 @@ export class MedicalPolicyComponent implements OnInit {
                  
         
             }
+    getDiffDates(){
+        var date1 = new Date(this.polizaMedicalForm.value.startDate);
+        var date2 = new Date(this.polizaMedicalForm.value.finishDate);
+        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        console.log(diffDays);
+        this.polizaMedicalForm.controls['daysofValidity'].setValue(diffDays);
+    }
 }
