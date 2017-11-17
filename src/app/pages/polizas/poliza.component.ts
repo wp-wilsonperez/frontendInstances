@@ -3,9 +3,11 @@ import { CarPolicyComponent } from './../../components/car-policy-component/car-
 import { Router } from '@angular/router';
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Http } from '@angular/http';
-import { config } from '../../../config/project-config';
+import { config, messages } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+
+
 
 
 @Component({
@@ -24,6 +26,7 @@ export class PolizaComponent{
         public polizasMedicas:any;
         public helpLinkId:any;
         public polizaId:any;
+        public polizaMedId:any;
         public insurances:any = [];
         public insuranceOptions:any = [];
         public deductibleOptions:any = [];
@@ -42,15 +45,16 @@ export class PolizaComponent{
          public paymentTypesOptions:any = [];
         public carOptions:any=[];
         public cars:any;
-
         public citiesOptions:any = [];
         public cities:any;
         public policyTypeForm:string = '';
         error:any;
         toast:boolean = false;
         message:string;
+        create:boolean = true;
         @ViewChild(CarPolicyComponent) carPolicy:CarPolicyComponent;
         @ViewChild(MedicalPolicyComponent) medicalPolicy:MedicalPolicyComponent;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
         
             this.polizaForm = this.formBuilder.group({
@@ -60,7 +64,6 @@ export class PolizaComponent{
                 annexedNumber:[],
                 certificateNumber:[],
                 idUser:[],
-                idClient:[],
                 idDeductible:[],
                 insured:[],
                 startDate:[],
@@ -73,10 +76,6 @@ export class PolizaComponent{
                 dateCancellation:[],
                 idPaymentType:[],
                 percentageRamo:[]
-            
-
-
-            
                 
             });
 
@@ -99,6 +98,7 @@ export class PolizaComponent{
             this.loadRamo();
             this.loadpolizas();
             this.loadmedicalPolizas();
+           
      
         }
 
@@ -368,10 +368,10 @@ export class PolizaComponent{
                        this.loadpolizas();
                         this.toast = true;
                         this.message = "Poliza guardada"
-                        this.carPolicy.polizaForm.reset();
+                   
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar poliza"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -393,7 +393,7 @@ export class PolizaComponent{
                         this.medicalPolicy.polizaMedicalForm.reset();
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar poliza"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -404,30 +404,80 @@ export class PolizaComponent{
         idAssign(polizaId){
                 this.polizaId = polizaId;
         }
+        idMedAssign(polizaId){
+            this.polizaMedId = polizaId;
+    }
 
         polizaDetail(poliza){
     
         this.polizaId = poliza._id;
         console.log(this.polizaId);
-        console.log(this.polizaId);
+        console.log(poliza);
+       this.carPolicy.polizaForm.setValue({
+                    policyNumber:poliza.policyNumber,
+                    idInsurance:poliza.idInsurance,
+                    annexedNumber:poliza.annexedNumber,
+                    certificateNumber:poliza.certificateNumber,
+                    idUser:poliza.idUser,
+                    idClient:poliza.idClient,
+                    idDeductible:poliza.idDeductible,
+                    insured:poliza.insured,
+                    startDate:poliza.startDate,
+                    finishDate:poliza.finishDate,
+                    daysofValidity:poliza.daysofValidity,
+                    idPolicyType:poliza.idPolicyType,
+                    idFrequencyPayment:poliza.idFrequencyPayment,
+                    idCity:poliza.idCity,
+                    dateAdmission:poliza.dateAdmission,
+                    dateCancellation:poliza.dateCancellation,
+                    idPaymentType:poliza.idPaymentType,
+                    percentageRamo:''
+       });
         
-        this.editForm.setValue({name: poliza.name,month:poliza.month,interest:poliza.interest,totalMonths:poliza.totalMonths});
         
         
         
     }
+    polizaMedDetail(poliza){
+        
+            this.polizaMedId = poliza._id;
+            console.log(this.polizaId);
+            console.log(poliza);
+           this.medicalPolicy.polizaMedicalForm.setValue({
+                        policyNumber:poliza.policyNumber,
+                        idInsurance:poliza.idInsurance,
+                        idUser:poliza.idUser,
+                        idBusiness:'',
+                        idDeductible:poliza.idDeductible,
+                        insured:poliza.insured,
+                        startDate:poliza.startDate,
+                        finishDate:poliza.finishDate,
+                        daysofValidity:poliza.daysofValidity,
+                        idPolicyType:poliza.idPolicyType,
+                        idFrequencyPayment:poliza.idFrequencyPayment,
+                        idCity:poliza.idCity,
+                        dateAdmission:poliza.dateAdmission,
+                        dateCancellation:poliza.dateCancellation,
+                        percentageRamo:'',
+            
+           });
+            
+            
+            
+            
+        }
     editpoliza(){
             
-            this.http.post(config.url+`policy/edit/${this.polizaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+            this.http.post(config.url+`policy/edit/${this.polizaId}?access_token=`+this.local.getUser().token,this.carPolicy.polizaForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.polizas = res.update; 
+                        this.loadpolizas(); 
                         this.toast = true;
-                        this.message = "poliza editado"
+                        this.message = "Poliza editada"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar polizas"
+                    this.message = res.err.message
                 }
                 
             })
@@ -438,21 +488,43 @@ export class PolizaComponent{
     }
     deletepoliza(){
 
-        this.http.delete(config.url+`policy/delete/${this.polizaId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`policy/delete/${this.polizaId}?access_token=`+this.local.getUser().token,{}).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
                         this.polizas = res.update; 
                         this.toast = true;
-                        this.message = "poliza Borrado"
+                        this.message = "Poliza Borrada"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    console.log(res);
+                    this.message = res.err.message
+                    
                 }
                 
             })
 
     }
+
+    deleteMedPoliza(){
+        
+                this.http.delete(config.url+`policyMedicalBusiness/delete/${this.polizaMedId}?access_token=`+this.local.getUser().token,{}).map((result)=>{
+                        return result.json()
+                    }).subscribe(res=>{
+                        if(res.msg == "OK"){
+                                this.loadmedicalPolizas()
+                                this.toast = true;
+                                this.message = "Poliza Medica Borrada"
+                        }else{
+                            this.error = true;
+                            console.log(res);
+                            this.message = res.err.message
+                            
+                        }
+                        
+                    })
+        
+            }
     getForm(e){
         console.log(e.value);
         switch ( e.value) {

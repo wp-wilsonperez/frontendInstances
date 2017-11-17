@@ -34,6 +34,7 @@ export class RolsListComponent {
   public userCreate:boolean = false;
   public userEdit:boolean = false;
   public userDelete:boolean = false;
+  
   //checkbox rols
   public rolTypeList = '';
    public rolList:boolean = false; 
@@ -80,6 +81,24 @@ export class RolsListComponent {
     public accountDelete:boolean = false;
     //
 
+     //checkbox wallet
+     public walletTypeList = '';
+     public walletList:boolean = false;
+     public walletCreate:boolean = false;
+     public walletEdit:boolean = false;
+     public walletDelete:boolean = false;
+     public walletReport:boolean = false;
+
+
+       //checkbox notas credito
+       public creditNotesTypeList = '';
+       public creditNotesList:boolean = false;
+       public creditNotesCreate:boolean = false;
+       public creditNotesEdit:boolean = false;
+       public creditNotesDelete:boolean = false;
+       public creditNotesReport:boolean = false;
+     //
+
       //checkbox Insurance
       public insuranceTypeList = '';
     public insuranceList:boolean = false;
@@ -87,6 +106,7 @@ export class RolsListComponent {
     public insuranceEdit:boolean = false;
     public insuranceDelete:boolean = false;
     public insuranceEnable:boolean = false;
+    public insuranceReport:boolean = false;
     //
 
     //checkbox Business
@@ -96,6 +116,7 @@ export class RolsListComponent {
     public businessEdit:boolean = false;
     public businessDelete:boolean = false;
     public businessEnable:boolean = false;
+    public businessReport:boolean = false;
 
      //checkbox Ramo
      public ramoTypeList = '';
@@ -104,6 +125,7 @@ export class RolsListComponent {
     public ramoEdit:boolean = false;
     public ramoDelete:boolean = false;
     public ramoEnable:boolean = false;
+    public ramoReport:boolean = false;
 
      //checkbox porcentje
      public porcentajeTypeList = '';
@@ -112,6 +134,7 @@ export class RolsListComponent {
     public porcentajeEdit:boolean = false;
     public porcentajeDelete:boolean = false;
     public porcentajeEnable:boolean = false;
+    public porcentajeReport:boolean = false;
     //
 
      //checkbox deductible
@@ -121,6 +144,7 @@ export class RolsListComponent {
     public deductibleEdit:boolean = false;
     public deductibleDelete:boolean = false;
     public deductibleEnable:boolean = false;
+    public deductibleReport:boolean = false;
     //
 
     //checkbox helpLinks
@@ -130,6 +154,7 @@ export class RolsListComponent {
     public helpLinkEdit:boolean = false;
     public helpLinkDelete:boolean = false;
     public helpLinkEnable:boolean = false;
+    public helpLinkReport:boolean = false;
     //
 
     //checkbox bank
@@ -139,6 +164,7 @@ export class RolsListComponent {
     public bankEdit:boolean = false;
     public bankDelete:boolean = false;
     public bankEnable:boolean = false;
+    public bankReport:boolean = false;
     //
 
     //checkbox tasa
@@ -148,6 +174,7 @@ export class RolsListComponent {
     public tasaEdit:boolean = false;
     public tasaDelete:boolean = false;
     public tasaEnable:boolean = false;
+    public tasaReport:boolean = false;
     //
     //checkbox tasa
     public letterAccidentTypeList = '';
@@ -156,6 +183,7 @@ export class RolsListComponent {
     public letterAccidentEdit:boolean = false;
     public letterAccidentDelete:boolean = false;
     public letterAccidentEnable:boolean = false;
+    public letterAccidentReport:boolean = false;
 
     //checkbox paymentType
     public paymentTypeTypeList = '';
@@ -164,6 +192,7 @@ export class RolsListComponent {
     public paymentTypeEdit:boolean = false;
     public paymentTypeDelete:boolean = false;
     public paymentTypeEnable:boolean = false;
+    public paymentTypeReport:boolean = false;
     //
     //checkbox paymentType
     public quoteTypeList = '';
@@ -172,6 +201,7 @@ export class RolsListComponent {
     public quoteEdit:boolean = false;
     public quoteDelete:boolean = false;
     public quoteEnable:boolean = false;
+    public quoteReport:boolean = false;
 
      //checkbox issue
      public issueTypeList = '';
@@ -180,6 +210,7 @@ export class RolsListComponent {
     public issueEdit:boolean = false;
     public issueDelete:boolean = false;
     public issueEnable:boolean = false;
+    public issueReport:boolean = false;
 
 
         //checkbox issue
@@ -190,6 +221,7 @@ export class RolsListComponent {
     public clientEdit:boolean = false;
     public clientDelete:boolean = false;
     public clientEnable:boolean = false;
+    public clientReport:boolean = false;
 
 
       //marital
@@ -199,6 +231,7 @@ export class RolsListComponent {
     public maritalStatusEdit:boolean = false;
     public maritalStatusDelete:boolean = false;
     public maritalStatusEnable:boolean = false;
+    public maritalStatusReport:boolean = false;
 
      //checkbox issue
      public typeClientTypeList = '';
@@ -207,6 +240,7 @@ export class RolsListComponent {
     public typeClientEdit:boolean = false;
     public typeClientDelete:boolean = false;
     public typeClientEnable:boolean = false;
+    public typeClientReport:boolean = false;
 
 
      //car
@@ -216,6 +250,7 @@ export class RolsListComponent {
     public carEdit:boolean = false;
     public carDelete:boolean = false;
     public carEnable:boolean = false;
+    public carReport:boolean = false;
 
      //carType
      public carTypeTypeTypeList = '';
@@ -224,6 +259,7 @@ export class RolsListComponent {
     public carTypeEdit:boolean = false;
     public carTypeDelete:boolean = false;
     public carTypeEnable:boolean = false;
+    public carTypeReport:boolean = false;
 
     //carBrand
     public carBrandTypeList = '';
@@ -232,6 +268,7 @@ export class RolsListComponent {
     public carBrandEdit:boolean = false;
     public carBrandDelete:boolean = false;
     public carBrandEnable:boolean = false;
+    public carBrandReport:boolean = false;
 
     //carColor
     public carColorTypeList = '';
@@ -240,6 +277,7 @@ export class RolsListComponent {
     public carColorEdit:boolean = false;
     public carColorDelete:boolean = false;
     public carColorEnable:boolean = false;
+    public carColorReport:boolean = false;
 
     //carColor
     public carModelTypeList = '';
@@ -248,6 +286,7 @@ export class RolsListComponent {
     public carModelEdit:boolean = false;
     public carModelDelete:boolean = false;
     public carModelEnable:boolean = false;
+    public carModelReport:boolean = false;
 
     //policyType
     public policyTypeTypeList = '';
@@ -256,6 +295,7 @@ export class RolsListComponent {
     public policyTypeEdit:boolean = false;
     public policyTypeDelete:boolean = false;
     public policyTypeEnable:boolean = false;
+    public policyTypeReport:boolean = false;
 
      //policy
 
@@ -264,6 +304,16 @@ export class RolsListComponent {
     public policyEdit:boolean = false;
     public policyDelete:boolean = false;
     public policyEnable:boolean = false;
+    public policyReport:boolean = false;
+
+      //renovations
+
+      public renovationList:boolean = false;
+      public renovationCreate:boolean = false;
+      public renovationEdit:boolean = false;
+      public renovationDelete:boolean = false;
+      public renovationEnable:boolean = false;
+      public renovationReport:boolean = false;
 
      //billing
      public billingTypeList = '';
@@ -272,6 +322,8 @@ export class RolsListComponent {
     public billingEdit:boolean = false;
     public billingDelete:boolean = false;
     public billingEnable:boolean = false;
+    public billingReport:boolean = false;
+    
 
      //policyAnnex
      public policyAnnexTypeList="";
@@ -288,6 +340,7 @@ export class RolsListComponent {
     public routeEdit:boolean = false;
     public routeDelete:boolean = false;
     public routeEnable:boolean = false;
+    public routeReport:boolean = false;
 
     //income
     public incomeTypeList="";
@@ -296,6 +349,7 @@ export class RolsListComponent {
     public incomeEdit:boolean = false;
     public incomeDelete:boolean = false;
     public incomeEnable:boolean = false;
+    public incomeReport:boolean = false;
 
      //frequencyPayment
      public frequencyPaymentTypeList="";
@@ -319,7 +373,7 @@ export class RolsListComponent {
     public sinisterCreate:boolean = false;
     public sinisterEdit:boolean = false;
     public sinisterDelete:boolean = false;
-    public sinisterEnable:boolean = false;
+    public sinisterReport:boolean = false;
 
      //Tiempos Liquidacion
      public clearanceTimeTypeList="";
@@ -401,7 +455,34 @@ export class RolsListComponent {
                 this.insuranceEdit = false;
                 this.insuranceDelete = false;
                 this.insuranceEnable = false;
+                this.insuranceReport = false;
 
+
+                 //wallet
+                
+                 this.walletList = false; 
+                 this.walletCreate = false;
+                 this.walletEdit = false;
+                 this.walletDelete = false;
+                 this.walletReport = false;
+
+                  //renovacion
+                
+                  this.renovationList = false; 
+                  this.renovationCreate = false;
+                  this.renovationEdit = false;
+                  this.renovationDelete = false;
+                  this.renovationReport = false;
+
+
+                    //notas de credito
+                
+                    this.creditNotesList = false; 
+                    this.creditNotesCreate = false;
+                    this.creditNotesEdit = false;
+                    this.creditNotesDelete = false;
+                    this.creditNotesReport = false;
+  
                 //business
                 
                 this.businessList = false; 
@@ -572,6 +653,7 @@ export class RolsListComponent {
                 this.policyEdit = false;
                 this.policyDelete = false;
                 this.policyEnable = false;
+                this.policyReport = false;
 
                 //policy annex
                 
@@ -596,6 +678,7 @@ export class RolsListComponent {
                 this.routeEdit = false;
                 this.routeDelete = false;
                 this.routeEnable = false;
+                this.routeReport = false;
 
              //income
                 
@@ -604,6 +687,7 @@ export class RolsListComponent {
                 this.incomeEdit = false;
                 this.incomeDelete = false;
                 this.incomeEnable = false;
+                this.incomeReport = false;
 
              //frequency payment
                 
@@ -621,13 +705,13 @@ export class RolsListComponent {
                 this.bankInsuranceDelete = false;
                 this.bankInsuranceEnable = false;
 
-                //bank insurance
+                // siniestros
                 
                 this.sinisterList = false; 
                 this.sinisterCreate = false;
                 this.sinisterEdit = false;
                 this.sinisterDelete = false;
-                this.sinisterEnable = false;
+                this.sinisterReport = false;
 
                 //clearance time
 
@@ -775,6 +859,7 @@ export class RolsListComponent {
                 this.grant.insurance.edit  == true ?  this.insuranceEdit = true:    this.insuranceEdit = false;
                 this.grant.insurance.delete  == true? this.insuranceDelete = true:  this.insuranceDelete = false; 
                 this.grant.insurance.enable  == true? this.insuranceEnable = true:  this.insuranceEnable = false; 
+                this.grant.insurance.report  == true? this.insuranceReport = true:  this.insuranceReport = false; 
                
              }
 
@@ -957,6 +1042,7 @@ export class RolsListComponent {
                 this.grant.policy.edit  == true ?  this.policyEdit = true:    this.policyEdit = false;
                 this.grant.policy.delete  == true? this.policyDelete = true:  this.policyDelete = false; 
                 this.grant.policy.enable  == true? this.policyEnable = true:  this.policyEnable = false; 
+                this.grant.policy.report  == true? this.policyReport = true:  this.policyReport = false; 
                
              }
 
@@ -967,6 +1053,7 @@ export class RolsListComponent {
                 this.grant.billing.edit  == true ?  this.billingEdit = true:    this.billingEdit = false;
                 this.grant.billing.delete  == true? this.billingDelete = true:  this.billingDelete = false; 
                 this.grant.billing.enable  == true? this.billingEnable = true:  this.billingEnable = false; 
+                this.grant.billing.report  == true? this.billingReport = true:  this.billingReport = false; 
                
              }
 
@@ -996,7 +1083,7 @@ export class RolsListComponent {
                 this.grant.income.add   == true ?  this.incomeCreate = true:  this.incomeCreate = false; 
                 this.grant.income.edit  == true ?  this.incomeEdit = true:    this.incomeEdit = false;
                 this.grant.income.delete  == true? this.incomeDelete = true:  this.incomeDelete = false; 
-                this.grant.income.enable  == true? this.incomeEnable = true:  this.incomeEnable = false; 
+                this.grant.income.report  == true? this.incomeReport = true:  this.incomeReport = false; 
                
              }
 
@@ -1007,8 +1094,40 @@ export class RolsListComponent {
                 this.grant.route.edit  == true ?  this.routeEdit = true:    this.routeEdit = false;
                 this.grant.route.delete  == true? this.routeDelete = true:  this.routeDelete = false; 
                 this.grant.route.enable  == true? this.routeEnable = true:  this.routeEnable = false; 
+                this.grant.route.report  == true? this.routeReport = true:  this.routeReport = false; 
                
              }
+                //notas de credito
+                if(this.grant.creditNote != undefined){
+                  this.grant.creditNote.list == true ?   this.creditNotesList = true:    this.creditNotesList = false;
+                  this.grant.creditNote.add   == true ?  this.creditNotesCreate = true:  this.creditNotesCreate = false; 
+                  this.grant.creditNote.edit  == true ?  this.creditNotesEdit = true:    this.creditNotesEdit = false;
+                  this.grant.creditNote.delete  == true? this.creditNotesDelete = true:  this.creditNotesDelete = false; 
+                  
+                  this.grant.creditNote.report  == true? this.creditNotesReport = true:  this.creditNotesReport = false; 
+                 
+               }
+
+                  //wallet
+             if(this.grant.wallet != undefined){
+              this.grant.wallet.list == true ?   this.walletList = true:    this.walletList = false;
+              this.grant.wallet.add   == true ?  this.walletCreate = true:  this.walletCreate = false; 
+              this.grant.wallet.edit  == true ?  this.walletEdit = true:    this.walletEdit = false;
+              this.grant.wallet.delete  == true? this.walletDelete = true:  this.walletDelete = false; 
+              this.grant.wallet.report  == true? this.walletReport = true:  this.walletReport = false; 
+             
+           }
+
+                  //renovations
+                  if(this.grant.wallet != undefined){
+                    this.grant.noRenewal.list == true ?   this.renovationList = true:    this.renovationList = false;
+                    this.grant.noRenewal.add   == true ?  this.renovationCreate = true:  this.renovationCreate = false; 
+                    this.grant.noRenewal.edit  == true ?  this.renovationEdit = true:    this.renovationEdit = false;
+                    this.grant.noRenewal.delete  == true? this.renovationDelete = true:  this.renovationDelete = false; 
+                    this.grant.noRenewal.report  == true? this.renovationReport = true:  this.renovationReport = false; 
+                   
+                 }
+
 
                 //frequency payment
              if(this.grant.frequencyPayment != undefined){
@@ -1059,7 +1178,7 @@ export class RolsListComponent {
                 this.grant.sinister.add   == true ?  this.sinisterCreate = true:  this.sinisterCreate = false; 
                 this.grant.sinister.edit  == true ?  this.sinisterEdit = true:    this.sinisterEdit = false;
                 this.grant.sinister.delete  == true? this.sinisterDelete = true:  this.sinisterDelete = false; 
-                this.grant.sinister.enable  == true? this.sinisterEnable = true:  this.sinisterEnable = false; 
+               
                
              }
 
@@ -1163,6 +1282,7 @@ export class RolsListComponent {
         this.insuranceEdit?requestTwo.insurance['edit'] = true:null;
         this.insuranceDelete?requestTwo.insurance['delete'] = true:null;
         this.insuranceEnable?requestTwo.insurance['enable'] = true:null;
+        this.insuranceReport?requestTwo.insurance['report'] = true:null;
 
 
          //business
@@ -1384,11 +1504,11 @@ export class RolsListComponent {
         this.incomeEdit?requestTwo.income['edit'] = true:null;
         this.incomeDelete?requestTwo.income['delete'] = true:null;
         this.incomeEnable?requestTwo.income['enable'] = true:null
+        this.incomeReport?requestTwo.income['report'] = true:null
 
           //route
             
         this.routeList?requestTwo.route['list'] = true:null;
-        //
         this.routeList?requestTwo.route['dateReception'] = true:null;
         this.routeList?requestTwo.route['dateMessenger'] = true:null;
         this.routeList?requestTwo.route['dateReEntry'] = true:null;
@@ -1398,6 +1518,7 @@ export class RolsListComponent {
         this.routeEdit?requestTwo.route['edit'] = true:null;
         this.routeDelete?requestTwo.route['delete'] = true:null;
         this.routeEnable?requestTwo.route['enable'] = true:null
+        this.routeReport?requestTwo.route['report'] = true:null
 
          //policy
             
@@ -1406,6 +1527,7 @@ export class RolsListComponent {
         this.policyEdit?requestTwo.policy['edit'] = true:null;
         this.policyDelete?requestTwo.policy['delete'] = true:null;
         this.policyEnable?requestTwo.policy['enable'] = true:null
+        this.policyReport?requestTwo.policy['report'] = true:null
         this.policyList?requestTwo.policy['ramoPercentageValue'] = true:null
 
         this.policyList?requestTwo.policyMedicalBusiness['list'] = true:null;
@@ -1433,19 +1555,35 @@ export class RolsListComponent {
         this.billingEdit?requestTwo.billing['edit'] = true:null;
         this.billingDelete?requestTwo.billing['delete'] = true:null;
         this.billingEnable?requestTwo.billing['enable'] = true:null
+        this.billingReport?requestTwo.billing['report'] = true:null
         this.billingList?requestTwo.billing['ramoPercentageValue'] = true:null;
 
-        this.billingList?requestTwo.wallet['list'] = true:null;
-        this.billingList?requestTwo.wallet['add'] = true:null;
-        this.billingList?requestTwo.wallet['edit'] = true:null;
-        this.billingList?requestTwo.wallet['delete'] = true:null;
-        this.billingList?requestTwo.wallet['enable'] = true:null;
+        // wallet
 
-        this.billingList?requestTwo.creditNote['list'] = true:null;
-        this.billingList?requestTwo.creditNote['add'] = true:null;
-        this.billingList?requestTwo.creditNote['edit'] = true:null;
-        this.billingList?requestTwo.creditNote['delete'] = true:null;
-        this.billingList?requestTwo.creditNote['enable'] = true:null;
+        this.walletList?requestTwo.wallet['list'] = true:null;
+        this.walletCreate?requestTwo.wallet['add'] = true:null;
+        this.walletEdit?requestTwo.wallet['edit'] = true:null;
+        this.walletDelete?requestTwo.wallet['delete'] = true:null;
+        this.walletReport?requestTwo.wallet['report'] = true:null;
+
+        // creditNote
+        
+        this.creditNotesList?requestTwo.creditNote['list'] = true:null;
+        this.creditNotesCreate?requestTwo.creditNote['add'] = true:null;
+        this.creditNotesEdit?requestTwo.creditNote['edit'] = true:null;
+        this.creditNotesDelete?requestTwo.creditNote['delete'] = true:null;
+        this.creditNotesReport?requestTwo.creditNote['report'] = true:null;
+
+
+        // renovations
+        
+        this.renovationList?requestTwo.noRenewal['list'] = true:null;
+        this.renovationCreate?requestTwo.noRenewal['add'] = true:null;
+        this.renovationEdit?requestTwo.noRenewal['edit'] = true:null;
+        this.renovationDelete?requestTwo.noRenewal['delete'] = true:null;
+        this.renovationReport?requestTwo.noRenewal['report'] = true:null;
+
+    
         
 
 
@@ -1508,7 +1646,7 @@ export class RolsListComponent {
         this.sinisterCreate?requestTwo.sinister['add'] = true:null;
         this.sinisterEdit?requestTwo.sinister['edit'] = true:null;
         this.sinisterDelete?requestTwo.sinister['delete'] = true:null;
-        this.sinisterEnable?requestTwo.sinister['enable'] = true:null;
+        this.sinisterReport?requestTwo.sinister['report'] = true:null;
 
         //documentation sinister
         this.sinisterList?requestTwo.sinisterDocumentation['list'] = true:null;
@@ -1531,13 +1669,6 @@ export class RolsListComponent {
           this.clearenceTimeDelete?requestTwo.clearanceTime['delete'] = true:null;
           this.clearenceTimeEnable?requestTwo.clearanceTime['enable'] = true:null;
 
-
-          //renewal
-          requestTwo.noRenewal['list'] = true
-          requestTwo.noRenewal['add'] = true
-          requestTwo.noRenewal['edit'] = true
-          requestTwo.noRenewal['delete'] = true
-          requestTwo.noRenewal['enable'] = true
 
           //no renewal
           requestTwo.noRenewalRamo['list'] = true

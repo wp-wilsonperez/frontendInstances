@@ -13,7 +13,7 @@
             <div class="form-group">
 
                 <label for="exampleSelect1">Certificado</label>
-                <input  type="text" formControlName="policyNumber" class="form-control">
+                <input  type="text" formControlName="certificateNumber" class="form-control">
                     
 
             </div>
@@ -32,13 +32,6 @@
 
             </div>
 
-            <div class="form-group">
-
-                <label for="exampleSelect1">Grupo Cliente</label>
-                <input  type="text" formControlName="policyNumber" class="form-control">
-                    
-
-            </div>
 
             <div class="form-group">
 
@@ -97,7 +90,7 @@
             <div class="form-group">
 
                 <label for="exampleSelect1">Anexo</label>
-                <input  type="text" formControlName="policyNumber" class="form-control">
+                <input  type="text" formControlName="annexedNumber" class="form-control">
                                             
 
             </div>
@@ -177,7 +170,7 @@
 
                 <label for="exampleSelect1">Frecuencia de Pago</label>
                 <ng-select
-                    [(options)]="frecuencyPayments"
+                    [(options)]="frecuencias"
                     [placeholder]="Frecuencia"
                     [multiple]="false"
                     formControlName="idFrequencyPayment">

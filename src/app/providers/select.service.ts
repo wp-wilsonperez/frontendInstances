@@ -379,5 +379,23 @@ export class SelectService {
         
     }
 
+    loadBusiness(){  
+        let policyOptions = [];
+      return   this.http.get(config.url+'business/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.businesses;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+
    
 }

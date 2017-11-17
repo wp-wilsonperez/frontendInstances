@@ -129,7 +129,7 @@ export class AutoComponent{
                         this.message = "auto editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar autos"
+                    this.message = res.err.message;
                 }
                 
             })
@@ -149,7 +149,7 @@ export class AutoComponent{
                         this.message = messages.delete;
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message;
                 }
                 
             })

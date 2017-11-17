@@ -55,7 +55,7 @@ export class CarBrandComponent{
                         this.message = "marca de carro guardado"
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar "
+                      this.message = res.err.message
                    
                 }
                 console.log(res);

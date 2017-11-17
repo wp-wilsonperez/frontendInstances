@@ -357,6 +357,12 @@
                                                                                                                             <span class="custom-control-description">Habilitar</span>
                                                                                                                         
                                                                                                          </div>
+
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                <input [(ngModel)]="insuranceReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                   <span class="custom-control-description">Reportes</span>
+                                                                                                               
+                                                                                                </div>
                                                                                                         
                                                                                                      
                                                                                                          
@@ -1216,6 +1222,12 @@
                                                                                                                         
                                                                                                          </div>
 
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                <input [(ngModel)]="policyReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                   <span class="custom-control-description">Reportes</span>
+                                                                                                               
+                                                                                                            </div>
+
                                                                                                          </div>
 
                                                                                                          <div  class="list-group-item list-group-item-action"> 
@@ -1260,6 +1272,147 @@
                                                                                                          
                                                                                                        
                                                                                                     </div>
+
+
+        
+                                                                                                         <div  class="list-group-item list-group-item-action"> 
+                                                                                                                
+                                                                                                                
+                                                                                                                <div  class="col-md-2"> <h5 class="list-group-item-heading">Cartera</h5></div>
+        
+                                                                                                                <ng-select
+                                                                                                                        [(options)]="typeList"
+                                                                                                                        [placeholder]="typeListLabel"
+                                                                                                                    >  
+                                                                                                                </ng-select>  
+                                                                                                                    
+                                                                                                                <div   class="col-md-2"> 
+                                                                                                                                    <input [(ngModel)]="walletList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                    <span class="custom-control-description">Listado</span>
+                                                                                                                                
+                                                                                                                    </div>
+                                                                                                                    <div   class="col-md-2"> 
+                                                                                                                                    <input [(ngModel)]="walletCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                    <span class="custom-control-description">Crear</span>
+                                                                                                                                
+                                                                                                                    </div>
+                                                                                                                    <div   class="col-md-2"> 
+                                                                                                                                    <input [(ngModel)]="walletEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                    <span class="custom-control-description">Editar</span>
+                                                                                                                                
+                                                                                                                    </div>
+                                                                                                                    <div   class="col-md-2"> 
+                                                                                                                                    <input [(ngModel)]="walletDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                    <span class="custom-control-description">Borrar</span>
+                                                                                                                                
+                                                                                                                    </div>
+        
+                                            
+
+                                                                                                                    <div   class="col-md-2"> 
+                                                                                                                            <input [(ngModel)]="walletReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Reportes</span>
+                                                                                                                        
+                                                                                                            </div>
+                                                                                                                
+                                                                                                                
+                                                                                                                    
+                                                                                                                
+                                                                                                            </div>
+
+                                                                                                            <div  class="list-group-item list-group-item-action"> 
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    <div  class="col-md-2"> <h5 class="list-group-item-heading">Renovaciones</h5></div>
+            
+                                                                                                                    <ng-select
+                                                                                                                            [(options)]="typeList"
+                                                                                                                            [placeholder]="typeListLabel"
+                                                                                                                        >  
+                                                                                                                    </ng-select>  
+                                                                                                                        
+                                                                                                                    <div   class="col-md-2"> 
+                                                                                                                                        <input [(ngModel)]="renovationList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                        <span class="custom-control-description">Listado</span>
+                                                                                                                                    
+                                                                                                                        </div>
+                                                                                                                        <div   class="col-md-2"> 
+                                                                                                                                        <input [(ngModel)]="renovationCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                        <span class="custom-control-description">Crear</span>
+                                                                                                                                    
+                                                                                                                        </div>
+                                                                                                                        <div   class="col-md-2"> 
+                                                                                                                                        <input [(ngModel)]="renovationEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                        <span class="custom-control-description">Editar</span>
+                                                                                                                                    
+                                                                                                                        </div>
+                                                                                                                        <div   class="col-md-2"> 
+                                                                                                                                        <input [(ngModel)]="renovationDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                        <span class="custom-control-description">Borrar</span>
+                                                                                                                                    
+                                                                                                                        </div>
+            
+                                                                                                                    
+    
+                                                                                                                        <div   class="col-md-2"> 
+                                                                                                                                <input [(ngModel)]="renovationReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                <span class="custom-control-description">Reportes</span>
+                                                                                                                            
+                                                                                                                </div>
+                                                                                                                    
+                                                                                                                    
+                                                                                                                        
+                                                                                                                    
+                                                                                                                </div>
+
+                                                                                                            <div  class="list-group-item list-group-item-action"> 
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    <div  class="col-md-2"> <h5 class="list-group-item-heading">Notas de Credito</h5></div>
+            
+                                                                                                                    <ng-select
+                                                                                                                            [(options)]="typeList"
+                                                                                                                            [placeholder]="typeListLabel"
+                                                                                                                        >  
+                                                                                                                    </ng-select>  
+                                                                                                                        
+                                                                                                                    <div   class="col-md-2"> 
+                                                                                                                                        <input [(ngModel)]="creditNotesList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                        <span class="custom-control-description">Listado</span>
+                                                                                                                                    
+                                                                                                                        </div>
+                                                                                                                        <div   class="col-md-2"> 
+                                                                                                                                        <input [(ngModel)]="creditNotesCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                        <span class="custom-control-description">Crear</span>
+                                                                                                                                    
+                                                                                                                        </div>
+                                                                                                                        <div   class="col-md-2"> 
+                                                                                                                                        <input [(ngModel)]="creditNotesEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                        <span class="custom-control-description">Editar</span>
+                                                                                                                                    
+                                                                                                                        </div>
+                                                                                                                        <div   class="col-md-2"> 
+                                                                                                                                        <input [(ngModel)]="creditNotesDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                        <span class="custom-control-description">Borrar</span>
+                                                                                                                                    
+                                                                                                                        </div>
+            
+                                                                                                                        <div   class="col-md-2"> 
+                                                                                                                                        <input [(ngModel)]="creditNotesEnable" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                        <span class="custom-control-description">Habilitar</span>
+                                                                                                                                    
+                                                                                                                        </div>
+
+                                                                                                                        <div   class="col-md-2"> 
+                                                                                                                                <input [(ngModel)]="creditNotesReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                                <span class="custom-control-description">Reportes</span>
+                                                                                                                            
+                                                                                                                </div>
+                                                                                                                    
+                                                                                                                    
+                                                                                                                        
+                                                                                                                    
+                                                                                                                </div>
                                                                                                     <div  class="list-group-item list-group-item-action"> 
 
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Anexo Poliza</h5></div>
@@ -1330,10 +1483,11 @@
                                                                                                                         
                                                                                                          </div>
 
+
                                                                                                          <div   class="col-md-2"> 
-                                                                                                                         <input [(ngModel)]="billingEnable" type="checkbox" class="checkbox-circle">                                                                                                                           
-                                                                                                                            <span class="custom-control-description">Habilitar</span>
-                                                                                                                        
+                                                                                                                <input [(ngModel)]="billingReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                   <span class="custom-control-description">Reportes</span>
+                                                                                                               
                                                                                                          </div>
 
                                                                                                          </div>
@@ -1414,11 +1568,12 @@
                                                                                                                         
                                                                                                          </div>
 
+                                                                                                     
                                                                                                          <div   class="col-md-2"> 
-                                                                                                                         <input [(ngModel)]="incomeEnable" type="checkbox" class="checkbox-circle">                                                                                                                           
-                                                                                                                            <span class="custom-control-description">Habilitar</span>
-                                                                                                                        
-                                                                                                         </div>
+                                                                                                                <input [(ngModel)]="incomeReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                   <span class="custom-control-description">Reportes</span>
+                                                                                                               
+                                                                                                                 </div>
                                                                                                         
                                                                                                      
                                                                                                          
@@ -1457,11 +1612,13 @@
                                                                                                                         
                                                                                                          </div>
 
+                                                                                                       
+
                                                                                                          <div   class="col-md-2"> 
-                                                                                                                         <input [(ngModel)]="routeEnable" type="checkbox" class="checkbox-circle">                                                                                                                           
-                                                                                                                            <span class="custom-control-description">Habilitar</span>
-                                                                                                                        
-                                                                                                         </div>
+                                                                                                                <input [(ngModel)]="routeReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                   <span class="custom-control-description">Reportes</span>
+                                                                                                               
+                                                                                                </div>
                                                                                                         
                                                                                                      
                                                                                                          
@@ -1579,11 +1736,13 @@
                                                                                                                         
                                                                                                          </div>
 
+                                                                                                        
+
                                                                                                          <div   class="col-md-2"> 
-                                                                                                                         <input [(ngModel)]="sinisterEnable" type="checkbox" class="checkbox-circle">                                                                                                                           
-                                                                                                                            <span class="custom-control-description">Habilitar</span>
-                                                                                                                        
-                                                                                                         </div>
+                                                                                                                <input [(ngModel)]="sinisterReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                   <span class="custom-control-description">Reportes</span>
+                                                                                                               
+                                                                                                </div>
                                                                                                         
                                                                                                      
                                                                                                          

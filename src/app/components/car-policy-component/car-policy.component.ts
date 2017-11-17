@@ -1,7 +1,7 @@
 import { UserSessionService } from './../../providers/session.service';
 import { Http } from '@angular/http';
 import { SelectService } from './../../providers/select.service';
-import { FormGroup,FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { config } from '../../../config/project-config';
 
@@ -23,26 +23,26 @@ export class CarPolicyComponent implements OnInit {
     cars:any;
     paymentTypes:any;
     insurances:any;
+    frecuencias:any = [];
     constructor(public formBuilder:FormBuilder,public selectService:SelectService,public http:Http,public local:UserSessionService) { 
         this.polizaForm = this.formBuilder.group({
-            policyNumber:[],
-            idInsurance:[],
-            idRamo:[],
-            annexedNumber:[],
-            certificateNumber:[],
-            idUser:[],
-            idClient:[],
-            idDeductible:[],
-            insured:[],
-            startDate:[],
-            finishDate:[],
-            daysofValidity:[],
-            idPolicyType:[],
-            idFrequencyPayment:[],
-            idCity:[],
-            dateAdmission:[],
-            dateCancellation:[],
-            idPaymentType:[],
+            policyNumber:['',Validators.compose([Validators.required])],
+            idInsurance:['',Validators.compose([Validators.required])],
+            annexedNumber:['',Validators.compose([Validators.required])],
+            certificateNumber:['',Validators.compose([Validators.required])],
+            idUser:['',Validators.compose([Validators.required])],
+            idClient:['',Validators.compose([Validators.required])],
+            idDeductible:['',Validators.compose([Validators.required])],
+            insured:['',Validators.compose([Validators.required])],
+            startDate:['',Validators.compose([Validators.required])],
+            finishDate:['',Validators.compose([Validators.required])],
+            daysofValidity:['',Validators.compose([Validators.required])],
+            idPolicyType:['',Validators.compose([Validators.required])],
+            idFrequencyPayment:['',Validators.compose([Validators.required])],
+            idCity:['',Validators.compose([Validators.required])],
+            dateAdmission:['',Validators.compose([Validators.required])],
+            dateCancellation:['',Validators.compose([Validators.required])],
+            idPaymentType:['',Validators.compose([Validators.required])],
             percentageRamo:[] 
         });
         this.selectService.loadUsers().then((res)=>{
@@ -71,6 +71,9 @@ export class CarPolicyComponent implements OnInit {
         })
         this.selectService.loadInsurances().then((res)=>{
             this.insurances = res;
+        })
+        this.selectService.loadFrecuencyOfPayments().then((res)=>{
+            this.frecuencias = res;
         })
 
     }

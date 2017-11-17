@@ -6,7 +6,7 @@ import { Http, Response } from '@angular/http';
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import { ValidationService } from './validation.service';
-import {config} from './../../../../config/project-config';
+import { config } from './../../../../config/project-config';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -37,6 +37,7 @@ export class BranchComponent {
     public cities: any;
     public days:any;
     public schedules:any=[];
+
 
      @ViewChild(ImageUploaderComponent)
      public  imageComponent: ImageUploaderComponent;
@@ -301,4 +302,4 @@ export class BranchComponent {
   
 
    
-}
+} 

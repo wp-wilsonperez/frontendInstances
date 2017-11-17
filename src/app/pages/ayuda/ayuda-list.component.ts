@@ -55,7 +55,7 @@ export class AyudaListComponent{
 
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar links"
+                      this.message = res.err.message
                    
                 }
            
@@ -89,7 +89,7 @@ export class AyudaListComponent{
                         this.message = "Link editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar links"
+                    this.message = res.err.message
                 }
                 
             })

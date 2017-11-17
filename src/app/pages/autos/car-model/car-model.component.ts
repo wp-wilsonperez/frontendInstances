@@ -57,7 +57,7 @@ export class CarModelComponent{
                         this.message = "Modelo guardado"
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar Modelo"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -91,7 +91,7 @@ export class CarModelComponent{
                         this.message = "Modelo editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar Modelo"
+                    this.message = res.err.message
                 }
                 
             })
@@ -111,7 +111,7 @@ export class CarModelComponent{
                         this.message = "Modelo Borrado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })

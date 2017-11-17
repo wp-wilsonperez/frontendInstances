@@ -1,8 +1,10 @@
+import { messages } from './../../../../config/project-config';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -32,10 +34,8 @@ export class BancoSeguroComponent  {
         opt:any;
         opt2:any;
         banks:any;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
-            
-            
-        
             this.bancoSeguroForm = this.formBuilder.group({
            
                 idBank:['',Validators.compose([Validators.required])],
@@ -168,7 +168,7 @@ export class BancoSeguroComponent  {
 
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar bancoSeguro"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -204,7 +204,7 @@ export class BancoSeguroComponent  {
                         this.message = "bancoSeguro editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar bancoSeguros"
+                    this.message = res.err.message
                 }
                 
             })
@@ -224,7 +224,7 @@ export class BancoSeguroComponent  {
                         this.message = "bancoSeguro Borrada"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })

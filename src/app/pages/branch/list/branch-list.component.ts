@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 import { ValidationService } from './../new/validation.service';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {config} from './../../../../config/project-config';
+import { config, messages } from './../../../../config/project-config';
 
 
 
@@ -33,6 +33,7 @@ export class BranchListComponent {
     public modalError;
     public schedules:any;
     days:any;
+    messages = messages;
 
     public cities;
 
@@ -81,8 +82,6 @@ export class BranchListComponent {
       this.http.delete(config.url+'branch/delete/'+this.branchId+'?access_token='+this.local.token).toPromise().then(result=>{
 
            let apiResult = result.json();
-           console.log(apiResult);
-           
            if(apiResult.msg == "OK"){
                this.toast = true;
 
@@ -93,7 +92,7 @@ export class BranchListComponent {
 
            }else{
                 this.error = true;
-               this.message ="No tiene privilegios para borrar usuarios";
+                this.message = apiResult.err.message
             
 
            }
@@ -106,7 +105,7 @@ export class BranchListComponent {
         this.branchService.branchList().then(result=>{
                     this.branchData = result.branches;
                     this.listBranchComplete = result.branches;
-                    console.log('branches from Api: ',this.branchData);
+                   
 
                     
                     
@@ -117,9 +116,6 @@ export class BranchListComponent {
     branchDetail(branch){
 
         this.branchId = branch._id;
-        console.log(this.branchId);
-        console.log(branch);
-        
         this.branchForm.setValue({name: branch.name, phone: branch.phone ,movil: branch.movil,idCity : branch.idCity,address: branch.address,schedule:branch.schedule});
         this.schedules = branch.schedule;
         
@@ -129,9 +125,6 @@ export class BranchListComponent {
 
     editBranch(){
             this.branchForm.controls['schedule'].setValue(this.schedules);
-            
-            console.log(this.branchForm.value)
-            console.log(this.branchId);
             this.http.post(config.url+'branch/edit/'+this.branchId+"?access_token="+this.local.token,this.branchForm.value).toPromise().then(result=>{
                 let apiResult = result.json(); 
 
@@ -140,7 +133,7 @@ export class BranchListComponent {
 
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar usuario"
+                    this.message = apiResult.err.message
                 }
 
                 
@@ -153,9 +146,6 @@ export class BranchListComponent {
             let search = this.searchTxt;
 
             let compleList = this.listBranchComplete;
-
-            console.log(search);
-            
             let q = search.toLowerCase();
             this.resultData = compleList.filter(result=>{
                 if(result.name.toLowerCase().indexOf(q) > -1){
@@ -171,7 +161,6 @@ export class BranchListComponent {
     idAssign(id){
 
             this.branchId = id;
-            console.log(this.branchId);
             
     }
 
@@ -179,8 +168,6 @@ export class BranchListComponent {
        
         this.http.get(config.url+'city/list?access_token='+this.local.token).toPromise().then(result=>{
                 let apiResult = result.json();
-                console.log(apiResult);
-                
                 this.cities = apiResult.cities;
 
                 
@@ -202,7 +189,6 @@ export class BranchListComponent {
          
      }
        deleteSchedule(index){
-         console.log(index);
          this.schedules.splice(index);
          
      }

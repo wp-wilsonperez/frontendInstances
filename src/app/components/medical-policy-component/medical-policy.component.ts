@@ -22,6 +22,7 @@ export class MedicalPolicyComponent implements OnInit {
     cars:any;
     paymentTypes:any;
     insurances:any;
+    businesses:any;
 
     constructor(public formBuilder:FormBuilder,public selectService:SelectService,public http:Http,public local:UserSessionService) {
      
@@ -29,11 +30,8 @@ export class MedicalPolicyComponent implements OnInit {
         this.polizaMedicalForm = this.formBuilder.group({
             policyNumber:[],
             idInsurance:[],
-            idRamo:[],
-            annexedNumber:[],
-            certificateNumber:[],
             idUser:[],
-            idClient:[],
+            idBusiness:[],
             idDeductible:[],
             insured:[],
             startDate:[],
@@ -44,8 +42,9 @@ export class MedicalPolicyComponent implements OnInit {
             idCity:[],
             dateAdmission:[],
             dateCancellation:[],
-            idPaymentType:[],
-            percentageRamo:[] 
+            percentageRamo:[] ,
+
+
             
         });
         this.selectService.loadUsers().then((res)=>{
@@ -75,6 +74,10 @@ export class MedicalPolicyComponent implements OnInit {
         this.selectService.loadInsurances().then((res)=>{
             this.insurances = res;
         })
+        this.selectService.loadBusiness().then((res)=>{
+            this.businesses = res;
+        })
+        
 
      }
 

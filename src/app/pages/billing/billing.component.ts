@@ -1,9 +1,11 @@
+import { messages } from './../../../config/project-config';
 import { Router } from '@angular/router';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -55,6 +57,7 @@ export class BillingComponent{
         public list:boolean = false;
         public create:boolean = true;
         itemPolicies:any =[];
+        messages = messages;
 
         public typeBillingOptions = [
             {
@@ -450,7 +453,7 @@ export class BillingComponent{
                         this.billingForm.reset();
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar billing"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -484,7 +487,7 @@ export class BillingComponent{
                         this.message = "billing editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar billings"
+                    this.message = res.err.message
                 }
                 
             })
@@ -504,7 +507,7 @@ export class BillingComponent{
                         this.message = "billing Borrado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })
@@ -568,7 +571,7 @@ export class BillingComponent{
                         this.itemPolicies = [];
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar billing"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);

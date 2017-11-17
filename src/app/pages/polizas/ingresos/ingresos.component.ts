@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { SelectService } from './../../../providers/select.service';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { config } from '../../../../config/project-config';
+import { config, messages } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
@@ -42,6 +42,7 @@ export class IngresoComponent  {
         filtered:boolean = false;
         recipients:any;
         incomesList= [];
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public select:SelectService ){
             
             

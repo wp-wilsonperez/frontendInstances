@@ -1,3 +1,4 @@
+import { messages } from './../../../../config/project-config';
 import { Observable } from 'rxjs';
 import { SelectService } from './../../../providers/select.service';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
@@ -42,6 +43,7 @@ export class RutaComponent  {
         filtered:boolean = false;
         recipients:any;
         routesList= [];
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public select:SelectService ){
             
             
@@ -199,7 +201,7 @@ export class RutaComponent  {
 
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar ruta"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -253,7 +255,7 @@ export class RutaComponent  {
                     this.message = "Ruta Editada"
             }else{
                 this.error = true;
-                this.message = "No tiene privilegios de editar"
+                this.message = res.err.message
             }
             
         })
@@ -273,7 +275,7 @@ export class RutaComponent  {
                         this.message = "Ruta Borrada"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })
@@ -391,7 +393,7 @@ export class RutaComponent  {
                         this.routesList = [];
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de Estatus"
+                    this.message = res.err.message
                 }
                 
             })
@@ -409,7 +411,7 @@ export class RutaComponent  {
                                     this.routesList = [];
                             }else{
                                 this.error = true;
-                                this.message = "No tiene privilegios de Estatus"
+                                this.message = res.err.message
                             }
                             
                         })
@@ -427,7 +429,7 @@ export class RutaComponent  {
                                                 this.routesList = [];
                                         }else{
                                             this.error = true;
-                                            this.message = "No tiene privilegios de Estatus"
+                                            this.message = res.err.message
                                         }
                                         
                                     })

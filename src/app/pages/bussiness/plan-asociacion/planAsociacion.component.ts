@@ -37,7 +37,8 @@ export class PlanAsociacionComponent{
             this.planAsociacionForm = this.formBuilder.group({
                 idPlan: ['',Validators.compose([Validators.required])],
                 idInsurance:['',Validators.compose([Validators.required])],
-                idRamo:['',Validators.compose([Validators.required])]           
+                idRamo:['',Validators.compose([Validators.required])]   ,
+                name: ['',Validators.compose([Validators.required])]       
               
             });
             this.editForm = this.formBuilder.group({
@@ -90,7 +91,7 @@ export class PlanAsociacionComponent{
         this.create = false;
         this.planAsociacionId = planAsociacion._id;
         
-        this.planAsociacionForm.setValue({idRamo: planAsociacion.idRamo,idInsurance:planAsociacion.idInsurance,idPlan:planAsociacion.idPlan});
+        this.planAsociacionForm.setValue({idRamo: planAsociacion.idRamo,idInsurance:planAsociacion.idInsurance,idPlan:planAsociacion.idPlan,name:planAsociacion.name});
         
         
         

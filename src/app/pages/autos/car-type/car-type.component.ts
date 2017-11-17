@@ -57,7 +57,7 @@ export class CarTypeComponent{
                         this.message = "Tipo de Carro guardado"
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar carType"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -91,7 +91,7 @@ export class CarTypeComponent{
                         this.message = "carType editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar Tipos de Carros"
+                    this.message = res.err.message
                 }
                 
             })
@@ -111,7 +111,7 @@ export class CarTypeComponent{
                         this.message = "Tipo de Carro Borrado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })

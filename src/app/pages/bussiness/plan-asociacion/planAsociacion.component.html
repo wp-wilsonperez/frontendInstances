@@ -24,7 +24,12 @@
 
                 <form [formGroup]="planAsociacionForm" class="row form-inline">
                                     <div class="form-group col-md-10 col-sm-6" [ngClass]="{}">
-                                        <div class="col-md-4">
+                                            <div class="col-md-3">
+                                                    <label for="">Nombre</label> 
+                                                    <input type="text" formControlName="name" class="form-group">
+                                                
+                                                </div>
+                                        <div class="col-md-3">
                                             <label for="">Plan</label> 
                                             <ng-select
                                                 [(options)]="plans"
@@ -34,7 +39,7 @@
                                             </ng-select>
                                              
                                         </div>
-                                        <div class="col-md-4"> 
+                                        <div class="col-md-3"> 
                                             <label for="">Ramo</label>
                                              <ng-select
                                                 [(options)]="ramos"
@@ -43,7 +48,7 @@
                                                 formControlName="idRamo">
                                             </ng-select>
                                         </div>
-                                        <div class="col-md-4"> 
+                                        <div class="col-md-3"> 
                                             <label for="">Aseguradora</label>
                                                 <ng-select
                                                    [(options)]="insurances"
@@ -75,6 +80,7 @@
                     <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>
                             <tr>
+                                <th>Nombre</th>
                                 <th> <mfDefaultSorter by="name">Plan</mfDefaultSorter></th>      
                                 <th> <mfDefaultSorter by="name">Ramo</mfDefaultSorter></th>  
                                 <th> <mfDefaultSorter by="name">Aseguradora</mfDefaultSorter></th>                             
@@ -87,6 +93,7 @@
                         <tbody>                           
 
                             <tr *ngFor="let planAsociacion of planAsociacions">
+                                    <td><strong>  {{planAsociacion.name}}   </strong></td>
                                 <td><strong>  {{planAsociacion.plan.name}}   </strong></td>
                                 <td><strong>  {{planAsociacion.ramo.name}}   </strong></td>
                                 <td><strong>  {{planAsociacion.insurance.bussinesName}}   </strong></td>

@@ -1,3 +1,4 @@
+import { messages } from './../../../../config/project-config';
 import { SelectService } from './../../../providers/select.service';
 import { Router } from '@angular/router';
 import { Component, ViewEncapsulation } from '@angular/core';
@@ -44,6 +45,7 @@ export class NotaCreditoComponent{
 
          public citiesOptions:any = [];
         public cities:any;
+        messages = messages;
 
         error:any;
         toast:boolean = false;
@@ -193,7 +195,7 @@ export class NotaCreditoComponent{
                         this.notaCreditoForm.reset();
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar notaCredito"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -227,7 +229,7 @@ export class NotaCreditoComponent{
                         this.message = "notaCredito editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar notaCreditos"
+                    this.message = res.err.message
                 }
                 
             })
@@ -249,7 +251,7 @@ export class NotaCreditoComponent{
                         this.message = "Nota Credito Borrada"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })

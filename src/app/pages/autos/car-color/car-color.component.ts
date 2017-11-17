@@ -57,7 +57,7 @@ export class CarColorComponent{
                         this.message = "Color guardado"
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar Color"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -91,7 +91,7 @@ export class CarColorComponent{
                         this.message = "Color editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar Color"
+                    this.message = res.err.message
                 }
                 
             })
@@ -111,7 +111,7 @@ export class CarColorComponent{
                         this.message = "Color Borrado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })

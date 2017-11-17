@@ -537,14 +537,7 @@ export const menuItems = [
         disabled: true,
         selected: false,
         expanded: false
-      },
-      {
-        title: 'Listado Polizas Medicas',
-        routerLink: 'polizas/polizas-medicas',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
+      }
 
   
       

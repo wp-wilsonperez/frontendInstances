@@ -1,206 +1,175 @@
 <h2>Poliza Medica</h2>
 <form  [formGroup]="polizaMedicalForm"  class="row">
     <div class="col-md-6">
-        <div class="form-group">
-
-            <label for="exampleSelect1"> Numero de Poliza</label>
-            <input  type="text" formControlName="policyNumber" class="form-control">
-                
-
-        </div>
-
-        <div class="form-group">
-
-            <label for="exampleSelect1">Certificado</label>
-            <input  type="text" formControlName="policyNumber" class="form-control">
-                
-
-        </div>
-
-        <div class="form-group">
-
-            <label for="exampleSelect1">Cliente</label>
-            <ng-select
-                [(options)]="clients"
-                [placeholder]="Clientes"
-                [multiple]="false"
-                formControlName="idClient">
-            </ng-select>
-                
-
-        </div>
-
-        <div class="form-group">
-
-            <label for="exampleSelect1">Grupo Cliente</label>
-            <input  type="text" formControlName="policyNumber" class="form-control">
-                
-
-        </div>
-
-        <div class="form-group">
-
-            <label for="exampleSelect1">Vigencia Inicio</label>
-            <input  type="date" formControlName="startDate" class="form-control">
-                
-
-        </div>
-
-        <div class="form-group">
-
-            <label for="exampleSelect1">Forma de poliza Medica</label>
-            <ng-select
-                [(options)]="policyTypes"
-                [placeholder]="Types"
-                [multiple]="false"
-                formControlName="idPolicyType">
-            </ng-select>
-                
-
-        </div>
-
-        <div class="form-group">
-
-            <label for="exampleSelect1">Forma  de Pago</label>
-
-            
-            <ng-select
-                [(options)]="paymentTypes"
-                [placeholder]="Types"
-                [multiple]="false"
-                formControlName="idPaymentType">
-            </ng-select>
-        </div>
-
-        <div class="form-group">
-
-            <label for="exampleSelect1">Ciudad</label>
-            <ng-select
-                [(options)]="cities"
-                [placeholder]="Ciudades"
-                [multiple]="false"
-                formControlName="idCity">
-            </ng-select>
-        </div>
-
-
-    
-
-                                
         
-    </div>
+     <div class="form-group">
 
-    <div class="col-md-6">
+         <label for="exampleSelect1">Poliza Numero</label>
+         <input  type="text" formControlName="policyNumber" class="form-control">
+             
 
-        <div class="form-group">
+     </div>
 
-            <label for="exampleSelect1">Anexo</label>
-            <input  type="text" formControlName="policyNumber" class="form-control">
-                                        
 
-        </div>
 
-        <div class="form-group">
+     <div class="form-group">
 
-            <label for="exampleSelect1">Aseguradora</label>
-        <ng-select
-                (selected)="getTasa()"
-                [(options)]="insurances"
-                [placeholder]="Aseguradoras"
-                [multiple]="false"
-                formControlName="idInsurance">
-            </ng-select>
-                
+         <label for="exampleSelect1">Empresa</label>
+         <ng-select
+             [(options)]="businesses"
+             [placeholder]=""
+             [multiple]="false"
+             formControlName="idBusiness">
+         </ng-select>
+             
 
-        </div>
+     </div>
 
-        <div class="form-group">
 
-            <label for="exampleSelect1">Porcentaje</label>
-            <input type="text" formControlName="percentageRamo" class="form-control">
-                
+     <div class="form-group">
 
-        </div>
+         <label for="exampleSelect1">Vigencia Inicio</label>
+         <input  type="date" formControlName="startDate" class="form-control">
+             
 
-        <div class="form-group">
+     </div>
 
-            <label for="exampleSelect1">Deducible</label>
-            <ng-select
-                
-                [(options)]="deductibles"
-                [placeholder]="Deducibles"
-                [multiple]="false"
-                formControlName="idDeductible">
-            </ng-select>
-                
+     <div class="form-group">
 
-        </div>
+         <label for="exampleSelect1">Forma Poliza</label>
+         <ng-select
+             [(options)]="policyTypes"
+             [placeholder]="Types"
+             [multiple]="false"
+             formControlName="idPolicyType">
+         </ng-select>
+             
 
-        <div class="form-group">
+     </div>
 
-            <label for="exampleSelect1">Agente</label>
-            <ng-select
-                [(options)]="users"
-                [placeholder]="Usuarios"
-                [multiple]="false"
-                formControlName="idUser">
-            </ng-select>
-                
 
-        </div>
+     <div class="form-group">
 
-        <div class="form-group">
+         <label for="exampleSelect1">Ciudad</label>
+         <ng-select
+             [(options)]="cities"
+             [placeholder]="Ciudades"
+             [multiple]="false"
+             formControlName="idCity">
+         </ng-select>
+     </div>
 
-            <label for="exampleSelect1">Asegurado</label>
-            <input  type="text" formControlName="insured" class="form-control">
-                
 
-        </div>
+ 
 
-        <div class="form-group">
+                             
+     
+ </div>
 
-            <label for="exampleSelect1">Vigencia Final</label>
-            <input (blur)="getDiffDates()"  type="date" formControlName="finishDate" class="form-control">
-                
+ <div class="col-md-6">
 
-        </div>
 
-        <div class="from-group">    
-            <label for="exampleSelect1">DiasVigencia </label>
-            <input type="text" formControlName="daysofValidity" class="form-control">
-        </div>
+     <div class="form-group">
 
-        <div class="form-group">
+         <label for="exampleSelect1">Aseguradora</label>
+     <ng-select
 
-            <label for="exampleSelect1">Frecuencia de Pago</label>
-            <ng-select
-                [(options)]="frecuencyPayments"
-                [placeholder]="Frecuencia"
-                [multiple]="false"
-                formControlName="idFrequencyPayment">
-            </ng-select>
-                
+             (selected)="getTasa()"
+             [(options)]="insurances"
+             [placeholder]="Aseguradoras"
+             [multiple]="false"
+             formControlName="idInsurance">
+         </ng-select>
+             
 
-        </div>
-        <div class="form-group">
+     </div>
 
-            <label for="exampleSelect1">Fecha Ingreso</label>
-            <input  type="date" formControlName="dateAdmission" class="form-control">
-                
+     <div class="form-group">
 
-        </div>
+         <label for="exampleSelect1">Porcentaje</label>
+         <input type="text" formControlName="percentageRamo" class="form-control">
+             
 
-        <div class="form-group">
+     </div>
 
-            <label for="exampleSelect1">Fecha Anulacion</label>
-            <input  type="date" formControlName="dateCancellation" class="form-control">
-                
+     <div class="form-group">
 
-        </div>
+         <label for="exampleSelect1">Deducible</label>
+         <ng-select
+             
+             [(options)]="deductibles"
+             [placeholder]="Deducibles"
+             [multiple]="false"
+             formControlName="idDeductible">
+         </ng-select>
+             
 
-    
-    </div>
+     </div>
 
+     <div class="form-group">
+
+         <label for="exampleSelect1">Agente</label>
+         <ng-select
+             [(options)]="users"
+             [placeholder]="Usuarios"
+             [multiple]="false"
+             formControlName="idUser">
+         </ng-select>
+             
+
+     </div>
+
+     <div class="form-group">
+
+         <label for="exampleSelect1">Asegurado</label>
+         <input  type="text" formControlName="insured" class="form-control">
+             
+
+     </div>
+
+     <div class="form-group">
+
+         <label for="exampleSelect1">Vigencia Final</label>
+         <input  type="date" formControlName="finishDate" (blur)="getDiffDates()" class="form-control">
+             
+
+     </div>
+
+     <div class="from-group">    
+         <label for="exampleSelect1">DiasVigencia </label>
+         <input type="text" formControlName="daysofValidity" class="form-control">
+     </div>
+
+     <div class="form-group">
+
+         <label for="exampleSelect1">Frecuencia de Pago</label>
+         <ng-select
+             [(options)]="frecuencias"
+             [placeholder]="Frecuencia"
+             [multiple]="false"
+             formControlName="idFrequencyPayment">
+         </ng-select>
+             
+
+     </div>
+     <div class="form-group">
+
+         <label for="exampleSelect1">Fecha Ingreso</label>
+         <input  type="date" formControlName="dateAdmission" class="form-control">
+             
+
+     </div>
+
+     <div class="form-group">
+
+         <label for="exampleSelect1">Fecha Anulacion</label>
+         <input  type="date" formControlName="dateCancellation" class="form-control">
+             
+
+     </div>
+
+ 
+ </div>
 
 
 

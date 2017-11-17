@@ -59,7 +59,7 @@ export class BancoComponent{
                         this.message = "Banco guardado"
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar banco"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -93,7 +93,7 @@ export class BancoComponent{
                         this.message = "Banco editado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar Bancos"
+                    this.message = res.err.message
                 }
                 
             })
@@ -113,7 +113,7 @@ export class BancoComponent{
                         this.message = "Banco Borrado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })

@@ -1,3 +1,4 @@
+import { messages } from './../../../../config/project-config';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
@@ -47,6 +48,7 @@ export class BillingPolicyComponent{
         messageCar:string;
         iva:any;
         totalPrima:any;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute ){
         
             this.billingPolicyForm = this.formBuilder.group({
@@ -183,7 +185,7 @@ export class BillingPolicyComponent{
                         this.itemAnnexCarForm.reset();
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar elementos autos"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -204,7 +206,7 @@ export class BillingPolicyComponent{
                         this.itemExtraForm.reset();
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar elementos autos"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -246,7 +248,7 @@ export class BillingPolicyComponent{
                         this.billingPolicyForm.reset();
                 }else{
                       this.error = true;
-                    this.message = "No tiene privilegios de guardar billingPolicy"
+                      this.message = res.err.message
                    
                 }
                 console.log(res);
@@ -296,7 +298,7 @@ export class BillingPolicyComponent{
                         this.billingPolicyForm.reset();
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar billingPolicys"
+                    this.message = res.err.message
                 }
                 
             })
@@ -316,7 +318,7 @@ export class BillingPolicyComponent{
                         this.message = "billingPolicy Borrado"
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })
@@ -332,7 +334,7 @@ export class BillingPolicyComponent{
                         this.itemCarAnnexs = res.update; 
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de borrar"
+                    this.message = res.err.message
                 }
                 
             })
