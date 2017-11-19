@@ -447,7 +447,7 @@ export class PolizaComponent{
                         policyNumber:poliza.policyNumber,
                         idInsurance:poliza.idInsurance,
                         idUser:poliza.idUser,
-                        idBusiness:'',
+                        idBusiness:poliza.idBusiness,
                         idDeductible:poliza.idDeductible,
                         insured:poliza.insured,
                         startDate:poliza.startDate,
