@@ -244,7 +244,7 @@ export class RolsListComponent {
 
 
      //car
-     public carTypeTypeList = '';
+     public carrTypeList = '';
     public carList:boolean = false;
     public carCreate:boolean = false;
     public carEdit:boolean = false;
@@ -307,7 +307,7 @@ export class RolsListComponent {
     public policyReport:boolean = false;
 
       //renovations
-
+      public renovationTypeList= '';
       public renovationList:boolean = false;
       public renovationCreate:boolean = false;
       public renovationEdit:boolean = false;
@@ -382,6 +382,8 @@ export class RolsListComponent {
      public clearenceTimeEdit:boolean = false;
      public clearenceTimeDelete:boolean = false;
      public clearenceTimeEnable:boolean = false;
+
+
 
 
 
@@ -788,11 +790,12 @@ export class RolsListComponent {
 
             this.controllers = apiResult.module.controllers;     
             this.grant = apiResult.grant; 
-            console.log(this.grant);
-
+            console.log('este es el grant',this.grant);
+       
             //user
             if(this.grant.user != undefined){
 
+                this.userTypeList  = this.grant.user.typeList;
                 this.grant.user.list == true ? this.userList = true: this.userList = false;
                 this.grant.user.add  == true? this.userCreate = true:this.userCreate = false; 
                 this.grant.user.edit == true? this.userEdit = true:this.userEdit = false;
@@ -804,6 +807,7 @@ export class RolsListComponent {
 
             //roles
             if(this.grant.role != undefined){
+                    this.rolTypeList  = this.grant.role.typeList;
                      this.grant.role.list == true ? this.rolList = true:this.rolList = false;
                     this.grant.role.add   == true ? this.rolCreate = true: this.rolCreate = false; 
                     this.grant.role.edit  == true ? this.rolEdit = true:this.rolEdit = false;
@@ -816,6 +820,7 @@ export class RolsListComponent {
 
             //sucursales
              if(this.grant.branch != undefined){
+              this.branchTypeList  = this.grant.branch.typeList;
                  this.grant.branch.list == true ? this.branchList = true:this.branchList = false;
                 this.grant.branch.add   == true ? this.branchCreate = true: this.branchCreate = false; 
                 this.grant.branch.edit  == true ? this.branchEdit = true:this.branchEdit = false;
@@ -827,6 +832,7 @@ export class RolsListComponent {
 
              //city
              if(this.grant.city != undefined){
+              this.cityTypeList  = this.grant.city.typeList;
                 this.grant.city.list == true ?  this.cityList =true:   this.cityList = false;
                 this.grant.city.add   == true ?this.cityCreate= true: this.cityCreate = false; 
                 this.grant.city.edit  == true ?this.cityEdit =true:   this.cityEdit = false;
@@ -836,6 +842,7 @@ export class RolsListComponent {
 
               //Setting
              if(this.grant.setting != undefined){
+              this.settingTypeList  = this.grant.setting.typeList;
                 this.grant.setting.view == true ?   this.settingList = true:    this.settingList = false;
                 this.grant.setting.add   == true ?  this.settingCreate = true:  this.settingCreate = false; 
                 this.grant.setting.edit  == true ?  this.settingEdit = true:    this.settingEdit = false;
@@ -845,6 +852,7 @@ export class RolsListComponent {
 
               //account
              if(this.grant.account != undefined){
+              this.accountTypeList  = this.grant.account.typeList;
                 this.grant.account.view == true ?   this.accountList = true:    this.accountList = false;
                 this.grant.account.add   == true ?  this.accountCreate = true:  this.accountCreate = false; 
                 this.grant.account.edit  == true ?  this.accountEdit = true:    this.accountEdit = false;
@@ -854,6 +862,7 @@ export class RolsListComponent {
 
              //insurance
              if(this.grant.insurance != undefined){
+              this.insuranceTypeList  = this.grant.insurance.typeList;
                 this.grant.insurance.list == true ?   this.insuranceList = true:    this.insuranceList = false;
                 this.grant.insurance.add   == true ?  this.insuranceCreate = true:  this.insuranceCreate = false; 
                 this.grant.insurance.edit  == true ?  this.insuranceEdit = true:    this.insuranceEdit = false;
