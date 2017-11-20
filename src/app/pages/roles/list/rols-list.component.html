@@ -86,15 +86,16 @@
                                                                                                     <div  class="list-group-item list-group-item-action"> 
                                                                                                         
                                                                                                         
-                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading">Usuarios </h5></div>
+                                                                                                            <div  class="col-md-2"> <h5 class="list-group-item-heading">Usuarios </h5></div>
 
-                                                                                                        
-                                                                                                                <ng-select
-                                                                                                                    [(options)]="typeList"
-                                                                                                                    [placeholder]="typeListLabel"
-                                                                                                                    [(ngModel)]="userTypeList"
-                                                                                                                >  
-                                                                                                                </ng-select>                                                                                                                       
+                                                                                                                <div class="col-md-12 form-group">
+                                                                                                                     
+
+                                                                                                                </div>
+
+                                                                                                              
+                                                                                                            
+                                                                                                                
                                                                                                                
                                                                                                                
                                                                                                         
@@ -129,12 +130,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Roles </h5></div>
 
-                                                                                                                <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="rolTypeList"
-                                                                                                            >  
-                                                                                                            </ng-select>   
+                                                                                                    
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="rolList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -174,12 +170,10 @@
                                                                                                         
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Empresas </h5></div>
-                                                                                                          <ng-select
-                                                                                                                    [(options)]="typeList"
-                                                                                                                    [placeholder]="typeListLabel"
-                                                                                                                    [(ngModel)]="branchTypeList"
-                                                                                                                >  
-                                                                                                             </ng-select>   
+                                                                                                        <div class="col-md-12 form-group">
+                                                                                                              
+
+                                                                                                        </div>
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="businessList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -212,12 +206,10 @@
                                                                                                         
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Ciudades</h5></div>
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="cityTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                        <div class="col-md-12 form-group">
+                                                                                                             
+
+                                                                                                        </div>
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="cityList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -249,12 +241,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Configuracion</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="settingTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                      
                                                                                                        
                                                                                                        <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="logList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -293,12 +280,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Cuenta</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="accountTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                   
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="accountList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -331,12 +313,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Aseguradoras</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="insuranceTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                      
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="insuranceList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -380,13 +357,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Ramo</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="ramoTypeList"
-                                                                                                            
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                      
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="ramoList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -424,12 +395,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Porcentaje Ramo</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="porcentajeTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                     
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="porcentajeList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -467,13 +433,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Deducible</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="deductibleTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
-                                                                                                       
+                                                                                                   
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="deductibleList" type="checkbox" class="checkbox-circle">                                                                                                                           
                                                                                                                             <span class="custom-control-description">Listado</span>
@@ -511,12 +471,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Bancos</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="bankTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                      
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="bankList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -555,12 +510,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Tasas</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="tasaTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                        
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="tasaList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -599,12 +549,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Tipos de Pago</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="paymentTypeTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                      
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="paymentTypeList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -643,12 +588,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Presupuestos</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="quoteTypeList"
-                                                                                                            >  
-                                                                                                            </ng-select>   
+                                                                                                       
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="quoteList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -687,12 +627,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Issue</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="issueTypeList"
-                                                                                                            >  
-                                                                                                            </ng-select>   
+                                                                                                       
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="issueList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -731,12 +666,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Clientes</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="clientTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                      
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="clientList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -777,13 +707,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Formato de Accidente</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="letterAccidentTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
-                                                                                                       
+                                                                                                      
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="letterAccidentList" type="checkbox" class="checkbox-circle">                                                                                                                           
                                                                                                                             <span class="custom-control-description">Listado</span>
@@ -821,12 +745,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Links de Ayuda</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                        [(options)]="typeList"
-                                                                                                        [placeholder]="typeListLabel"
-                                                                                                        [(ngModel)]="helpLinkTypeList"
-                                                                                                    >  
-                                                                                                    </ng-select>   
+                                                                                                       
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="helpLinkList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -864,12 +783,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Estatus Marital</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="maritalStatusTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                        
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="maritalStatusList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -908,12 +822,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Marca de Carro</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="carBrandTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                       
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="carBrandList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -931,12 +840,7 @@
                                                                                                         
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Modelo de Carro</h5></div>
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="carModelTypeList"
-                                                                                                            >  
-                                                                                                        </ng-select>  
+                                                                                                    
                                                                                                             
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="carModelList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -957,12 +861,7 @@
 
 
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="typeClientTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                     
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="typeClientList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1001,13 +900,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Carros</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="carrTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
-                                                                                                        
+                                                                                                     
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="carList" type="checkbox" class="checkbox-circle">                                                                                                                           
                                                                                                                             <span class="custom-control-description">Listado</span>
@@ -1044,12 +937,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Marca de Carros</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="carBrandTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                      
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="carBrandList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1086,13 +974,7 @@
                                                                                                         
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Color Carros</h5></div>
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="carColorTypeList"
-                                                                                                            >  
-                                                                                                        </ng-select>  
-                                                                                                       
+                                                                                                   
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="carColorList" type="checkbox" class="checkbox-circle">                                                                                                                           
                                                                                                                             <span class="custom-control-description">Listado</span>
@@ -1132,12 +1014,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Tipos Carros</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="carTypeTypeList"
-                                                                                                            >  
-                                                                                                        </ng-select>  
+                                                                                                      
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="carTypeList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1172,13 +1049,7 @@
                                                                                                     </div>
                                                                                                      <div  class="list-group-item list-group-item-action"> 
 
-                                                                                                            <ng-select
-                                                                                                                    [(options)]="typeList"
-                                                                                                                    [placeholder]="typeListLabel"
-                                                                                                                    [(ngModel)]="carModelTypeList"
-                                                                                                                >  
-                                                                                                            </ng-select>  
-                                                                                                        
+                                                                                                         
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Modelos Carros</h5></div>
                                                                                                        
@@ -1217,12 +1088,9 @@
 
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Polizas</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="policyTypeList"
-                                                                                                            >  
-                                                                                                        </ng-select>  
+                                                                                                        <select class="form-control"  [(ngModel)]="policyTypeList" name="" id="">
+                                                                                                                <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
+                                                                                                        </select> 
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="policyList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1264,12 +1132,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Tipos Polizas</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="policyTypeTypeList"
-                                                                                                            >  
-                                                                                                        </ng-select>  
+                                                                                                    
                                                                                                             
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="policyTypeList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1310,12 +1173,9 @@
                                                                                                                 
                                                                                                                 <div  class="col-md-2"> <h5 class="list-group-item-heading">Cartera</h5></div>
         
-                                                                                                                <ng-select
-                                                                                                                        [(options)]="typeList"
-                                                                                                                        [placeholder]="typeListLabel"
-                                                                                                                        [(ngModel)]="walletTypeList"
-                                                                                                                    >  
-                                                                                                                </ng-select>  
+                                                                                                                <select class="form-control"  [(ngModel)]="walletTypeList" name="" id="">
+                                                                                                                        <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
+                                                                                                                </select>
                                                                                                                     
                                                                                                                 <div   class="col-md-2"> 
                                                                                                                                     <input [(ngModel)]="walletList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1356,12 +1216,6 @@
                                                                                                                     
                                                                                                                     <div  class="col-md-2"> <h5 class="list-group-item-heading">Renovaciones</h5></div>
             
-                                                                                                                    <ng-select
-                                                                                                                            [(options)]="typeList"
-                                                                                                                            [placeholder]="typeListLabel"
-                                                                                                                            [(ngModel)]="renovationTypeList"
-                                                                                                                        >  
-                                                                                                                    </ng-select>  
                                                                                                                         
                                                                                                                     <div   class="col-md-2"> 
                                                                                                                                         <input [(ngModel)]="renovationList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1402,12 +1256,7 @@
                                                                                                                     
                                                                                                                     <div  class="col-md-2"> <h5 class="list-group-item-heading">Notas de Credito</h5></div>
             
-                                                                                                                    <ng-select
-                                                                                                                            [(options)]="typeList"
-                                                                                                                            [placeholder]="typeListLabel"
-                                                                                                                            [(ngModel)]="creditNoteTypeList"
-                                                                                                                        >  
-                                                                                                                    </ng-select>  
+                                                                                                                  
                                                                                                                         
                                                                                                                     <div   class="col-md-2"> 
                                                                                                                                         <input [(ngModel)]="creditNotesList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1450,13 +1299,7 @@
 
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Anexo Poliza</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="policyAnnexTypeList"
-                                                                                                            >  
-                                                                                                        </ng-select>  
-                                                                                                       
+                                                                                                     
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="policyAnnexList" type="checkbox" class="checkbox-circle">                                                                                                                           
                                                                                                                             <span class="custom-control-description">Listado</span>
@@ -1490,12 +1333,9 @@
 
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Facturacion</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="billingTypeList"
-                                                                                                            >  
-                                                                                                        </ng-select>  
+                                                                                                        <select class="form-control"  [(ngModel)]="billingTypeList" name="" id="">
+                                                                                                                <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
+                                                                                                        </select>
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="billingList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1532,12 +1372,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Tipos Polizas</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="policyTypeTypeList"
-                                                                                                            >  
-                                                                                                        </ng-select>  
+                                                                                                    
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="policyTypeList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1577,12 +1412,9 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Ingresos</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="incomeTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                        <select class="form-control"  [(ngModel)]="incomeTypeList" name="" id="">
+                                                                                                                <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
+                                                                                                        </select> 
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="incomeList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1622,12 +1454,9 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Rutas</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="routeTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                        <select class="form-control"  [(ngModel)]="routeTypeList" name="" id="">
+                                                                                                                <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
+                                                                                                        </select>  
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="routeList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1667,12 +1496,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Frecuencia de Pago</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="frecuencyPaymentTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                     
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="frequencyPaymentList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1711,12 +1535,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Banco Seguro</h5></div>
 
-                                                                                                                <ng-select
-                                                                                                                [(options)]="typeList"
-                                                                                                                [placeholder]="typeListLabel"
-                                                                                                                [(ngModel)]="bankInsuranceTypeList"
-                                                                                                            >  
-                                                                                                            </ng-select>  
+                                                                                                    
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="bankInsuranceList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1755,12 +1574,9 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Siniestro</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]="sinisterTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                        <select class="form-control"  [(ngModel)]="sinisterTypeList" name="" id="">
+                                                                                                                <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
+                                                                                                        </select>    
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="sinisterList" type="checkbox" class="checkbox-circle">                                                                                                                           
@@ -1801,12 +1617,9 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Tiempo de Liquidaciones</h5></div>
 
-                                                                                                        <ng-select
-                                                                                                            [(options)]="typeList"
-                                                                                                            [placeholder]="typeListLabel"
-                                                                                                            [(ngModel)]=" clearanceTimeTypeList"
-                                                                                                        >  
-                                                                                                        </ng-select>   
+                                                                                                        <select class="form-control"  [(ngModel)]="clearanceTypeList" name="" id="">
+                                                                                                                <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
+                                                                                                        </select>  
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="clearenceTimeList" type="checkbox" class="checkbox-circle">                                                                                                                           

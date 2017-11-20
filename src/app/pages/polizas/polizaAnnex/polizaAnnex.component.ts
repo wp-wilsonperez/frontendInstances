@@ -426,8 +426,8 @@ export class PolizaAnnexComponent{
         return result.json();
 
         }).subscribe((res)=>{
-            this.iva = res.setting.iva;
-            this.polizaAnnexForm.controls['iva'].setValue(this.iva);
+           // this.iva = res.setting.iva;
+            //this.polizaAnnexForm.controls['iva'].setValue(this.iva);
             console.log('settings',res);
             
             

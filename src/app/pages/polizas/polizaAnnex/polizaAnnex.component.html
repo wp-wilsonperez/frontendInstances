@@ -25,35 +25,47 @@
                             <strong>{{message}}</strong> 
                         </div>
                 
-                         <form [formGroup]="polizaAnnexForm" class="row form-inline">
+                         <form [formGroup]="polizaAnnexForm">
                                     <div class="form-group col-md-10" [ngClass]="{}">
                                         <div class="row">
-                                            <div class="col-md-4"> <input type="text" formControlName="annexNumber" class="form-control" placeholder="N. Anexo"></div>
-                                            <div class="col-md-4"> <input type="text" formControlName="certificateNumber" class="form-control" placeholder="N. Certificado"></div>
-                                            <div class="col-md-4"> <input type="text" (input)="getValorTotal()" disabled formControlName="totalPrima" class="form-control" placeholder="Total Prima"></div>
+
+                                            <div class="col-md-6"> <input type="text" formControlName="annexNumber" class="form-control" placeholder="N. Anexo"></div>
+                                            <div class="col-md-6"> <input type="text" formControlName="certificateNumber" class="form-control" placeholder="N. Certificado"></div>
+                                          
                                         </div>
+                                        <br/>
                                          <div class="row">
-                                            <div class="col-md-4"> <input type="text" formControlName="detailAnnex" class="form-control" placeholder="Detalle"></div>
-                                            <div class="col-md-4"> <input type="text" (input)="getValorTotal()" formControlName="superBank" class="form-control" placeholder="Super"></div>
-                                            <div class="col-md-4"> <input type="text" disabled formControlName="iva" class="form-control" placeholder="Iva"></div>
+                                            <div class="col-md-12"> <input type="text" formControlName="detailAnnex" class="form-control" placeholder="Detalle"></div>
+         
                                         </div>
+                                        <br/>
                                         <div class="row">
-                                            <div class="col-md-4"> <input type="text" (input)="getValorTotal()" formControlName="segCamp" class="form-control" placeholder="S. Campesino"></div>
-                                            <div class="col-md-4"> <input type="text" (input)="getValorTotal()" formControlName="valueIssue" class="form-control" placeholder="V. Issue"></div>
-                                            <div class="col-md-4"> <input type="text" disabled formControlName="totalValue" class="form-control" placeholder="V. Total"></div>
+                                            <div class="col-md-4"> </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4"> <input type="number" formControlName="totalValue" class="form-control" placeholder="V. Total"></div>
                                         </div>
                                         
                                     </div>
                                       
                                  
-                                
-                                    <div class="form-group col-md-2 col-sm-6" *ngIf="create">
-                                        <button [disabled]="!polizaAnnexForm.valid" (click)="savePolizaAnnex()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
+                                    <div class="row">
+                                            <div class="form-group col-md-2 col-sm-6" *ngIf="create">
+                                                    <button [disabled]="!polizaAnnexForm.valid" (click)="savePolizaAnnex()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
+                                                </div>
+                                                
+                                                <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
+                                                    <button [disabled]="!polizaAnnexForm.valid" (click)="editpolizaAnnex()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
+                                                </div>
+
                                     </div>
-                                    
-                                    <div class="form-group col-md-2 col-sm-6" *ngIf="!create">
-                                        <button [disabled]="!polizaAnnexForm.valid" (click)="editpolizaAnnex()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
-                                    </div>
+                                        <div class="row">
+                                                <div class="form-group col-md-2 col-sm-6">
+                                                        <input type="file">
+                                                        
+                                                    </div>
+                                                    
+                                        </div>
+                                   
                 </form>  
                 <div style="padding-top: 10px;"class="table-responsive datatable">
                     <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
