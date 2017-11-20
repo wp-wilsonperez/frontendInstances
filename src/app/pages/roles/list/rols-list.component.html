@@ -1088,7 +1088,7 @@
 
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Polizas</h5></div>
 
-                                                                                                        <select class="form-control"  [(ngModel)]="policyTypeList" name="" id="">
+                                                                                                        <select class="form-control"  [(ngModel)]="policyTypeTypeList">
                                                                                                                 <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
                                                                                                         </select> 
                                                                                                        
@@ -1617,9 +1617,7 @@
                                                                                                         
                                                                                                         <div  class="col-md-2"> <h5 class="list-group-item-heading">Tiempo de Liquidaciones</h5></div>
 
-                                                                                                        <select class="form-control"  [(ngModel)]="clearanceTypeList" name="" id="">
-                                                                                                                <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
-                                                                                                        </select>  
+                                                                                                      
                                                                                                        
                                                                                                         <div   class="col-md-2"> 
                                                                                                                          <input [(ngModel)]="clearenceTimeList" type="checkbox" class="checkbox-circle">                                                                                                                           

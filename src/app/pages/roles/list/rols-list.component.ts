@@ -1061,7 +1061,7 @@ export class RolsListComponent {
 
               //policy
              if(this.grant.policy != undefined){
-              this.policyTypeList  = this.grant.policy.typeList;
+                this.policyTypeTypeList  = this.grant.policy.typeList;
                 this.grant.policy.list == true ?   this.policyList = true:    this.policyList = false;
                 this.grant.policy.add   == true ?  this.policyCreate = true:  this.policyCreate = false; 
                 this.grant.policy.edit  == true ?  this.policyEdit = true:    this.policyEdit = false;
@@ -1204,6 +1204,7 @@ export class RolsListComponent {
              }
 
              if(this.grant.sinister != undefined){
+              this.sinisterTypeList  = this.grant.sinister.typeList;
                 this.grant.sinister.list == true ?   this.sinisterList = true:    this.sinisterList = false;
                 this.grant.sinister.add   == true ?  this.sinisterCreate = true:  this.sinisterCreate = false; 
                 this.grant.sinister.edit  == true ?  this.sinisterEdit = true:    this.sinisterEdit = false;
@@ -1562,7 +1563,7 @@ export class RolsListComponent {
         this.routeReport?requestTwo.route['report'] = true:null
 
          //policy
-         requestTwo.policy['typeList'] = this.policyTypeList; 
+         requestTwo.policy['typeList'] = this.policyTypeTypeList; 
         this.policyList?requestTwo.policy['list'] = true:null;
         this.policyCreate?requestTwo.policy['add'] = true:null;
         this.policyEdit?requestTwo.policy['edit'] = true:null;
