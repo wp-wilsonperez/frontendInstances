@@ -641,6 +641,17 @@ export const menuItems = [
       
     ]
   },
+
+  // Reportes
+  
+  // SUBITEMS
+  
+  // Reporte Pólizas
+  // Reporte Renovaciones
+  // Reporte Facturación
+  // Reporte Siniestros
+  // Reporte Cartera
+  // Reporte Super Compañias
    {
     title: 'Siniestros',
     routerLink: 'siniestros',
@@ -690,6 +701,62 @@ export const menuItems = [
       {
         title: 'Estados',
         routerLink: 'siniestros/state',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      
+    ]
+  },
+  {
+    title: 'Reportes',
+    routerLink: 'reportes',
+
+    icon: 'fa-chart',
+
+    selected: false,
+    expanded: false,
+    order: 0,
+    subMenu: [
+
+      {
+        title: 'Reporte Pólizas',
+        routerLink: 'siniestros/listado',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Reporte Renovaciones',
+        routerLink: 'siniestros/medicos',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Reporte Facturación',
+        routerLink: '',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Reporte Siniestros',
+        routerLink: '',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Reporte Cartera',
+        routerLink: '',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
+        title: 'Reporte Super Compañias',
+        routerLink: '',
         disabled: true,
         selected: false,
         expanded: false

@@ -105,12 +105,12 @@
                                                 </div>
                                                  <div class="form-group"> 
                                                     <label>Pagos Iguales</label>
-                                                    <input type="number" formControlName="equalPayments" class="form-control" placeholder="Pagos Iguales">
+                                                    <input (input)="changeEqualPayments()" type="number" formControlName="equalPayments" class="form-control" placeholder="Pagos Iguales">
                                                 </div>
 
                                                 <div class="form-group"> 
                                                     <label>Valor de Pagos Iguales</label>
-                                                    <input type="number" formControlName="valueEqualPayments" class="form-control" placeholder="Valor de Pagos Iguales">
+                                                    <input disabled type="number" formControlName="valueEqualPayments" class="form-control" placeholder="Valor de Pagos Iguales">
                                                 </div>
                                                
 
@@ -275,7 +275,7 @@
                                                 <div class="row">
                         
 
-                                                        <button type="button btn-sm" (click)="borrarItem(i)" class="btn btn-danger" >Borrar</button>
+                                                        <button type="button btn-sm" (click)="borrarItem(i,policy)" class="btn btn-danger" >Borrar</button>
 
 
                                                 </div>

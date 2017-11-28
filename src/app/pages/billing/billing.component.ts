@@ -95,13 +95,13 @@ export class BillingComponent{
                 billingDate:[''],
                 firstPaymentDate:[],
                 idPaymentType:[''],
-                initialPayment:[],
-                equalPayments:[''],
+                initialPayment:[0],
+                equalPayments:[1],
                 valueEqualPayments:[''],
                 observationsBilling:[''],
-                totalPrimaValue:['',Validators.required],
-                totalIvaValue:[''],
-                totalBillingValue:['',Validators.required],
+                totalPrimaValue:[0,Validators.required],
+                totalIvaValue:[0],
+                totalBillingValue:[0,Validators.required],
                 phone:[''],
                 address:[''],
                 id:[''],
@@ -420,13 +420,10 @@ export class BillingComponent{
                      
             })
 
+            this.billingPolicyForm.controls['annexNumber'].setValue(event.label);
+
         }
-        saveItem(){
-            this.itemPolicies.push(this.billingPolicyForm.value);
-            this.billingPolicyForm.reset();
-            console.log(this.itemPolicies);
-            
-        }
+       
 
         getTasa(){
 
@@ -589,7 +586,11 @@ export class BillingComponent{
     changeView(value){
         this.list = value;
     }
-    borrarItem(i){
+    borrarItem(i,val){
+        this.billingForm.controls['totalBillingValue'].setValue(Number(this.billingForm.value.totalBillingValue) -  Number(val.totalValue));
+        this.billingForm.controls['totalIvaValue'].setValue(Number(this.billingForm.value.totalIvaValue) -  Number(val.iva));
+        this.billingForm.controls['totalPrimaValue'].setValue(Number(this.billingForm.value.totalPrimaValue) -  Number(val.prima));
+        this.billingForm.controls['valueEqualPayments'].setValue( (Number(this.billingForm.value.valueEqualPayments ) - ( Number(val.totalValue) / Number(this.billingForm.value.equalPayments) )    ).toFixed(2) );
         this.itemPolicies.splice(i,1);
     }
     getPolicyData(event){
@@ -606,10 +607,12 @@ export class BillingComponent{
     getSegCamp(){
         let val = Number(this.billingPolicyForm.value.segCamp * Number(this.billingPolicyForm.value.prima))/100 ;
         this.billingPolicyForm.controls['segCamp'].setValue(val);
+        this.setIvaValue();
     }
     getSuperBank(){
         let val = Number(this.billingPolicyForm.value.superBank * Number(this.billingPolicyForm.value.prima))/100 ;
         this.billingPolicyForm.controls['superBank'].setValue(val);
+        this.setIvaValue();
     }
     loadSettings(){
         this.http.get(config.url+'setting/view/599222be7f05fc0933b643f3?access_token='+this.local.getUser().token).map((result:Response)=>{
@@ -624,15 +627,34 @@ export class BillingComponent{
     setIvaValue(){
         
 
-        this.billingPolicyForm.controls['iva'].setValue( (Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2) * Number(this.iva))/100);
+        this.billingPolicyForm.controls['iva'].setValue(( (Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2) * Number(this.iva))/100).toFixed(2)) ;
 
 
     }
     setValueTotal(){
         // Para el Valor total se hace = (Prima+ s.campesino +s.banco +derechos emision+valorconIva1 +valorconIva2 + IVA +Valor Sin Iva)
 
-        this.billingPolicyForm.controls['totalValue'].setValue( Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2) +  Number(this.billingPolicyForm.value.iva) );
+        this.billingPolicyForm.controls['totalValue'].setValue(((( Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2)  ) *  Number(this.billingPolicyForm.value.iva) ) / 12).toFixed(2) )   ;
         
+    }
+    saveItem(){
+        this.itemPolicies.push(this.billingPolicyForm.value);
+        this.billingForm.controls['totalBillingValue'].setValue(Number(this.billingForm.value.totalBillingValue) +  Number(this.billingPolicyForm.value.totalValue));
+        this.billingForm.controls['totalIvaValue'].setValue(Number(this.billingForm.value.totalIvaValue) +  Number(this.billingPolicyForm.value.iva));
+        this.billingForm.controls['totalPrimaValue'].setValue(Number(this.billingForm.value.totalPrimaValue) +  Number(this.billingPolicyForm.value.prima));
+        this.billingForm.controls['valueEqualPayments'].setValue( (((Number(this.billingForm.value.valueEqualPayments ) +  Number(this.billingPolicyForm.value.totalValue )) - Number(this.billingForm.value.initialPayment) ) / Number(this.billingForm.value.equalPayments)).toFixed(2) );
+
+       
+        this.billingPolicyForm.reset();
+       
+        console.log(this.itemPolicies);
+        
+    }
+    changeEqualPayments(){
+        if(Number(this.billingForm.value.equalPayments) > 0 && Number(this.billingForm.value.totalBillingValue) > 0 ){
+            this.billingForm.controls['valueEqualPayments'].setValue( (( (Number(this.billingForm.value.valueEqualPayments ) +  Number(this.billingPolicyForm.value.totalValue ))  - Number(this.billingForm.value.initialPayment) ) / Number(this.billingForm.value.equalPayments)).toFixed(2) );
+        }
+       
     }
 
 
