@@ -1,9 +1,10 @@
 import { SelectService } from './../../../providers/select.service';
 import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { config } from '../../../../config/project-config';
+
 
 @Component({
     selector: 'item-annex-car',
@@ -15,17 +16,32 @@ export class ItemAnnexCar implements OnInit {
     public polizaAnnexId:number;
     public cars:any;
     public carUses:any;
-
+    public selectCarLabel = "Carro";
+    public selectCarUseLabel = "Uso";
+    @Output() saved = new EventEmitter();
+    @Input() polizaAnnex:any;
+    public itemCarAnnexs:any = [];
+    public totalPrima:any;
+    @Output() subtract = new EventEmitter(); 
+    @Input() poliza ;
     constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService) {
         this.itemAnnexCarForm = this.fb.group({
             idPolicyAnnex:[''],
-            idCar:[''],
-            tasa:[''],
+            idCar:['',Validators.required],
+            carMatricula:[],
+            tasa:[null,Validators.required],
             carUse:[''],
-            carValue:[''],
+            carUseName:[''],
+            carValue:[null,Validators.required],
             amparoPatrimonial:[''],
-            rc:[''],
-            others:['']
+            rc:[null,Validators.required],
+            others:[null,Validators.required],
+            detailsCar: [''],
+            prima: [],
+            othersPrima:[],
+            exclusionDate: [''],
+            inclusionDate: [''],
+            modificationDate: [''],
         })
         this.selectService.loadCars().then((result)=>{
             this.cars = result;
@@ -33,31 +49,52 @@ export class ItemAnnexCar implements OnInit {
         this.selectService.loadCarUse().then((result)=>{
             this.carUses = result;
         })
+
+        this.loadItemAnnexCar();
+        this.getTasa()
+        console.log('id de poliza',this.poliza)
+       
         
      }
 
 
     saveItemAnnexCar(){
-        console.log(this.itemAnnexCarForm.value);
-        
-        this.itemAnnexCarForm.controls['idPolicyAnnex'].setValue(this.polizaAnnexId);
-        this.http.post(config.url+'itemAnnexCar/add?access_token='+this.local.getUser().token,this.itemAnnexCarForm.value).map((result)=>{  
-            return result.json()
-        }).subscribe(res=>{
-             if(res.msg == "OK"){
-                   // this.loadItemAnnexCar(this.polizaAnnexId);
-                   // this.messageCar = "Elemento Auto Guardado"
-                    this.itemAnnexCarForm.reset();
-            }else{
-                 // this.error = true;
-                //this.message = "No tiene privilegios de guardar elementos autos"
-               
-            }
-            console.log(res);
-          // this.loadItemAnnexCar(this.polizaAnnexId);
-            
-        })
+       this.saved.emit({value:this.itemAnnexCarForm.value});
+       this.itemAnnexCarForm.reset();
     }
+    loadItemAnnexCar(){
+        this.http.get(config.url+`itemAnnexCar/param/${this.polizaAnnex}?access_token=`+this.local.getUser().token).map((res)=>{
+            return res.json();
+        }).subscribe((result)=>{
+                
+                
+            
+        })  
+    }
+    subtractPrima(){
+        this.subtract.emit(this.itemAnnexCarForm.value.othersPrima);
+    }
+    setMatricula(event){
+        console.log(event)
+        this.itemAnnexCarForm.controls['carMatricula'].setValue(event.label);
+    }
+    setCarUse(event){
+        console.log(event)
+        this.itemAnnexCarForm.controls['carUseName'].setValue(event.label);
+    }
+    getTasa(){
+        this.http.get(config.url+`tasa/value/?access_token=${this.local.getUser().token}&idDeductible=${this}&idInsurance=${this}&idRamo=599222be7f05fc0933b643f3` ).map((res)=>{
+            return res.json();
+        }).subscribe((result)=>{
+            console.log('tasa',result) 
+        })  
+
+    }
+  
+    resetField(){
+
+    }
+
 
     ngOnInit() { }
 }

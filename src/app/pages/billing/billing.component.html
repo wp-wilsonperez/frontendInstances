@@ -35,7 +35,7 @@
                                     <div class="row">
                                         <div class=" col-md-4">
                                             <div class="form-group"> 
-                                                 <label>Tipo de Cobro</label>
+                                                 <label>Tipo de Cliente</label>
                                                 <ng-select (selected)="changeType($event)" class="form-group"
                                                             [(options)]="typeBillingOptions"
                                                             [placeholder]="TipoDeCobro"
@@ -65,12 +65,12 @@
                                            
 
                                             <div class="row">
-                                                <div  class="form-group col-md-6">  <label>Telefono</label><input type="text" formControlName="phone" class="form-control" placeholder="Telefono"></div>
-                                                <div class="form-group col-md-6">  <label>Cedula o Ruc</label><input type="text" formControlName="id" class="form-control" placeholder="Cedula o Ruc"></div>
+                                                <div  class="form-group col-md-6">  <label>Telefono</label><input disabled type="text" formControlName="phone" class="form-control" placeholder="Telefono"></div>
+                                                <div class="form-group col-md-6">  <label>Cedula o Ruc</label><input disabled type="text" formControlName="id" class="form-control" placeholder="Cedula o Ruc"></div>
 
 
                                             </div>
-                                             <div  class="form-group"> <label>Direccion:</label> <input type="text" formControlName="address" class="form-control" placeholder="Direccion"></div>
+                                             <div  class="form-group"> <label>Direccion:</label> <input disabled type="text" formControlName="address" class="form-control" placeholder="Direccion"></div>
                                          
                                      
                                            
@@ -107,23 +107,34 @@
                                                     <label>Pagos Iguales</label>
                                                     <input type="number" formControlName="equalPayments" class="form-control" placeholder="Pagos Iguales">
                                                 </div>
+
+                                                <div class="form-group"> 
+                                                    <label>Valor de Pagos Iguales</label>
+                                                    <input type="number" formControlName="valueEqualPayments" class="form-control" placeholder="Valor de Pagos Iguales">
+                                                </div>
                                                
 
                                         </div>
 
                                         <div class=" col-md-4">
                                                 <div class="form-group"> 
-                                                    <label> Prima </label>
+                                                    <label>Total de Prima </label>
                                                     <input type="number" formControlName="totalPrimaValue" class="form-control" placeholder="prima">
                                                 </div>
                                           <div class="form-group"> 
-                                                    <label>Iva </label>
+                                                    <label>Iva Total </label>
                                                     <input type="number" formControlName="totalIvaValue" class="form-control" placeholder="Iva">
                                             </div>
                                              <div class="form-group"> 
-                                                    <label>Valor Total</label>
+                                                    <label>Total Factura</label>
                                                     <input type="number" formControlName="totalBillingValue" class="form-control bg-primary text-white" placeholder="Valor total">
                                                 </div>
+                                                <div class="form-group"> 
+                                                    <label>Observaciones</label>
+                                                    <textarea formControlName="observationsBilling" class="form-control bg-success text-white"></textarea>
+                                                </div>
+
+                                                
                                         </div>
                                     </div>
 
@@ -177,24 +188,39 @@
                                                      </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                          <label for="">N. Ref</label>
-                                                            <input type="text" formControlName="refNumber" class="form-control" placeholder="Observaciones">
+                                                            <input type="text" formControlName="refNumber" class="form-control" placeholder="N. Ref">
                                                      </div>
+                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
+                                                            <label for="">Derecho de Emision</label>
+                                                               <input type="text" formControlName="issue" class="form-control" placeholder="Derecho E.">
+                                                        </div>
                                                 
                                              </div>
                                              <div class="row row-input">
                                                   <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                      <label for="">S. Campesino</label>
-                                                            <input type="number" formControlName="segCamp" class="form-control" placeholder="S. Campesino">
+                                                            <input (blur)="getSegCamp()" type="number" formControlName="segCamp" class="form-control" placeholder="S. Campesino">
                                                      </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                          <label for="">S. Banco</label>
-                                                            <input type="number" formControlName="superBank" class="form-control" placeholder="S. Banco">
+                                                            <input (blur)="getSuperBank()" type="number" formControlName="superBank" class="form-control" placeholder="S. Banco">
                                                      </div>
-
-                                                      <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
-                                                         <label for="">Valor Total</label>
-                                                            <input type="number" formControlName="totalValue" class="form-control bg-primary text-white" placeholder="Valor Total">
-                                                     </div>
+                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
+                                                        <label for="">Valor con IVA 1</label>
+                                                           <input type="number" formControlName="otherWithIVA1" class="form-control bg-danger text-white" placeholder="Valor con IVA 1">
+                                                    </div>
+                                                    <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
+                                                        <label for="">Valor con IVA 2</label>
+                                                           <input (blur)="setIvaValue()" type="number" formControlName="otherWithIVA2" class="form-control bg-success text-white" placeholder="Valor con IVA 2">
+                                                    </div>
+                                                    <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
+                                                            <label for=""> IVA </label>
+                                                               <input (blur)="setValueTotal()" type="number" formControlName="iva" class="form-control bg-warning text-white" placeholder="IVA">
+                                                        </div>
+                                                    <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
+                                                            <label for="">Valor Total</label>
+                                                                <input type="number" formControlName="totalValue" class="form-control bg-primary text-white" placeholder="Valor Total">
+                                                        </div>
                                             
                                                
                                     
@@ -236,7 +262,7 @@
                         </thead>
                         <tbody>                           
 
-                            <tr *ngFor="let policy of itemPolicies">
+                            <tr *ngFor="let policy of itemPolicies; let i = index">
                                 <td><strong>  {{policy.annexNumber}}  </strong></td>
                                 <td>{{policy.prima}}</td>
                                  <td>{{policy.totalValue}}</td>
@@ -249,7 +275,7 @@
                                                 <div class="row">
                         
 
-                                                        <button type="button btn-sm" (click)="borrarItem()" class="btn btn-danger" >Borrar</button>
+                                                        <button type="button btn-sm" (click)="borrarItem(i)" class="btn btn-danger" >Borrar</button>
 
 
                                                 </div>

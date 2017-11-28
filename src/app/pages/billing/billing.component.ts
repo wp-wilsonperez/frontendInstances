@@ -58,6 +58,7 @@ export class BillingComponent{
         public create:boolean = true;
         itemPolicies:any =[];
         messages = messages;
+        iva:number ;
 
         public typeBillingOptions = [
             {
@@ -120,6 +121,7 @@ export class BillingComponent{
                 superBank:['',Validators.compose([Validators.required])], //(solo se guardaran los valores el porcentaje se saca de las polizas itemcar)
                 segCamp:['',Validators.compose([Validators.required])], //(solo se guardaran los valores el porcentaje se saca de las polizas itemcar)
                 issue :[''],                  //(obvio sacara para mostrar el calculo de la relación pero recuerden guardaran el valor no la relación)
+                otherWithIVA1:[''],
                 otherWithIVA2:[''],
                 iva:[''],
                 others:[''],
@@ -145,11 +147,9 @@ export class BillingComponent{
             });
 
             this.loadbillings();
-            this.loadClients();
-            this.loadBusiness();
-            this.loadInsurances();
             this.loadPaymentTypes();
             this.loadPolicies();
+            this.loadSettings();
         
             
     
@@ -188,6 +188,8 @@ export class BillingComponent{
         }
 
         loadInsurances(){
+            this.insurances =[];
+            this.insuranceOptions =[];
             this.http.get(config.url+'insurance/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
@@ -244,6 +246,8 @@ export class BillingComponent{
         }
 
         loadClients(){
+            this.clients =[];
+            this.clientsOptions = [];
 
             this.http.get(config.url+'client/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
@@ -263,7 +267,8 @@ export class BillingComponent{
         }
 
         loadBusiness(){
-
+            this.business=[];
+            this.businessOptions =[];
             this.http.get(config.url+'business/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
@@ -381,6 +386,8 @@ export class BillingComponent{
 
         }
         getAnnexs(event){
+            this.annexOptions =[];
+            this.annexs =[];
             this.http.get(config.url+`policyAnnex/param/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
@@ -405,13 +412,11 @@ export class BillingComponent{
                 return res.json();
             }).subscribe((result)=>{
                      let res = result.policyAnnex;
-                     console.log(res);
-                     
-                     this.billingPolicyForm.controls['prima'].setValue(res.totalPrima);
-                     this.billingPolicyForm.controls['refNumber'].setValue(0);
-                     this.billingPolicyForm.controls['segCamp'].setValue(res.segCamp);
-                     this.billingPolicyForm.controls['superBank'].setValue(res.superBank);
-                     this.billingPolicyForm.controls['annexNumber'].setValue(res.annexNumber);
+                     console.log('annex detail',res);
+        
+                     this.billingPolicyForm.controls['prima'].setValue(res.totalValue);
+                     this.getDerechosEmision(res.totalValue);
+
                      
             })
 
@@ -583,6 +588,51 @@ export class BillingComponent{
     }
     changeView(value){
         this.list = value;
+    }
+    borrarItem(i){
+        this.itemPolicies.splice(i,1);
+    }
+    getPolicyData(event){
+            console.log(event)
+    }
+    getDerechosEmision(prima){
+        this.http.get(config.url+'issue/value?access_token='+this.local.getUser().token+'&number='+prima)
+                .toPromise().then((result)=>{
+                    console.log(result.json())
+                    this.billingPolicyForm.controls['issue'].setValue(result.json().value)
+                    
+                })
+    }
+    getSegCamp(){
+        let val = Number(this.billingPolicyForm.value.segCamp * Number(this.billingPolicyForm.value.prima))/100 ;
+        this.billingPolicyForm.controls['segCamp'].setValue(val);
+    }
+    getSuperBank(){
+        let val = Number(this.billingPolicyForm.value.superBank * Number(this.billingPolicyForm.value.prima))/100 ;
+        this.billingPolicyForm.controls['superBank'].setValue(val);
+    }
+    loadSettings(){
+        this.http.get(config.url+'setting/view/599222be7f05fc0933b643f3?access_token='+this.local.getUser().token).map((result:Response)=>{
+            console.log(result.json());
+            return result.json().setting;
+    
+        }).subscribe((res)=>{
+              this.iva = res.iva 
+              
+        })  
+      }
+    setIvaValue(){
+        
+
+        this.billingPolicyForm.controls['iva'].setValue( (Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2) * Number(this.iva))/100);
+
+
+    }
+    setValueTotal(){
+        // Para el Valor total se hace = (Prima+ s.campesino +s.banco +derechos emision+valorconIva1 +valorconIva2 + IVA +Valor Sin Iva)
+
+        this.billingPolicyForm.controls['totalValue'].setValue( Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2) +  Number(this.billingPolicyForm.value.iva) );
+        
     }
 
 

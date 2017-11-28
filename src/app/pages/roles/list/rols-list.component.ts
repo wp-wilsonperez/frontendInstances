@@ -1565,6 +1565,7 @@ export class RolsListComponent {
          //policy
          requestTwo.policy['typeList'] = this.policyTypeTypeList; 
         this.policyList?requestTwo.policy['list'] = true:null;
+        this.policyList?requestTwo.policy['view'] = true:null;
         this.policyCreate?requestTwo.policy['add'] = true:null;
         this.policyEdit?requestTwo.policy['edit'] = true:null;
         this.policyDelete?requestTwo.policy['delete'] = true:null;
@@ -1650,6 +1651,7 @@ export class RolsListComponent {
         //item annex car
             
         this.policyAnnexList?requestTwo.itemAnnexCar['list'] = true:null;
+        this.policyAnnexList?requestTwo.itemAnnexCar['view'] = true:null;
         this.policyAnnexList?requestTwo.itemAnnexCar['param'] = true:null;
         this.policyAnnexCreate?requestTwo.itemAnnexCar['add'] = true:null;
         this.policyAnnexEdit?requestTwo.itemAnnexCar['edit'] = true:null;

@@ -1,39 +1,67 @@
-<form [formGroup]="itemAnnexCarForm" class="row form-inline">
-        <div class="form-group col-md-10">
+<form [formGroup]="itemAnnexCarForm">
+        <div class="form-group col-md-12">
             <div class="row">
-                <div class="col-md-4">
-                    <label for="">Carro</label>
+                <div class="col-md-6">
+                <label for="rg-from">Carro: </label>
                        <ng-select
                             [(options)]="cars"
-                            [placeholder]="Matricula"
+                            [placeholder]="selectCarLabel"
                             [multiple]="false"
                             formControlName="idCar"
+                            (selected)="setMatricula($event)"
+                        
                       
                         >
                         </ng-select>
                     </div>
-                <div class="col-md-4"> <input type="text" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
-                <div class="col-md-4"> <input type="text" formControlName="carValue" class="form-control" placeholder="Valor"></div>
+                <div class="col-md-6">   <label for="rg-from">Tasa: </label><input (focus)="resetField()" type="number" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
+               
             </div>
             <div class="row">
-                <div class="col-md-4">
-                        <label for="">Uso de Carro</label>
+                    <div class="col-md-6"> <label for="rg-from">Valor: </label>  <input (focus)="resetField()" type="number" formControlName="carValue" class="form-control" placeholder="Valor"></div>
+                <div class="col-md-6">
+                        <label for="rg-from">Uso del Carro: </label>
+                
                         <ng-select
                             [(options)]="carUses"
-                            [placeholder]="Uso"
+                            [placeholder]="selectCarUseLabel"
                             [multiple]="false"
                             formControlName="carUse"
+                            (selected)="setCarUse($event)"
+                          
                         >
                         </ng-select>
                     </div>
-                <div class="col-md-4"> <input type="text" formControlName="amparoPatrimonial" class="form-control" placeholder="Amparo"></div>
-                <div class="col-md-4"> <input type="text" formControlName="rc" class="form-control" placeholder="RC"></div>
+              
             </div>
+           
+            <div class="row">
+                    <div class="col-md-6">   <label for="rg-from">Amparo Patrimonial: </label> <input type="number" formControlName="amparoPatrimonial" class="form-control" placeholder="Amparo"></div>
+                    <div class="col-md-6">   <label for="rg-from">RC: </label> <input (focus)="resetField()" type="number" formControlName="rc" class="form-control" placeholder="RC"></div>
+            </div>
+            <div class="row">
+                    <div class="col-md-6">   <label for="rg-from">Otros: </label> <input (focus)="resetField()" type="number" formControlName="others" class="form-control" placeholder="Otros"></div>
+                    <div class="col-md-6">   <label for="rg-from">Detalles: </label> <input type="text" formControlName="detailsCar" class="form-control" placeholder="Detalle"></div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">  </div>
+                <div class="col-md-6">   <label for="rg-from">Otros Prima: </label> <input (input)="subtractPrima()" type="text" formControlName="othersPrima" class="form-control" placeholder="Otros Prima"></div>
+
+        </div>
+                <div class="row">
+               
+                            <div class="col-md-6">         <label for="rg-from">F. Inclusion: </label> <input type="date" formControlName="inclusionDate" class="form-control" placeholder="Inclusion Date"></div>
+                            
+                            <div class="col-md-6"><label for="rg-from">F. Exclusion: </label> <input type="date" formControlName="exclusionDate" class="form-control" placeholder="Inclusion Date"></div>
+                    </div>
         </div>
         <div class="form-group col-md-2 col-sm-6">
-            <button [disabled]="!itemAnnexCarForm.valid" (click)="saveItemAnnexCar()" type="submit" class="btn btn-primary btn-sm transition">Guardar</button>
+            <button [disabled]="!itemAnnexCarForm.valid" (click)="saveItemAnnexCar()" type="submit" class="btn btn-primary btn-sm transition">Agregar</button>
         </div>
       
     
       
 </form> 
+
+

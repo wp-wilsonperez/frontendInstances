@@ -3,7 +3,7 @@ import { ItemAnnexFire } from './../../../components/itemAnnexs/itemAnnexFire/it
 import { ItemAnnexCar } from './../../../components/itemAnnexs/itemAnnexCar/itemAnnexCar';
 import { SelectService } from './../../../providers/select.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, Input } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
@@ -44,15 +44,19 @@ export class PolizaAnnexComponent{
         public itemAnnexCarId:number;
         public selectItemCar:any = [];
         public itemAnnexExtras:any = [];
+        public itemAnnexs:Array<any> =[];
+        public polizaAnnexNumber:number;
+        
         error:any;
         toast:boolean = false;
         message:string;
         messageCar:string;
         iva:any;
-        totalPrima:any;
+        totalPrima:number = 0;
         ramos:any;
+        policy:any;
         itemTypeForm:string="";
-        @ViewChild(ItemAnnexCar) itemCar:ItemAnnexCar;
+        @ViewChild(ItemAnnexCar) itemCar:ItemAnnexCar ;
         @ViewChild(ItemAnnexFire) itemFire:ItemAnnexFire;
         @ViewChild(ItemAnnexProfit) itemProfit:ItemAnnexProfit;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute,public selectService:SelectService){
@@ -85,7 +89,9 @@ export class PolizaAnnexComponent{
             this.route.params.subscribe((params:Params)=>{
                 console.log(params['id']);
                 this.policyId = params['id'];
-                this.loadpolizaAnnexs();           
+                this.loadpolizaAnnexs(); 
+                this.loadPolicy();
+                console.log();          
             })
             this.itemExtraForm = this.formBuilder.group({
             
@@ -113,6 +119,14 @@ export class PolizaAnnexComponent{
               this.polizaAnnexForm.controls['valueIssue'].setValue(0);
               this.polizaAnnexForm.controls['segCamp'].setValue(0);
         }
+        loadPolicy(){
+            this.http.get(config.url+`policy/view/${this.policyId}?access_token=`+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    this.policy = result.policy;
+            })
+
+        }
 
         loadpolizaAnnexs(){
             this.http.get(config.url+`policyAnnex/param/${this.policyId}?access_token=`+this.local.getUser().token).map((res)=>{
@@ -131,6 +145,7 @@ export class PolizaAnnexComponent{
                 case '599222be7f05fc0933b643f3':
                     console.log(e.label);
                     this.itemTypeForm = e.label; 
+                     console.log(this.itemCar);
                     console.log(this.itemTypeForm);
                     break;
 
@@ -368,25 +383,16 @@ export class PolizaAnnexComponent{
 
     }
 
-     deleteCarItem(id){
+     deleteCarItem(i){
 
-        this.http.delete(config.url+`itemAnnexCar/delete/${id}?access_token=`+this.local.getUser().token,this.itemAnnexCarForm.value).map((result)=>{
-                return result.json()
-            }).subscribe(res=>{
-                if(res.msg == "OK"){
-                        this.itemCarAnnexs = res.update; 
-                }else{
-                    this.error = true;
-                    this.message = "No tiene privilegios de borrar"
-                }
-                
-            })
+       console.log(i);
+       this.itemAnnexs.splice(i,1);
 
     }
-    openItems(id){
+    openItems(id,num){
         console.log(id);
         this.polizaAnnexId = id;
-        this.loadItemAnnexCar(this.polizaAnnexId);
+        this.polizaAnnexNumber = num;
         this.anexos = true;
 
     }
@@ -457,6 +463,21 @@ export class PolizaAnnexComponent{
 
             
           
+    }
+    backToAnnexs(){
+        this.anexos = false;
+    }
+    saveItem(event){
+       console.log(event)
+       this.totalPrima = this.totalPrima + ((event.value.amparoPatrimonial + event.value.rc + event.value.tasa + event.value.others  ) * event.value.carValue  );
+       this.itemAnnexs.push(event.value);
+       
+    }
+    subtractPrima(event){
+        console.log(event);
+        if(this.totalPrima > event){
+            this.totalPrima = this.totalPrima - event;
+        }
     }
 
 }
