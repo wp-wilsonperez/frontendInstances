@@ -712,7 +712,7 @@ export const menuItems = [
     title: 'Reportes',
     routerLink: 'reportes',
 
-    icon: 'fa-chart',
+    icon: 'fa-bar-chart',
 
     selected: false,
     expanded: false,
@@ -721,7 +721,7 @@ export const menuItems = [
 
       {
         title: 'Reporte Pólizas',
-        routerLink: 'siniestros/listado',
+        routerLink: '',
         disabled: true,
         selected: false,
         expanded: false
