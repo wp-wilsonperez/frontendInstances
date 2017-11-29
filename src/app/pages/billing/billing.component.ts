@@ -451,7 +451,7 @@ export class BillingComponent{
                  if(res.msg == "OK"){
                        this.loadbillings();
                         this.toast = true;
-                        this.message = "billing guardada"
+                        this.message = "Factura guardada"
                         this.billingForm.reset();
                 }else{
                       this.error = true;

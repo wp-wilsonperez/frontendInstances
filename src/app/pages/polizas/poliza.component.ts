@@ -359,6 +359,7 @@ export class PolizaComponent{
     }
 
         savepoliza(){
+            console.log(this.carPolicy.polizaForm.value);
             this.http.post(config.url+'policy/add?access_token='+this.local.getUser().token,this.carPolicy.polizaForm.value).map((result)=>{
                 
                 
@@ -431,6 +432,7 @@ export class PolizaComponent{
                     dateAdmission:poliza.dateAdmission,
                     dateCancellation:poliza.dateCancellation,
                     idPaymentType:poliza.idPaymentType,
+                    idRamo: poliza.idRamo,
                     percentageRamo:''
        });
         
@@ -459,6 +461,7 @@ export class PolizaComponent{
                         dateAdmission:poliza.dateAdmission,
                         dateCancellation:poliza.dateCancellation,
                         percentageRamo:'',
+                        idRamo: poliza.idRamo
             
            });
             

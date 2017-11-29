@@ -43,6 +43,7 @@ export class MedicalPolicyComponent implements OnInit {
             dateAdmission:[],
             dateCancellation:[],
             percentageRamo:[] ,
+            idRamo:[]
 
 
             

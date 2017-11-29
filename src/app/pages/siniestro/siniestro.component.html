@@ -114,7 +114,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" data-toggle="tab" href="#ta">Datos de siniestro</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li *ngIf="ramo == '599222be7f05fc0933b643f3'" class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#tb">siniestro Carro</a>
                                     </li>            
                                 </ul>
@@ -139,19 +139,7 @@
             
                                                 </div>
             
-                                                <div class="form-group">
-            
-                                                    <label for="exampleSelect1">Ramo</label>
-                                                    <ng-select
-                                                        (selected)="getTasa()"
-                                                        [(options)]="ramos"
-                                                        [placeholder]="Ramos"
-                                                        [multiple]="false"
-                                                        formControlName="idRamo">
-                                                    </ng-select>
-                                                        
-            
-                                                </div>
+                                              
                                                 <div class="form-group">
                                                     
                                                 <label for="exampleSelect1">Estado de siniestro</label>
@@ -181,6 +169,19 @@
                                                 </div>
                                                 <div class="form-group">
                                                     
+                                                    <label for="exampleSelect1">Ramo</label>
+                                                    <ng-select
+                                                        (selected)="getTasa()"
+                                                        [(options)]="ramos"
+                                                        [placeholder]="Ramos"
+                                                        [multiple]="false"
+                                                        formControlName="idRamo">
+                                                    </ng-select>
+                                                        
+            
+                                                </div>
+                                                <div class="form-group">
+                                                    
                                                     <label for="exampleSelect1">Anexos de Poliza</label>
                                                     <ng-select
                                                         [(options)]="policyAnnexs"
@@ -196,18 +197,18 @@
                                                 <div class="row form-group">  
                                                         <div class="col-md-6"> 
                                                                 <label for="">F. inicio</label>
-                                                                <input disabled formControlName="fechaInicio" type="date" class="form-control bg-light ">   
+                                                                <input  formControlName="fechaInicio" type="date" class="form-control bg-light ">   
                                                              </div>
                                                              <div class="col-md-6"> 
                                                                  <label for="">F. fin</label>
-                                                                    <input disabled type="date" formControlName="fechaFin" class="form-control bg-light ">    
+                                                                    <input  type="date" formControlName="fechaFin" class="form-control bg-light ">    
                                                             </div>
                                                     
                                                 </div>
                                                 <div class="form-group">
                                                         
                                                         <label for="exampleSelect1">Valor Asegurado</label>
-                                                        <input disabled  type="number" formControlName="valorAsegurado" class="form-control bg-primary text-white">
+                                                        <input  type="number" formControlName="valorAsegurado" class="form-control bg-primary text-white">
                                                             
             
                                                 </div>
@@ -221,7 +222,7 @@
                                                 <div class="form-group">
                                                     
                                                     <label for="exampleSelect1">Cliente asegurado</label>
-                                                    <input disabled  type="text" formControlName="clientInsured" class="form-control bg-warning text-white">
+                                                    <input type="text" formControlName="clientInsured" class="form-control bg-warning text-white">
                                                         
             
                                             </div>
@@ -241,9 +242,10 @@
                                                                 
                                                         <label for="exampleSelect1">Cliente</label>
                                                         <ng-select
-                                                            [(options)]="clients"
-                                                            [placeholder]="Clientes"
-                                                            (selected)="selectClient($event)"
+                                                            [(options)]="recipients"
+                                                            [placeholder]="clientsLabel"
+                                                         
+                                                            (selected)="getType($event)"
                                                             [multiple]="false"
                                                             formControlName="idClient"
                                                             >
@@ -254,21 +256,21 @@
                                                     <div class="form-group">
                                                             
                                                         <label for="exampleSelect1">Nombre Cliente</label>
-                                                        <input disabled type="text" formControlName="nombreCliente" class="bg-light form-control">
+                                                        <input  type="text" formControlName="nombreCliente" class="bg-light form-control">
                                                             
             
                                                     </div>
                                                     <div class="form-group">
                                                             
                                                         <label for="exampleSelect1">Cedula o Ruc</label>
-                                                        <input disabled type="text" formControlName="cedCliente" class="form-control bg-light">
+                                                        <input  type="text" formControlName="cedCliente" class="form-control bg-light">
                                                             
             
                                                     </div>
                                                     <div class="form-group">
                                                             
                                                     <label for="exampleSelect1">Direccion</label>
-                                                    <input disabled type="text" formControlName="direccionCliente" class="form-control bg-light">
+                                                    <input  type="text" formControlName="direccionCliente" class="form-control bg-light">
                                                         
             
                                                 </div>
@@ -305,21 +307,21 @@
                                                     <div class="form-group">
                                                             
                                                         <label for="exampleSelect1">Matricula</label>
-                                                        <input disabled type="text" formControlName="matricula" class="bg-light form-control">
+                                                        <input  type="text" formControlName="matricula" class="bg-light form-control">
                                                             
             
                                                     </div>
                                                     <div class="form-group">
                                                             
                                                         <label for="exampleSelect1">Marca</label>
-                                                        <input disabled type="text" formControlName="marca" class="bg-light form-control">
+                                                        <input type="text" formControlName="marca" class="bg-light form-control">
                                                             
             
                                                     </div>
                                                     <div class="form-group">
                                                             
                                                         <label for="exampleSelect1">Modelo</label>
-                                                        <input disabled type="text" formControlName="modelo" class="bg-light form-control">
+                                                        <input type="text" formControlName="modelo" class="bg-light form-control">
                                                             
             
                                                     </div>
@@ -585,7 +587,7 @@
                             </div>                   
                         </div> 
             </div>
-            <button (click)="savesiniestro()" [disabled]="!siniestroCarForm.valid && !siniestroForm.valid " type="submit" class="btn btn-primary transition">Guardar</button>
+            <button (click)="saveSiniestro()" [disabled]="!siniestroCarForm.valid && !siniestroForm.valid " type="submit" class="btn btn-primary transition">Guardar</button>
         </div>
     </div>
 </div>

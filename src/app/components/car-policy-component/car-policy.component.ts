@@ -43,6 +43,7 @@ export class CarPolicyComponent implements OnInit {
             dateAdmission:['',Validators.compose([Validators.required])],
             dateCancellation:['',Validators.compose([Validators.required])],
             idPaymentType:['',Validators.compose([Validators.required])],
+            idRamo:['599222be7f05fc0933b643f3'],
             percentageRamo:[] 
         });
         this.selectService.loadUsers().then((res)=>{

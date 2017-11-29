@@ -1,9 +1,11 @@
+import { Observable } from 'rxjs/Observable';
+import { SelectService } from './../../providers/select.service';
 import { Router } from '@angular/router';
 import { Component, ViewEncapsulation, ViewChild, ElementRef ,NgZone,OnInit} from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
-import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validator, Validators, FormControl } from '@angular/forms';
 import { MapsAPILoader} from 'angular2-google-maps/core';
 import {} from '@types/googlemaps';
 import * as mapTypes from 'angular2-google-maps/core' ;
@@ -70,9 +72,13 @@ export class SiniestroComponent{
         docsOptions:any=[];
         docs:any;
         docSiniestroRamos:any=[];
+        recipients:any =[];
+        clientsLabel:string ='Elegir Cliente';
+        ramo ='';
+        
 
 
-        constructor(public mapsApiLoader:MapsAPILoader,public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
+        constructor(public mapsApiLoader:MapsAPILoader,public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router,public select:SelectService ){
         
             this.siniestroForm = this.formBuilder.group({
                 policyNumber:[''],
@@ -80,12 +86,12 @@ export class SiniestroComponent{
                 annexedNumber:[''],
                 certificateNumber:[''],
                 idUser:[''],
-                idClient:[''],
+                idClient:[],
                 idPoliza:[''],
                 idDeductible:[''],
                 insured:[''],
-                startDate:[''],
-                finishDate:[''],
+                startDate: [''],
+                finishDate: [''],
                 daysofValidity:[''],
                 idPolicyType:[''],
                 idFrequencyPayment:[''],
@@ -118,6 +124,7 @@ export class SiniestroComponent{
 
 
             });
+         
 
             this.itemForm = this.formBuilder.group({
             
@@ -191,6 +198,15 @@ export class SiniestroComponent{
             this.loadPolicies();
             this.loadStates();
             this.loadDocumentationRamo();
+            this.select.loadClientsRecipient().then(clients=>{
+                this.select.loadBussinesRecipient().then(bussines=>{
+                    this.select.loadInsurancesRecipient().then(insurances=>{
+                        this.recipients = clients.concat(bussines,insurances);
+                        console.log('estos son recipients',this.recipients);
+                    })
+                })
+            });
+           
             setTimeout(()=>{
                  this.mapsApiLoader.load().then(()=>{
                     let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement,{
@@ -534,7 +550,7 @@ export class SiniestroComponent{
                  if(res.msg == "OK"){
                        this.loadsiniestros();
                         this.toast = true;
-                        this.message = "siniestro guardada"
+                        this.message = "Siniestro guardado"
                         this.siniestroForm.reset();
                 }else{
                       this.error = true;
@@ -615,6 +631,55 @@ export class SiniestroComponent{
         console.log('result value',val);
         
     }
+    getType(val){
+        console.log(val.label);
+         if(val.label.search("Cliente") > -1){
+
+            this.getRecipient('client',val.value).subscribe((res)=>{    
+          
+             this.siniestroForm.controls['nombreCliente'].setValue(res.client.name +" "+res.client.lastName);
+             this.siniestroForm.controls['cedCliente'].setValue(res.client.doc);
+             this.siniestroForm.controls['direccionCliente'].setValue(res.client.address);
+             console.log(res)
+             
+                
+        })
+            
+        }else
+         if(val.label.search("Empresa") > -1){
+             this.getRecipient('business',val.value).subscribe((res)=>{   
+                this.siniestroForm.controls['nombreCliente'].setValue(res.business.name );
+                this.siniestroForm.controls['cedCliente'].setValue(res.business.ruc);
+               this.siniestroForm.controls['direccionCliente'].setValue(res.business.address);  
+                console.log(res)
+                  
+          })
+            
+    }else 
+         if(val.label.search("Aseguradora") > -1){
+         this.getRecipient('insurance',val.value).subscribe((res)=>{
+           this.siniestroForm.controls['nombreCliente'].setValue(res.insurance.bussinesName );
+             this.siniestroForm.controls['cedCliente'].setValue(res.insurance.ruc);
+            this.siniestroForm.controls['direccionCliente'].setValue(res.insurance.address);
+             
+            console.log(res)
+                 
+         })
+        
+     }        
+         
+     }
+     getRecipient(model,id){
+        return  this.http.get(`${config.url}${model}/view/${id}?access_token=${this.local.getUser().token}`)
+             
+         .map((res: Response) => res.json())
+         .catch(this.handleError);
+         
+     }
+     private handleError (error: any) {
+        let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        return Observable.throw(errMsg);
+      }
     selectPoliza(event){
         let val = this.resultPolicies.find(res=>{
             return res._id == event.value
@@ -622,6 +687,9 @@ export class SiniestroComponent{
         this.siniestroForm.controls['fechaInicio'].setValue(val.dateAdmission);
         this.siniestroForm.controls['fechaFin'].setValue(val.dateCancellation);
         this.siniestroForm.controls['clientInsured'].setValue(val.insured);
+        this.siniestroForm.controls['beneficiary'].setValue(val.insured);
+        this.siniestroForm.controls['idRamo'].setValue(val.idRamo);
+        this.ramo = val.idRamo;
         console.log('result value',val);
         
         this.http.get(config.url+`policyAnnex/param/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
@@ -665,8 +733,8 @@ export class SiniestroComponent{
         }).subscribe((result)=>{
             let car = result.car;
             this.siniestroCarForm.controls['matricula'].setValue(car.placa);
-            this.siniestroCarForm.controls['modelo'].setValue(car.carModel);
-            this.siniestroCarForm.controls['marca'].setValue(car.carBrand);
+            this.siniestroCarForm.controls['modelo'].setValue(car.carModel.name);
+            this.siniestroCarForm.controls['marca'].setValue(car.carBrand.name);
 
             console.log(result);
             

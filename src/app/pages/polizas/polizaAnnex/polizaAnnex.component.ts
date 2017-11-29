@@ -67,7 +67,7 @@ export class PolizaAnnexComponent{
                 annexNumber:[''],
                 certificateNumber:[''],
                 totalPrima:[''],
-                detailAnnex:[''],
+                detailsAnnex:[''],
                 superBank:[''],
                 iva:[''],
                 segCamp:[''],
@@ -331,7 +331,7 @@ export class PolizaAnnexComponent{
                 annexNumber:polizaAnnex.annexNumber,
                 certificateNumber:polizaAnnex.certificateNumber,
                 totalPrima:polizaAnnex.totalPrima,
-                detailAnnex:'',
+                detailsAnnex:polizaAnnex.detailsAnnex,
                 superBank:polizaAnnex.superBank,
                 iva:polizaAnnex.iva,
                 segCamp:polizaAnnex.segCamp,
@@ -344,14 +344,14 @@ export class PolizaAnnexComponent{
         
     }
     editpolizaAnnex(){
-            
+            console.log(this.polizaAnnexForm.value);
             this.http.post(config.url+`policyAnnex/edit/${this.polizaAnnexId}?access_token=`+this.local.getUser().token,this.polizaAnnexForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.polizaAnnexs = res.update; 
+                        this.loadpolizaAnnexs()
                         this.toast = true;
-                        this.message = "polizaAnnex editado";
+                        this.message = "Anexo Editado";
                         this.create = true;
                         this.polizaAnnexForm.reset();
                 }else{
