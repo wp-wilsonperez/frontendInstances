@@ -1,3 +1,4 @@
+import { SiniestroRamoCarro } from './../../components/siniestrosRamos/siniestrosRamoCarro/siniestroRamoCarro';
 import { Observable } from 'rxjs/Observable';
 import { SelectService } from './../../providers/select.service';
 import { Router } from '@angular/router';
@@ -75,6 +76,7 @@ export class SiniestroComponent{
         recipients:any =[];
         clientsLabel:string ='Elegir Cliente';
         ramo ='';
+
         
 
 
@@ -207,37 +209,7 @@ export class SiniestroComponent{
                 })
             });
            
-            setTimeout(()=>{
-                 this.mapsApiLoader.load().then(()=>{
-                    let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement,{
-                      types:['(regions)'],
-                      componentRestrictions: { country: 'EC' }
-                    });
-        
-                    autocomplete.addListener("place_changed",()=>{
-                    this.ngZone.run(()=>{
-                      //get the place result
-        
-                      let place : google.maps.places.PlaceResult = autocomplete.getPlace();
-        
-                      //verify result
-                      if (place.geometry === undefined || place.geometry === null) {
-                      return;
-                        }
-        
-                        //set latitude, longitude and zoom
-                        this.lat = place.geometry.location.lat();
-                        this.long = place.geometry.location.lng();
-                        console.log(this.lat,this.long);
-                        console.log("place: ",place);
-                        
-                    
-                  
-                    })
-                });
-            });
-            
-            },1000)
+           
         }
 
         loadsiniestros(){
@@ -528,17 +500,18 @@ export class SiniestroComponent{
 
     }
 
-        saveSiniestro(){
-            var item = {
-                items:[]
+        saveSiniestro(event){
+            let item = {
+                items : []
             };
-            Object.assign(item, this.siniestroCarForm.value);
-            item.items = this.docSiniestroRamos;
+            Object.assign(item , event.form);
+            item.items = event.items;
+           
             let request = {
                 sinister:this.siniestroForm.value,
-                item:item
 
             };
+            request.sinister.item = item;
             console.log(request);
             
             this.http.post(config.url+'sinister/add?access_token='+this.local.getUser().token,request).map((result)=>{
@@ -691,6 +664,7 @@ export class SiniestroComponent{
         this.siniestroForm.controls['idRamo'].setValue(val.idRamo);
         this.ramo = val.idRamo;
         console.log('result value',val);
+        this.getTasa();
         
         this.http.get(config.url+`policyAnnex/param/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
             console.log('policy Annex',res.json()); 
@@ -756,6 +730,7 @@ export class SiniestroComponent{
          this.docSiniestroRamos.push(this.siniestroCarDocumentationForm.value);
          this.siniestroCarDocumentationForm.reset();
      }
+    
 
 
 }

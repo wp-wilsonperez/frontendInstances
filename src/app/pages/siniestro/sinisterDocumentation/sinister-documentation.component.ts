@@ -1,8 +1,10 @@
+import { messages } from './../../../../config/project-config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -23,6 +25,7 @@ export class SiniestroDocumentationComponent{
         toast:boolean = false;
         message:string;
         create:boolean = true;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.siniestroDocumentationForm = this.formBuilder.group({
@@ -66,7 +69,7 @@ export class SiniestroDocumentationComponent{
                 }
                 console.log(res);
                this.loadsiniestroDocumentations();
-               this.siniestroDocumentationForm.setValue({name:''});
+               this.siniestroDocumentationForm.setValue({name:'',description:''});
                 
             })
         }
@@ -81,7 +84,10 @@ export class SiniestroDocumentationComponent{
             console.log(this.siniestroDocumentationId);
             console.log(this.siniestroDocumentationId);
             
-            this.siniestroDocumentationForm.setValue({name: siniestroDocumentation.name,description:siniestroDocumentation.description});
+            this.siniestroDocumentationForm.setValue(
+                {name: siniestroDocumentation.name,description:siniestroDocumentation.description}
+            
+            );
             
         
         
@@ -109,15 +115,15 @@ export class SiniestroDocumentationComponent{
         
         
     }
-    deletesiniestroDocumentation(id){
+    deletesiniestroDocumentation(){
 
-        this.http.delete(config.url+`sinisterDocumentation/delete/${id}?access_token=`+this.local.getUser().token,{}).map((result)=>{
+        this.http.delete(config.url+`sinisterDocumentation/delete/${this.siniestroDocumentationId}?access_token=`+this.local.getUser().token,{}).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
                         this.siniestroDocumentations = res.update; 
                         this.toast = true;
-                        this.message = "doc Borrado"
+                        this.message = "Documento Borrado"
                 }else{
                     console.log(res);
                     

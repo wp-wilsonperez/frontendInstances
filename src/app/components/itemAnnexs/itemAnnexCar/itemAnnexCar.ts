@@ -13,6 +13,7 @@ import { config } from '../../../../config/project-config';
 
 export class ItemAnnexCar implements OnInit {
     public itemAnnexCarForm:FormGroup;
+    public itemExtraForm:FormGroup;
     public polizaAnnexId:number;
     public cars:any;
     public carUses:any;
@@ -24,6 +25,10 @@ export class ItemAnnexCar implements OnInit {
     public totalPrima:any;
     @Output() subtract = new EventEmitter(); 
     @Input() poliza ;
+    itemAnnexs:Array<any> = [];
+    extraIndex:number;
+    subItems:Array<any> = [];
+
     constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService) {
         this.itemAnnexCarForm = this.fb.group({
             idPolicyAnnex:[''],
@@ -43,6 +48,17 @@ export class ItemAnnexCar implements OnInit {
             inclusionDate: [''],
             modificationDate: [''],
         })
+        this.itemExtraForm = this.fb.group({
+            
+                idItemAnnexCar:[],
+                extraDetails:[],
+                extraValue:[],
+                extraTasa:[],
+                exclusionDate:[],
+                inclusionDate:[]
+
+            });
+
         this.selectService.loadCars().then((result)=>{
             this.cars = result;
         });
@@ -60,6 +76,7 @@ export class ItemAnnexCar implements OnInit {
 
     saveItemAnnexCar(){
        this.saved.emit({value:this.itemAnnexCarForm.value});
+        this.itemAnnexs.push(this.itemAnnexCarForm.value);
        this.itemAnnexCarForm.reset();
     }
     loadItemAnnexCar(){
@@ -93,6 +110,19 @@ export class ItemAnnexCar implements OnInit {
   
     resetField(){
 
+    }
+    getItem(i){
+           this.extraIndex =i;
+       
+           if(this.itemAnnexs[this.extraIndex]['subItems'] == undefined){
+               this.itemAnnexs[this.extraIndex]['subItems'] = [];
+   
+               console.log(this.itemAnnexs[this.extraIndex]);
+           }
+    }
+    saveExtra(){
+        this.itemAnnexs[this.extraIndex].subItems.push();
+        this.subItems = [];
     }
 
 

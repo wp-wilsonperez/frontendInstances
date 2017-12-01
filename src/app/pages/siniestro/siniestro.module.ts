@@ -1,3 +1,4 @@
+import { SiniestroRamoCarro } from './../../components/siniestrosRamos/siniestrosRamoCarro/siniestroRamoCarro';
 import { SiniestroMedicalComponent } from './sinisterMedical/siniestro-medical.component';
 import { sinisterCarComponent } from './sinisterCars/sinister-cars.component';
 import { SinisterStateComponent } from './sinisterState/sinister-state.component';
@@ -47,7 +48,7 @@ export const routes = [
   ],
   declarations: [
 
-    SiniestroComponent,SiniestroDocRamoComponent,SiniestroDocumentationComponent,SinisterStateComponent,sinisterCarComponent,SiniestroMedicalComponent
+    SiniestroComponent,SiniestroDocRamoComponent,SiniestroDocumentationComponent,SinisterStateComponent,sinisterCarComponent,SiniestroMedicalComponent,SiniestroRamoCarro
 
   ],
   providers: []

@@ -59,6 +59,10 @@ export class PolizaAnnexComponent{
         @ViewChild(ItemAnnexCar) itemCar:ItemAnnexCar ;
         @ViewChild(ItemAnnexFire) itemFire:ItemAnnexFire;
         @ViewChild(ItemAnnexProfit) itemProfit:ItemAnnexProfit;
+        currentItem:number;
+        toExtra:boolean = false;
+        itemExtras:Array<any>=[];
+        idRamo:number;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute,public selectService:SelectService){
         
             this.polizaAnnexForm = this.formBuilder.group({
@@ -133,8 +137,16 @@ export class PolizaAnnexComponent{
                 return res.json();
             }).subscribe((result)=>{
                     this.polizaAnnexs = result.policyAnnex;
+                    if(this.polizaAnnexs.length > 0){
+                        if(this.polizaAnnexs[0]['itemAnnex'] != undefined){
+                            console.log('polizaAnnexs', this.polizaAnnexs[0].itemAnnex );
+                            this.idRamo = this.polizaAnnexs[0].itemAnnex.idRamo;
+                            this.itemAnnexs = this.polizaAnnexs[0].itemAnnex.items;
+                        }
+                        
+                    }
 
-                    console.log('polizaAnnexs',this.polizaAnnexs);
+                    
             })
             
         }
@@ -256,21 +268,11 @@ export class PolizaAnnexComponent{
             console.log(this.itemExtraForm.value);
             
             this.itemExtraForm.controls['idItemAnnexCar'].setValue(this.itemAnnexCarId);
-            this.http.post(config.url+'itemAnnexExtra/add?access_token='+this.local.getUser().token,this.itemExtraForm.value).map((result)=>{  
-                return result.json()
-            }).subscribe(res=>{
-                 if(res.msg == "OK"){
-                       this.getExtras(this.itemAnnexCarId);
-                        this.itemExtraForm.reset();
-                }else{
-                      this.error = true;
-                    this.message = "No tiene privilegios de guardar elementos autos"
-                   
-                }
-                console.log(res);
-              // this.loadItemAnnexCar(this.polizaAnnexId);
-                
-            })
+            this.itemAnnexExtras.push(this.itemExtraForm.value);
+            this.itemAnnexs[this.currentItem].subItems.push(this.itemExtraForm.value);
+            console.log('global array ',this.itemAnnexs);
+            this.itemExtraForm.reset();
+          
 
         }
   
@@ -412,20 +414,7 @@ export class PolizaAnnexComponent{
             this.selectItemCar = this.itemCarOptions;
 
     }
-    getExtras(id){
-        this.itemAnnexCarId = id;
-         this.http.get(config.url+`itemAnnexExtra/param/${id}?access_token=`+this.local.getUser().token).map((res)=>{
-                return res.json();
-            }).subscribe((result)=>{
-                this.itemAnnexExtras = result.itemAnnexExtras;
-                  console.log(result);
-                  
-                    
-                
-            })  
-            
-            
-    }
+   
     loadSettings(){
     this.http.get(config.url+'setting/view/59380531ad9b0b9b445e1b15?access_token='+this.local.getUser().token).map((result)=>{
         console.log(result.json());
@@ -478,6 +467,39 @@ export class PolizaAnnexComponent{
         if(this.totalPrima > event){
             this.totalPrima = this.totalPrima - event;
         }
+    }
+    getItem(index){
+        console.log(index);
+        this.currentItem = index;
+        if(this.itemAnnexs[this.currentItem]['subItems'] == undefined){
+            this.itemAnnexs[this.currentItem]['subItems'] = [];
+            this.itemAnnexExtras = [];
+
+            console.log(this.itemAnnexs[index]);
+        
+        }else{
+            console.log(this.itemAnnexExtras = this.itemAnnexs[this.currentItem].subItems);
+            this.itemAnnexExtras = this.itemAnnexs[this.currentItem].subItems;
+        }
+    }
+    deleteCarExtra(i){
+        this.itemAnnexExtras.splice(i,1);
+    }
+    saveAll(){
+        console.log(this.idRamo);
+        let request ={
+            itemAnnex:{
+                idRamo: this.idRamo,
+                items: this.itemAnnexs
+            }
+        }
+
+        this.http.post(config.url+`policyAnnex/editItems/${this.polizaAnnexId}?access_token=`+this.local.getUser().token,request).map((res)=>{
+            return res.json();
+        }).subscribe((result)=>{
+            console.log(result);
+        })
+
     }
 
 }

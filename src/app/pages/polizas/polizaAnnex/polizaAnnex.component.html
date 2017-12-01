@@ -25,7 +25,7 @@
                             <strong>{{message}}</strong> 
                         </div>
                 
-                         <form [formGroup]="polizaAnnexForm">
+                         <form  [formGroup]="polizaAnnexForm">
                                     <div class="form-group col-md-10" [ngClass]="{}">
                                         <div class="row">
 
@@ -182,94 +182,97 @@
                                                 [(options)]="ramos"
                                                 [placeholder]="Ramos"
                                                 [multiple]="false"
+                                                [(ngModel)]="idRamo"
                                               >
                                             </ng-select>
                                                 
 
                                         </div>
-                                        <item-annex-car  (saved)="saveItem($event)" (subtract)="subtractPrima($event)" ></item-annex-car>
+                                        <item-annex-car *ngIf="idRamo == '599222be7f05fc0933b643f3' "  (saved)="saveItem($event)" (subtract)="subtractPrima($event)" ></item-annex-car>
                                         <item-annex-profit  *ngIf="itemTypeForm == 'profit' "></item-annex-profit>
                                         <item-annex-rc *ngIf="itemTypeForm == 'rc'"></item-annex-rc>
                                         <item-annex-fire *ngIf="itemTypeForm == 'fire'"></item-annex-fire>
 
-
-                        <div *ngIf="itemTypeForm == 'Vehículos' " style="padding-top: 10px;"class="table-responsive datatable items-ramo">
-                            <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
-                                <thead>
-                                    <tr>
-                                        <th> <mfDefaultSorter by="idCar">Carro</mfDefaultSorter></th>                              
-                                        <th><mfDefaultSorter by="phone">Tasa</mfDefaultSorter></th>
-                                        <th><mfDefaultSorter by="phone">Valor del Carro</mfDefaultSorter></th> 
-                                        <th><mfDefaultSorter by="phone">Uso de Carro</mfDefaultSorter></th> 
-                                        <th><mfDefaultSorter by="amparoPatrimonial">Amparo Patrimonial</mfDefaultSorter></th> 
-                                        <th><mfDefaultSorter by="rc">RC</mfDefaultSorter></th> 
-                                        <th><mfDefaultSorter by="others">Otros</mfDefaultSorter></th> 
-                                        <th><mfDefaultSorter by="detailsCar">Detalle</mfDefaultSorter></th> 
-                                        <th><mfDefaultSorter by="others">F. Exclusion</mfDefaultSorter></th> 
-                                        <th><mfDefaultSorter by="detailsCar">F. Inclusion</mfDefaultSorter></th> 
+                                        <div style="padding-top: 10px;"class="table-responsive datatable items-ramo">
+                                            <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                                                <thead>
+                                                    <tr>
+                                                        <th> <mfDefaultSorter by="idCar">Carro</mfDefaultSorter></th>                              
+                                                        <th><mfDefaultSorter by="phone">Tasa</mfDefaultSorter></th>
+                                                        <th><mfDefaultSorter by="phone">Valor del Carro</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="phone">Uso de Carro</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="amparoPatrimonial">Amparo Patrimonial</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="rc">RC</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="others">Otros</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="detailsCar">Detalle</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="others">F. Exclusion</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="detailsCar">F. Inclusion</mfDefaultSorter></th> 
+                                                        
                                         
-
-                                        <th>Acciones</th>      
-                                    </tr>
-                                </thead>
-                                <tbody>                           
-
-                                    <tr *ngFor="let item of itemAnnexs; let i = index">
-                                        <td><strong> {{item.carMatricula}}  </strong></td>
-                                        <td> {{item.tasa}}</td>
-                                        <td> {{item.carValue}}</td>
-                                        <td> {{item.carUseName}}</td>
-                                        <td> {{item.amparoPatrimonial}}</td>
-                                        <td> {{item.rc}}</td>
-                                        <td> {{item.others}}</td>
-                                        <td> {{item.detailsCar}}</td>
-                                        <td> {{item.exclusionDate}}</td>
-                                        <td> {{item.inclusionDate}}</td>
-                                        <td class="row col  bottom-15">
+                                                        <th>Acciones</th>      
+                                                    </tr>
+                                                </thead>
+                                                <tbody>                           
                                         
-                                            <div class="d-inline-block">
-                                                        <div class="row">
+                                                    <tr *ngFor="let item of itemAnnexs; let i = index">
+                                                        <td><strong> {{item.carMatricula}}  </strong></td>
+                                                        <td> {{item.tasa}}</td>
+                                                        <td> {{item.carValue}}</td>
+                                                        <td> {{item.carUseName}}</td>
+                                                        <td> {{item.amparoPatrimonial}}</td>
+                                                        <td> {{item.rc}}</td>
+                                                        <td> {{item.others}}</td>
+                                                        <td> {{item.detailsCar}}</td>
+                                                        <td> {{item.exclusionDate}}</td>
+                                                        <td> {{item.inclusionDate}}</td>
+                                                        <td class="row col  bottom-15">
                                                         
-                                                            <button type="button" data-toggle="modal" data-target="#delete=modal"  class="btn btn-danger btn-sm transition">Borrar</button>
-
-                                                            <button type="button" data-toggle="modal" data-target="#extra-modal"  class="btn btn-success btn-sm transition">Extras</button>
-
-                                                                                <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
-                                                                                    <div class="modal-dialog" role="document">
-                                                                                        <div class="modal-content">
-                                                                                            <div class="modal-header state modal-danger">                                    
-                                                                                                <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
-                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                            <div class="d-inline-block">
+                                                                        <div class="row">
+                                                                        
+                                                                            <button type="button" data-toggle="modal" data-target="#delete=modal"  class="btn btn-danger btn-sm transition">Borrar</button>
+                                        
+                                                                            <button (click)="getItem(i)" type="button" data-toggle="modal" data-target="#extra-modal"  class="btn btn-success btn-sm transition">Extras</button>
+                                        
+                                                                                                <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                                                                                    <div class="modal-dialog" role="document">
+                                                                                                        <div class="modal-content">
+                                                                                                            <div class="modal-header state modal-danger">                                    
+                                                                                                                <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                                                                            </div>
+                                                                                                            <div class="modal-body">
+                                                                                                            <!--Esta seguro-->
+                                                                                                            </div>
+                                                                                                            <div class="modal-footer">
+                                                                                                                <button (click)="deleteCarItem(i)" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                        
+                                                                        </div>
+                                                                        
                                                                                             </div>
-                                                                                            <div class="modal-body">
-                                                                                            <!--Esta seguro-->
-                                                                                            </div>
-                                                                                            <div class="modal-footer">
-                                                                                                <button (click)="deleteCarItem(i)" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
-                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
+                                                                                </td>
+                                                                                </tr>
+                                                                        
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <td colspan="12">
+                                                                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tfoot>
+                                                                    </table>
+                                                                    <button class="btn btn-block btn-primary" *ngIf="itemAnnexs.length > 0" (click)="saveAll()" > Guardar Todo</button>
+                                                                    
+                                                                        
+                                                            </div>
 
-                                                        </div>
-                                                        
-                                                                            </div>
-                                                                </td>
-                                                                </tr>
-                                                        
-                                                        </tbody>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <td colspan="12">
-                                                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
-                                                                </td>
-                                                            </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                    
-                                                        
-                                            </div>
+
 
                                         
                                        
@@ -285,6 +288,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 
@@ -314,8 +319,7 @@
                                         
                                         </div>
                                         <div class="form-group col-md-2 col-sm-6" *ngIf="createItemCar">
-                                            <button [disabled]="!itemAnnexCarForm.valid" (click)="saveItemAnnexExtra()" type="submit" class="btn btn-primary btn-sm transition">Guarda
-                                                r</button>
+                                            <button [disabled]="!itemAnnexCarForm.valid" (click)="saveItemAnnexExtra()" type="submit" class="btn btn-primary btn-sm transition">Agregar</button>
                                         </div>
                                         
                                         <div class="form-group col-md-2 col-sm-6" *ngIf="!createItemCar">
@@ -336,7 +340,7 @@
                                             </thead>
                                             <tbody>                           
 
-                                                <tr *ngFor="let extra of itemAnnexExtras">
+                                                <tr *ngFor="let extra of itemAnnexExtras; let i = index">
                                                     <td><strong>  {{extra.extraDetails}}   </strong></td>
                                                     <td>{{extra.extraTasa}}</td>
                                                     <td>{{extra.extraValue}}</td>
@@ -355,25 +359,9 @@
 
                                                                             
 
-                                                                <button type="button" (click)="deleteCarItem(carItem._id)" class="btn btn-danger btn-sm transition">Borrar</button>
+                                                                <button type="button" (click)="deleteCarExtra(i)" class="btn btn-danger btn-sm transition">Borrar</button>
 
-                                                                                            <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
-                                                                                                <div class="modal-dialog" role="document">
-                                                                                                    <div class="modal-content">
-                                                                                                        <div class="modal-header state modal-danger">                                    
-                                                                                                            <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
-                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                                                                                        </div>
-                                                                                                        <div class="modal-body">
-                                                                                                        <!--Esta seguro-->
-                                                                                                        </div>
-                                                                                                        <div class="modal-footer">
-                                                                                                            <button (click)="deletepolizaAnnex()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
-                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
+                                                                                  
 
                                                                     </div>
                                                                     

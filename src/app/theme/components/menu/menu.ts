@@ -670,13 +670,7 @@ export const menuItems = [
         selected: false,
         expanded: false
       },
-      {
-        title: 'Siniestros Medicos',
-        routerLink: 'siniestros/medicos',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
+    
       {
         title: 'Listado de Documentacion',
         routerLink: 'siniestros/documentacion',
