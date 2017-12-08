@@ -454,15 +454,25 @@
                                 </div>
                                 <div class="modal-body">
                                    
-                                 <form [formGroup]="itemExtraForm" class="row form-inline">
+                                    <form [formGroup]="itemExtraForm" class="row form-inline">
                                         <div class="form-group col-md-10">
                                             <div class="row">
-
+                
                             
-                                                <div class="col-md-4"> <input type="text" formControlName="extraDetails" class="form-control" placeholder="Extra Detalle"></div>
-                                                <div class="col-md-4"> <input type="text" formControlName="extraTasa" class="form-control" placeholder="Extra Valor"></div>
-                                                <div class="col-md-4"> <input type="text" formControlName="extraValue" class="form-control" placeholder="Extra Tasa"></div>
+                                                <div class="col-md-4"> <input type="text" formControlName="observationsSubItem" class="form-control" placeholder="Observaciones"></div>
+                                                <div class="col-md-4"> <input type="text" formControlName="deductible" class="form-control" placeholder="Deducible"></div>
+                                                <div class="col-md-4"> <input type="text" formControlName="valueSubItem" class="form-control" placeholder="Valor"></div>
                                                 
+                                            </div>
+                                            <div class="row">                  
+                                                <div class="col-md-4"> <input type="text" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
+                                                <div class="col-md-4"> <input type="text" formControlName="calcFloat" class="form-control" placeholder="Flotante"></div>
+                                                <div class="col-md-4"> <input type="text" formControlName="primaNeta" class="form-control" placeholder="Prima Neta"></div>
+                                                                                    
+                                            </div>
+                                            <div class="row">     
+                                                    <div class="col-md-6">         <label for="rg-from">F. Inclusion: </label> <input type="date" formControlName="inclusionDate" class="form-control" placeholder="Inclusion Date"></div>
+                                                    <div class="col-md-6"><label for="rg-from">F. Exclusion: </label> <input type="date" formControlName="exclusionDate" class="form-control" placeholder="Inclusion Date"></div>
                                             </div>
                                         
                                         </div>

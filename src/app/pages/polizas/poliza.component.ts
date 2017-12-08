@@ -64,9 +64,9 @@ export class PolizaComponent{
                 policyNumber:[],
                 idInsurance:[],
                 idRamo:[],
+                idRecipient:[],
                 annexedNumber:[],
                 certificateNumber:[],
-                idUser:[],
                 idDeductible:[],
                 insured:[],
                 startDate:[],
@@ -436,27 +436,28 @@ export class PolizaComponent{
             this.polizaId = poliza._id;
             console.log(this.polizaId);
             this.carPolicy.polizaForm.setValue({
-                        policyNumber:poliza.policyNumber,
-                        idInsurance:poliza.idInsurance,
-                        annexedNumber:poliza.annexedNumber,
-                        certificateNumber:poliza.certificateNumber,
-                        idUser:poliza.idUser,
-                        idClient:poliza.idClient,
-                        idDeductible:poliza.idDeductible,
-                        insured:poliza.insured,
-                        startDate:poliza.startDate,
-                        finishDate:poliza.finishDate,
-                        daysofValidity:poliza.daysofValidity,
-                        idPolicyType:poliza.idPolicyType,
-                        idFrequencyPayment:poliza.idFrequencyPayment,
-                        idCity:poliza.idCity,
-                        dateAdmission:poliza.dateAdmission,
-                        dateCancellation:poliza.dateCancellation,
-                        idPaymentType:poliza.idPaymentType,
-                        idRamo: poliza.idRamo,
+                        policyNumber:poliza.policyNumber || '',
+                        idInsurance:poliza.idInsurance || '',
+                        annexedNumber:poliza.annexedNumber || '',
+                        certificateNumber:poliza.certificateNumber || '',
+                        idDeductible:poliza.idDeductible || '',
+                        insured:poliza.insured || '',
+                        startDate:poliza.startDate || '',
+                        finishDate:poliza.finishDate || '',
+                        daysofValidity:poliza.daysofValidity || '',
+                        idPolicyType:poliza.idPolicyType || '',
+                        idFrequencyPayment:poliza.idFrequencyPayment || '',
+                        idCity:poliza.idCity || '',
+                        dateAdmission:poliza.dateAdmission || '',
+                        dateCancellation:poliza.dateCancellation || '',
+                        idPaymentType:poliza.idPaymentType || '',
+                        idRamo: poliza.idRamo || '',
+                        idRecipient: poliza.idRecipient || '',
                         percentageRamo:'',
                         recipient:poliza.recipient|| '',
-                        typeRecipient:poliza.typeRecipient || ''
+                        typeRecipient:poliza.typeRecipient || '',
+                        idUser: poliza.idUser || '',
+                        idClient: poliza.idClient || ''
         });
 
        console.log('subitem changed',this.carPolicy.polizaForm.value)
@@ -552,7 +553,6 @@ export class PolizaComponent{
             idInsurance:'',
             annexedNumber:'',
             certificateNumber:'',
-            idUser:'',
             idClient:'',
             idDeductible:'',
             insured:'',
@@ -568,7 +568,9 @@ export class PolizaComponent{
             idRamo: '',
             percentageRamo:'',
             recipient: '',
-            typeRecipient:''
+            typeRecipient:'',
+            idRecipient: '',
+            idUser: ''
 });
         
 

@@ -34,7 +34,6 @@ export class CarPolicyComponent implements OnInit {
             idInsurance:['',Validators.compose([Validators.required])],
             annexedNumber:['',Validators.compose([Validators.required])],
             certificateNumber:['',Validators.compose([Validators.required])],
-            idUser:['',Validators.compose([Validators.required])],
             idClient:['',Validators.compose([Validators.required])],
             idDeductible:['',Validators.compose([Validators.required])],
             insured:['',Validators.compose([Validators.required])],
@@ -50,7 +49,9 @@ export class CarPolicyComponent implements OnInit {
             typeRecipient:[''],
             recipient:[''],
             idRamo:[''],
+            idRecipient:[''],
             percentageRamo:[] ,
+            idUser:[''],
         });
         this.selectService.loadUsers().then((res)=>{
             this.users = res;
