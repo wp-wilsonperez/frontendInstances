@@ -47,6 +47,7 @@ export class CarPolicyComponent implements OnInit {
             dateAdmission:['',Validators.compose([Validators.required])],
             dateCancellation:['',Validators.compose([Validators.required])],
             idPaymentType:['',Validators.compose([Validators.required])],
+            typeRecipient:[''],
             recipient:[''],
             idRamo:[''],
             percentageRamo:[] ,
@@ -120,15 +121,17 @@ export class CarPolicyComponent implements OnInit {
         console.log(val.label);
          if(val.label.search("Cliente") > -1){
 
-            this.getRecipient('client',val.value).subscribe((res)=>{    
+            this.getRecipient('client',val.value).subscribe((res)=>{  
+                this.polizaForm.controls['typeRecipient'].setValue( "CLIENTE" ); 
                 this.polizaForm.controls['recipient'].setValue( res.client );
-             
+
                 
         })
             
         }else
          if(val.label.search("Empresa") > -1){
              this.getRecipient('business',val.value).subscribe((res)=>{   
+                this.polizaForm.controls['typeRecipient'].setValue( "BUSINESS" ); 
                 this.polizaForm.controls['recipient'].setValue( res.business );
                   
           })
@@ -136,6 +139,7 @@ export class CarPolicyComponent implements OnInit {
     }else 
          if(val.label.search("Aseguradora") > -1){
          this.getRecipient('insurance',val.value).subscribe((res)=>{
+            this.polizaForm.controls['typeRecipient'].setValue( "INSURANCE" ); 
            this.polizaForm.controls['recipient'].setValue( res.insurance );
          })
         

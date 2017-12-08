@@ -78,7 +78,9 @@ export class PolizaComponent{
                 dateAdmission:[],
                 dateCancellation:[],
                 idPaymentType:[],
-                percentageRamo:[]
+                percentageRamo:[],
+                recipient:[],
+                typeRecipient:[],
                 
             });
             this.cityForm = this.formBuilder.group({
@@ -378,8 +380,6 @@ export class PolizaComponent{
     }
 
         savepoliza(){
-          
-            delete this.carPolicy.polizaForm.value['recipient'];
             console.log(this.carPolicy.polizaForm.value);
             this.http.post(config.url+'policy/add?access_token='+this.local.getUser().token,this.carPolicy.polizaForm.value).map((result)=>{
                 
@@ -455,7 +455,8 @@ export class PolizaComponent{
                         idPaymentType:poliza.idPaymentType,
                         idRamo: poliza.idRamo,
                         percentageRamo:'',
-                        recipient: ''
+                        recipient:poliza.recipient|| '',
+                        typeRecipient:poliza.typeRecipient || ''
         });
 
        console.log('subitem changed',this.carPolicy.polizaForm.value)
@@ -566,7 +567,8 @@ export class PolizaComponent{
             idPaymentType:'',
             idRamo: '',
             percentageRamo:'',
-            recipient: ''
+            recipient: '',
+            typeRecipient:''
 });
         
 
