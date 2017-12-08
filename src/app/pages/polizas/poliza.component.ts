@@ -1,3 +1,4 @@
+import { SelectService } from './../../providers/select.service';
 import { MedicalPolicyComponent } from './../../components/medical-policy-component/medical-policy.component';
 import { CarPolicyComponent } from './../../components/car-policy-component/car-policy.component';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class PolizaComponent{
         public polizaForm:FormGroup;
          public editForm:FormGroup;
          public itemForm:FormGroup;
+         public cityForm:FormGroup;
         public helpLinks:any;
         public polizas:any;
         public polizasMedicas:any;
@@ -55,7 +57,8 @@ export class PolizaComponent{
         @ViewChild(CarPolicyComponent) carPolicy:CarPolicyComponent;
         @ViewChild(MedicalPolicyComponent) medicalPolicy:MedicalPolicyComponent;
         messages = messages;
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
+        recipients:any =[];
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router,public select:SelectService ){
         
             this.polizaForm = this.formBuilder.group({
                 policyNumber:[],
@@ -78,6 +81,10 @@ export class PolizaComponent{
                 percentageRamo:[]
                 
             });
+            this.cityForm = this.formBuilder.group({
+                name: ['',Validators.compose([Validators.required])],
+                description :['',Validators.compose([Validators.required])]
+            }); 
 
             this.itemForm = this.formBuilder.group({
             
@@ -98,6 +105,7 @@ export class PolizaComponent{
             this.loadRamo();
             this.loadpolizas();
             this.loadmedicalPolizas();
+           
            
      
         }
@@ -264,20 +272,31 @@ export class PolizaComponent{
             this.http.get(config.url+'city/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                     let cities = result.cities;
-                     cities.map((result)=>{
-                        let obj = {
-                            value: result._id,
-                            label: result.name 
-                        }
-                        this.citiesOptions.push(obj);
-                        this.cities = this.citiesOptions;
-                    })
+                     this.cities = result.cities;
                     console.log('Cities',this.cities);
             })
 
 
         }
+        saveCity(){
+            
+              this.http.post(config.url+'city/add?access_token='+this.local.getUser().token,this.cityForm.value).toPromise().then(result=>{
+                  let apiResult= result.json();
+                  console.log(apiResult);
+                  if(apiResult.msg == 'OK'){
+          
+                       this.carPolicy.loadCity();
+                       this.cityForm.reset();
+          
+                  }else{
+          
+                  this.error = true;
+                  this.message = apiResult.err;
+                  console.log('hay un error');
+          
+                  }     
+              })
+          }
 
         loadPolicyTypes(){
 
@@ -359,6 +378,8 @@ export class PolizaComponent{
     }
 
         savepoliza(){
+          
+            delete this.carPolicy.polizaForm.value['recipient'];
             console.log(this.carPolicy.polizaForm.value);
             this.http.post(config.url+'policy/add?access_token='+this.local.getUser().token,this.carPolicy.polizaForm.value).map((result)=>{
                 
@@ -368,7 +389,8 @@ export class PolizaComponent{
                  if(res.msg == "OK"){
                        this.loadpolizas();
                         this.toast = true;
-                        this.message = "Poliza guardada"
+                        this.message = "Poliza guardada",
+                        this.carPolicy.polizaForm.reset();
                    
                 }else{
                       this.error = true;
@@ -410,46 +432,16 @@ export class PolizaComponent{
     }
 
         polizaDetail(poliza){
-    
-        this.polizaId = poliza._id;
-        console.log(this.polizaId);
-        console.log(poliza);
-       this.carPolicy.polizaForm.setValue({
-                    policyNumber:poliza.policyNumber,
-                    idInsurance:poliza.idInsurance,
-                    annexedNumber:poliza.annexedNumber,
-                    certificateNumber:poliza.certificateNumber,
-                    idUser:poliza.idUser,
-                    idClient:poliza.idClient,
-                    idDeductible:poliza.idDeductible,
-                    insured:poliza.insured,
-                    startDate:poliza.startDate,
-                    finishDate:poliza.finishDate,
-                    daysofValidity:poliza.daysofValidity,
-                    idPolicyType:poliza.idPolicyType,
-                    idFrequencyPayment:poliza.idFrequencyPayment,
-                    idCity:poliza.idCity,
-                    dateAdmission:poliza.dateAdmission,
-                    dateCancellation:poliza.dateCancellation,
-                    idPaymentType:poliza.idPaymentType,
-                    idRamo: poliza.idRamo,
-                    percentageRamo:''
-       });
-        
-        
-        
-        
-    }
-    polizaMedDetail(poliza){
-        
-            this.polizaMedId = poliza._id;
+            this.create = false;
+            this.polizaId = poliza._id;
             console.log(this.polizaId);
-            console.log(poliza);
-           this.medicalPolicy.polizaMedicalForm.setValue({
+            this.carPolicy.polizaForm.setValue({
                         policyNumber:poliza.policyNumber,
                         idInsurance:poliza.idInsurance,
+                        annexedNumber:poliza.annexedNumber,
+                        certificateNumber:poliza.certificateNumber,
                         idUser:poliza.idUser,
-                        idBusiness:poliza.idBusiness,
+                        idClient:poliza.idClient,
                         idDeductible:poliza.idDeductible,
                         insured:poliza.insured,
                         startDate:poliza.startDate,
@@ -460,15 +452,19 @@ export class PolizaComponent{
                         idCity:poliza.idCity,
                         dateAdmission:poliza.dateAdmission,
                         dateCancellation:poliza.dateCancellation,
+                        idPaymentType:poliza.idPaymentType,
+                        idRamo: poliza.idRamo,
                         percentageRamo:'',
-                        idRamo: poliza.idRamo
-            
-           });
-            
-            
-            
-            
-        }
+                        recipient: ''
+        });
+
+       console.log('subitem changed',this.carPolicy.polizaForm.value)
+        
+        
+        
+        
+    }
+   
     editpoliza(){
             
             this.http.post(config.url+`policy/edit/${this.polizaId}?access_token=`+this.local.getUser().token,this.carPolicy.polizaForm.value).map((result)=>{
@@ -477,7 +473,8 @@ export class PolizaComponent{
                 if(res.msg == "OK"){
                         this.loadpolizas(); 
                         this.toast = true;
-                        this.message = "Poliza editada"
+                        this.message = "Poliza editada";
+                        this.create = true;
                 }else{
                     this.error = true;
                     this.message = res.err.message
@@ -546,6 +543,33 @@ export class PolizaComponent{
                 break;
         }
         
+    }
+    resetForm(){
+        this.create = true;
+        this.carPolicy.polizaForm.setValue({
+            policyNumber:'',
+            idInsurance:'',
+            annexedNumber:'',
+            certificateNumber:'',
+            idUser:'',
+            idClient:'',
+            idDeductible:'',
+            insured:'',
+            startDate:'',
+            finishDate:'',
+            daysofValidity:'',
+            idPolicyType:'',
+            idFrequencyPayment:'',
+            idCity:'',
+            dateAdmission:'',
+            dateCancellation:'',
+            idPaymentType:'',
+            idRamo: '',
+            percentageRamo:'',
+            recipient: ''
+});
+        
+
     }
 
 

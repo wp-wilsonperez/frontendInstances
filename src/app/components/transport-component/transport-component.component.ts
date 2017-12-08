@@ -8,12 +8,12 @@ import { config } from '../../../config/project-config';
 
 
 @Component({
-    selector: 'car-policy-component',
-    templateUrl: 'car-policy.component.html',
+    selector: 'transport-policy-component',
+    templateUrl: 'transport-policy.component.html',
     providers:[SelectService]
 })
 
-export class CarPolicyComponent implements OnInit {
+export class TransportPolicyComponent implements OnInit {
     public polizaForm:FormGroup;
     users:any;
     clients:any;
@@ -21,7 +21,7 @@ export class CarPolicyComponent implements OnInit {
     frecuencyOfPayments:any;
     cities:any;
     policyTypes:any;
-    cars:any;
+    transports:any;
     paymentTypes:any;
     insurances:any;
     frecuencias:any = [];
@@ -65,9 +65,6 @@ export class CarPolicyComponent implements OnInit {
         })
         this.selectService.loadPaymentTypes().then((res)=>{
             this.paymentTypes = res;
-        })
-        this.selectService.loadCars().then((res)=>{
-            this.cars = res;
         })
         this.selectService.loadPolicyTypes().then((res)=>{
             this.policyTypes = res;

@@ -1,0 +1,35 @@
+<form [formGroup]="itemAnnexstandartForm" class="row form-group">
+        <div class="form-group col-md-12">
+                <div class="row">
+                        <div class="col-md-6"> <label for="rg-from">Descripcion: </label>  <textarea  type="text" formControlName="detailsItem" class="form-control" placeholder="Detalles"> </textarea></div>
+                        <div class="col-md-6"> <label for="rg-from">Observaciones: </label>  <textarea  type="text" formControlName="observationsItem" class="form-control" placeholder="Observaciones"></textarea> </div>
+                   
+                  
+                </div>
+               
+                <div class="row">
+                        <div class="col-md-6">   <label for="rg-from">Deducible: </label> <input type="number" formControlName="deductible" class="form-control" placeholder="Deducible"></div>
+                        <div class="col-md-6">   <label for="rg-from">Dias Validos: </label> <input (focus)="resetField()" type="number" formControlName="validDays" class="form-control" placeholder="validDays"></div>
+                </div>
+                <div class="row">     
+                    <div class="col-md-6">         <label for="rg-from">F. Inclusion: </label> <input type="date" formControlName="inclusionDate" class="form-control" placeholder="Inclusion Date"></div>
+                    <div class="col-md-6"><label for="rg-from">F. Exclusion: </label> <input type="date" formControlName="exclusionDate" class="form-control" placeholder="Inclusion Date"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">   </div>
+                    <div class="col-md-6">   <label for="rg-from">Valor total del Item </label> <input (input)="subtractPrima()" type="text" formControlName="totalValueItem" class="form-control" placeholder="Valor Total"></div>
+    
+            </div>
+            <div class="row">
+                        <div class="col-md-2 ">
+                                        <button [disabled]="!itemAnnexstandartForm.valid" (click)="saveItemAnnexstandart()" type="submit" class="btn btn-primary btn-sm transition">Agregar</button>
+                        </div>
+              </div>
+     
+        </div>
+     
+       
+      
+    
+      
+</form> 

@@ -1,5 +1,5 @@
-import { ItemAnnexProfit } from './../../../components/itemAnnexs/itemAnnexProfit/item-annex-profit.component';
-import { ItemAnnexFire } from './../../../components/itemAnnexs/itemAnnexFire/item-annex-fire.component';
+import { ItemAnnexStandart } from './../../../components/itemAnnexs/itemAnnexStandart/itemAnnexStandart';
+import { ItemAnnexTransport } from './../../../components/itemAnnexs/itemAnnexImportTransport/itemAnnexImportTransport';
 import { ItemAnnexCar } from './../../../components/itemAnnexs/itemAnnexCar/itemAnnexCar';
 import { SelectService } from './../../../providers/select.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -57,8 +57,8 @@ export class PolizaAnnexComponent{
         policy:any;
         itemTypeForm:string="";
         @ViewChild(ItemAnnexCar) itemCar:ItemAnnexCar ;
-        @ViewChild(ItemAnnexFire) itemFire:ItemAnnexFire;
-        @ViewChild(ItemAnnexProfit) itemProfit:ItemAnnexProfit;
+        @ViewChild(ItemAnnexTransport) itemTransport:ItemAnnexTransport;
+        @ViewChild(ItemAnnexStandart) itemStandart:ItemAnnexStandart;
         currentItem:number;
         toExtra:boolean = false;
         itemExtras:Array<any>=[];
@@ -87,24 +87,32 @@ export class PolizaAnnexComponent{
                 carValue:[''],
                 amparoPatrimonial:[''],
                 rc:[''],
-                others:['']
+                others:[''],
+                
+              
             });
 
             this.route.params.subscribe((params:Params)=>{
                 console.log(params['id']);
                 this.policyId = params['id'];
                 this.loadpolizaAnnexs(); 
-                this.loadPolicy();
-                console.log();          
+                this.loadPolicy();        
             })
             this.itemExtraForm = this.formBuilder.group({
-            
-                idItemAnnexCar:[],
-                extraDetails:[],
-                extraValue:[],
-                extraTasa:[],
-                exclusionDate:[],
-                inclusionDate:[]
+                idItemAnnex:[''],
+                numberSubItem:[''],
+                name: [''],
+                deductible:[''],
+                planAlternative: [''],
+                valueSubItem: [''],
+                tasa: [''],
+                calcFloat: [''],
+                primaNeta: [''],
+                detailsSubItem: [''],
+                observationsSubItem: [''],
+                exclusionDate:[''],
+                inclusionDate: [''],
+                modificationDate: [''],
 
             });
 
@@ -128,6 +136,7 @@ export class PolizaAnnexComponent{
                 return res.json();
             }).subscribe((result)=>{
                     this.policy = result.policy;
+                    this.idRamo = this.policy.idRamo;
             })
 
         }
@@ -140,7 +149,6 @@ export class PolizaAnnexComponent{
                     if(this.polizaAnnexs.length > 0){
                         if(this.polizaAnnexs[0]['itemAnnex'] != undefined){
                             console.log('polizaAnnexs', this.polizaAnnexs[0].itemAnnex );
-                            this.idRamo = this.polizaAnnexs[0].itemAnnex.idRamo;
                             this.itemAnnexs = this.polizaAnnexs[0].itemAnnex.items;
                         }
                         
@@ -267,7 +275,7 @@ export class PolizaAnnexComponent{
          saveItemAnnexExtra(){
             console.log(this.itemExtraForm.value);
             
-            this.itemExtraForm.controls['idItemAnnexCar'].setValue(this.itemAnnexCarId);
+            this.itemExtraForm.controls['idItemAnnex'].setValue(this.itemAnnexCarId);
             this.itemAnnexExtras.push(this.itemExtraForm.value);
             this.itemAnnexs[this.currentItem].subItems.push(this.itemExtraForm.value);
             console.log('global array ',this.itemAnnexs);

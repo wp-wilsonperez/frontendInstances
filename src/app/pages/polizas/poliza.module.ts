@@ -1,3 +1,4 @@
+import { ItemAnnexStandart } from './../../components/itemAnnexs/itemAnnexStandart/itemAnnexStandart';
 import { ItemAnnexRc } from './../../components/itemAnnexs/itemAnnexRc/item-annex-rc';
 import { ItemAnnexProfit } from './../../components/itemAnnexs/itemAnnexProfit/item-annex-profit.component';
 import { ItemAnnexFire } from './../../components/itemAnnexs/itemAnnexFire/item-annex-fire.component';
@@ -21,6 +22,7 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 import { PolizaComponent } from './poliza.component';
 import { TipoPolizaComponent } from './tipo-poliza/tipo-poliza.component';
 import {SelectModule} from 'angular2-select';
+import { ItemAnnexTransport } from '../../components/itemAnnexs/itemAnnexImportTransport/itemAnnexImportTransport';
 
 
 export const routes = [
@@ -49,7 +51,7 @@ export const routes = [
   ],
   declarations: [
 
-    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent,ItemAnnexCar,ItemAnnexFire,ItemAnnexProfit,ItemAnnexRc
+    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent,ItemAnnexCar,ItemAnnexFire,ItemAnnexProfit,ItemAnnexRc,ItemAnnexTransport,ItemAnnexStandart
 
   ],
   providers: []

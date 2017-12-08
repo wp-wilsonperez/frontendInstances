@@ -1,63 +1,123 @@
 import { SelectService } from './../../../providers/select.service';
 import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { config } from '../../../../config/project-config';
 
+
 @Component({
-    selector: 'item-annex-car',
-    templateUrl: 'itemAnnexCar.html'
+    selector: 'item-annex-transport',
+    templateUrl: 'itemAnnexImportTransport.html'
 })
 
-export class ItemAnnexCar implements OnInit {
-    public itemAnnexCarForm:FormGroup;
+export class ItemAnnexTransport implements OnInit {
+    public itemAnnextransportForm:FormGroup;
+    public itemExtraForm:FormGroup;
     public polizaAnnexId:number;
-    public cars:any;
-    public carUses:any;
+    public transports:any;
+    public transportUses:any;
+    public selecttransportLabel = "transportro";
+    public selecttransportUseLabel = "Uso";
+    @Output() saved = new EventEmitter();
+    @Input() polizaAnnex:any;
+    public itemtransportAnnexs:any = [];
+    public totalPrima:any;
+    @Output() subtract = new EventEmitter(); 
+    @Input() poliza ;
+    itemAnnexs:Array<any> = [];
+    extraIndex:number;
+    subItems:Array<any> = [];
 
     constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService) {
-        this.itemAnnexCarForm = this.fb.group({
+        this.itemAnnextransportForm = this.fb.group({
             idPolicyAnnex:[''],
-            idCar:[''],
+            packaging:[''],
+            application:[''],
+            observationsItem:[''],
+            transportation:[''],
+            deductible:[''],
+            detailsItem:[''],
+            provider:[''],
+            limitPerShipment:[''],
+            order:[''],
+            commodity:[''],
+            coverage:[''],
+            transportMatricula:[],
             tasa:[''],
-            carUse:[''],
-            carValue:[''],
+            transportUse:[''],
+            transportUseName:[''],
+            transportValue:[''],
             amparoPatrimonial:[''],
-            rc:[''],
-            others:['']
+            detailstransport: [''],
+            totalValueItem:[''],
+            totalValuePrimaItem:[''],
+            prima: [],
+            othersPrima:[],
+            exclusionDate: [''],
+            inclusionDate: [''],
+            modificationDate: [''],
         })
-        this.selectService.loadCars().then((result)=>{
-            this.cars = result;
-        });
-        this.selectService.loadCarUse().then((result)=>{
-            this.carUses = result;
-        })
+        this.itemExtraForm = this.fb.group({
+            
+                idItemAnnextransport:[],
+                extraDetails:[],
+                extraValue:[],
+                extraTasa:[],
+                exclusionDate:[],
+                inclusionDate:[]
+
+            });
+
+        this.getTasa()
+        console.log('id de poliza',this.poliza)
+       
         
      }
 
 
-    saveItemAnnexCar(){
-        console.log(this.itemAnnexCarForm.value);
-        
-        this.itemAnnexCarForm.controls['idPolicyAnnex'].setValue(this.polizaAnnexId);
-        this.http.post(config.url+'itemAnnexCar/add?access_token='+this.local.getUser().token,this.itemAnnexCarForm.value).map((result)=>{  
-            return result.json()
-        }).subscribe(res=>{
-             if(res.msg == "OK"){
-                   // this.loadItemAnnexCar(this.polizaAnnexId);
-                   // this.messageCar = "Elemento Auto Guardado"
-                    this.itemAnnexCarForm.reset();
-            }else{
-                 // this.error = true;
-                //this.message = "No tiene privilegios de guardar elementos autos"
-               
-            }
-            console.log(res);
-          // this.loadItemAnnexCar(this.polizaAnnexId);
-            
-        })
+    saveItemAnnextransport(){
+       this.saved.emit({value:this.itemAnnextransportForm.value});
+        this.itemAnnexs.push(this.itemAnnextransportForm.value);
+       this.itemAnnextransportForm.reset();
     }
+    subtractPrima(){
+        this.subtract.emit(this.itemAnnextransportForm.value.othersPrima);
+    }
+    setMatricula(event){
+        console.log(event)
+        this.itemAnnextransportForm.controls['transportMatricula'].setValue(event.label);
+    }
+    settransportUse(event){
+        console.log(event)
+        this.itemAnnextransportForm.controls['transportUseName'].setValue(event.label);
+    }
+    getTasa(){
+        this.http.get(config.url+`tasa/value/?access_token=${this.local.getUser().token}&idDeductible=${this}&idInsurance=${this}&idRamo=599222be7f05fc0933b643f3` ).map((res)=>{
+            return res.json();
+        }).subscribe((result)=>{
+            console.log('tasa',result) 
+        })  
+
+    }
+  
+    resetField(){
+
+    }
+    getItem(i){
+           this.extraIndex =i;
+       
+           if(this.itemAnnexs[this.extraIndex]['subItems'] == undefined){
+               this.itemAnnexs[this.extraIndex]['subItems'] = [];
+   
+               console.log(this.itemAnnexs[this.extraIndex]);
+           }
+    }
+    saveExtra(){
+        this.itemAnnexs[this.extraIndex].subItems.push();
+        this.subItems = [];
+    }
+
 
     ngOnInit() { }
 }
