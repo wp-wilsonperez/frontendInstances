@@ -1,3 +1,4 @@
+import { ItemService } from './../../providers/items.service';
 import { ItemAnnexStandart } from './../../components/itemAnnexs/itemAnnexStandart/itemAnnexStandart';
 import { ItemAnnexRc } from './../../components/itemAnnexs/itemAnnexRc/item-annex-rc';
 import { ItemAnnexProfit } from './../../components/itemAnnexs/itemAnnexProfit/item-annex-profit.component';
@@ -54,7 +55,7 @@ export const routes = [
     PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent,ItemAnnexCar,ItemAnnexFire,ItemAnnexProfit,ItemAnnexRc,ItemAnnexTransport,ItemAnnexStandart
 
   ],
-  providers: []
+  providers: [ItemService]
 })
 export class PolizaModule { 
   

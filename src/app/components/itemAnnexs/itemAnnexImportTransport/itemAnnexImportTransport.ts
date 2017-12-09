@@ -4,11 +4,12 @@ import { Http } from '@angular/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { config } from '../../../../config/project-config';
+import { ItemService } from './../../../providers/items.service';
 
 
 @Component({
     selector: 'item-annex-transport',
-    templateUrl: 'itemAnnexImportTransport.html'
+    templateUrl: 'itemAnnexImportTransport.html',
 })
 
 export class ItemAnnexTransport implements OnInit {
@@ -29,7 +30,7 @@ export class ItemAnnexTransport implements OnInit {
     extraIndex:number;
     subItems:Array<any> = [];
 
-    constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService) {
+    constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService,public itemService:ItemService) {
         this.itemAnnextransportForm = this.fb.group({
             idPolicyAnnex:[''],
             packaging:[''],
@@ -50,13 +51,14 @@ export class ItemAnnexTransport implements OnInit {
             transportValue:[''],
             amparoPatrimonial:[''],
             detailstransport: [''],
-            totalValueItem:[''],
+            totalValueItem:[0],
             totalValuePrimaItem:[''],
             prima: [],
             othersPrima:[],
             exclusionDate: [''],
             inclusionDate: [''],
             modificationDate: [''],
+            validDays:['']
         })
         this.itemExtraForm = this.fb.group({
             
@@ -69,7 +71,10 @@ export class ItemAnnexTransport implements OnInit {
 
             });
 
-        this.getTasa()
+        this.getTasa();
+        this.itemAnnextransportForm.controls['tasa'].setValue(this.itemService.getTasa() || 0);
+        this.itemAnnextransportForm.controls['deductible'].setValue(this.itemService.getDeducible() ||"No deducible");
+        this.itemAnnextransportForm.controls['validDays'].setValue(this.itemService.getDays());
         console.log('id de poliza',this.poliza)
        
         
@@ -80,6 +85,7 @@ export class ItemAnnexTransport implements OnInit {
        this.saved.emit({value:this.itemAnnextransportForm.value});
         this.itemAnnexs.push(this.itemAnnextransportForm.value);
        this.itemAnnextransportForm.reset();
+       this.itemAnnextransportForm.controls['totalValueItem'].setValue(0);
     }
     subtractPrima(){
         this.subtract.emit(this.itemAnnextransportForm.value.othersPrima);

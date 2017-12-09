@@ -9,7 +9,7 @@
             </div>
            
             <div class="row">
-                    <div class="col-md-6">   <label for="rg-from">Deducible: </label> <input type="number" formControlName="deductible" class="form-control" placeholder="Deducible"></div>
+                    <div class="col-md-6">   <label for="rg-from">Deducible: </label> <input type="text" formControlName="deductible" class="form-control" placeholder="Deducible"></div>
                     <div class="col-md-6">   <label for="rg-from">Transportacion: </label> <input (focus)="resetField()" type="text" formControlName="transportation" class="form-control" placeholder="Transportacion"></div>
             </div>
             <div class="row">
@@ -28,7 +28,7 @@
                                 <div class="col-md-6"><label for="rg-from">F. Exclusion: </label> <input type="date" formControlName="exclusionDate" class="form-control" placeholder="Inclusion Date"></div>
             </div>
             <div class="row">
-                <div class="col-md-6">   </div>
+                <div class="col-md-6">   <label for="rg-from">Dias Validos: </label> <input  class="bg-warning" (focus)="resetField()" type="number" formControlName="validDays" class="form-control" placeholder="Dias Validos"></div>
                 <div class="col-md-6">   <label for="rg-from">Valor total del Item </label> <input (input)="subtractPrima()" type="text" formControlName="totalValueItem" class="form-control" placeholder="Valor Total"></div>
 
         </div>

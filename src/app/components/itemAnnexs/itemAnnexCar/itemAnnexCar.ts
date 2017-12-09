@@ -1,3 +1,4 @@
+import { ItemService } from './../../../providers/items.service';
 import { SelectService } from './../../../providers/select.service';
 import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
@@ -28,8 +29,11 @@ export class ItemAnnexCar implements OnInit {
     itemAnnexs:Array<any> = [];
     extraIndex:number;
     subItems:Array<any> = [];
+    tasa:any;
+    days:any;
+    deducible:any;
 
-    constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService) {
+    constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService,public itemService:ItemService) {
         this.itemAnnexCarForm = this.fb.group({
             idPolicyAnnex:[''],
             idCar:['',Validators.required],
@@ -48,6 +52,7 @@ export class ItemAnnexCar implements OnInit {
             inclusionDate: [''],
             modificationDate: [''],
         })
+
         this.itemExtraForm = this.fb.group({
             
                 idItemAnnexCar:[],
@@ -67,8 +72,7 @@ export class ItemAnnexCar implements OnInit {
         })
 
         this.loadItemAnnexCar();
-        this.getTasa()
-        console.log('id de poliza',this.poliza)
+        this.itemAnnexCarForm.controls['tasa'].setValue(this.itemService.getTasa());
        
         
      }
@@ -98,14 +102,6 @@ export class ItemAnnexCar implements OnInit {
     setCarUse(event){
         console.log(event)
         this.itemAnnexCarForm.controls['carUseName'].setValue(event.label);
-    }
-    getTasa(){
-        this.http.get(config.url+`tasa/value/?access_token=${this.local.getUser().token}&idDeductible=${this}&idInsurance=${this}&idRamo=599222be7f05fc0933b643f3` ).map((res)=>{
-            return res.json();
-        }).subscribe((result)=>{
-            console.log('tasa',result) 
-        })  
-
     }
   
     resetField(){

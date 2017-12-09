@@ -1,3 +1,4 @@
+import { ItemService } from './../../../providers/items.service';
 import { SelectService } from './../../../providers/select.service';
 import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
@@ -28,18 +29,21 @@ export class ItemAnnexStandart implements OnInit {
     extraIndex:number;
     subItems:Array<any> = [];
 
-    constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService) {
+    constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService,public itemService:ItemService) {
         this.itemAnnexstandartForm = this.fb.group({
             idPolicyAnnex:[''],
             detailsItem:[''],
             observationsItem:[''],
             validDays:[''],
-            totalValueItem:[''],
+            totalValueItem:[0],
             deductible:[''],
             exclusionDate: [''],
             inclusionDate: [''],
             modificationDate: [''],
         })
+  
+        this.itemAnnexstandartForm.controls['validDays'].setValue(this.itemService.getDays());
+        this.itemAnnexstandartForm.controls['deductible'].setValue(this.itemService.getDeducible());
         
      }
 

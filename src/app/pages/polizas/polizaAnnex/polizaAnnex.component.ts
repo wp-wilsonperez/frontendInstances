@@ -1,3 +1,4 @@
+import { ItemService } from './../../../providers/items.service';
 import { ItemAnnexStandart } from './../../../components/itemAnnexs/itemAnnexStandart/itemAnnexStandart';
 import { ItemAnnexTransport } from './../../../components/itemAnnexs/itemAnnexImportTransport/itemAnnexImportTransport';
 import { ItemAnnexCar } from './../../../components/itemAnnexs/itemAnnexCar/itemAnnexCar';
@@ -8,6 +9,7 @@ import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
+import { Number } from 'core-js/library/web/timers';
 
 @Component({
     selector:'polizaAnnex-component',
@@ -63,7 +65,10 @@ export class PolizaAnnexComponent{
         toExtra:boolean = false;
         itemExtras:Array<any>=[];
         idRamo:number;
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute,public selectService:SelectService){
+        tasa:any =0;
+        deducible:any ='';
+        daysOfValidity:any =0;
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute,public selectService:SelectService,public itemService:ItemService){
         
             this.polizaAnnexForm = this.formBuilder.group({
                 
@@ -76,7 +81,7 @@ export class PolizaAnnexComponent{
                 iva:[''],
                 segCamp:[''],
                 valueIssue:[''],
-                totalValue:['']
+                totalValue:[0]
             });
             this.itemAnnexCarForm = this.formBuilder.group({
                 
@@ -104,10 +109,10 @@ export class PolizaAnnexComponent{
                 name: [''],
                 deductible:[''],
                 planAlternative: [''],
-                valueSubItem: [''],
-                tasa: [''],
-                calcFloat: [''],
-                primaNeta: [''],
+                valueSubItem: [0],
+                tasa: [0],
+                calcFloat: [0],
+                primaNeta: [0],
                 detailsSubItem: [''],
                 observationsSubItem: [''],
                 exclusionDate:[''],
@@ -137,6 +142,35 @@ export class PolizaAnnexComponent{
             }).subscribe((result)=>{
                     this.policy = result.policy;
                     this.idRamo = this.policy.idRamo;
+
+                    console.log('Poliza Completa: ', result);
+                    let request = {
+                        filter: {idInsurance: result.policy.idInsurance , idRamo: result.policy.idRamo, idDeductible: result.policy.idDeductible }
+                    }
+
+                    this.http.get(config.url+`tasa/filter/?query=${this.policyId}?access_token=`+this.local.getUser().token).map((res)=>{
+                        return res.json();
+                    }).subscribe((result)=>{
+                            console.log('tasa',result)
+                         if(result.tasas[0] ){
+                         
+                            this.itemService.setDeducible(result.tasas[0].deductible.description );
+                            this.deducible = result.tasas[0].deductible.description;
+                            this.itemService.setTasa(result.tasas[0].value);
+                            this.tasa = result.tasas[0].value;
+                            this.itemExtraForm.controls['tasa'].setValue(result.tasas[0].value);
+                            this.itemExtraForm.controls['deductible'].setValue(result.tasas[0].deductible.description);
+                         }
+                         
+                          
+        
+                            
+                    })
+                    this.itemService.setDays(result.policy.daysofValidity);
+                    this.daysOfValidity = result.policy.daysofValidity;
+                    console.log('days',result.policy.daysofValidity);
+                   
+
             })
 
         }
@@ -278,8 +312,15 @@ export class PolizaAnnexComponent{
             this.itemExtraForm.controls['idItemAnnex'].setValue(this.itemAnnexCarId);
             this.itemAnnexExtras.push(this.itemExtraForm.value);
             this.itemAnnexs[this.currentItem].subItems.push(this.itemExtraForm.value);
+            this.itemAnnexs[this.currentItem].totalValueItem = this.itemAnnexs[this.currentItem].totalValueItem + this.itemExtraForm.value.primaNeta; 
             console.log('global array ',this.itemAnnexs);
             this.itemExtraForm.reset();
+            this.itemExtraForm.controls['calcFloat'].setValue(0);
+            this.itemExtraForm.controls['primaNeta'].setValue(0);
+            this.itemExtraForm.controls['valueSubItem'].setValue(0);
+            this.itemExtraForm.controls['tasa'].setValue(this.tasa);
+            this.itemExtraForm.controls['deductible'].setValue(this.deducible);
+            
           
 
         }
@@ -491,7 +532,9 @@ export class PolizaAnnexComponent{
         }
     }
     deleteCarExtra(i){
+        this.itemAnnexs[this.currentItem].totalValueItem =  this.itemAnnexs[this.currentItem].totalValueItem - this.itemAnnexExtras[i].primaNeta; 
         this.itemAnnexExtras.splice(i,1);
+
     }
     saveAll(){
         console.log(this.idRamo);
@@ -508,6 +551,15 @@ export class PolizaAnnexComponent{
             console.log(result);
         })
 
+    }
+    getPrimaSubItem(){
+        this.itemExtraForm.controls['primaNeta'].setValue( (this.itemExtraForm.value.valueSubItem * this.itemExtraForm.value.tasa) / 100 );
+    }
+    getFlotante(){
+        if(this.itemExtraForm.value.calcFloat != 0){
+            this.itemExtraForm.controls['primaNeta'].setValue( (this.itemExtraForm.value.primaNeta * this.itemExtraForm.value.calcFloat ) / 100 );
+        }
+       
     }
 
 }
