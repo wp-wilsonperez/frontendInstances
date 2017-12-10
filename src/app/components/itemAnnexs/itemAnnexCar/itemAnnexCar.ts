@@ -38,19 +38,20 @@ export class ItemAnnexCar implements OnInit {
             idPolicyAnnex:[''],
             idCar:['',Validators.required],
             carMatricula:[],
-            tasa:[null,Validators.required],
+            tasa:[0,Validators.required],
             carUse:[''],
             carUseName:[''],
-            carValue:[null,Validators.required],
+            carValue:[0,Validators.required],
             amparoPatrimonial:[''],
-            rc:[null,Validators.required],
-            others:[null,Validators.required],
+            rc:[0,Validators.required],
+            others:[0,Validators.required],
             detailsCar: [''],
-            prima: [],
-            othersPrima:[],
+            prima: [0],
+            othersPrima:[0],
             exclusionDate: [''],
             inclusionDate: [''],
             modificationDate: [''],
+            totalValueItem:[0]
         })
 
         this.itemExtraForm = this.fb.group({
@@ -119,6 +120,14 @@ export class ItemAnnexCar implements OnInit {
     saveExtra(){
         this.itemAnnexs[this.extraIndex].subItems.push();
         this.subItems = [];
+    }
+    calcItemCar(){
+        if(this.itemAnnexCarForm.value.carValue !=0){
+            let result =  ((this.itemAnnexCarForm.value.tasa + this.itemAnnexCarForm.value.amparoPatrimonial + this.itemAnnexCarForm.value.rc + this.itemAnnexCarForm.value.others) * this.itemAnnexCarForm.value.carValue) /(100 + this.itemAnnexCarForm.value.othersPrima); 
+            this.itemAnnexCarForm.controls['totalValueItem'].setValue(result.toFixed(2))  
+
+        }
+       
     }
 
 

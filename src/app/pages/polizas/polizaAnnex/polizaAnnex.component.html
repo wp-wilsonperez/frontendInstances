@@ -273,6 +273,7 @@
                                                         <th><mfDefaultSorter by="detailsCar">Detalle</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="others">F. Exclusion</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="detailsCar">F. Inclusion</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="detailsCar">Total Item</mfDefaultSorter></th> 
                                                         
                                         
                                                         <th>Acciones</th>      
@@ -291,32 +292,15 @@
                                                         <td> {{item.detailsCar}}</td>
                                                         <td> {{item.exclusionDate}}</td>
                                                         <td> {{item.inclusionDate}}</td>
+                                                        <td> {{item.totalValueItem}}</td>
                                                         <td>
                                                         
                                                             <div class="d-inline-block">
                                                                         <div class="row">
                                                                         
-                                                                            <button type="button" data-toggle="modal" data-target="#delete=modal"  class="btn btn-danger btn-sm transition">Borrar</button>
+                                                                            <button type="button" (click)="deleteCarItem(i)"  class="btn btn-danger btn-sm transition">Borrar</button>
                                         
                                                                             <button (click)="getItem(i)" type="button" data-toggle="modal" data-target="#extra-modal"  class="btn btn-success btn-sm transition">SubItems</button>
-                                        
-                                                                                                <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
-                                                                                                    <div class="modal-dialog" role="document">
-                                                                                                        <div class="modal-content">
-                                                                                                            <div class="modal-header state modal-danger">                                    
-                                                                                                                <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
-                                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                                                                                            </div>
-                                                                                                            <div class="modal-body">
-                                                                                                            <!--Esta seguro-->
-                                                                                                            </div>
-                                                                                                            <div class="modal-footer">
-                                                                                                                <button (click)="deleteCarItem(i)" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
-                                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
                                         
                                                                         </div>
                                                                         
@@ -448,8 +432,8 @@
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header state modal-primary">
-                                    <i class="fa fa-car"></i>
-                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-file-o"></i>Sub Items Carro</h4>
+                                   
+                                    <h4 class="modal-title" id="modal-label"><i class="fa fa-car"></i>Sub Items Carro</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 </div>
                                 <div class="modal-body">
@@ -459,15 +443,15 @@
                                             <div class="row">
                 
                             
-                                                <div class="col-md-4"> <input type="text" formControlName="observationsSubItem" class="form-control" placeholder="Observaciones"></div>
-                                                <div class="col-md-4"> <input type="text" formControlName="deductible" class="form-control" placeholder="Deducible"></div>
-                                                <div class="col-md-4"> <input type="text" formControlName="valueSubItem" class="form-control" placeholder="Valor"></div>
+                                                <div class="col-md-4"> <label for="">Observaciones</label> <input type="text" formControlName="observationsSubItem" class="form-control" placeholder="Observaciones"></div>
+                                                <div class="col-md-4"> <label for="">Deducible</label>  <input type="text" formControlName="deductible" class="form-control" placeholder="Deducible"></div>
+                                                <div class="col-md-4"><label for="">Valor</label> <input (blur)="getPrimaSubItem()" type="" formControlName="valueSubItem" class="form-control" placeholder="Valor"></div>
                                                 
                                             </div>
                                             <div class="row">                  
-                                                <div class="col-md-4"> <input type="text" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
-                                                <div class="col-md-4"> <input type="text" formControlName="calcFloat" class="form-control" placeholder="Flotante"></div>
-                                                <div class="col-md-4"> <input type="text" formControlName="primaNeta" class="form-control" placeholder="Prima Neta"></div>
+                                                <div class="col-md-4"> <label for="">Tasa</label> <input (blur)="getPrimaSubItem()" type="number" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
+                                                <div class="col-md-4"><label for="">Flotante</label> <input (blur)="getFlotante()" type="number" formControlName="calcFloat" class="form-control" placeholder="Flotante"></div>
+                                                <div class="col-md-4"> <label for="">Prima Neta</label> <input type="number" formControlName="primaNeta" class="form-control" placeholder="Prima Neta"></div>
                                                                                     
                                             </div>
                                             <div class="row">     
@@ -483,62 +467,54 @@
                                         <div class="form-group col-md-2 col-sm-6" *ngIf="!createItemCar">
                                             <button [disabled]="!polizaAnnexForm.valid" (click)="editItemAnnexExtra()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
                                         </div>
-                                </form> 
-                                 <div style="padding-top: 10px;"class="table-responsive datatable">
-                                        <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
-                                            <thead>
-                                                <tr>
-                                                    <th> <mfDefaultSorter by="name">Detalles Extra</mfDefaultSorter></th>                              
-                                                    <th><mfDefaultSorter by="phone">Tasa Extra</mfDefaultSorter></th>
-                                                    <th><mfDefaultSorter by="phone">Valor Extra</mfDefaultSorter></th> 
-                                                
-
-                                                    <th>Acciones</th>      
-                                                </tr>
-                                            </thead>
-                                            <tbody>                           
-
-                                                <tr *ngFor="let extra of itemAnnexExtras; let i = index">
-                                                    <td><strong>  {{extra.extraDetails}}   </strong></td>
-                                                    <td>{{extra.extraTasa}}</td>
-                                                    <td>{{extra.extraValue}}</td>
-                                
-                                                
-
-                                                    <td class="row col  bottom-15">
-                                                    
-                                                        <div class="d-inline-block">
-                                                                    <div class="row">
-
-
-                                                                           
-
-                                                                                    
-
-                                                                            
-
-                                                                <button type="button" (click)="deleteCarExtra(i)" class="btn btn-danger btn-sm transition">Borrar</button>
-
-                                                                                  
-
-                                                                    </div>
-                                                                    
-                                                                </div>
-                                                    </td>
-                                                    </tr>
+                                </form>
+                                <div style="padding-top: 10px;"class="table-responsive datatable">
+                                    <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                                        <thead>
+                                            <tr>
+                                                <th> <mfDefaultSorter by="name">Observaciones</mfDefaultSorter></th>                              
+                                                <th><mfDefaultSorter by="phone">Deducible</mfDefaultSorter></th>
+                                                <th><mfDefaultSorter by="phone">Valor</mfDefaultSorter></th> 
+                                                <th> <mfDefaultSorter by="name">Tasa</mfDefaultSorter></th>                              
+                                                <th><mfDefaultSorter by="phone">Flotante</mfDefaultSorter></th>
+                                                <th><mfDefaultSorter by="phone">Prima Neta</mfDefaultSorter></th> 
                                             
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td colspan="12">
-                                                        <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
-                                                    </td>
+            
+                                                <th>Acciones</th>      
+                                            </tr>
+                                        </thead>
+                                        <tbody>                           
+            
+                                            <tr *ngFor="let extra of itemAnnexExtras; let i = index">
+                                                <td><strong>  {{extra.observationsSubItem}}   </strong></td>
+                                                <td>{{extra.deductible}}</td>
+                                                <td>{{extra.valueSubItem}}</td>
+                                                <td>{{extra.tasa}}</td>
+                                                <td>{{extra.calcFloat}}</td>
+                                                <td>{{extra.primaNeta}}</td>
+                                                <td>
+                                                
+                                                    <div class="d-inline-block">
+                                                                <div class="row">
+                                                            <button type="button" (click)="deleteCarExtra(i)" class="btn btn-danger btn-sm transition">Borrar</button>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                </td>
                                                 </tr>
-                                            </tfoot>
-                                        </table>
-                          
-                             
-                            </div>
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="12">
+                                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                      
+                         
+                        </div>
                                   
                                                                 
                                 </div>
@@ -744,3 +720,84 @@
             </div>
         </div>
 </div>
+<!-- Medic modal -->
+<!-- <div class="modal fade" *ngIf="idRamo == '599222d07f05fc0933b643f5' || idRamo == '599222ce7f05fc0933b643f4'   " id="extra-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header state modal-primary">
+                    <h4 class="modal-title" id="modal-label"><i class="fa fa-file-o"></i>Sub Items</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                   
+                    <form [formGroup]="itemExtraForm" class="row form-inline">
+                        <div class="form-group col-md-10">
+                          
+                                    <div class="col-md-6"><label for="rg-from">F. Exclusion: </label> <input type="date" formControlName="exclusionDate" class="form-control" placeholder="Inclusion Date"></div>
+                            </div>
+                        
+                        </div>
+                        <div class="form-group col-md-2 col-sm-6" *ngIf="createItemCar">
+                            <button [disabled]="!itemAnnexCarForm.valid" (click)="saveItemAnnexExtra()" type="submit" class="btn btn-primary btn-sm transition">Agregar</button>
+                        </div>
+                        
+                        <div class="form-group col-md-2 col-sm-6" *ngIf="!createItemCar">
+                            <button [disabled]="!polizaAnnexForm.valid" (click)="editItemAnnexExtra()" type="submit" class="btn btn-primary btn-sm transition">Editar</button>
+                        </div>
+                </form> 
+                <div style="padding-top: 10px;"class="table-responsive datatable">
+                    <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                        <thead>
+                            <tr>
+                                <th> <mfDefaultSorter by="name">Observaciones</mfDefaultSorter></th>                              
+                                <th><mfDefaultSorter by="phone">Deducible</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="phone">Valor</mfDefaultSorter></th> 
+                                <th> <mfDefaultSorter by="name">Tasa</mfDefaultSorter></th>                              
+                                <th><mfDefaultSorter by="phone">Flotante</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="phone">Prima Neta</mfDefaultSorter></th> 
+                            
+
+                                <th>Acciones</th>      
+                            </tr>
+                        </thead>
+                        <tbody>                           
+
+                            <tr *ngFor="let extra of itemAnnexExtras; let i = index">
+                                <td><strong>  {{extra.observationsSubItem}}   </strong></td>
+                                <td>{{extra.deductible}}</td>
+                                <td>{{extra.valueSubItem}}</td>
+                                <td>{{extra.tasa}}</td>
+                                <td>{{extra.calcFloat}}</td>
+                                <td>{{extra.primaNeta}}</td>
+                                <td class="row col  bottom-15">
+                                
+                                    <div class="d-inline-block">
+                                                <div class="row">
+                                            <button type="button" (click)="deleteCarExtra(i)" class="btn btn-danger btn-sm transition">Borrar</button>
+                                                </div>
+                                                
+                                            </div>
+                                </td>
+                                </tr>
+                        
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="12">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+      
+         
+        </div>
+                  
+                                                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+</div> -->

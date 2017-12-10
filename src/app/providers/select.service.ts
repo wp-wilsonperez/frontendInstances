@@ -396,6 +396,24 @@ export class SelectService {
         })
         
     }
+    loadPlanAlternatives(){  
+        let policyOptions = [];
+        return   this.http.get(config.url+'planAlternative/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.planAlternatives;
+             policies.map((result)=>{
+                let obj = {
+                    value: result.value,
+                    label: result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
+   
 
    
 }

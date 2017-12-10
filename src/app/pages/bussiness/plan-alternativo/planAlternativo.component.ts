@@ -37,6 +37,7 @@ export class PlanAlternativoComponent{
             this.planAlternativoForm = this.formBuilder.group({
                 idPlanAssociation: ['',Validators.compose([Validators.required])],
                 idAlternative:['',Validators.compose([Validators.required])],
+                name:['',Validators.compose([Validators.required])],
                 value:['',Validators.compose([Validators.required])]           
               
             });
@@ -89,7 +90,7 @@ export class PlanAlternativoComponent{
         this.create = false;
         this.planAlternativoId = planAlternativo._id;
         
-        this.planAlternativoForm.setValue({idPlanAssociation: planAlternativo.idPlanAssociation,idAlternative:planAlternativo.idAlternative,value:planAlternativo.value});
+        this.planAlternativoForm.setValue({idPlanAssociation: planAlternativo.idPlanAssociation,idAlternative:planAlternativo.idAlternative,value:planAlternativo.value,name:planAlternativo.name});
         
         
         

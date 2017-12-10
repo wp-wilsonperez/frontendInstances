@@ -68,6 +68,8 @@ export class PolizaAnnexComponent{
         tasa:any =0;
         deducible:any ='';
         daysOfValidity:any =0;
+        planAlternativos : any = [];
+        selectPlanLabel='Seleccione Plan...';
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute,public selectService:SelectService,public itemService:ItemService){
         
             this.polizaAnnexForm = this.formBuilder.group({
@@ -130,6 +132,11 @@ export class PolizaAnnexComponent{
                   console.log('ramos',this.ramos);
                   
               })
+              this.selectService.loadPlanAlternatives().then(result=>{
+                this.planAlternativos = result;
+                console.log('ramos',this.planAlternativos);
+                
+            })
               this.loadCarUse();
               this.loadSettings();
               this.polizaAnnexForm.controls['totalPrima'].setValue(0);
@@ -561,5 +568,7 @@ export class PolizaAnnexComponent{
         }
        
     }
+    
+
 
 }

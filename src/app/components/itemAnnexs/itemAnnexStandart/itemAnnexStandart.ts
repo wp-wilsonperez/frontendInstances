@@ -52,6 +52,7 @@ export class ItemAnnexStandart implements OnInit {
         this.saved.emit({value:this.itemAnnexstandartForm.value});
          this.itemAnnexs.push(this.itemAnnexstandartForm.value);
         this.itemAnnexstandartForm.reset();
+        this.itemAnnexstandartForm.controls['totalValueItem'].setValue(0);
      }
      loadItemAnnexstandart(){
          this.http.get(config.url+`itemAnnexstandart/param/${this.polizaAnnex}?access_token=`+this.local.getUser().token).map((res)=>{
