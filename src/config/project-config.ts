@@ -1,6 +1,6 @@
 export
 const config =  {
-    "url" :"http://localhost:3001/"
+    "url" :"http://18.217.229.98:3001/"
 }
 export const messages ={
     "delete":"Registro Borrado",

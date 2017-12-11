@@ -81,7 +81,7 @@ PagesModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return config; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return messages; });
 var config = {
-    "url": "http://localhost:3001/"
+    "url": "http://18.217.229.98:3001/"
 };
 var messages = {
     "delete": "Registro Borrado",
