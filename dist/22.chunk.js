@@ -1,15 +1,15 @@
 webpackJsonp([22,29],{
 
-/***/ 270:
+/***/ 273:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_component__ = __webpack_require__(675);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_component__ = __webpack_require__(678);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routes", function() { return routes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginModule", function() { return LoginModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -37,7 +37,7 @@ LoginModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
             __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormsModule"],
             __WEBPACK_IMPORTED_MODULE_3__angular_forms__["ReactiveFormsModule"],
-            __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* RouterModule */].forChild(routes),
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* RouterModule */].forChild(routes),
         ],
         declarations: [__WEBPACK_IMPORTED_MODULE_4__login_component__["a" /* LoginComponent */]]
     })
@@ -47,14 +47,14 @@ LoginModule = __decorate([
 
 /***/ }),
 
-/***/ 283:
+/***/ 286:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return config; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return messages; });
 var config = {
-    "url": "http://18.217.229.98:3001/"
+    "url": "http://localhost:3001/"
 };
 var messages = {
     "delete": "Registro Borrado",
@@ -66,19 +66,19 @@ var messages = {
 
 /***/ }),
 
-/***/ 284:
+/***/ 287:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(27);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AbstractControlDirective", function() { return AbstractControlDirective; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AbstractFormGroupDirective", function() { return AbstractFormGroupDirective; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CheckboxControlValueAccessor", function() { return CheckboxControlValueAccessor; });
@@ -6159,14 +6159,14 @@ ReactiveFormsModule.ctorParameters = function () { return []; };
 
 /***/ }),
 
-/***/ 288:
+/***/ 291:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_project_config__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_project_config__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(300);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserSessionService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -6240,30 +6240,30 @@ var _a;
 
 /***/ }),
 
-/***/ 297:
+/***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var Observable_1 = __webpack_require__(2);
-var toPromise_1 = __webpack_require__(322);
+var toPromise_1 = __webpack_require__(325);
 Observable_1.Observable.prototype.toPromise = toPromise_1.toPromise;
 //# sourceMappingURL=toPromise.js.map
 
 /***/ }),
 
-/***/ 298:
+/***/ 301:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ForkJoinObservable_1 = __webpack_require__(321);
+var ForkJoinObservable_1 = __webpack_require__(324);
 exports.forkJoin = ForkJoinObservable_1.ForkJoinObservable.create;
 //# sourceMappingURL=forkJoin.js.map
 
 /***/ }),
 
-/***/ 321:
+/***/ 324:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6274,10 +6274,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(2);
-var EmptyObservable_1 = __webpack_require__(71);
-var isArray_1 = __webpack_require__(69);
-var subscribeToResult_1 = __webpack_require__(36);
-var OuterSubscriber_1 = __webpack_require__(35);
+var EmptyObservable_1 = __webpack_require__(73);
+var isArray_1 = __webpack_require__(71);
+var subscribeToResult_1 = __webpack_require__(37);
+var OuterSubscriber_1 = __webpack_require__(36);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -6382,7 +6382,7 @@ var ForkJoinSubscriber = (function (_super) {
 
 /***/ }),
 
-/***/ 322:
+/***/ 325:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6461,7 +6461,7 @@ exports.toPromise = toPromise;
 
 /***/ }),
 
-/***/ 611:
+/***/ 614:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6653,17 +6653,17 @@ var ValidationService = (function () {
 
 /***/ }),
 
-/***/ 675:
+/***/ 678:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_session_service__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_project_config__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__user_new_validation_service__ = __webpack_require__(611);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_session_service__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_project_config__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__user_new_validation_service__ = __webpack_require__(614);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_router__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_forms__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_forms__ = __webpack_require__(287);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
 /* unused harmony export emailValidator */
 /* unused harmony export validacionCedula */
@@ -6736,11 +6736,11 @@ LoginComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__angular_core__["Component"])({
         selector: 'az-login',
         encapsulation: __WEBPACK_IMPORTED_MODULE_4__angular_core__["ViewEncapsulation"].None,
-        template: __webpack_require__(838),
-        styles: [__webpack_require__(754)],
+        template: __webpack_require__(841),
+        styles: [__webpack_require__(757)],
         providers: [__WEBPACK_IMPORTED_MODULE_0__providers_session_service__["a" /* UserSessionService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_6__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_forms__["FormBuilder"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__providers_session_service__["a" /* UserSessionService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_session_service__["a" /* UserSessionService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_router__["a" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_6__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_forms__["FormBuilder"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__providers_session_service__["a" /* UserSessionService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_session_service__["a" /* UserSessionService */]) === "function" && _d || Object])
 ], LoginComponent);
 
 function emailValidator(control) {
@@ -6878,7 +6878,7 @@ var _a, _b, _c, _d;
 
 /***/ }),
 
-/***/ 754:
+/***/ 757:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)();
@@ -6886,7 +6886,7 @@ exports = module.exports = __webpack_require__(11)();
 
 
 // module
-exports.push([module.i, "/**** Colors (recommended use HEX colors) ****/\n/**** App roots ****/\n/**** General ****/\n/**** Navbar ****/\n/**** Sidebar ****/\n/**** Progress ****/\n/**** Fonts ****/\n/**** Social icons ****/\nbody::after {\n  content: '{\"main-color\":\"#000\",\"default-color\":\"#fff\",\"dark-color\":\"#000\",\"primary-color\":\"#024a88\",\"success-color\":\"#2d922d\",\"warning-color\":\"#f79a17\",\"danger-color\":\"#bf1725\",\"info-color\":\"#248dad\",\"sidebar-bg-color\":\"#0288d1\",\"gray\":\"#555\",\"gray-light\":\"#bdbdbd\"}';\n  display: none; }\n\n.login-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  height: 100%;\n  width: 100%;\n  background-image: url(" + __webpack_require__(873) + ") !important;\n  background-position: center center;\n  position: absolute; }\n  .login-container .card {\n    padding: 15px;\n    color: #0288d1; }\n    .login-container .card .btn-link {\n      padding: 0; }\n      .login-container .card .btn-link.forgot {\n        font-size: 14px; }\n      .login-container .card .btn-link:hover {\n        color: #0288d1; }\n\n.auth-sep {\n  margin-top: 32px;\n  margin-bottom: 24px;\n  line-height: 20px;\n  font-size: 15px;\n  text-align: center;\n  display: block;\n  position: relative; }\n  .auth-sep > span {\n    display: table-cell;\n    width: 30%;\n    white-space: nowrap;\n    padding: 0 14px;\n    color: #555; }\n    .auth-sep > span > span {\n      margin-top: -11px;\n      display: block;\n      font-weight: 300; }\n  .auth-sep:before, .auth-sep:after {\n    border-top: solid 1px #bdbdbd;\n    content: \"\";\n    height: 1px;\n    width: 35%;\n    display: table-cell; }\n\n.login-help {\n  margin: 0;\n  padding: 0; }\n  .login-help li {\n    list-style: none;\n    display: inline-block;\n    margin-left: 10px; }\n    .login-help li:first-child {\n      margin-left: 0; }\n    .login-help li i {\n      cursor: pointer;\n      transition: all 0.1s ease;\n      color: #fff;\n      padding: 9px 9px 6px 9px;\n      font-size: 12px;\n      background-color: #000; }\n      .login-help li i.socicon-facebook {\n        background-color: #3b5998; }\n      .login-help li i.socicon-twitter {\n        background-color: #55acee; }\n      .login-help li i.socicon-google {\n        background-color: #dd4b39; }\n      .login-help li i:hover {\n        opacity: 0.9; }\n\n.btn-login {\n  background: #0288d1; }\n\n.btn-login:hover {\n  background: #0288d1; }\n", ""]);
+exports.push([module.i, "/**** Colors (recommended use HEX colors) ****/\n/**** App roots ****/\n/**** General ****/\n/**** Navbar ****/\n/**** Sidebar ****/\n/**** Progress ****/\n/**** Fonts ****/\n/**** Social icons ****/\nbody::after {\n  content: '{\"main-color\":\"#000\",\"default-color\":\"#fff\",\"dark-color\":\"#000\",\"primary-color\":\"#024a88\",\"success-color\":\"#2d922d\",\"warning-color\":\"#f79a17\",\"danger-color\":\"#bf1725\",\"info-color\":\"#248dad\",\"sidebar-bg-color\":\"#0288d1\",\"gray\":\"#555\",\"gray-light\":\"#bdbdbd\"}';\n  display: none; }\n\n.login-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  height: 100%;\n  width: 100%;\n  background-image: url(" + __webpack_require__(876) + ") !important;\n  background-position: center center;\n  position: absolute; }\n  .login-container .card {\n    padding: 15px;\n    color: #0288d1; }\n    .login-container .card .btn-link {\n      padding: 0; }\n      .login-container .card .btn-link.forgot {\n        font-size: 14px; }\n      .login-container .card .btn-link:hover {\n        color: #0288d1; }\n\n.auth-sep {\n  margin-top: 32px;\n  margin-bottom: 24px;\n  line-height: 20px;\n  font-size: 15px;\n  text-align: center;\n  display: block;\n  position: relative; }\n  .auth-sep > span {\n    display: table-cell;\n    width: 30%;\n    white-space: nowrap;\n    padding: 0 14px;\n    color: #555; }\n    .auth-sep > span > span {\n      margin-top: -11px;\n      display: block;\n      font-weight: 300; }\n  .auth-sep:before, .auth-sep:after {\n    border-top: solid 1px #bdbdbd;\n    content: \"\";\n    height: 1px;\n    width: 35%;\n    display: table-cell; }\n\n.login-help {\n  margin: 0;\n  padding: 0; }\n  .login-help li {\n    list-style: none;\n    display: inline-block;\n    margin-left: 10px; }\n    .login-help li:first-child {\n      margin-left: 0; }\n    .login-help li i {\n      cursor: pointer;\n      transition: all 0.1s ease;\n      color: #fff;\n      padding: 9px 9px 6px 9px;\n      font-size: 12px;\n      background-color: #000; }\n      .login-help li i.socicon-facebook {\n        background-color: #3b5998; }\n      .login-help li i.socicon-twitter {\n        background-color: #55acee; }\n      .login-help li i.socicon-google {\n        background-color: #dd4b39; }\n      .login-help li i:hover {\n        opacity: 0.9; }\n\n.btn-login {\n  background: #0288d1; }\n\n.btn-login:hover {\n  background: #0288d1; }\n", ""]);
 
 // exports
 
@@ -6896,14 +6896,14 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 838:
+/***/ 841:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"login-container\">\n    <div class=\"col-xl-4 col-md-6 col-10 offset-xl-4 offset-md-3 offset-1\">\n        <div class=\"card\">\n            <div class=\"card-block text-center\">\n\n                <div *ngIf=\"loginErr\" class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">&times;</span>\n                    </button>\n                    <strong>Acceso Invalido</strong>\n                </div>\n\n                <h2 class=\"card-title\">YTODOSEGURO</h2>\n                <p *ngIf=\"!recover\">Si no tienes una cuenta, contactate con el administrador del sistema!</p>\n\n                <p *ngIf=\"recover\">Recuperar Contrasena</p>\n\n                <form *ngIf=\"!recover\" [formGroup]=\"form\" (ngSubmit)=\"onSubmit(form.value)\" class=\" text-left\">\n                    <div class=\"form-group\">\n                        <input maxlength=\"10\" [formControl]=\"cedula\" class=\"form-control checking-field\" placeholder=\"Cedula\" type=\"text\">                      \n                        <span class=\"help-block text-danger\" *ngIf=\"form.get('cedula').touched && form.get('cedula').hasError('required')\">Cedula Obligatoria</span>                              \n                        <span class=\"help-block text-danger\" *ngIf=\"form.get('cedula').touched && form.get('cedula').hasError('invalidCedula')\">Cedula Incorrecta</span>\n                    </div>\n                    <div class=\"form-group\">\n                        <input [formControl]=\"password\" class=\"form-control checking-field\" placeholder=\"Contraseña\" type=\"password\">\n                        <span class=\"help-block text-danger\" *ngIf=\"form.get('password').touched && form.get('password').hasError('required')\">Contraseña Obligatoria</span>                              \n                        <span class=\"help-block text-danger\" *ngIf=\"form.get('password').touched && form.get('password').hasError('minlength')\">Contraseña incorrecta</span>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"custom-control custom-checkbox\">\n                            <input class=\"custom-control-input checkbox-main\" type=\"checkbox\">\n                            <span class=\"custom-control-indicator\"></span>\n                            <span class=\"custom-control-description align-middle\">Recuerdame.</span>\n                        </label>\n                        <a *ngIf=\"!recover\" class=\"btn btn-link forgot transition pull-right\" (click)=\"showRecover(true)\" href=\"javascript:void(0);\">Olvidaste tú Contraseña?</a>                     \n                       \n                                            \n                    </div>\n                    <div class=\"form-group\">\n                        <button [disabled]=\"!form.valid\" class=\"btn btn-main btn-block btn-login\" type=\"submit\">Iniciar Sesión</button>\n                    </div>\n                </form>\n\n                <form *ngIf=\"recover\" [formGroup]=\"form\" (ngSubmit)=\"onSubmit(form.value)\" class=\" text-left\">\n                    <div class=\"form-group\">\n                        <input maxlength=\"10\" [formControl]=\"cedula\" class=\"form-control checking-field\" placeholder=\"Cedula\" type=\"text\">                      \n                        <span class=\"help-block text-danger\" *ngIf=\"form.get('cedula').touched && form.get('cedula').hasError('required')\">Cedula Obligatoria</span>                              \n                        <span class=\"help-block text-danger\" *ngIf=\"form.get('cedula').touched && form.get('cedula').hasError('invalidCedula')\">Cedula Incorrecta</span>\n                    </div>\n                \n                    <div class=\"form-group\">\n                     \n                        <a *ngIf=\"recover\" class=\"btn btn-link forgot transition pull-right\" (click)=\"showRecover(false)\" href=\"javascript:void(0);\">Volver</a>                     \n                        \n                    </div>\n\n                    <div class=\"form-group\">\n                        <button [disabled]=\"!form.valid\" class=\"btn btn-main btn-block btn-login\" type=\"submit\">Iniciar Sesión</button>\n                    </div>\n                </form>\n\n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
-/***/ 873:
+/***/ 876:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "fondo.276b9372aaa6fbd73d49.jpg";

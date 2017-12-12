@@ -1,15 +1,15 @@
 webpackJsonp([23,29],{
 
-/***/ 275:
+/***/ 278:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__register_component__ = __webpack_require__(688);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__register_component__ = __webpack_require__(691);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routes", function() { return routes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterModule", function() { return RegisterModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -37,7 +37,7 @@ RegisterModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
             __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormsModule"],
             __WEBPACK_IMPORTED_MODULE_3__angular_forms__["ReactiveFormsModule"],
-            __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* RouterModule */].forChild(routes)
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* RouterModule */].forChild(routes)
         ],
         declarations: [__WEBPACK_IMPORTED_MODULE_4__register_component__["a" /* RegisterComponent */]]
     })
@@ -47,19 +47,19 @@ RegisterModule = __decorate([
 
 /***/ }),
 
-/***/ 284:
+/***/ 287:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__ = __webpack_require__(301);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_forkJoin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_fromPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(27);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AbstractControlDirective", function() { return AbstractControlDirective; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AbstractFormGroupDirective", function() { return AbstractFormGroupDirective; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CheckboxControlValueAccessor", function() { return CheckboxControlValueAccessor; });
@@ -6140,18 +6140,18 @@ ReactiveFormsModule.ctorParameters = function () { return []; };
 
 /***/ }),
 
-/***/ 298:
+/***/ 301:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ForkJoinObservable_1 = __webpack_require__(321);
+var ForkJoinObservable_1 = __webpack_require__(324);
 exports.forkJoin = ForkJoinObservable_1.ForkJoinObservable.create;
 //# sourceMappingURL=forkJoin.js.map
 
 /***/ }),
 
-/***/ 321:
+/***/ 324:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6162,10 +6162,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(2);
-var EmptyObservable_1 = __webpack_require__(71);
-var isArray_1 = __webpack_require__(69);
-var subscribeToResult_1 = __webpack_require__(36);
-var OuterSubscriber_1 = __webpack_require__(35);
+var EmptyObservable_1 = __webpack_require__(73);
+var isArray_1 = __webpack_require__(71);
+var subscribeToResult_1 = __webpack_require__(37);
+var OuterSubscriber_1 = __webpack_require__(36);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -6270,13 +6270,13 @@ var ForkJoinSubscriber = (function (_super) {
 
 /***/ }),
 
-/***/ 688:
+/***/ 691:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(287);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterComponent; });
 /* unused harmony export emailValidator */
 /* unused harmony export matchingPasswords */
@@ -6318,10 +6318,10 @@ RegisterComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'az-register',
         encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
-        template: __webpack_require__(850),
-        styles: [__webpack_require__(765)]
+        template: __webpack_require__(853),
+        styles: [__webpack_require__(768)]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"]) === "function" && _b || Object])
 ], RegisterComponent);
 
 function emailValidator(control) {
@@ -6344,7 +6344,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 765:
+/***/ 768:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)();
@@ -6362,7 +6362,7 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 850:
+/***/ 853:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"register-container\">\r\n    <div class=\"col-xl-4 col-md-6 col-10 offset-xl-4 offset-md-3 offset-1\">\r\n        <div class=\"card\">\r\n            <div class=\"card-block text-center\">\r\n                <h2 class=\"card-title\">Sign up to Azimuth</h2>\r\n                <a routerLink=\"/login\" class=\"btn btn-link transition bottom-15\">Already have an account? Sign in!</a>\r\n                 \r\n                <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit(form.value)\" class=\"text-left\">\r\n                    <div class=\"form-group\">\r\n                        <input [formControl]=\"name\" class=\"form-control checking-field\" placeholder=\"Full Name\" type=\"text\"> \r\n                        <span class=\"help-block\" *ngIf=\"form.get('name').touched\">\r\n                            <span class=\"text-danger\" *ngIf=\"form.get('name').hasError('required')\">Full Name is required</span>\r\n                            <span class=\"text-danger\" *ngIf=\"form.get('name').hasError('minlength')\">Minimum of 3 characters</span>\r\n                        </span>       \r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <input [formControl]=\"email\" class=\"form-control checking-field\" placeholder=\"Email\" type=\"text\"> \r\n                        <span class=\"help-block\" *ngIf=\"form.get('email').touched\">\r\n                            <span class=\"text-danger\" *ngIf=\"form.get('email').hasError('required')\">Email is required</span>\r\n                            <span class=\"text-danger\" *ngIf=\"form.get('email').hasError('invalidEmail')\">Invalid email address</span>\r\n                        </span> \r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <input [formControl]=\"password\" class=\"form-control checking-field\" placeholder=\"Password\" type=\"password\" minlength=\"6\">\r\n                         <span class=\"help-block\" *ngIf=\"form.get('password').touched\">\r\n                            <span class=\"text-danger\" *ngIf=\"form.get('password').hasError('required')\">Password is required</span>\r\n                            <span class=\"text-danger\" *ngIf=\"form.get('password').hasError('minlength')\">Password isn't long enough, minimum of 6 characters</span>\r\n                        </span>                     \r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <input [formControl]=\"confirmPassword\" class=\"form-control checking-field\" placeholder=\"Confirm Password\" type=\"password\">\r\n                        <span class=\"help-block\" *ngIf=\"form.get('confirmPassword').touched\">\r\n                            <span class=\"text-danger\" *ngIf=\"form.get('confirmPassword').hasError('required')\">Confirm Password is required</span>\r\n                            <span class=\"text-danger\" *ngIf=\"form.get('confirmPassword').hasError('mismatchedPasswords')\">Passwords do not match</span>\r\n                        </span> \r\n                    </div>\r\n                    <div class=\"form-group\">\r\n                        <p class=\"terms\">By creating an account, you agree our <a class=\"btn btn-link transition terms\" href=\"javascript:void(0);\">Terms & Privacy Policy</a></p>                  \r\n                    </div>             \r\n                    <div class=\"form-group\">\r\n                        <button [disabled]=\"!form.valid\" class=\"btn btn-main btn-block\" type=\"submit\">Sign up</button>\r\n                    </div>\r\n                </form>  \r\n               \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
