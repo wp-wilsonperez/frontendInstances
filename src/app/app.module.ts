@@ -11,6 +11,9 @@ import { AppComponent } from './app.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { HttpModule } from '@angular/http';
 
+import { AnonGuardService } from './providers/anon-guard.service';
+import { AuthGuardService } from './providers/auth-guard.service';
+import { AuthService } from './providers/auth.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,7 @@ import { HttpModule } from '@angular/http';
     }),
     routing   
   ],
-  providers: [AppConfig],
+  providers: [AppConfig,AuthGuardService,AuthService,AnonGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

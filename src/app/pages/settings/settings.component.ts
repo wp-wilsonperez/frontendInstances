@@ -34,7 +34,10 @@ export class SettingsComponent{
         this.settingsForm = this.fromBuilder.group({
             'iva':['',Validators.compose([Validators.required])],
             'connectionTime':['',Validators.compose([Validators.required])],
-            'maxAttached':['',Validators.compose([Validators.required])]
+            'maxAttached':['',Validators.compose([Validators.required])],
+            'scampesino':[''],
+            'sbancos':['']
+
 
         });
         this.addressForm = this.fromBuilder.group({
@@ -71,7 +74,7 @@ export class SettingsComponent{
     }).subscribe((res)=>{
           this.setting = res;
           this.addresses = res.idMacs;
-          this.settingsForm.setValue({iva:res.iva,connectionTime: res.connectionTime,maxAttached: res.maxAttached});
+          this.settingsForm.setValue({iva:res.iva || '',connectionTime: res.connectionTime || '',maxAttached: res.maxAttached || '',sbancos:res.sbancos || '', scampesino:res.scampesino || ''});
           console.log(this.setting);
           
     })  
