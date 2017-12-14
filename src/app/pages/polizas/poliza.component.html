@@ -40,8 +40,8 @@
                                                     <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                                                         <thead>
                                                             <tr>
-                                                                <th> <mfDefaultSorter by="name">Numero</mfDefaultSorter></th>       
-                                                                                      
+                                                                <th> <mfDefaultSorter by="name">Numero</mfDefaultSorter></th>
+                                                                <th> <mfDefaultSorter by="name">Ramo</mfDefaultSorter></th>                             
                                                                 <th><mfDefaultSorter by="phone">Asegurado</mfDefaultSorter></th>
                                                                  <th><mfDefaultSorter by="phone">Fecha Inicio</mfDefaultSorter></th> 
                                                                  <th><mfDefaultSorter by="phone">Fecha Fin</mfDefaultSorter></th>
@@ -53,6 +53,7 @@
                                 
                                                             <tr *ngFor="let poliza of polizas">
                                                                 <td><strong>  {{poliza.policyNumber}}   </strong></td>
+                                                                <td><strong>  {{poliza.ramo.name}}   </strong></td>
                                                      
                                                                 <td>{{poliza.insured}}</td>
                                                                 <td>{{poliza.startDate}}</td>

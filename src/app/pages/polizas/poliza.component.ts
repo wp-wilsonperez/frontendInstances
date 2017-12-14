@@ -107,6 +107,7 @@ export class PolizaComponent{
             this.loadRamo();
             this.loadpolizas();
             this.loadmedicalPolizas();
+            
            
            
      
@@ -457,7 +458,8 @@ export class PolizaComponent{
                         recipient:poliza.recipient|| '',
                         typeRecipient:poliza.typeRecipient || '',
                         idUser: poliza.idUser || '',
-                        idClient: poliza.idClient || ''
+                        idClient: poliza.idClient || '',
+                        idPlan:poliza.idPlan || ''
         });
 
        console.log('subitem changed',this.carPolicy.polizaForm.value)
@@ -570,11 +572,13 @@ export class PolizaComponent{
             recipient: '',
             typeRecipient:'',
             idRecipient: '',
-            idUser: ''
+            idUser: '',
+            idPlan:''
 });
         
 
     }
+
 
 
 }

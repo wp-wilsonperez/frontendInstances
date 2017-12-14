@@ -17,7 +17,7 @@ export class CarPolicyComponent implements OnInit {
     public polizaForm:FormGroup;
     users:any;
     clients:any;
-    deductibles:any;
+    deductibles:any =[];
     frecuencyOfPayments:any;
     cities:any;
     policyTypes:any;
@@ -28,6 +28,9 @@ export class CarPolicyComponent implements OnInit {
     recipients:any =[];
     ramosOptions:any =[];
     ramos:any=[];
+    plans:any;
+    aseguradoraLabel ='Seleccione Aseguradora....';
+    deductibleLabel ='Seleccione Aseguradora y Ramo....';
     constructor(public formBuilder:FormBuilder,public selectService:SelectService,public http:Http,public local:UserSessionService,public select:SelectService) { 
         this.polizaForm = this.formBuilder.group({
             policyNumber:['',Validators.compose([Validators.required])],
@@ -52,15 +55,13 @@ export class CarPolicyComponent implements OnInit {
             idRecipient:[''],
             percentageRamo:[] ,
             idUser:[''],
+            idPlan:['']
         });
         this.selectService.loadUsers().then((res)=>{
             this.users = res;
         })
         this.selectService.loadClients().then((res)=>{
             this.clients = res;
-        })
-        this.selectService.loadDeductible().then((res)=>{
-            this.deductibles = res;
         })
         this.selectService.loadFrecuencyOfPayments().then((res)=>{
             this.frecuencyOfPayments = res;
@@ -80,6 +81,9 @@ export class CarPolicyComponent implements OnInit {
         this.selectService.loadFrecuencyOfPayments().then((res)=>{
             this.frecuencias = res;
         })
+        this.selectService.loadPlans().then((res)=>{
+            this.plans = res;
+        })
         this.select.loadClientsRecipient().then(clients=>{
             this.select.loadBussinesRecipient().then(bussines=>{
                 this.select.loadInsurancesRecipient().then(insurances=>{
@@ -87,6 +91,7 @@ export class CarPolicyComponent implements OnInit {
                 })
             })
         });
+    
         this.loadRamos();
         this.loadCity();
 
@@ -99,15 +104,40 @@ export class CarPolicyComponent implements OnInit {
         .toPromise().then(
             result=>{
                         console.log(result.json());
-                        result.json().value?this.polizaForm.controls['percentageRamo'].setValue(result.json().value):this.polizaForm.controls['percentageRamo'].setValue(0);      
-        
-        },
-        err=>{
-            console.log(err);
-            
-        }
+                        result.json().value?this.polizaForm.controls['percentageRamo'].setValue(result.json().value):this.polizaForm.controls['percentageRamo'].setValue(0); 
+                        
+                }
     
     )   
+    if(this.polizaForm.value.idRamo && this.polizaForm.value.idInsurance  ){
+        let request = {
+                filter:{
+                    idInsurance: this.polizaForm.value.idInsurance , idRamo: this.polizaForm.value.idRamo 
+                }
+        }
+        this.http.post(`${config.url}deductible/filter?access_token=${this.local.getUser().token}`,request).map((res)=>{
+            return res.json()
+        })
+        .subscribe((response)=>{
+            console.log(response);
+            let deductibleOptions =[];
+            let deducibles = response.deductibles;
+             deducibles.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name
+                }
+                deductibleOptions.push(obj);
+                this.deductibles = deductibleOptions;
+                
+        })
+    },
+    (err)=>{
+        console.log(err);
+    }
+)    
+
+}
         
 }
     getDiffDates(){

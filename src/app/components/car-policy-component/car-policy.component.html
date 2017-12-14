@@ -5,7 +5,7 @@
             <label for="exampleSelect1">Ramo</label>
         <ng-select
 
-                
+                (selected)="getTasa()"
                 [(options)]="ramos"
                 [placeholder]="Aseguradoras"
                 [multiple]="false"
@@ -43,6 +43,17 @@
                     
 
             </div>
+            <div *ngIf="polizaForm.value.idRamo == '599222d07f05fc0933b643f5' ||  polizaForm.value.idRamo == '599222ce7f05fc0933b643f4' " class="form-group">
+                    <label for="exampleSelect1">Planes</label>
+                    <ng-select
+                        [(options)]="plans"
+                        [placeholder]="Aseguradoras"
+                        [multiple]="false"
+                        formControlName="idPlan">
+                    </ng-select>
+
+            </div>
+           
 
 
             <div class="form-group">
@@ -112,7 +123,7 @@
 
                     (selected)="getTasa()"
                     [(options)]="insurances"
-                    [placeholder]="Aseguradoras"
+                    [placeholder]="aseguradoraLabel"
                     [multiple]="false"
                     formControlName="idInsurance">
                 </ng-select>

@@ -413,6 +413,23 @@ export class SelectService {
         })
         
     }
+    loadPlans(){  
+        let policyOptions = [];
+        return   this.http.get(config.url+'plan/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+            let res = result.json();
+            let policies = res.plans;
+             policies.map((result)=>{
+                let obj = {
+                    value: result._id,
+                    label: result.name
+                }
+                policyOptions.push(obj);
+                
+            })
+            return  policyOptions;
+        })
+        
+    }
    
 
    
