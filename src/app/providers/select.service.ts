@@ -396,14 +396,19 @@ export class SelectService {
         })
         
     }
-    loadPlanAlternatives(){  
+    loadPlanAlternatives(idPlanAssociation = ''){ 
+        let request = {
+            filter:{
+                idPlanAssociation: idPlanAssociation
+            }
+        } ;
         let policyOptions = [];
-        return   this.http.get(config.url+'planAlternative/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+        return   this.http.post(config.url+'planAlternative/filter?access_token='+this.local.getUser().token,request).toPromise().then((result)=>{
             let res = result.json();
             let policies = res.planAlternatives;
              policies.map((result)=>{
                 let obj = {
-                    value: result.value,
+                    value: result._id,
                     label: result.name
                 }
                 policyOptions.push(obj);
@@ -413,11 +418,15 @@ export class SelectService {
         })
         
     }
-    loadPlans(){  
+    loadPlans(idRamo,idInsurance){  
         let policyOptions = [];
-        return   this.http.get(config.url+'plan/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
+        let request = {filter:{
+            idInsurance: idInsurance,
+            idRamo: idRamo
+        }}
+        return   this.http.post(config.url+'planAssociation/filter?access_token='+this.local.getUser().token,request).toPromise().then((result)=>{
             let res = result.json();
-            let policies = res.plans;
+            let policies = res.planAssociations;
              policies.map((result)=>{
                 let obj = {
                     value: result._id,

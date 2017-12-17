@@ -80,7 +80,7 @@
                                 <th> <mfDefaultSorter by="name">Valor</mfDefaultSorter></th>                             
                                     <td><strong>    </strong></td>
                                     <td><strong>    </strong></td>
-                                    <td><strong>    </strong></td>
+                 
                                 <th>Acciones</th>      
                             </tr>
                         </thead>
@@ -88,8 +88,8 @@
 
                             <tr *ngFor="let planAlternativo of planAlternativos">
                                     <td><strong>  {{planAlternativo.name}}   </strong></td>
-                                <td><strong>  {{planAlternativo.idPlanAssociation}}   </strong></td>
-                                <td><strong>  {{planAlternativo.idAlternative}}   </strong></td>
+                                <td><strong>  {{planAlternativo.planAssociation.name}}   </strong></td>
+                                <td><strong>  {{planAlternativo.alternative.name}}   </strong></td>
                                 <td><strong>  {{planAlternativo.value}}   </strong></td>
                                    <td><strong>    </strong></td>
                                     <td><strong>    </strong></td>

@@ -28,6 +28,16 @@
                     
 
             </div>
+            <div class="form-group">    
+                <label for="exampleSelect1">Aseguradora</label>
+            <ng-select
+                    (selected)="getTasa()"
+                    [(options)]="insurances"
+                    [placeholder]="aseguradoraLabel"
+                    [multiple]="false"
+                    formControlName="idInsurance">
+                </ng-select>     
+            </div>
 
 
             <div class="form-group">
@@ -43,7 +53,7 @@
                     
 
             </div>
-            <div *ngIf="polizaForm.value.idRamo == '599222d07f05fc0933b643f5' ||  polizaForm.value.idRamo == '599222ce7f05fc0933b643f4' " class="form-group">
+            <div *ngIf="polizaForm.value.idRamo == '599222d07f05fc0933b643f5' ||  polizaForm.value.idRamo == '599222ce7f05fc0933b643f4' || polizaForm.value.idRamo == '599223167f05fc0933b64403' || polizaForm.value.idRamo == '599223167f05fc0933b64406'" class="form-group">
                     <label for="exampleSelect1">Planes</label>
                     <ng-select
                         [(options)]="plans"
@@ -79,9 +89,7 @@
 
             <div class="form-group">
                 
-                <label for="exampleSelect1">Tipos de Pago</label>
-
-                
+                <label for="exampleSelect1">Tipos de Pago</label> 
                 <ng-select
                     [(options)]="paymentTypes"
                     [placeholder]="Types"
@@ -116,20 +124,7 @@
                     </div>
             </div>
 
-            <div class="form-group">
-
-                <label for="exampleSelect1">Aseguradora</label>
-            <ng-select
-
-                    (selected)="getTasa()"
-                    [(options)]="insurances"
-                    [placeholder]="aseguradoraLabel"
-                    [multiple]="false"
-                    formControlName="idInsurance">
-                </ng-select>
-                    
-
-            </div>
+           
 
             <div class="form-group">
 

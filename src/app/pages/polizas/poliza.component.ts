@@ -461,6 +461,8 @@ export class PolizaComponent{
                         idClient: poliza.idClient || '',
                         idPlan:poliza.idPlan || ''
         });
+        this.carPolicy.getTasa();
+        this.carPolicy.getPlan();
 
        console.log('subitem changed',this.carPolicy.polizaForm.value)
         

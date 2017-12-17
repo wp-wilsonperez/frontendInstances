@@ -81,9 +81,7 @@ export class CarPolicyComponent implements OnInit {
         this.selectService.loadFrecuencyOfPayments().then((res)=>{
             this.frecuencias = res;
         })
-        this.selectService.loadPlans().then((res)=>{
-            this.plans = res;
-        })
+        this.getPlan();
         this.select.loadClientsRecipient().then(clients=>{
             this.select.loadBussinesRecipient().then(bussines=>{
                 this.select.loadInsurancesRecipient().then(insurances=>{
@@ -98,6 +96,13 @@ export class CarPolicyComponent implements OnInit {
     }
 
     ngOnInit() { }
+
+    getPlan(){
+        this.selectService.loadPlans(this.polizaForm.value.idRamo , this.polizaForm.value.idInsurance).then(res=>{
+            this.plans = res;
+            console.log('planes',this.plans)
+        })
+    }
     
     getTasa(){
         this.http.get(config.url+'percentageRamo/value?access_token='+this.local.getUser().token+'&idInsurance='+this.polizaForm.value.idInsurance+'&idRamo=599222be7f05fc0933b643f3')
@@ -135,7 +140,11 @@ export class CarPolicyComponent implements OnInit {
     (err)=>{
         console.log(err);
     }
-)    
+)   
+    this.selectService.loadPlans(this.polizaForm.value.idRamo , this.polizaForm.value.idInsurance).then(res=>{
+        this.plans = res;
+        console.log('planes',this.plans)
+    })
 
 }
         

@@ -168,14 +168,16 @@ export class PlanAlternativoComponent{
         this.http.get(config.url+'planAssociation/list?access_token='+this.local.getUser().token).map((res)=>{
             return res.json();
         }).subscribe((result)=>{
+            console.log('planes asociados',result);
                 let insurances = result.planAssociations;
                  insurances.map((result)=>{
                     let obj = {
                         value: result._id,
-                        label: result.idPlan
+                        label: result.name
                     }
                     this.planAssociationOptions.push(obj);
                     this.planAssociations = this.planAssociationOptions;
+                    
                 })
                 console.log('planAssociation',this.planAssociations);
         })

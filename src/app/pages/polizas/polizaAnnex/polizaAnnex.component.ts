@@ -65,6 +65,7 @@ export class PolizaAnnexComponent{
         toExtra:boolean = false;
         itemExtras:Array<any>=[];
         idRamo:number;
+        idPlanAssociation:any;
         tasa:any =0;
         deducible:any ='';
         daysOfValidity:any =0;
@@ -120,6 +121,10 @@ export class PolizaAnnexComponent{
                 exclusionDate:[''],
                 inclusionDate: [''],
                 modificationDate: [''],
+                idClient :[''],
+                recipientClient:[''],
+                idPlanAlternative:[''],
+                recipientPlanAlternative:['']
 
             });
 
@@ -132,11 +137,12 @@ export class PolizaAnnexComponent{
                   console.log('ramos',this.ramos);
                   
               })
-              this.selectService.loadPlanAlternatives().then(result=>{
-                this.planAlternativos = result;
-                console.log('ramos',this.planAlternativos);
+              this.selectService.loadClients().then(result=>{
+                this.clients = result;
+                console.log('clientes',this.clients);
                 
             })
+            
               this.loadCarUse();
               this.loadSettings();
               this.polizaAnnexForm.controls['totalPrima'].setValue(0);
@@ -149,11 +155,19 @@ export class PolizaAnnexComponent{
             }).subscribe((result)=>{
                     this.policy = result.policy;
                     this.idRamo = this.policy.idRamo;
+                    this.idPlanAssociation = this.policy.idPlan || '';
 
                     console.log('Poliza Completa: ', result);
                     let request = {
                         filter: {idInsurance: result.policy.idInsurance , idRamo: result.policy.idRamo, idDeductible: result.policy.idDeductible }
                     }
+                    // select de alternativas
+
+                    this.selectService.loadPlanAlternatives(this.idPlanAssociation).then(result=>{
+                        this.planAlternativos = result;
+                        console.log('planes alternativos',this.planAlternativos);
+                        
+                    })
 
                     this.http.get(config.url+`tasa/filter/?query=${this.policyId}?access_token=`+this.local.getUser().token).map((res)=>{
                         return res.json();
@@ -567,6 +581,16 @@ export class PolizaAnnexComponent{
             this.itemExtraForm.controls['primaNeta'].setValue( (this.itemExtraForm.value.primaNeta * this.itemExtraForm.value.calcFloat ) / 100 );
         }
        
+    }
+    getAlternativeValue(){
+        console.log(this.itemExtraForm.value.idPlanAlternative);
+        this.http.get(`${config.url}planAlternative/view/${this.itemExtraForm.value.idPlanAlternative}?access_token=${this.local.getUser().token}`).map((res)=>{
+            return res.json();
+        }).subscribe((result)=>{
+            console.log(result);
+       
+            this.itemExtraForm.controls['primaNeta'].setValue(result.planAlternative.value);
+        })
     }
     
 
