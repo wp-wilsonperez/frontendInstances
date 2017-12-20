@@ -383,6 +383,14 @@ export class RolsListComponent {
      public clearenceTimeDelete:boolean = false;
      public clearenceTimeEnable:boolean = false;
 
+      //Tiempos autorizacion
+      public authorizationTimeTypeList="";
+      public authorizationTimeList:boolean = false;
+      public authorizationTimeCreate:boolean = false;
+      public authorizationTimeEdit:boolean = false;
+      public authorizationTimeDelete:boolean = false;
+      public authorizationTimeEnable:boolean = false;
+
 
 
 
@@ -1222,6 +1230,15 @@ export class RolsListComponent {
              
            }
 
+           if(this.grant.authorizationTime != undefined){
+            this.grant.authorizationTime.list == true ?   this.authorizationTimeList = true:    this.authorizationTimeList = false;
+            this.grant.authorizationTime.add   == true ?  this.authorizationTimeCreate = true:  this.authorizationTimeCreate = false; 
+            this.grant.authorizationTime.edit  == true ?  this.authorizationTimeEdit = true:    this.authorizationTimeEdit = false;
+            this.grant.authorizationTime.delete  == true? this.authorizationTimeDelete = true:  this.authorizationTimeDelete = false; 
+            this.grant.authorizationTime.enable  == true? this.authorizationTimeEnable = true:  this.authorizationTimeEnable = false; 
+           
+         }
+
              //
 
 
@@ -1265,7 +1282,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},noRenewal:{},noRenewalRamo:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},authorizationTime:{},noRenewal:{},noRenewalRamo:{}};
 
         requestTwo.user['typeList'] = this.userTypeList;
         this.userList?requestTwo.user['list'] = true:null;
@@ -1712,6 +1729,13 @@ export class RolsListComponent {
           this.clearenceTimeEdit?requestTwo.clearanceTime['edit'] = true:null;
           this.clearenceTimeDelete?requestTwo.clearanceTime['delete'] = true:null;
           this.clearenceTimeEnable?requestTwo.clearanceTime['enable'] = true:null;
+
+           //authorization
+           this.authorizationTimeList?requestTwo.authorizationTime['list'] = true:null;
+           this.authorizationTimeCreate?requestTwo.authorizationTime['add'] = true:null;
+           this.authorizationTimeEdit?requestTwo.authorizationTime['edit'] = true:null;
+           this.authorizationTimeDelete?requestTwo.authorizationTime['delete'] = true:null;
+           this.authorizationTimeEnable?requestTwo.authorizationTime['enable'] = true:null;
 
 
           //no renewal

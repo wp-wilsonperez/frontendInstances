@@ -1,3 +1,4 @@
+import { AuthorizationTimeComponent } from './../authorization-time/authorization-time.component';
 import { SelectModule } from 'angular2-select';
 import { ClearanceTimeComponent } from './../clearance-time/clearance-time.component';
 
@@ -26,7 +27,8 @@ export const routes = [
   { path: 'configuracion', component:  SettingsComponent, data: { breadcrumb: 'Configuracion' } },
    { path: 'logs', component:  LogsComponent, data: { breadcrumb: 'Logs' } },
     { path: 'links', component:  AyudaListComponent, data: { breadcrumb: 'Links de Ayuda' } },
-    { path: 'tiempos-liquidaciones', component: ClearanceTimeComponent, data: { breadcrumb: 'Tiempos Liquidaciones' } }
+    { path: 'tiempos-liquidaciones', component: ClearanceTimeComponent, data: { breadcrumb: 'Tiempos Liquidaciones' } },
+    { path: 'tiempos-autorizacion', component: AuthorizationTimeComponent, data: { breadcrumb: 'Tiempos de Autorizacion' } }
 
 
 
@@ -46,7 +48,7 @@ export const routes = [
   ],
   declarations: [
 
-    UserComponent,UserListComponent,RolesComponent,RolsListComponent, SettingsComponent,ImageUploaderComponent,LogsComponent,AyudaListComponent,ClearanceTimeComponent
+    UserComponent,UserListComponent,RolesComponent,RolsListComponent, SettingsComponent,ImageUploaderComponent,LogsComponent,AyudaListComponent,ClearanceTimeComponent,AuthorizationTimeComponent
 
   ],
   providers: []

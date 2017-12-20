@@ -9,19 +9,19 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 
 @Component({
-    selector:'clearanceTime-component',
+    selector:'authorizationTime-component',
     encapsulation:  ViewEncapsulation.None,
-    templateUrl: './clearance-time.component.html',
-    styleUrls:['./clearance-time.component.scss']
+    templateUrl: './authorization-time.component.html',
+    styleUrls:['./authorization-time.component.scss']
 })
 
-export class ClearanceTimeComponent{
-        public clearanceTimeForm:FormGroup;
+export class AuthorizationTimeComponent{
+        public authorizationTimeForm:FormGroup;
          public editForm:FormGroup
         public helpLinks:any;
-        public clearanceTimes:any;
+        public authorizationTimes:any;
         public helpLinkId:any;
-        public clearanceTimeId:any;
+        public authorizationTimeId:any;
         error:any;
         toast:boolean = false;
         message:string;
@@ -41,7 +41,7 @@ export class ClearanceTimeComponent{
 
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public select:SelectService ){
         
-            this.clearanceTimeForm = this.formBuilder.group({
+            this.authorizationTimeForm = this.formBuilder.group({
                 idRamo: ['',Validators.compose([Validators.required])],
                 idInsurance:['',Validators.compose([Validators.required])],
                 idBranch:['',Validators.compose([Validators.required])],
@@ -53,7 +53,7 @@ export class ClearanceTimeComponent{
           
             });
 
-            this.loadclearanceTimes();
+            this.loadauthorizationTimes();
             this.select.loadRamos().then((res)=>{
                 this.ramos = res;
                 console.log(this.ramos);
@@ -74,22 +74,22 @@ export class ClearanceTimeComponent{
        
         }
 
-        loadclearanceTimes(){
-            this.http.get(config.url+'clearanceTime/list?access_token='+this.local.getUser().token).map((res)=>{
+        loadauthorizationTimes(){
+            this.http.get(config.url+'authorizationTime/list?access_token='+this.local.getUser().token).map((res)=>{
                 console.log(res.json());
                 return res.json();
             }).subscribe((result)=>{
-                    this.clearanceTimes = result.clearanceTimes;
-                    console.log('clearanceTimes',this.clearanceTimes);
+                    this.authorizationTimes = result.authorizationTimes;
+                    console.log('authorizationTimes',this.authorizationTimes);
             })
             
         }
-        saveclearanceTime(){
-            this.http.post(config.url+'clearanceTime/add?access_token='+this.local.getUser().token,this.clearanceTimeForm.value).map((result)=>{
+        saveauthorizationTime(){
+            this.http.post(config.url+'authorizationTime/add?access_token='+this.local.getUser().token,this.authorizationTimeForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
-                       this.loadclearanceTimes();
+                       this.loadauthorizationTimes();
                         this.toast = true;
                         this.message = "Tiempo guardado"
                 }else{
@@ -98,37 +98,37 @@ export class ClearanceTimeComponent{
                    
                 }
                 console.log(res);
-               this.loadclearanceTimes();
+               this.loadauthorizationTimes();
                 
             })
         }
-        idAssign(clearanceTimeId){
-                this.clearanceTimeId = clearanceTimeId;
+        idAssign(authorizationTimeId){
+                this.authorizationTimeId = authorizationTimeId;
         }
 
-        clearanceTimeDetail(clearanceTime){
+        authorizationTimeDetail(authorizationTime){
         this.create = false;
-        this.clearanceTimeId = clearanceTime._id;
+        this.authorizationTimeId = authorizationTime._id;
         
-        this.clearanceTimeForm.setValue({idRamo: clearanceTime.idRamo,idInsurance:clearanceTime.idInsurance,idBranch: clearanceTime.idBranch,time:clearanceTime.time});
+        this.authorizationTimeForm.setValue({idRamo: authorizationTime.idRamo,idInsurance:authorizationTime.idInsurance,idBranch: authorizationTime.idBranch,time:authorizationTime.time});
         
         
         
     }
-    editclearanceTime(){
+    editauthorizationTime(){
             
-            this.http.post(config.url+`clearanceTime/edit/${this.clearanceTimeId}?access_token=`+this.local.getUser().token,this.clearanceTimeForm.value).map((result)=>{
+            this.http.post(config.url+`authorizationTime/edit/${this.authorizationTimeId}?access_token=`+this.local.getUser().token,this.authorizationTimeForm.value).map((result)=>{
                 console.log(result.json());
                 return result.json()
                 
                 
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.clearanceTimes = res.update; 
+                        this.authorizationTimes = res.update; 
                         this.toast = true;
                         this.message = "Tiempo Editado";
                         this.create = true;
-                        this.clearanceTimeForm.reset();
+                        this.authorizationTimeForm.reset();
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de editar"
@@ -140,16 +140,16 @@ export class ClearanceTimeComponent{
         
         
     }
-    deleteclearanceTime(){
+    deleteauthorizationTime(){
 
-        this.http.delete(config.url+`clearanceTime/delete/${this.clearanceTimeId}?access_token=`+this.local.getUser().token).map((result)=>{
+        this.http.delete(config.url+`authorizationTime/delete/${this.authorizationTimeId}?access_token=`+this.local.getUser().token).map((result)=>{
             console.log('log',result.json());
                 
             return result.json()
 
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.clearanceTimes = res.update; 
+                        this.authorizationTimes = res.update; 
                         this.toast = true;
                         this.message = "Tiempo de Liquidacion Borrado"
                 }else{

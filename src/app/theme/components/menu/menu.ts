@@ -48,6 +48,13 @@ export const menuItems = [
         expanded: false
       },
       {
+        title: 'Tiempos de Autorizacion',
+        routerLink: 'usuarios/tiempos-autorizacion',
+        disabled: true,
+        selected: false,
+        expanded: false
+      },
+      {
         title: 'Links de ayuda',
         routerLink: 'usuarios/links',
         disabled: true,

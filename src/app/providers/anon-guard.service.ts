@@ -14,5 +14,4 @@ export class AnonGuardService implements CanActivate {
     }
     return true;
   }
-  
 }
