@@ -226,6 +226,15 @@
                                                                 </div>
                                                                 
                                             </div>
+                                            <div class="form-group">
+                                                    <label class="form-control-label">No Posee Celular?</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox">
+                                                    </span>
+                                                    <input type="text" class="form-control" placeholder="Detalles">
+                                                </div>
+                                            </div>
 
                                             <div class="form-group " [ngClass]="{'has-danger': clientForm.get('phones').hasError('required') && clientForm.get('phones').value != '' , 'has-success': !clientForm.get('phones').hasError('required')  && clientForm.get('phones').value != ''  }">
                                                                 <label class="form-control-label">Telefonos*</label>
@@ -234,6 +243,15 @@
                                                                 <textarea formControlName="phones" type="number" [ngClass]="{'form-control-danger' : clientForm.get('phones').value != ''  && clientForm.get('phones').hasError('required') , 'form-control-success' :  !clientForm.get('phones').hasError('required')  }"  class="form-control" ></textarea>
                                                                 </div>
                                                                 
+                                            </div>
+                                            <div class="form-group">
+                                                    <label class="form-control-label">No Posee Telefono?</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox">
+                                                    </span>
+                                                    <input type="text" class="form-control" placeholder="Detalles">
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                     <label for="input-12">Fecha de Nacimiento</label>
@@ -247,6 +265,16 @@
                                                                 </div>
                                                                 
                                             </div>
+                                            <div class="form-group">
+                                                    <label class="form-control-label">No Posee Email?</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox">
+                                                    </span>
+                                                    <input type="text" class="form-control" placeholder="Detalles">
+                                                </div>
+                                            </div>
+                                            
 
                                                 <label for="exampleSelect1">Ciudad</label>
                                                 <div class="input-group">

@@ -91,6 +91,12 @@ export class ClienteComponent implements OnInit{
                 idTypeClient:[''],
                 idCity:[''],
                 idMaritalStatus:[''],
+                movilCheck:[''],
+                movilDetail:[''],
+                phoneCheck:[''],
+                phoneDetail:[''],
+                mailCheck:[''],
+                mailDetail:['']
 
 
 
@@ -125,6 +131,12 @@ export class ClienteComponent implements OnInit{
                 idTypeClient:[''],
                 idCity:[''],
                 idMaritalStatus:[''],
+                movilCheck:[''],
+                movilDetail:[''],
+                phoneCheck:[''],
+                phoneDetail:[''],
+                mailCheck:[''],
+                mailDetail:['']
 
             });
 
@@ -297,6 +309,12 @@ export class ClienteComponent implements OnInit{
                     idMaritalStatus:client.idMaritalStatus,
                     ruc:client.doc,
                     passport:client.doc,
+                    movilCheck:client.movilCheck || '',
+                    movilDetail:client.movilDetail || '',
+                    phoneCheck:client.phoneCheck || '',
+                    phoneDetail:client.phoneDetail || '',
+                    mailCheck:client.mailCheck || '',
+                    mailDetail:client.mailDetail || ''
         });
         
         
@@ -487,6 +505,13 @@ restartValues(){
         idMaritalStatus:'',
         ruc:'',
         passport:'',
+        movilCheck: '',
+        movilDetail:'',
+        phoneCheck:'',
+        phoneDetail:'',
+        mailCheck:'',
+        mailDetail:''
+
 });
 
 }
