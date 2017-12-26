@@ -167,9 +167,13 @@ export class PolizaAnnexComponent{
                         this.planAlternativos = result;
                         console.log('planes alternativos',this.planAlternativos);
                         
-                    })
+                    });
+                    let requestFilter ={
+                        filter:{idInsurance: this.policy.idInsurance, idRamo: this.idRamo} 
+                    
+                    };
 
-                    this.http.get(config.url+`tasa/filter/?query=${this.policyId}?access_token=`+this.local.getUser().token).map((res)=>{
+                    this.http.post(config.url+`tasa/filter?access_token=`+this.local.getUser().token,requestFilter).map((res)=>{
                         return res.json();
                     }).subscribe((result)=>{
                             console.log('tasa',result)
@@ -181,6 +185,9 @@ export class PolizaAnnexComponent{
                             this.tasa = result.tasas[0].value;
                             this.itemExtraForm.controls['tasa'].setValue(result.tasas[0].value);
                             this.itemExtraForm.controls['deductible'].setValue(result.tasas[0].deductible.description);
+                         }else{
+                            this.itemExtraForm.controls['tasa'].setValue(0);
+                            this.itemService.setTasa(0);
                          }
                          
                           
@@ -574,7 +581,10 @@ export class PolizaAnnexComponent{
 
     }
     getPrimaSubItem(){
-        this.itemExtraForm.controls['primaNeta'].setValue( (this.itemExtraForm.value.valueSubItem * this.itemExtraForm.value.tasa) / 100 );
+        if(this.tasa > 0){
+            this.itemExtraForm.controls['primaNeta'].setValue( (this.itemExtraForm.value.valueSubItem * this.itemExtraForm.value.tasa) / 100 );
+        }
+       
     }
     getFlotante(){
         if(this.itemExtraForm.value.calcFloat != 0){

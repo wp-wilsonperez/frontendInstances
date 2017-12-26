@@ -89,10 +89,12 @@ export class AutoComponent{
                  if(res.msg == "OK"){
                        this.loadautos();
                         this.toast = true;
-                        this.message = "auto guardado"
+                        this.message = "auto guardado";
+                        this.resetForm();
                 }else{
                       this.error = true;
-                    this.message = res.err.message
+                      console.log(res);
+                    this.message = res.err
                    
                 }
                 console.log(res);
@@ -234,6 +236,9 @@ export class AutoComponent{
                   console.log('car models',result)
             })
 
+    }
+    resetForm(){
+        this.autoForm.reset();
     }
 
 }
