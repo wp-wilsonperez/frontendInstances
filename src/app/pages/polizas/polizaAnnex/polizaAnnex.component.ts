@@ -54,7 +54,8 @@ export class PolizaAnnexComponent{
         message:string;
         messageCar:string;
         iva:any;
-        totalPrima:number = 0;
+        totalPrima = 0;
+        primaShow:string;
         ramos:any;
         policy:any;
         itemTypeForm:string="";
@@ -64,13 +65,14 @@ export class PolizaAnnexComponent{
         currentItem:number;
         toExtra:boolean = false;
         itemExtras:Array<any>=[];
-        idRamo:number;
+        idRamo;
         idPlanAssociation:any;
         tasa:any =0;
         deducible:any ='';
         daysOfValidity:any =0;
         planAlternativos : any = [];
         selectPlanLabel='Seleccione Plan...';
+        emptyTasa:boolean = false;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute,public selectService:SelectService,public itemService:ItemService){
         
             this.polizaAnnexForm = this.formBuilder.group({
@@ -188,6 +190,7 @@ export class PolizaAnnexComponent{
                          }else{
                             this.itemExtraForm.controls['tasa'].setValue(0);
                             this.itemService.setTasa(0);
+                            this.emptyTasa = true;
                          }
                          
                           
@@ -335,23 +338,57 @@ export class PolizaAnnexComponent{
 
         }
          saveItemAnnexExtra(){
-            console.log(this.itemExtraForm.value);
+             if(this.tasa){
+
+                console.log(this.itemExtraForm.value);
             
-            this.itemExtraForm.controls['idItemAnnex'].setValue(this.itemAnnexCarId);
-            this.itemAnnexExtras.push(this.itemExtraForm.value);
-            this.itemAnnexs[this.currentItem].subItems.push(this.itemExtraForm.value);
-            this.itemAnnexs[this.currentItem].totalValueItem = this.itemAnnexs[this.currentItem].totalValueItem + this.itemExtraForm.value.primaNeta; 
-            console.log('global array ',this.itemAnnexs);
-            this.itemExtraForm.reset();
-            this.itemExtraForm.controls['calcFloat'].setValue(0);
-            this.itemExtraForm.controls['primaNeta'].setValue(0);
-            this.itemExtraForm.controls['valueSubItem'].setValue(0);
-            this.itemExtraForm.controls['tasa'].setValue(this.tasa);
-            this.itemExtraForm.controls['deductible'].setValue(this.deducible);
+                this.itemExtraForm.controls['idItemAnnex'].setValue(this.itemAnnexCarId);
+                //this.itemAnnexExtras.push(this.itemExtraForm.value);
+                this.itemAnnexs[this.currentItem].subItems.push(this.itemExtraForm.value);
+    
+                this.itemAnnexs[this.currentItem].totalValueItem = this.itemAnnexs[this.currentItem].totalValueItem + this.itemExtraForm.value.primaNeta; 
+                this.itemAnnexs[this.currentItem].carValue= this.itemAnnexs[this.currentItem].carValue + this.itemExtraForm.value.primaNeta; 
+                console.log('global array ',this.itemAnnexs);
+                this.itemExtraForm.reset();
+                this.itemExtraForm.controls['calcFloat'].setValue(0);
+                this.itemExtraForm.controls['primaNeta'].setValue(0);
+                this.itemExtraForm.controls['valueSubItem'].setValue(0);
+                this.itemExtraForm.controls['tasa'].setValue(this.tasa);
+                this.itemExtraForm.controls['deductible'].setValue(this.deducible);
+                this.getCalcPrimaTotal();
+
+             }
             
           
 
         }
+        getCalcPrimaTotal(){
+           let totalSum:number = 0;
+           if(this.idRamo == '599222be7f05fc0933b643f3' ){
+                this.itemAnnexs.forEach((res)=>{
+                    totalSum +=  res.carValue;
+                
+                });
+
+           }else{
+            this.itemAnnexs.forEach((res)=>{
+                totalSum +=  res.totalValueItems;
+            
+            });
+
+           }
+           this.totalPrima = (totalSum * this.tasa);
+           this.primaShow = this.totalPrima.toFixed(2);
+           
+            console.log('el resultado de la suma es',totalSum);
+        }
+        subtractCalcPrimaTotal(itemVal){
+            
+            this.totalPrima = (this.totalPrima - itemVal) / this.tasa;
+            this.primaShow = this.totalPrima.toFixed(2);
+            
+             console.log('el resultado de la suma es',itemVal);
+         }
   
 
         getTasa(){
@@ -559,9 +596,12 @@ export class PolizaAnnexComponent{
             this.itemAnnexExtras = this.itemAnnexs[this.currentItem].subItems;
         }
     }
-    deleteCarExtra(i){
-        this.itemAnnexs[this.currentItem].totalValueItem =  this.itemAnnexs[this.currentItem].totalValueItem - this.itemAnnexExtras[i].primaNeta; 
-        this.itemAnnexExtras.splice(i,1);
+    deleteCarExtra(i){       
+        this.itemAnnexs[this.currentItem].totalValueItem =  this.itemAnnexs[this.currentItem].totalValueItem - this.itemAnnexs[this.currentItem].subItems[i].primaNeta; 
+        this.itemAnnexs[this.currentItem].carValue =  this.itemAnnexs[this.currentItem].carValue - this.itemAnnexs[this.currentItem].subItems[i].primaNeta; 
+        this.subtractCalcPrimaTotal( this.itemAnnexs[this.currentItem].subItems[i].primaNeta);
+        this.itemAnnexs[this.currentItem].subItems.splice(i,1);
+       
 
     }
     saveAll(){

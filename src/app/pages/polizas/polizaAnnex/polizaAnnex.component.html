@@ -152,13 +152,20 @@
             </div>
             
             <div class="card-block widget-body">
+                    <div *ngIf="emptyTasa" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                           No hay tasa registrada para este ramo y aseguradora  <strong> <a [routerLink]="['/pages/tasas/tasa']">Crear tasa</a> </strong> 
+                        </div>
+
                 <div class="list-group list-padding">
                            <a class="list-group-item list-group-item-action list-group-item-primary ">
                               <div class="col-10">
-                                Total Prima
+                                Total Prima 
                             </div> 
                             <div class="col-2">
-                                <span class="badge badge-main badge-pill primary"></span>
+                                <span class="badge badge-main badge-pill primary">{{primaShow}}</span>
                                
                             </div>  
                             
@@ -249,7 +256,6 @@
                                                     <tr>
                                                         <th> <mfDefaultSorter by="idCar">Carro</mfDefaultSorter></th>                              
                                                         <th><mfDefaultSorter by="phone">Tasa</mfDefaultSorter></th>
-                                                        <th><mfDefaultSorter by="phone">Valor del Carro</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="phone">Uso de Carro</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="amparoPatrimonial">Amparo Patrimonial</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="rc">RC</mfDefaultSorter></th> 
@@ -257,18 +263,18 @@
                                                         <th><mfDefaultSorter by="detailsCar">Detalle</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="others">F. Exclusion</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="detailsCar">F. Inclusion</mfDefaultSorter></th> 
-                                                        <th><mfDefaultSorter by="detailsCar">Total Item</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="carValue">Valor del Carro</mfDefaultSorter></th> 
                                                         
                                         
                                                         <th>Acciones</th>      
                                                     </tr>
                                                 </thead>
                                                 <tbody>                           
-                                        
+                                                   
                                                     <tr *ngFor="let item of itemAnnexs; let i = index">
                                                         <td><strong> {{item.carMatricula}}  </strong></td>
                                                         <td> {{item.tasa}}</td>
-                                                        <td> {{item.carValue}}</td>
+                                                       
                                                         <td> {{item.carUseName}}</td>
                                                         <td> {{item.amparoPatrimonial}}</td>
                                                         <td> {{item.rc}}</td>
@@ -276,7 +282,7 @@
                                                         <td> {{item.detailsCar}}</td>
                                                         <td> {{item.exclusionDate}}</td>
                                                         <td> {{item.inclusionDate}}</td>
-                                                        <td> {{item.totalValueItem}}</td>
+                                                        <td> {{item.carValue}}</td>
                                                         <td>
                                                         
                                                             <div class="d-inline-block">
@@ -290,7 +296,7 @@
                                                                         
                                                                                             </div>
                                                                                 </td>
-                                                                                </tr>
+                                                  </tr>
                                                                         
                                                                         </tbody>
                                                                         <tfoot>
@@ -451,25 +457,27 @@
                                                 <th>Acciones</th>      
                                             </tr>
                                         </thead>
-                                        <tbody>                           
-            
-                                            <tr *ngFor="let extra of itemAnnexExtras; let i = index">
-                                                <td><strong>  {{extra.observationsSubItem}}   </strong></td>
-                                                <td>{{extra.deductible}}</td>
-                                                <td>{{extra.valueSubItem}}</td>
-                                                <td>{{extra.tasa}}</td>
-                                                <td>{{extra.calcFloat}}</td>
-                                                <td>{{extra.primaNeta}}</td>
-                                                <td>
-                                                
-                                                    <div class="d-inline-block">
-                                                                <div class="row">
-                                                            <button type="button" (click)="deleteCarExtra(i)" class="btn btn-danger btn-sm transition">Borrar</button>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                </td>
-                                                </tr>
+                                        <tbody *ngIf="itemAnnexs[this.currentItem]">   
+                                         
+                                                    <tr *ngFor="let extra of itemAnnexs[this.currentItem].subItems; let i = index">
+                                                            <td><strong>  {{extra.observationsSubItem}}   </strong></td>
+                                                            <td>{{extra.deductible}}</td>
+                                                            <td>{{extra.valueSubItem || extra.carValue}}</td>
+                                                            <td>{{extra.tasa}}</td>
+                                                            <td>{{extra.calcFloat}}</td>
+                                                            <td>{{extra.primaNeta}}</td>
+                                                            <td>
+                                                            
+                                                                <div class="d-inline-block">
+                                                                            <div class="row">
+                                                                        <button type="button" (click)="deleteCarExtra(i)" class="btn btn-danger btn-sm transition">Borrar</button>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                            </td>
+                                                        </tr>
+
+                                                                   
                                         
                                         </tbody>
                                         <tfoot>
@@ -549,9 +557,9 @@
                                     <th>Acciones</th>      
                                 </tr>
                             </thead>
-                            <tbody>                           
+                            <tbody *ngIf="itemAnnexs[this.currentItem]">                           
 
-                                <tr *ngFor="let extra of itemAnnexExtras; let i = index">
+                                <tr *ngFor="let extra of itemAnnexs[this.currentItem].subItems; let i = index">
                                     <td><strong>  {{extra.observationsSubItem}}   </strong></td>
                                     <td>{{extra.deductible}}</td>
                                     <td>{{extra.valueSubItem}}</td>
@@ -647,9 +655,9 @@
                                 <th>Acciones</th>      
                             </tr>
                         </thead>
-                        <tbody>                           
+                        <tbody *ngIf="itemAnnexs[this.currentItem]">                           
 
-                            <tr *ngFor="let extra of itemAnnexExtras; let i = index">
+                            <tr *ngFor="let extra of itemAnnexs[this.currentItem].subItems; let i = index">
                                 <td><strong>  {{extra.observationsSubItem}}   </strong></td>
                                 <td>{{extra.deductible}}</td>
                                 <td>{{extra.valueSubItem}}</td>
@@ -760,9 +768,9 @@
                                             <th>Acciones</th>      
                                         </tr>
                                     </thead>
-                                    <tbody>                           
+                                    <tbody *ngIf="itemAnnexs[this.currentItem]">                           
             
-                                        <tr *ngFor="let extra of itemAnnexExtras; let i = index">
+                                        <tr *ngFor="let extra of itemAnnexs[this.currentItem].subItems; let i = index">
                                             <td><strong>  {{extra.observationsSubItem}}   </strong></td>
                                             <td>{{extra.detailsSubItem}}</td>
                                             <td>{{extra.valueSubItem}}</td>
