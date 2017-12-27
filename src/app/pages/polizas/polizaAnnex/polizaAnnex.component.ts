@@ -475,12 +475,38 @@ export class PolizaAnnexComponent{
                     this.message = "No tiene privilegios de editar polizaAnnexs"
                 }
                 
-            })
-      
-        
-        
+            })  
         
     }
+    editPrimaPolizaAnnex(){
+        console.log(this.polizaAnnexForm.value);
+        this.http.get(config.url+`policyAnnex/view/${this.polizaAnnexId}?access_token=`+this.local.getUser().token).map((result)=>{
+            return result.json()
+        }).subscribe(res=>{
+            if(res.msg == "OK"){
+                  console.log(res);
+                  let result = res.policyAnnex;
+                  this.polizaAnnexForm.setValue({
+                    idPolicy:result.idPolicy || '',
+                    annexNumber:result.annexNumber || '',
+                    certificateNumber:result.certificateNumber || '',
+                    totalPrima:this.primaShow || '',
+                    detailsAnnex:result.detailsAnnex || '' ,
+                    superBank:result.superBank || '',
+                    iva:result.iva || '',
+                    segCamp:result.segCamp || '',
+                    valueIssue:result.valueIssue || '',
+                    totalValue:result.totalValue || ''
+                  });
+                  this.editpolizaAnnex();
+            }else{
+                this.error = true;
+                this.message = "No tiene privilegios de editar polizaAnnexs"
+            }
+            
+        })  
+    
+}
     deletePolizaAnnex(id){
 
         this.http.delete(config.url+`policyAnnex/delete/${id}?access_token=`+this.local.getUser().token,this.polizaAnnexForm.value).map((result)=>{
@@ -616,6 +642,7 @@ export class PolizaAnnexComponent{
         this.http.post(config.url+`policyAnnex/editItems/${this.polizaAnnexId}?access_token=`+this.local.getUser().token,request).map((res)=>{
             return res.json();
         }).subscribe((result)=>{
+            this.editPrimaPolizaAnnex();
             console.log(result);
         })
 

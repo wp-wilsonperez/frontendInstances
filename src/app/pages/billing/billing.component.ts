@@ -50,6 +50,8 @@ export class BillingComponent{
         public policies:any;
         public annexOptions:any = [];
         public annexs:any;
+        public sBancos;
+        public sCampesino;
 
         error:any;
         toast:boolean = false;
@@ -414,7 +416,7 @@ export class BillingComponent{
                      let res = result.policyAnnex;
                      console.log('annex detail',res);
         
-                     this.billingPolicyForm.controls['prima'].setValue(res.totalValue);
+                     this.billingPolicyForm.controls['prima'].setValue(res.totalPrima || 0);
                      this.getDerechosEmision(res.totalValue);
 
                      
@@ -621,6 +623,12 @@ export class BillingComponent{
     
         }).subscribe((res)=>{
               this.iva = res.iva 
+              this.sCampesino = res.scampesino || 0;
+              this.sBancos = res.scampesino || 0;
+              this.billingPolicyForm.controls['iva'].setValue(this.iva);
+              this.billingPolicyForm.controls['segCamp'].setValue(this.sCampesino);
+              this.billingPolicyForm.controls['superBank'].setValue(this.sBancos);
+              console.log('settingsss',res)
               
         })  
       }
