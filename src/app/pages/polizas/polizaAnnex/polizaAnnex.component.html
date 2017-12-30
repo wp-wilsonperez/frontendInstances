@@ -41,7 +41,13 @@
                                         <br/>
                                         <div class="row">
                                             <div class="col-md-4"> </div>
-                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4">
+                                                <label class="custom-control custom-checkbox">
+                                                    <input formControlName="hasBilling" type="checkbox" class="custom-control-input">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">Tiene Factura</span>
+                                                </label>
+                                            </div>
                                             <div class="col-md-4"> <input type="number" formControlName="totalValue" class="form-control" placeholder="V. Total"></div>
                                         </div>
                                         
@@ -264,6 +270,7 @@
                                                         <th><mfDefaultSorter by="others">F. Exclusion</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="detailsCar">F. Inclusion</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="carValue">Valor del Carro</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="carValue">Valor Total del Item</mfDefaultSorter></th> 
                                                         
                                         
                                                         <th>Acciones</th>      
@@ -283,6 +290,7 @@
                                                         <td> {{item.exclusionDate}}</td>
                                                         <td> {{item.inclusionDate}}</td>
                                                         <td> {{item.carValue}}</td>
+                                                        <td>{{item.totalValueItem}}</td>
                                                         <td>
                                                         
                                                             <div class="d-inline-block">

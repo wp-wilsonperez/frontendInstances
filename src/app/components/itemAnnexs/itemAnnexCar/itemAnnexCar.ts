@@ -42,9 +42,9 @@ export class ItemAnnexCar implements OnInit {
             carUse:[''],
             carUseName:[''],
             carValue:[0,Validators.required],
-            amparoPatrimonial:[''],
-            rc:[0,Validators.required],
-            others:[0,Validators.required],
+            amparoPatrimonial:[0],
+            rc:[0],
+            others:[0],
             detailsCar: [''],
             prima: [0],
             othersPrima:[0],
@@ -62,7 +62,6 @@ export class ItemAnnexCar implements OnInit {
                 extraTasa:[],
                 exclusionDate:[],
                 inclusionDate:[]
-
             });
 
         this.selectService.loadCars().then((result)=>{
@@ -83,6 +82,14 @@ export class ItemAnnexCar implements OnInit {
        this.saved.emit({value:this.itemAnnexCarForm.value});
         this.itemAnnexs.push(this.itemAnnexCarForm.value);
        this.itemAnnexCarForm.reset();
+       this.itemAnnexCarForm.controls['tasa'].setValue(0);
+       this.itemAnnexCarForm.controls['carValue'].setValue(0);
+       this.itemAnnexCarForm.controls['amparoPatrimonial'].setValue(0);
+       this.itemAnnexCarForm.controls['rc'].setValue(0);
+       this.itemAnnexCarForm.controls['others'].setValue(0);
+       this.itemAnnexCarForm.controls['prima'].setValue(0);
+       this.itemAnnexCarForm.controls['othersPrima'].setValue(0);
+       this.itemAnnexCarForm.controls['totalValueItem'].setValue(0);
     }
     loadItemAnnexCar(){
         this.http.get(config.url+`itemAnnexCar/param/${this.polizaAnnex}?access_token=`+this.local.getUser().token).map((res)=>{
@@ -123,11 +130,34 @@ export class ItemAnnexCar implements OnInit {
     }
     calcItemCar(){
         if(this.itemAnnexCarForm.value.carValue !=0){
-            let result =  ((this.itemAnnexCarForm.value.tasa + this.itemAnnexCarForm.value.amparoPatrimonial + this.itemAnnexCarForm.value.rc + this.itemAnnexCarForm.value.others) * this.itemAnnexCarForm.value.carValue) /(100 + this.itemAnnexCarForm.value.othersPrima); 
+            let result =0;
+            if(this.itemAnnexCarForm.value.amparoPatrimonial >0 || this.itemAnnexCarForm.value.rc >0 || this.itemAnnexCarForm.value.others >0 ){
+                 result =  ( (this.itemAnnexCarForm.value.tasa + this.itemAnnexCarForm.value.amparoPatrimonial + this.itemAnnexCarForm.value.rc + this.itemAnnexCarForm.value.others) * this.itemAnnexCarForm.value.carValue) /(100); 
+            }
+            else{
+                 result =  ( (this.itemAnnexCarForm.value.tasa ) * this.itemAnnexCarForm.value.carValue) /(100); 
+
+            }
+            
             this.itemAnnexCarForm.controls['totalValueItem'].setValue(result.toFixed(2))  
 
         }
        
+    }
+
+    changeTotal(){
+         let result = 0;
+         if(this.itemAnnexCarForm.value.amparoPatrimonial >0 || this.itemAnnexCarForm.value.rc >0 || this.itemAnnexCarForm.value.others >0 ){
+            result =  ( ( Number(this.itemAnnexCarForm.value.tasa) + Number(this.itemAnnexCarForm.value.amparoPatrimonial) + Number(this.itemAnnexCarForm.value.rc) + Number(this.itemAnnexCarForm.value.others)) * Number(this.itemAnnexCarForm.value.carValue)) /(100); 
+            }
+            else{
+                    result =  ( ( Number(this.itemAnnexCarForm.value.tasa) ) * Number(this.itemAnnexCarForm.value.carValue)) /(100); 
+
+            }
+
+            let total = Number(this.itemAnnexCarForm.value.othersPrima) + result;
+            this.itemAnnexCarForm.controls['totalValueItem'].setValue(total);
+
     }
 
 

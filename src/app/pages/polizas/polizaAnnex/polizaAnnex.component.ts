@@ -86,7 +86,8 @@ export class PolizaAnnexComponent{
                 iva:[''],
                 segCamp:[''],
                 valueIssue:[''],
-                totalValue:[0]
+                totalValue:[0],
+                hasBilling:[false]
             });
             this.itemAnnexCarForm = this.formBuilder.group({
                 
@@ -338,14 +339,14 @@ export class PolizaAnnexComponent{
 
         }
          saveItemAnnexExtra(){
-             if(this.tasa){
+             if(this.itemExtraForm.controls['tasa'].value == null){
+                console.log('tasa',this.itemExtraForm.controls['tasa'].value);
 
                 console.log(this.itemExtraForm.value);
             
                 this.itemExtraForm.controls['idItemAnnex'].setValue(this.itemAnnexCarId);
                 //this.itemAnnexExtras.push(this.itemExtraForm.value);
                 this.itemAnnexs[this.currentItem].subItems.push(this.itemExtraForm.value);
-    
                 this.itemAnnexs[this.currentItem].totalValueItem = this.itemAnnexs[this.currentItem].totalValueItem + this.itemExtraForm.value.primaNeta; 
                 this.itemAnnexs[this.currentItem].carValue= this.itemAnnexs[this.currentItem].carValue + this.itemExtraForm.value.primaNeta; 
                 console.log('global array ',this.itemAnnexs);
@@ -452,7 +453,8 @@ export class PolizaAnnexComponent{
                 iva:polizaAnnex.iva,
                 segCamp:polizaAnnex.segCamp,
                 valueIssue:polizaAnnex.valueIssue,
-                totalValue:polizaAnnex.totalValue
+                totalValue:polizaAnnex.totalValue,
+                hasBilling:polizaAnnex.hasBilling || false ,
 
             });
             
@@ -580,18 +582,10 @@ export class PolizaAnnexComponent{
         })  
     }
      getValorTotal(){
-
-                 console.log('get Total Value');
-                    //console.log(this.quoteForm.value.peasantInsurance, (parseFloat(this.quoteForm.value.prima)  +  parseFloat(this.quoteForm.value.superBank ), this.quoteForm.value.peasantInsurance ,this.quoteForm.value.emissionRights  );
-                    
-
-                    let totalAmount =  parseFloat(this.polizaAnnexForm.value.superBank) + parseFloat(this.polizaAnnexForm.value.totalPrima) + parseFloat(this.polizaAnnexForm.value.segCamp) + parseFloat(this.polizaAnnexForm.value.valueIssue) ;
-                      
-
-                     this.polizaAnnexForm.controls['totalValue'].setValue(totalAmount +this.polizaAnnexForm.value.iva); 
-
-            
-          
+        console.log('get Total Value');
+        //console.log(this.quoteForm.value.peasantInsurance, (parseFloat(this.quoteForm.value.prima)  +  parseFloat(this.quoteForm.value.superBank ), this.quoteForm.value.peasantInsurance ,this.quoteForm.value.emissionRights  );
+        let totalAmount =  parseFloat(this.polizaAnnexForm.value.superBank) + parseFloat(this.polizaAnnexForm.value.totalPrima) + parseFloat(this.polizaAnnexForm.value.segCamp) + parseFloat(this.polizaAnnexForm.value.valueIssue) ;
+        this.polizaAnnexForm.controls['totalValue'].setValue(totalAmount +this.polizaAnnexForm.value.iva); 
     }
     backToAnnexs(){
         this.anexos = false;

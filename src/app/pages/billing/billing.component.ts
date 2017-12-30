@@ -624,7 +624,7 @@ export class BillingComponent{
         }).subscribe((res)=>{
               this.iva = res.iva 
               this.sCampesino = res.scampesino || 0;
-              this.sBancos = res.scampesino || 0;
+              this.sBancos = res.sbancos || 0;
               this.billingPolicyForm.controls['iva'].setValue(this.iva);
               this.billingPolicyForm.controls['segCamp'].setValue(this.sCampesino);
               this.billingPolicyForm.controls['superBank'].setValue(this.sBancos);
