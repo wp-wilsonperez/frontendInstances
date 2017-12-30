@@ -156,7 +156,7 @@ export class ItemAnnexCar implements OnInit {
             }
 
             let total = Number(this.itemAnnexCarForm.value.othersPrima) + result;
-            this.itemAnnexCarForm.controls['totalValueItem'].setValue(total);
+            this.itemAnnexCarForm.controls['totalValueItem'].setValue((total).toFixed(2));
 
     }
 

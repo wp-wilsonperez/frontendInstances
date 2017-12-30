@@ -358,6 +358,8 @@ export class PolizaAnnexComponent{
                 this.itemExtraForm.controls['deductible'].setValue(this.deducible);
                 this.getCalcPrimaTotal();
 
+             }else{
+                 
              }
             
           
