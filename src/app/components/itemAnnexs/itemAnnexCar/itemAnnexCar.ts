@@ -51,7 +51,8 @@ export class ItemAnnexCar implements OnInit {
             exclusionDate: [''],
             inclusionDate: [''],
             modificationDate: [''],
-            totalValueItem:[0]
+            totalValueItem:[0],
+            totalValuePrimaItem:[0]
         })
 
         this.itemExtraForm = this.fb.group({

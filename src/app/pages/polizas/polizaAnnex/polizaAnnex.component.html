@@ -207,7 +207,8 @@
                                                             <th><mfDefaultSorter by="amparoPatrimonial">Deducible</mfDefaultSorter></th> 
                                                             <th><mfDefaultSorter by="rc">Fecha Inclusion</mfDefaultSorter></th> 
                                                             <th><mfDefaultSorter by="others">Fecha Exclusion</mfDefaultSorter></th> 
-                                                            <th><mfDefaultSorter by="others">Total</mfDefaultSorter></th> 
+                                                            <th><mfDefaultSorter by="carValue">Valor Total del Item</mfDefaultSorter></th> 
+                                                            <th><mfDefaultSorter by="carValue">Valor Total Prima</mfDefaultSorter></th> 
                                                    
                                                             
                                             
@@ -225,6 +226,7 @@
                                                             <td> {{item.inclusionDate}}</td>
                                                             <td> {{item.exclusionDate}}</td>
                                                             <td> {{item.totalValueItem}}</td>
+                                                            <td>{{item.totalValuePrimaItem}}</td>
                                                           
                                                             <td>
                                                             
@@ -271,6 +273,7 @@
                                                         <th><mfDefaultSorter by="detailsCar">F. Inclusion</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="carValue">Valor del Carro</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="carValue">Valor Total del Item</mfDefaultSorter></th> 
+                                                        <th><mfDefaultSorter by="carValue">Valor Total Prima</mfDefaultSorter></th> 
                                                         
                                         
                                                         <th>Acciones</th>      
@@ -291,6 +294,7 @@
                                                         <td> {{item.inclusionDate}}</td>
                                                         <td> {{item.carValue}}</td>
                                                         <td>{{item.totalValueItem}}</td>
+                                                        <td>{{item.totalValuePrimaItem}}</td>
                                                         <td>
                                                         
                                                             <div class="d-inline-block">
@@ -303,7 +307,7 @@
                                                                         </div>
                                                                         
                                                                                             </div>
-                                                                                </td>
+                                                        </td>
                                                   </tr>
                                                                         
                                                                         </tbody>
@@ -333,7 +337,8 @@
                                                                                 <th><mfDefaultSorter by="detailsCar">Cobertura</mfDefaultSorter></th> 
                                                                                 <th><mfDefaultSorter by="others">F. Exclusion</mfDefaultSorter></th> 
                                                                                 <th><mfDefaultSorter by="detailsCar">F. Inclusion</mfDefaultSorter></th> 
-                                                                                <th><mfDefaultSorter by="detailsCar">Total</mfDefaultSorter></th> 
+                                                                                <th><mfDefaultSorter by="carValue">Valor Total del Item</mfDefaultSorter></th> 
+                                                                                <th><mfDefaultSorter by="carValue">Valor Total Prima</mfDefaultSorter></th>
                                                                                 
                                                                 
                                                                                 <th>Acciones</th>      
@@ -353,6 +358,7 @@
                                                                                 <td> {{item.exclusionDate}}</td>
                                                                                 <td> {{item.inclusionDate}}</td>
                                                                                 <td> {{item.totalValueItem}}</td>
+                                                                                <td>{{item.totalValuePrimaItem}}</td>
                                                                                 <td>
                                                                                 
                                                                                     <div class="d-inline-block">
@@ -481,7 +487,7 @@
                                                                         <button type="button" (click)="deleteCarExtra(i)" class="btn btn-danger btn-sm transition">Borrar</button>
                                                                             </div>
                                                                             
-                                                                        </div>
+                                                                </div>
                                                             </td>
                                                         </tr>
 

@@ -52,7 +52,7 @@ export class ItemAnnexTransport implements OnInit {
             amparoPatrimonial:[''],
             detailstransport: [''],
             totalValueItem:[0],
-            totalValuePrimaItem:[''],
+            totalValuePrimaItem:[0],
             prima: [],
             othersPrima:[],
             exclusionDate: [''],

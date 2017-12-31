@@ -36,6 +36,7 @@ export class ItemAnnexStandart implements OnInit {
             observationsItem:[''],
             validDays:[''],
             totalValueItem:[0],
+            totalValuePrimaItem:[0],
             deductible:[''],
             exclusionDate: [''],
             inclusionDate: [''],
