@@ -367,7 +367,7 @@ export class PolizaAnnexComponent{
                 this.itemExtraForm.controls['idItemAnnex'].setValue(this.itemAnnexCarId);
                 //this.itemAnnexExtras.push(this.itemExtraForm.value);
                 this.itemAnnexs[this.currentItem].subItems.push(this.itemExtraForm.value);
-                this.itemAnnexs[this.currentItem].totalValuePrimaItem= this.itemAnnexs[this.currentItem].totalValuePrimaItem + this.itemExtraForm.value.primaNeta;
+                this.itemAnnexs[this.currentItem].totalValuePrimaItem= this.itemAnnexs[this.currentItem].totalValuePrimaItem + this.itemExtraForm.controls['primaNeta'].value;
                 console.log('global array ',this.itemAnnexs);
                 this.itemExtraForm.reset();
                 this.itemExtraForm.controls['calcFloat'].setValue(0);
@@ -519,7 +519,6 @@ export class PolizaAnnexComponent{
                     valueIssue:result.valueIssue || '',
                     totalValue:result.totalValue || ''
                   });
-                  this.editpolizaAnnex();
             }else{
                 this.error = true;
                 this.message = "No tiene privilegios de editar polizaAnnexs"
@@ -553,10 +552,23 @@ export class PolizaAnnexComponent{
 
     }
     openItems(id,num){
-        console.log(id);
         this.polizaAnnexId = id;
         this.polizaAnnexNumber = num;
         this.anexos = true;
+        this.http.get(config.url+`policyAnnex/view/${this.polizaAnnexId}?access_token=`+this.local.getUser().token).map((result)=>{
+            return result.json()
+        }).subscribe(res=>{
+            if(res.msg == "OK"){
+                if(res.itemAnnex){
+                        this.itemAnnexs = res.itemAnnex.items;
+                    
+                }
+            }else{
+                this.error = true;
+                this.message = "No tiene privilegios"
+            }
+            
+        }) 
 
     }
     closeItems(){
@@ -655,7 +667,6 @@ export class PolizaAnnexComponent{
         this.http.post(config.url+`policyAnnex/editItems/${this.polizaAnnexId}?access_token=`+this.local.getUser().token,request).map((res)=>{
             return res.json();
         }).subscribe((result)=>{
-            this.editPrimaPolizaAnnex();
             console.log(result);
         })
 

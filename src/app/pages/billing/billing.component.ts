@@ -415,9 +415,11 @@ export class BillingComponent{
             }).subscribe((result)=>{
                      let res = result.policyAnnex;
                      console.log('annex detail',res);
-        
-                     this.billingPolicyForm.controls['prima'].setValue(res.totalPrima || 0);
-                     this.getDerechosEmision(res.totalValue);
+                     this.billingPolicyForm.controls['prima'].setValue(res.totalValue || 0);
+                     this.billingPolicyForm.controls['segCamp'].setValue(this.sCampesino * res.totalValue );
+                     this.billingPolicyForm.controls['superBank'].setValue(this.sBancos * res.totalValue);
+                     this.setIvaValue();
+                     this.setValueTotal();
 
                      
             })
@@ -601,7 +603,7 @@ export class BillingComponent{
     getDerechosEmision(prima){
         this.http.get(config.url+'issue/value?access_token='+this.local.getUser().token+'&number='+prima)
                 .toPromise().then((result)=>{
-                    console.log(result.json())
+                    console.log('derechos de emision',result.json())
                     this.billingPolicyForm.controls['issue'].setValue(result.json().value)
                     
                 })
@@ -625,19 +627,12 @@ export class BillingComponent{
               this.iva = res.iva 
               this.sCampesino = res.scampesino || 0;
               this.sBancos = res.sbancos || 0;
-              this.billingPolicyForm.controls['iva'].setValue(this.iva);
-              this.billingPolicyForm.controls['segCamp'].setValue(this.sCampesino);
-              this.billingPolicyForm.controls['superBank'].setValue(this.sBancos);
               console.log('settingsss',res)
               
         })  
       }
     setIvaValue(){
-        
-
         this.billingPolicyForm.controls['iva'].setValue(( (Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2) * Number(this.iva))/100).toFixed(2)) ;
-
-
     }
     setValueTotal(){
         // Para el Valor total se hace = (Prima+ s.campesino +s.banco +derechos emision+valorconIva1 +valorconIva2 + IVA +Valor Sin Iva)

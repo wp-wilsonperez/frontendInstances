@@ -198,11 +198,11 @@
                                              </div>
                                              <div class="row row-input">
                                                   <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
-                                                     <label for="">S. Campesino</label>
+                                                     <label for="">S. Campesino <span class="monto">({{sCampesino}})</span></label>
                                                             <input (blur)="getSegCamp()" type="number" formControlName="segCamp" class="form-control" placeholder="S. Campesino">
                                                      </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
-                                                         <label for="">S. Banco</label>
+                                                         <label for="">S. Banco <span class="monto">({{sBancos}})</span></label>
                                                             <input (blur)="getSuperBank()" type="number" formControlName="superBank" class="form-control" placeholder="S. Banco">
                                                      </div>
                                                      <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
@@ -214,7 +214,7 @@
                                                            <input (blur)="setIvaValue()" type="number" formControlName="otherWithIVA2" class="form-control bg-success text-white" placeholder="Valor con IVA 2">
                                                     </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
-                                                            <label for=""> IVA </label>
+                                                            <label for=""> IVA <span class="monto">({{iva}})</span> </label>
                                                                <input (blur)="setValueTotal()" type="number" formControlName="iva" class="form-control bg-warning text-white" placeholder="IVA">
                                                         </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
