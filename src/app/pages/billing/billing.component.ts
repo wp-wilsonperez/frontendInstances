@@ -640,6 +640,13 @@ export class BillingComponent{
         this.billingPolicyForm.controls['totalValue'].setValue(((( Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2)  ) *  Number(this.billingPolicyForm.value.iva) ) / 12).toFixed(2) )   ;
         
     }
+    setValueTotalSinIva(){
+        // Para el Valor total se hace = (Prima+ s.campesino +s.banco +derechos emision+valorconIva1 +valorconIva2 + IVA +Valor Sin Iva)
+
+        this.billingPolicyForm.controls['totalValue'].setValue( (this.billingPolicyForm.controls['others'].value +  (( Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2)  ) *  Number(this.billingPolicyForm.value.iva) / 12) ).toFixed(2) )   ;
+        
+    }
+
     saveItem(){
         this.itemPolicies.push(this.billingPolicyForm.value);
         this.billingForm.controls['totalBillingValue'].setValue(Number(this.billingForm.value.totalBillingValue) +  Number(this.billingPolicyForm.value.totalValue));
