@@ -559,21 +559,19 @@ export class PolizaAnnexComponent{
 
     }
     openItems(id,num){
+        console.log('openItemss')
         this.polizaAnnexId = id;
         this.polizaAnnexNumber = num;
         this.anexos = true;
-        this.http.get(config.url+`policyAnnex/view/${this.polizaAnnexId}?access_token=`+this.local.getUser().token).map((result)=>{
+        this.http.get(config.url+`policyAnnex/view/${id}?access_token=`+this.local.getUser().token).map((result)=>{
             return result.json()
         }).subscribe(res=>{
-            if(res.msg == "OK"){
-                if(res.itemAnnex){
-                        this.itemAnnexs = res.itemAnnex.items;
-                    
-                }
-            }else{
-                this.error = true;
-                this.message = "No tiene privilegios"
+            console.log(res);
+            if(res.policyAnnex.itemAnnex){
+                    console.log('este es el detalle del anexo',res.policyAnnex.itemAnnex);
+                    this.itemAnnexs = res.policyAnnex.itemAnnex.items; 
             }
+        
             
         }) 
 
