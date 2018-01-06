@@ -339,7 +339,7 @@ export class PolizaAnnexComponent{
 
         }
          saveItemAnnexExtra(){
-             if(this.itemExtraForm.controls['tasa'].value == null){
+             if(this.itemExtraForm.controls['tasa'].value == null || this.itemExtraForm.controls['tasa'].value == 0 ){
                 console.log('tasa',this.itemExtraForm.controls['tasa'].value);
 
                 console.log(this.itemExtraForm.value);
