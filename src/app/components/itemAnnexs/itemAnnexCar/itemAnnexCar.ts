@@ -82,7 +82,7 @@ export class ItemAnnexCar implements OnInit {
        this.saved.emit({value:this.itemAnnexCarForm.value});
         this.itemAnnexs.push(this.itemAnnexCarForm.value);
        this.itemAnnexCarForm.reset();
-       this.itemAnnexCarForm.controls['tasa'].setValue(0);
+       this.itemAnnexCarForm.controls['tasa'].setValue(this.itemService.getTasa());
        this.itemAnnexCarForm.controls['totalValueItem'].setValue(0);
        this.itemAnnexCarForm.controls['amparoPatrimonial'].setValue(0);
        this.itemAnnexCarForm.controls['rc'].setValue(0);

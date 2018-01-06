@@ -184,7 +184,7 @@
                                             
                                                 <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                      <label for="">Prima</label>
-                                                            <input type="text" formControlName="prima" class="form-control" placeholder="Detalles">
+                                                            <input type="text"  formControlName="prima" class="form-control" placeholder="Detalles">
                                                      </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                          <label for="">N. Ref</label>
@@ -199,11 +199,11 @@
                                              <div class="row row-input">
                                                   <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                      <label for="">S. Campesino <span class="monto">({{sCampesino}})</span></label>
-                                                            <input (blur)="getSegCamp()" type="number" formControlName="segCamp" class="form-control" placeholder="S. Campesino">
+                                                            <input (blur)="setIvaValue()" type="number" formControlName="segCamp" class="form-control" placeholder="S. Campesino">
                                                      </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                          <label for="">S. Banco <span class="monto">({{sBancos}})</span></label>
-                                                            <input (blur)="getSuperBank()" type="number" formControlName="superBank" class="form-control" placeholder="S. Banco">
+                                                            <input (blur)="setIvaValue()" type="number" formControlName="superBank" class="form-control" placeholder="S. Banco">
                                                      </div>
                                                      <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                         <label for="">Valor con IVA 1</label>

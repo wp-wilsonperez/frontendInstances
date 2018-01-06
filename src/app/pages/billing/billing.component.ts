@@ -416,8 +416,9 @@ export class BillingComponent{
                      let res = result.policyAnnex;
                      console.log('annex detail',res);
                      this.billingPolicyForm.controls['prima'].setValue(res.totalPrima || 0);
-                     this.billingPolicyForm.controls['segCamp'].setValue(this.sCampesino * res.totalValue /100 );
-                     this.billingPolicyForm.controls['superBank'].setValue(this.sBancos * res.totalValue / 100);
+                     this.getDerechosEmision(res.totalPrima || 0);
+                     this.billingPolicyForm.controls['segCamp'].setValue(this.sCampesino * res.totalPrima /100 );
+                     this.billingPolicyForm.controls['superBank'].setValue(this.sBancos * res.totalPrima / 100);
                      this.setIvaValue();
                      this.setValueTotal();
 
@@ -636,14 +637,13 @@ export class BillingComponent{
     }
     setValueTotal(){
         // Para el Valor total se hace = (Prima+ s.campesino +s.banco +derechos emision+valorconIva1 +valorconIva2 + IVA +Valor Sin Iva)
-
-        this.billingPolicyForm.controls['totalValue'].setValue(((( Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2)  ) *  Number(this.billingPolicyForm.value.iva) ) / 12).toFixed(2) )   ;
+        this.billingPolicyForm.controls['totalValue'].setValue(((( Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2)  ) *  Number(this.billingPolicyForm.value.iva) )).toFixed(2) )   ;
         
     }
     setValueTotalSinIva(){
         // Para el Valor total se hace = (Prima+ s.campesino +s.banco +derechos emision+valorconIva1 +valorconIva2 + IVA +Valor Sin Iva)
 
-        this.billingPolicyForm.controls['totalValue'].setValue( (this.billingPolicyForm.controls['others'].value +  (( Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2)  ) *  Number(this.billingPolicyForm.value.iva) / 12) ).toFixed(2) )   ;
+        this.billingPolicyForm.controls['totalValue'].setValue( (this.billingPolicyForm.controls['others'].value +  (( Number(this.billingPolicyForm.value.prima)  + Number(this.billingPolicyForm.value.segCamp) + Number(this.billingPolicyForm.value.superBank) +  Number(this.billingPolicyForm.value.issue) +  Number(this.billingPolicyForm.value.otherWithIVA1) +  Number(this.billingPolicyForm.value.otherWithIVA2)  )) ).toFixed(2) )   ;
         
     }
 
