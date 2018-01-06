@@ -348,7 +348,10 @@ export class PolizaAnnexComponent{
                 //this.itemAnnexExtras.push(this.itemExtraForm.value);
                 this.itemAnnexs[this.currentItem].subItems.push(this.itemExtraForm.value);
                 let val = this.itemAnnexs[this.currentItem].totalValueItem;
-                this.itemAnnexs[this.currentItem].totalValueItem = this.itemAnnexs[this.currentItem].totalValueItem + this.itemExtraForm.controls['valueSubItem'].value; 
+                let valueSubItem = +this.itemExtraForm.controls['valueSubItem'].value
+                let totalValueItem = +this.itemAnnexs[this.currentItem].totalValueItem
+                let result = valueSubItem + totalValueItem;
+                this.itemAnnexs[this.currentItem].totalValueItem = result; 
                 console.log('global array ',this.itemAnnexs);
                 this.itemExtraForm.reset();
                 this.itemExtraForm.controls['calcFloat'].setValue(0);
@@ -366,8 +369,12 @@ export class PolizaAnnexComponent{
             
                 this.itemExtraForm.controls['idItemAnnex'].setValue(this.itemAnnexCarId);
                 //this.itemAnnexExtras.push(this.itemExtraForm.value);
+
                 this.itemAnnexs[this.currentItem].subItems.push(this.itemExtraForm.value);
-                this.itemAnnexs[this.currentItem].totalValuePrimaItem= this.itemAnnexs[this.currentItem].totalValuePrimaItem + this.itemExtraForm.controls['primaNeta'].value;
+                let primaNetaSubItem = +this.itemExtraForm.controls['primaNeta'].value
+                let totalValuePrimaItem = +this.itemAnnexs[this.currentItem].totalValuePrimaItem
+                let result = primaNetaSubItem + totalValuePrimaItem;
+                this.itemAnnexs[this.currentItem].totalValuePrimaItem= result;
                 console.log('global array ',this.itemAnnexs);
                 this.itemExtraForm.reset();
                 this.itemExtraForm.controls['calcFloat'].setValue(0);
@@ -663,6 +670,7 @@ export class PolizaAnnexComponent{
                 items: this.itemAnnexs
             }
         }
+        console.log(request);
 
         this.http.post(config.url+`policyAnnex/editItems/${this.polizaAnnexId}?access_token=`+this.local.getUser().token,request).map((res)=>{
             return res.json();

@@ -415,7 +415,7 @@ export class BillingComponent{
             }).subscribe((result)=>{
                      let res = result.policyAnnex;
                      console.log('annex detail',res);
-                     this.billingPolicyForm.controls['prima'].setValue(res.totalValue || 0);
+                     this.billingPolicyForm.controls['prima'].setValue(res.totalPrima || 0);
                      this.billingPolicyForm.controls['segCamp'].setValue(this.sCampesino * res.totalValue );
                      this.billingPolicyForm.controls['superBank'].setValue(this.sBancos * res.totalValue);
                      this.setIvaValue();

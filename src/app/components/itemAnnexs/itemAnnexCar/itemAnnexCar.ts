@@ -41,7 +41,6 @@ export class ItemAnnexCar implements OnInit {
             tasa:[0,Validators.required],
             carUse:[''],
             carUseName:[''],
-            carValue:[0,Validators.required],
             amparoPatrimonial:[0],
             rc:[0],
             others:[0],
@@ -52,7 +51,7 @@ export class ItemAnnexCar implements OnInit {
             inclusionDate: [''],
             modificationDate: [''],
             totalValueItem:[0],
-            totalValuePrimaItem:[0]
+            totalValuePrimaItem:[0,Validators.compose([Validators.required])]
         })
 
         this.itemExtraForm = this.fb.group({
@@ -84,7 +83,7 @@ export class ItemAnnexCar implements OnInit {
         this.itemAnnexs.push(this.itemAnnexCarForm.value);
        this.itemAnnexCarForm.reset();
        this.itemAnnexCarForm.controls['tasa'].setValue(0);
-       this.itemAnnexCarForm.controls['carValue'].setValue(0);
+       this.itemAnnexCarForm.controls['totalValueItem'].setValue(0);
        this.itemAnnexCarForm.controls['amparoPatrimonial'].setValue(0);
        this.itemAnnexCarForm.controls['rc'].setValue(0);
        this.itemAnnexCarForm.controls['others'].setValue(0);
@@ -130,17 +129,17 @@ export class ItemAnnexCar implements OnInit {
         this.subItems = [];
     }
     calcItemCar(){
-        if(this.itemAnnexCarForm.value.carValue !=0){
+        if(this.itemAnnexCarForm.value.totalValueItem !=0){
             let result =0;
             if(this.itemAnnexCarForm.value.amparoPatrimonial >0 || this.itemAnnexCarForm.value.rc >0 || this.itemAnnexCarForm.value.others >0 ){
-                 result =  ( (this.itemAnnexCarForm.value.tasa + this.itemAnnexCarForm.value.amparoPatrimonial + this.itemAnnexCarForm.value.rc + this.itemAnnexCarForm.value.others) * this.itemAnnexCarForm.value.carValue) /(100); 
+                 result =  ( (this.itemAnnexCarForm.value.tasa + this.itemAnnexCarForm.value.amparoPatrimonial + this.itemAnnexCarForm.value.rc + this.itemAnnexCarForm.value.others) * this.itemAnnexCarForm.value.totalValueItem) /(100); 
             }
             else{
-                 result =  ( (this.itemAnnexCarForm.value.tasa ) * this.itemAnnexCarForm.value.carValue) /(100); 
+                 result =  ( (this.itemAnnexCarForm.value.tasa ) * this.itemAnnexCarForm.value.totalValueItem) /(100); 
 
             }
             
-            this.itemAnnexCarForm.controls['totalValueItem'].setValue(result.toFixed(2))  
+            this.itemAnnexCarForm.controls['totalValuePrimaItem'].setValue(result.toFixed(2))  
 
         }
        
@@ -149,15 +148,15 @@ export class ItemAnnexCar implements OnInit {
     changeTotal(){
          let result = 0;
          if(this.itemAnnexCarForm.value.amparoPatrimonial >0 || this.itemAnnexCarForm.value.rc >0 || this.itemAnnexCarForm.value.others >0 ){
-            result =  ( ( Number(this.itemAnnexCarForm.value.tasa) + Number(this.itemAnnexCarForm.value.amparoPatrimonial) + Number(this.itemAnnexCarForm.value.rc) + Number(this.itemAnnexCarForm.value.others)) * Number(this.itemAnnexCarForm.value.carValue)) /(100); 
+            result =  ( ( Number(this.itemAnnexCarForm.value.tasa) + Number(this.itemAnnexCarForm.value.amparoPatrimonial) + Number(this.itemAnnexCarForm.value.rc) + Number(this.itemAnnexCarForm.value.others)) * Number(this.itemAnnexCarForm.value.totalValueItem)) /(100); 
             }
             else{
-                    result =  ( ( Number(this.itemAnnexCarForm.value.tasa) ) * Number(this.itemAnnexCarForm.value.carValue)) /(100); 
+                    result =  ( ( Number(this.itemAnnexCarForm.value.tasa) ) * Number(this.itemAnnexCarForm.value.totalValuePrimaItem)) /(100); 
 
             }
 
             let total = Number(this.itemAnnexCarForm.value.othersPrima) + result;
-            this.itemAnnexCarForm.controls['totalValueItem'].setValue((total).toFixed(2));
+            this.itemAnnexCarForm.controls['totalValuePrimaItem'].setValue((total).toFixed(2));
 
     }
 

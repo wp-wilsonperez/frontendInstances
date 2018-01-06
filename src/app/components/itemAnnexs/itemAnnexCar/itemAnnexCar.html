@@ -9,8 +9,6 @@
                             [multiple]="false"
                             formControlName="idCar"
                             (selected)="setMatricula($event)"
-                        
-                      
                         >
                         </ng-select>
                     </div>
@@ -18,23 +16,20 @@
                
             </div>
             <div class="row">
-                    <div class="col-md-6"> <label for="rg-from">Valor: </label>  <input (blur)="calcItemCar()"  type="number" formControlName="carValue" class="form-control" placeholder="Valor"></div>
+                    <div class="col-md-6"> <label for="rg-from">Valor: </label>  <input (blur)="calcItemCar()"  type="number" formControlName="totalValueItem" class="form-control" placeholder="Valor"></div>
                 <div class="col-md-6">
                         <label for="rg-from">Uso del Carro: </label>
-                
                         <ng-select
                             [(options)]="carUses"
                             [placeholder]="selectCarUseLabel"
                             [multiple]="false"
                             formControlName="carUse"
                             (selected)="setCarUse($event)"
-                          
                         >
                         </ng-select>
                     </div>
               
             </div>
-           
             <div class="row">
                     <div class="col-md-6">   <label for="rg-from">Amparo Patrimonial: </label> <input (blur)="calcItemCar()" type="number" formControlName="amparoPatrimonial" class="form-control" placeholder="Amparo"></div>
                     <div class="col-md-6">   <label for="rg-from">RC: </label> <input (blur)="calcItemCar()" type="number" formControlName="rc" class="form-control" placeholder="RC"></div>
@@ -51,7 +46,7 @@
         </div>
                 <div class="row">
                
-                            <div class="col-md-6">         <label for="rg-from">F. Inclusion: </label> <input type="date" formControlName="inclusionDate" class="form-control" placeholder="Inclusion Date"></div>
+                            <div class="col-md-6"><label for="rg-from">F. Inclusion: </label> <input type="date" formControlName="inclusionDate" class="form-control" placeholder="Inclusion Date"></div>
                             
                             <div class="col-md-6"><label for="rg-from">F. Exclusion: </label> <input type="date" formControlName="exclusionDate" class="form-control" placeholder="Inclusion Date"></div>
                     </div>
@@ -59,7 +54,7 @@
                     
                                     <div class="col-md-6">    </div>
                                     
-                                    <div class="col-md-6"><label for="rg-from">Total: </label> <input type="text" formControlName="totalValueItem" class="form-control" placeholder="Valor Total"></div>
+                                    <div class="col-md-6"><label for="rg-from">Total: </label> <input type="text" formControlName="totalValuePrimaItem" class="form-control" placeholder="Valor Total"></div>
                 </div>
         </div>
         <div class="form-group col-md-2 col-sm-6">

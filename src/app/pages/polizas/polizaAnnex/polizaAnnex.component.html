@@ -271,7 +271,6 @@
                                                         <th><mfDefaultSorter by="detailsCar">Detalle</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="others">F. Exclusion</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="detailsCar">F. Inclusion</mfDefaultSorter></th> 
-                                                        <th><mfDefaultSorter by="carValue">Valor del Carro</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="carValue">Valor Total del Item</mfDefaultSorter></th> 
                                                         <th><mfDefaultSorter by="carValue">Valor Total Prima</mfDefaultSorter></th> 
                                                         
@@ -292,21 +291,15 @@
                                                         <td> {{item.detailsCar}}</td>
                                                         <td> {{item.exclusionDate}}</td>
                                                         <td> {{item.inclusionDate}}</td>
-                                                        <td> {{item.carValue}}</td>
                                                         <td>{{item.totalValueItem}}</td>
                                                         <td>{{item.totalValuePrimaItem}}</td>
                                                         <td>
-                                                        
                                                             <div class="d-inline-block">
                                                                         <div class="row">
-                                                                        
                                                                             <button type="button" (click)="deleteCarItem(i)"  class="btn btn-danger btn-sm transition">Borrar</button>
-                                        
                                                                             <button (click)="getItem(i)" type="button" data-toggle="modal" data-target="#extra-modal"  class="btn btn-success btn-sm transition">SubItems</button>
-                                        
                                                                         </div>
-                                                                        
-                                                                                            </div>
+                                                           </div>
                                                         </td>
                                                   </tr>
                                                                         
