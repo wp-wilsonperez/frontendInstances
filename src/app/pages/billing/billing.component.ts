@@ -98,7 +98,7 @@ export class BillingComponent{
                 firstPaymentDate:[],
                 idPaymentType:[''],
                 initialPayment:[0],
-                equalPayments:[1],
+                equalPayments:[''],
                 valueEqualPayments:[''],
                 observationsBilling:[''],
                 totalPrimaValue:[0,Validators.required],
@@ -573,7 +573,7 @@ export class BillingComponent{
                  if(res.msg == "OK"){
                        this.loadbillings();
                         this.toast = true;
-                        this.message = "billing guardada"
+                        this.message = "factura guardada"
                         this.billingForm.reset();
                         this.itemPolicies = [];
                 }else{
@@ -658,13 +658,15 @@ export class BillingComponent{
 
        
         this.billingPolicyForm.reset();
-       
+        this.changeEqualPayments();
         console.log(this.itemPolicies);
         
     }
     changeEqualPayments(){
-        if(Number(this.billingForm.value.equalPayments) > 0 && Number(this.billingForm.value.totalBillingValue) > 0 ){
-            this.billingForm.controls['valueEqualPayments'].setValue( (( (Number(this.billingForm.value.valueEqualPayments ) +  Number(this.billingPolicyForm.value.totalValue ))  - Number(this.billingForm.value.initialPayment) ) / Number(this.billingForm.value.equalPayments)).toFixed(2) );
+        if(Number(this.billingForm.value.equalPayments) > 1 && Number(this.billingForm.value.totalBillingValue) > 0 ){
+            let subTotalValue = Number(this.billingForm.controls['totalBillingValue'].value) -  Number(this.billingForm.controls['initialPayment'].value);
+            let subPayments = subTotalValue / this.billingForm.controls['equalPayments'].value;
+            this.billingForm.controls['valueEqualPayments'].setValue( subPayments.toFixed(2) );
         }
        
     }
