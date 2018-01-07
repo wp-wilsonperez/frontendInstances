@@ -188,7 +188,7 @@
                                                      </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                          <label for="">N. Ref</label>
-                                                            <input type="text" formControlName="refNumber" class="form-control" placeholder="N. Ref">
+                                                            <input  type="text" formControlName="refNumber" class="form-control" placeholder="N. Ref">
                                                      </div>
                                                      <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                             <label for="">Derecho de Emision</label>
@@ -207,7 +207,7 @@
                                                      </div>
                                                      <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                         <label for="">Valor con IVA 1</label>
-                                                           <input type="number" formControlName="otherWithIVA1" class="form-control bg-danger text-white" placeholder="Valor con IVA 1">
+                                                           <input (blur)="setIvaValue()" type="number" formControlName="otherWithIVA1" class="form-control bg-danger text-white" placeholder="Valor con IVA 1">
                                                     </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                         <label for="">Valor con IVA 2</label>
@@ -215,7 +215,7 @@
                                                     </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                             <label for=""> IVA <span class="monto">({{iva}})</span> </label>
-                                                               <input (blur)="setValueTotal()" type="number" formControlName="iva" class="form-control bg-warning text-white" placeholder="IVA">
+                                                               <input type="number" formControlName="iva" class="form-control bg-warning text-white" placeholder="IVA">
                                                         </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                         <label for=""> Valor sin IVA </label>
