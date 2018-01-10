@@ -52,7 +52,6 @@ export class BillingComponent{
         public annexs:any;
         public sBancos;
         public sCampesino;
-
         error:any;
         toast:boolean = false;
         message:string;
@@ -61,6 +60,7 @@ export class BillingComponent{
         itemPolicies:any =[];
         messages = messages;
         iva:number ;
+        edit:boolean = false;
 
         public typeBillingOptions = [
             {
@@ -85,7 +85,7 @@ export class BillingComponent{
         
             this.billingForm = this.formBuilder.group({
                 typeBilling:['',Validators.required],
-                idClient:[''],
+                idClient:['',Validators.required],
                 detailsClient:[''],
                 idBusiness:[''],
                 detailBusiness:[''],
@@ -93,7 +93,7 @@ export class BillingComponent{
                 idUser:[],
                 detailsInsurance:[''],
                 idInsuranceCom:[''],
-                billingNumber:[],
+                billingNumber:['',Validators.required],
                 billingDate:[''],
                 firstPaymentDate:[],
                 idPaymentType:[''],
@@ -472,16 +472,69 @@ export class BillingComponent{
                 this.billingId = billingId;
         }
 
-        billingDetail(billing){
-    
+    billingDetail(billing){
         this.billingId = billing._id;
         console.log(this.billingId);
-        console.log(this.billingId);
-        
-        this.editForm.setValue({name: billing.name,month:billing.month,interest:billing.interest,totalMonths:billing.totalMonths});
-        
-        
-        
+        console.log(billing);
+        let filter = {
+            filter:{
+                idBilling: this.billingId
+            }
+        }
+        this.http.post(`${config.url}billingPolicy/filter?access_token=${this.local.getUser().token}`,filter)
+                 .map((res)=>{return res.json()})
+                 .subscribe((res)=>{
+                     console.log(res);
+                     this.billingForm.setValue({
+                        typeBilling: billing.typeBilling || '',
+                        idClient: billing.idClient || '',
+                        detailsClient: billing.detailsClient || '',
+                        idBusiness: billing.idBusiness || '',
+                        detailBusiness: billing.detailBusiness || '',
+                        idInsurance: billing.idInsurance || '',
+                        idUser: billing.idUser || '',
+                        detailsInsurance: billing.detailsInsurance || '',
+                        idInsuranceCom: billing.detailsInsurance || '',
+                        billingNumber: billing.billingNumber || '',
+                        billingDate: billing.billingDate || '',
+                        firstPaymentDate: billing.firstPaymentDate || '',
+                        idPaymentType: billing.idPaymentType || '',
+                        initialPayment: billing.initialPayment || 0,
+                        equalPayments: billing.equalPayments || 0,
+                        valueEqualPayments: billing.valueEqualPayments || 0,
+                        observationsBilling: billing.observationsBilling || '',
+                        totalPrimaValue: billing.totalPrimaValue || 0,
+                        totalIvaValue: billing.totalIvaValue || 0,
+                        totalBillingValue: billing.totalBillingValue || 0,
+                        phone: billing.phone || '',
+                        address: billing.address || '',
+                        id:'',
+                        items: ''
+                     });
+                    
+                     this.billingPolicyForm.setValue({
+                        idBilling: res.idBilling || 0,
+                        idPolicy: res.idPolicy || '',
+                        policyNumber: res.policyNumber || 0,
+                        idRamo: res.idRamo || 0,
+                        idPolicyAnnex: res.idPolicyAnnex || '',
+                        annexNumber: res.annexNumber || '',
+                        refNumber: res.refNumber || 0,
+                        prima: res.prima || 0,
+                        superBank: this.sBancos,
+                        segCamp: this.sCampesino,
+                        issue : res.issue || 0,
+                        otherWithIVA1: res.otherWithIVA1 || 0,
+                        otherWithIVA2: res.otherWithIVA2 || 0,
+                        iva: res.iva || 0,
+                        others: res.others || 0,
+                        totalValue: res.totalValue || 0
+                     });
+                     this.list = false;
+                     this.edit = true;
+                     this.itemPolicies = res.billingPolicies;
+
+        })
     }
     editbilling(){
             
@@ -491,7 +544,8 @@ export class BillingComponent{
                 if(res.msg == "OK"){
                         this.billings = res.update; 
                         this.toast = true;
-                        this.message = "billing editado"
+                        this.message = "billing editado";
+                        this.edit = false;
                 }else{
                     this.error = true;
                     this.message = res.err.message
@@ -503,7 +557,7 @@ export class BillingComponent{
         
         
     }
-    deletebilling(){
+    deleteBilling(){
 
         this.http.delete(config.url+`billing/delete/${this.billingId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
@@ -667,8 +721,7 @@ export class BillingComponent{
             let subTotalValue = Number(this.billingForm.controls['totalBillingValue'].value) -  Number(this.billingForm.controls['initialPayment'].value);
             let subPayments = subTotalValue / this.billingForm.controls['equalPayments'].value;
             this.billingForm.controls['valueEqualPayments'].setValue( subPayments.toFixed(2) );
-        }
-       
+        }   
     }
 
 

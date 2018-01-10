@@ -107,17 +107,12 @@ export class AutoComponent{
         }
 
         autoDetail(auto){
-            console.log(auto);
-            
-    
+        console.log(auto);
         this.autoId = auto._id;
         console.log(this.autoId);
         console.log(this.autoId);
         
-        this.editForm.setValue({idClient:auto.idClient,idRamo:auto.idRamo,idCarBrand:auto.idCarBrand,idCarModel:auto.idCarModel,chasis:auto.chasis,motor:auto.motor,placa:auto.placa,carUse:auto.carUse,extras:auto.extras,extrasValue:auto.extrasValue,idCarColor:auto.idCarColor});
-        
-        
-        
+        this.editForm.setValue({idClient:auto.idClient,idRamo:auto.idRamo,idCarBrand:auto.idCarBrand,idCarModel:auto.idCarModel,chasis:auto.chasis,motor:auto.motor,placa:auto.placa,carUse:auto.carUse,extras:auto.extras,extrasValue:auto.extrasValue,idCarColor:auto.idCarColor});    
     }
     editauto(){
             

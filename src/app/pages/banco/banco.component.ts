@@ -1,3 +1,4 @@
+import { messages } from './../../../config/project-config';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 import { config } from '../../../config/project-config';

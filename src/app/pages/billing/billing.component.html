@@ -14,24 +14,7 @@
             </div>
             
             <div class="card-block widget-body">
-                  
-
-                <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>{{message}} </strong> 
-                </div>
-                
-                <div *ngIf="toast" class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>{{message}}</strong> 
-                </div>
-
                  <form  [formGroup]="billingForm">
-
                                     <div class="row">
                                         <div class=" col-md-4">
                                             <div class="form-group"> 
@@ -225,8 +208,7 @@
                                                             <label for="">Valor Total</label>
                                                                 <input type="number" formControlName="totalValue" class="form-control bg-primary text-white" placeholder="Valor Total">
                                                         </div>
-                                            
-                                               
+                                    
                                     
                                              </div>
 
@@ -348,17 +330,13 @@
                                
 
                                 <td class="row col  bottom-15">
-                                  
                                       <div class="d-inline-block">
                                                 <div class="row">
-                        
-
-                                                        <button type="button btn-sm" (click)="borrarItem()" class="btn btn-danger" >Borrar</button>
-
-
+                                                    <button type="button btn-sm" (click)="billingDetail(billing)" class="btn btn-primary" >Editar</button>
+                                                        <button data-toggle="modal" data-target="#delete-modal"(click)="idAssign(billing._id)" type="button btn-sm"  class="btn btn-danger" >Borrar</button>
                                                 </div>
                                                 
-                                            </div>
+                                        </div>
                                 </td>
                                 </tr>
                           
@@ -376,6 +354,25 @@
              </div>
         </div>
     
+    </div>
+</div>
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header state modal-danger">                                    
+                <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+               <!--Esta seguro-->
+               {{messages.sure_delete}}
+            </div>
+            <div class="modal-footer">
+                <button (click)="deleteBilling()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
 </div>
 
