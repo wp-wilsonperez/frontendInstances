@@ -692,22 +692,7 @@ export const menuItems = [
         disabled: true,
         selected: false,
         expanded: false
-      },
-      {
-        title: 'Siniestro de Carros',
-        routerLink: 'siniestros/carros',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-      {
-        title: 'Estados',
-        routerLink: 'siniestros/state',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-      
+      }
     ]
   },
   {

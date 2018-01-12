@@ -1,6 +1,7 @@
-import { Component, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { config } from '../../../../config/project-config';
+import { messages } from './../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
@@ -27,6 +28,7 @@ export class SiniestroDocRamoComponent{
         ramos:any=[];
         sinisterDocOptions :any=[];
         sinisterDocs:any=[];
+        messages = messages;
 
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
@@ -127,14 +129,12 @@ export class SiniestroDocRamoComponent{
         
         
     }
-    editsiniestroDocRamo(){
-            
+    editsiniestroDocRamo(){  
             this.http.post(config.url+`sinisterDocumentationRamo/edit/${this.siniestroDocRamoId}?access_token=`+this.local.getUser().token,this.siniestroDocRamoForm.value).map((result)=>{
-           
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.siniestroDocRamos = res.update; 
+                        this.loadsiniestroDocRamos();
                         this.toast = true;
                         this.message = "Documentacion de siniestro editado";
                         this.create = true;
@@ -144,29 +144,26 @@ export class SiniestroDocRamoComponent{
                     this.message = "No tiene privilegios de editar siniestro"
                 }
                 
-            })
-      
-        
-        
-        
+            })  
     }
     deletesiniestroDocRamo(id){
-
-        this.http.delete(config.url+`sinisterDocumentationRamo/delete/${id}?access_token=`+this.local.getUser().token,{}).map((result)=>{
+        this.http.delete(config.url+`sinisterDocumentationRamo/delete/${this.siniestroDocRamoId}?access_token=`+this.local.getUser().token,{}).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.siniestroDocRamos = res.update; 
+                        this.loadsiniestroDocRamos();
                         this.toast = true;
-                        this.message = "doc Borrado"
+                        this.message = "Documentacion de siniestro Borrado"
                 }else{
                     console.log(res);
                     
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"
-                }
-                
+                }   
             })
+    }
+    siniestroDocDetail(id){
+        this.siniestroDocRamoId = id;
 
     }
 

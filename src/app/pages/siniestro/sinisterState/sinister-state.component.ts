@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { config } from '../../../../config/project-config';
 import { UserSessionService } from '../../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
-
+import { messages } from './../../../../config/project-config';
 
 @Component({
     selector:'sinisterState-component',
@@ -23,6 +23,7 @@ export class SinisterStateComponent{
         toast:boolean = false;
         message:string;
         create:boolean = true;
+        messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder ){
         
             this.sinisterStateForm = this.formBuilder.group({
@@ -39,19 +40,18 @@ export class SinisterStateComponent{
         }
 
         loadsinisterStates(){
-
-            this.http.get(config.url+'sinisterDocumentation/list?access_token='+this.local.getUser().token).map((res)=>{
+            this.http.get(config.url+'sinisterState/list?access_token='+this.local.getUser().token).map((res)=>{
                    console.log(res.json());
                 return res.json();
             }).subscribe((result)=>{
-                    this.sinisterStates = result.sinisterDocumentations;
+                    this.sinisterStates = result.sinisterStates;
                     console.log(this.sinisterStates);
             })
             
         }
         savesinisterState(){
 
-            this.http.post(config.url+'sinisterDocumentation/add?access_token='+this.local.getUser().token,this.sinisterStateForm.value).map((result)=>{
+            this.http.post(config.url+'sinisterState/add?access_token='+this.local.getUser().token,this.sinisterStateForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
@@ -87,7 +87,7 @@ export class SinisterStateComponent{
     }
     editsinisterState(){
             
-            this.http.post(config.url+`sinisterDocumentation/edit/${this.sinisterStateId}?access_token=`+this.local.getUser().token,this.sinisterStateForm.value).map((result)=>{
+            this.http.post(config.url+`sinisterState/edit/${this.sinisterStateId}?access_token=`+this.local.getUser().token,this.sinisterStateForm.value).map((result)=>{
            
                 return result.json()
             }).subscribe(res=>{
@@ -110,7 +110,7 @@ export class SinisterStateComponent{
     }
     deletesinisterState(id){
 
-        this.http.delete(config.url+`sinisterDocumentation/delete/${id}?access_token=`+this.local.getUser().token,{}).map((result)=>{
+        this.http.delete(config.url+`sinisterState/delete/${id}?access_token=`+this.local.getUser().token,{}).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){

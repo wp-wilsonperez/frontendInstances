@@ -621,6 +621,7 @@ export class BillingComponent{
         let request = {
             billing:this.billingForm.value
         };
+        console.log(request);
          this.http.post(config.url+'billing/add?access_token='+this.local.getUser().token,request).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
@@ -722,6 +723,34 @@ export class BillingComponent{
             let subPayments = subTotalValue / this.billingForm.controls['equalPayments'].value;
             this.billingForm.controls['valueEqualPayments'].setValue( subPayments.toFixed(2) );
         }   
+    }
+    editarFactura(){
+        this.billingForm.controls['items'].setValue(this.itemPolicies);
+        this.billingForm.value._id = this.billingId;
+        let request = {
+            billing:this.billingForm.value
+        };
+        console.log(request);
+         this.http.post(config.url+'billing/add?access_token='+this.local.getUser().token,request).map((result)=>{
+                return result.json()
+            }).subscribe(res=>{
+                 if(res.msg == "OK"){
+                       this.loadbillings();
+                        this.toast = true;
+                        this.message = "factura guardada"
+                        this.billingForm.reset();
+                        this.itemPolicies = [];
+                }else{
+                      this.error = true;
+                      this.message = res.err.message
+                   
+                }
+                console.log(res);
+                this.edit = false;
+    
+                
+            });
+        console.log('generate');
     }
 
 

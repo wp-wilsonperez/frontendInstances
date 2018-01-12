@@ -281,8 +281,8 @@
                     </table>
                 </div>
                  <div class="btn-wrapper">
-                    <button [disabled]="itemPolicies.length == 0 || !billingForm.valid" type="button" class="btn btn-primary btn-lg transition" (click)="generateFactura()">Generar Factura</button>
-                
+                    <button *ngIf="!edit" [disabled]="itemPolicies.length == 0 || !billingForm.valid" type="button" class="btn btn-primary btn-lg transition" (click)="generateFactura()">Generar Factura</button>
+                    <button *ngIf="edit" [disabled]="itemPolicies.length == 0 || !billingForm.valid" type="button" class="btn btn-primary btn-lg transition" (click)="editarFactura()">Editar Factura</button>
                 </div>
 
                     </div>
