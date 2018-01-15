@@ -17,29 +17,24 @@
                  <form  [formGroup]="billingForm">
                                     <div class="row">
                                         <div class=" col-md-4">
-                                            <div class="form-group"> 
-                                                 <label>Tipo de Cliente</label>
-                                                <ng-select (selected)="changeType($event)" class="form-group"
-                                                            [(options)]="typeBillingOptions"
-                                                            [placeholder]="TipoDeCobro"
-                                                            [multiple]="false"
-                                                            formControlName="typeBilling"
-                                                      
-                                                        >
-                                                </ng-select>
-
-                                            </div>
-                                         <div class="form-group">
-                                             <label>Cliente</label>
-                                              <ng-select (selected)="showData($event)"
-                                                        [(options)]="clients"
-                                                        [placeholder]="Matricula"
-                                                        [multiple]="false"
-                                                        formControlName="idClient"
-                                                    
-                                                    >
+                                        <div class="form-group">
+                                            <label for="">Tipo</label>
+                                            <ng-select
+                                                [(options)]="billingTypes"
+                                                formControlName="typeBilling"
+                                                (selected)="changeType($event)"
+                                                >
                                             </ng-select>
-
+                                         </div>
+                                         <div class="form-group">
+                                             <label for="">Cliente</label>
+                                             <ng-select
+                                                    [(options)]="clients"
+                                                    [placeholder]="receiveLabel"
+                                                    [multiple]="false"
+                                                    (selected)="getType($event)"
+                                                    formControlName="idDetailsClientBilling">
+                                                </ng-select>
                                          </div>
                                             <div class="form-group">
                                                 <label for="">N. Factura</label>
@@ -93,7 +88,7 @@
 
                                                 <div class="form-group"> 
                                                     <label>Valor de Pagos Iguales</label>
-                                                    <input type="number" formControlName="valueEqualPayments" class="form-control" placeholder="Valor de Pagos Iguales">
+                                                    <input [attr.disabled]="enabledForm == true ? true : null" type="number" formControlName="valueEqualPayments" class="form-control" placeholder="Valor de Pagos Iguales">
                                                 </div>
                                                
 
@@ -102,15 +97,15 @@
                                         <div class=" col-md-4">
                                                 <div class="form-group"> 
                                                     <label>Total de Prima </label>
-                                                    <input type="number" formControlName="totalPrimaValue" class="form-control" placeholder="prima">
+                                                    <input [attr.disabled]="enabledForm == true ? true : null" type="number" formControlName="totalPrimaValue" class="form-control" placeholder="prima">
                                                 </div>
                                           <div class="form-group"> 
                                                     <label>Iva Total </label>
-                                                    <input type="number" formControlName="totalIvaValue" class="form-control" placeholder="Iva">
+                                                    <input [attr.disabled]="enabledForm == true ? true : null" type="number" formControlName="totalIvaValue" class="form-control" placeholder="Iva">
                                             </div>
                                              <div class="form-group"> 
                                                     <label>Total Factura</label>
-                                                    <input type="number" formControlName="totalBillingValue" class="form-control bg-primary text-white" placeholder="Valor total">
+                                                    <input [attr.disabled]="enabledForm == true ? true : null" type="number" formControlName="totalBillingValue" class="form-control bg-primary text-white" placeholder="Valor total">
                                                 </div>
                                                 <div class="form-group"> 
                                                     <label>Observaciones</label>
@@ -167,7 +162,7 @@
                                             
                                                 <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                      <label for="">Prima</label>
-                                                            <input type="text"  formControlName="prima" class="form-control" placeholder="Detalles">
+                                                            <input [attr.disabled]="enabledForm == true ? true : null" type="text"  formControlName="prima" class="form-control" placeholder="Detalles">
                                                      </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                          <label for="">N. Ref</label>
@@ -175,18 +170,18 @@
                                                      </div>
                                                      <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                             <label for="">Derecho de Emision</label>
-                                                               <input type="text" formControlName="issue" class="form-control" placeholder="Derecho E.">
+                                                               <input [attr.disabled]="enabledForm == true ? true : null" type="text" formControlName="issue" class="form-control" placeholder="Derecho E.">
                                                         </div>
                                                 
                                              </div>
                                              <div class="row row-input">
                                                   <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                      <label for="">S. Campesino <span class="monto">({{sCampesino}})</span></label>
-                                                            <input (blur)="setIvaValue()" type="number" formControlName="segCamp" class="form-control" placeholder="S. Campesino">
+                                                            <input [attr.disabled]="enabledForm == true ? true : null" (blur)="setIvaValue()" type="number" formControlName="segCamp" class="form-control" placeholder="S. Campesino">
                                                      </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                          <label for="">S. Banco <span class="monto">({{sBancos}})</span></label>
-                                                            <input (blur)="setIvaValue()" type="number" formControlName="superBank" class="form-control" placeholder="S. Banco">
+                                                            <input  [attr.disabled]="enabledForm == true ? true : null"  (blur)="setIvaValue()" type="number" formControlName="superBank" class="form-control" placeholder="S. Banco">
                                                      </div>
                                                      <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                         <label for="">Valor con IVA 1</label>
@@ -198,7 +193,7 @@
                                                     </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                             <label for=""> IVA <span class="monto">({{iva}})</span> </label>
-                                                               <input type="number" formControlName="iva" class="form-control bg-warning text-white" placeholder="IVA">
+                                                               <input [attr.disabled]="enabledForm == true ? true : null" type="number" formControlName="iva" class="form-control bg-warning text-white" placeholder="IVA">
                                                         </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                         <label for=""> Valor sin IVA </label>
@@ -206,7 +201,7 @@
                                                     </div>
                                                     <div class="form-group col-md-3 col-sm-6" [ngClass]="{}">
                                                             <label for="">Valor Total</label>
-                                                                <input type="number" formControlName="totalValue" class="form-control bg-primary text-white" placeholder="Valor Total">
+                                                                <input [attr.disabled]="enabledForm == true ? true : null" type="number" formControlName="totalValue" class="form-control bg-primary text-white" placeholder="Valor Total">
                                                         </div>
                                     
                                     

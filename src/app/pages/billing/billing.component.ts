@@ -1,3 +1,5 @@
+import { SelectService } from './../../providers/select.service';
+import { Observable } from 'rxjs/Observable';
 import { messages } from './../../../config/project-config';
 import { Router } from '@angular/router';
 import { Component, ViewEncapsulation } from '@angular/core';
@@ -5,8 +7,7 @@ import { Http, Response } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
-
-
+import { setTimeout } from 'core-js/library/web/timers';
 
 @Component({
     selector:'billing-component',
@@ -61,6 +62,9 @@ export class BillingComponent{
         messages = messages;
         iva:number ;
         edit:boolean = false;
+        recipients:any = [];
+        typeBillings:any =[];
+        enabledForm:boolean = true;
 
         public typeBillingOptions = [
             {
@@ -81,18 +85,9 @@ export class BillingComponent{
 
         ];
 
-        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router ){
+        constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router, public select:SelectService ){
         
             this.billingForm = this.formBuilder.group({
-                typeBilling:['',Validators.required],
-                idClient:['',Validators.required],
-                detailsClient:[''],
-                idBusiness:[''],
-                detailBusiness:[''],
-                idInsurance:[''],
-                idUser:[],
-                detailsInsurance:[''],
-                idInsuranceCom:[''],
                 billingNumber:['',Validators.required],
                 billingDate:[''],
                 firstPaymentDate:[],
@@ -107,8 +102,9 @@ export class BillingComponent{
                 phone:[''],
                 address:[''],
                 id:[''],
-                items:['']
-                
+                items:[''],
+                typeBilling:['',Validators.required],
+                idDetailsClientBilling:['']
             });
 
             this.billingPolicyForm = this.formBuilder.group({
@@ -152,12 +148,15 @@ export class BillingComponent{
             this.loadPaymentTypes();
             this.loadPolicies();
             this.loadSettings();
-            this.billingPolicyForm.valueChanges.subscribe((res)=>{
-                console.log(res)
-            })
-        
-            
-    
+            this.select.loadClientsRecipient().then(clients=>{
+                this.select.loadBussinesRecipient().then(bussines=>{
+                    this.select.loadInsurancesRecipient().then(insurances=>{
+                        this.recipients = clients.concat(bussines,insurances);
+                        console.log('recipients',this.recipients);
+                    })
+                })
+            });
+            this.loadbillingTypes();
         }
 
         loadbillings(){
@@ -203,6 +202,25 @@ export class BillingComponent{
                         let obj = {
                             value: result._id,
                             label: result.bussinesName
+                        }
+                        this.insuranceOptions.push(obj);
+                        this.clients = this.insuranceOptions;
+                    })
+                    console.log('Insurances clients',this.clients);
+            })
+            
+        }
+        loadBusiness(){
+            this.insurances =[];
+            this.insuranceOptions =[];
+            this.http.get(config.url+'business/list?access_token='+this.local.getUser().token).map((res)=>{
+                return res.json();
+            }).subscribe((result)=>{
+                    let insurances = result.businesses;
+                     insurances.map((result)=>{
+                        let obj = {
+                            value: result._id,
+                            label: result.name
                         }
                         this.insuranceOptions.push(obj);
                         this.clients = this.insuranceOptions;
@@ -271,7 +289,7 @@ export class BillingComponent{
 
         }
 
-        loadBusiness(){
+        loadBusness(){
             this.business=[];
             this.businessOptions =[];
             this.http.get(config.url+'business/list?access_token='+this.local.getUser().token).map((res)=>{
@@ -332,14 +350,13 @@ export class BillingComponent{
         }
 
         loadbillingTypes(){
-
-             this.http.get(config.url+'billingType/list?access_token='+this.local.getUser().token).map((res)=>{
+             this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                     let billingTypes = result.billingTypes;
+                     let billingTypes = result.params.typeBilling.list;
                      billingTypes.map((result)=>{
                         let obj = {
-                            value: result._id,
+                            value: result.id,
                             label: result.name 
                         }
                         this.billingTypesOptions.push(obj);
@@ -347,17 +364,16 @@ export class BillingComponent{
                     })
                     console.log('billing Types',this.billingTypes);
             })
-
         }
 
         loadPaymentTypes(){
 
-            this.http.get(config.url+'paymentType/list?access_token='+this.local.getUser().token).map((res)=>{
+            this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).map((res)=>{
                 console.log('payment types',res.json());
                 
                 return res.json();
             }).subscribe((result)=>{
-                     let paymentTypes = result.paymentTypes;
+                     let paymentTypes = result.params.paymentType.list;
                      paymentTypes.map((result)=>{
                         let obj = {
                             value: result._id,
@@ -487,14 +503,6 @@ export class BillingComponent{
                      console.log(res);
                      this.billingForm.setValue({
                         typeBilling: billing.typeBilling || '',
-                        idClient: billing.idClient || '',
-                        detailsClient: billing.detailsClient || '',
-                        idBusiness: billing.idBusiness || '',
-                        detailBusiness: billing.detailBusiness || '',
-                        idInsurance: billing.idInsurance || '',
-                        idUser: billing.idUser || '',
-                        detailsInsurance: billing.detailsInsurance || '',
-                        idInsuranceCom: billing.detailsInsurance || '',
                         billingNumber: billing.billingNumber || '',
                         billingDate: billing.billingDate || '',
                         firstPaymentDate: billing.firstPaymentDate || '',
@@ -508,6 +516,7 @@ export class BillingComponent{
                         totalBillingValue: billing.totalBillingValue || 0,
                         phone: billing.phone || '',
                         address: billing.address || '',
+                        idDetailsClientBilling: billing.detailsClientBilling._id || '',
                         id:'',
                         items: ''
                      });
@@ -533,6 +542,9 @@ export class BillingComponent{
                      this.list = false;
                      this.edit = true;
                      this.itemPolicies = res.billingPolicies;
+                     this.changeType();
+                     this.afterDetailClient(billing.detailsClientBilling._id);
+                     
 
         })
     }
@@ -574,10 +586,11 @@ export class BillingComponent{
             })
 
     }
-    changeType(type){
-        type.value == 1? this.loadClients():null;
-        type.value == 2? this.loadInsurances():null;
-        type.value == 3? this.loadBusiness():null;
+    changeType(type?){
+        console.log(this.billingForm.controls['typeBilling'].value);
+        this.billingForm.controls['typeBilling'].value == '99097f2c1f'? this.loadClients():null;
+        this.billingForm.controls['typeBilling'].value == '99097f2c1d'? this.loadInsurances():null;
+        this.billingForm.controls['typeBilling'].value == '99097f2c1c'? this.loadBusiness():null;
         
     }
     showData(type){
@@ -634,11 +647,8 @@ export class BillingComponent{
                 }else{
                       this.error = true;
                       this.message = res.err.message
-                   
                 }
-                console.log(res);
-    
-                
+                console.log(res);  
             });
         console.log('generate');
         
@@ -726,12 +736,13 @@ export class BillingComponent{
     }
     editarFactura(){
         this.billingForm.controls['items'].setValue(this.itemPolicies);
-        this.billingForm.value._id = this.billingId;
+        this.billingForm.controls['id'].setValue(this.billingId);
         let request = {
             billing:this.billingForm.value
         };
+        console.log('Request al Editar',request);
         console.log(request);
-         this.http.post(config.url+'billing/add?access_token='+this.local.getUser().token,request).map((result)=>{
+         this.http.post(config.url+'billing/add/?access_token='+this.local.getUser().token,request).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
@@ -740,18 +751,139 @@ export class BillingComponent{
                         this.message = "factura guardada"
                         this.billingForm.reset();
                         this.itemPolicies = [];
+                        this.resetValues();
                 }else{
                       this.error = true;
                       this.message = res.err.message
                    
                 }
                 console.log(res);
-                this.edit = false;
-    
                 
             });
         console.log('generate');
     }
+    getType(val){
+        console.log(val);
+         if(this.billingForm.controls['typeBilling'].value == '99097f2c1f'){
+                 this.getRecipient('client',val.value).subscribe((res)=>{  
+                     console.log(res)     
+                     this.billingForm.controls['phone'].setValue(res.client.cellPhone);
+                     this.billingForm.controls['id'].setValue(res.client.doc);
+                     this.billingForm.controls['address'].setValue(res.client.address);
+                      
+              })
+        }else
+         if(this.billingForm.controls['typeBilling'].value == '99097f2c1c'){
+             this.getRecipient('business',val.value).subscribe((res)=>{    
+                console.log(res) 
+                 this.billingForm.controls['phone'].setValue(res.business.cellPhone);
+                 this.billingForm.controls['id'].setValue(res.business.ruc);
+                 this.billingForm.controls['address'].setValue(res.business.address);
+          })
+        
+    }else 
+         if(this.billingForm.controls['typeBilling'].value == '99097f2c1d'){
+         this.getRecipient('insurance',val.value).subscribe((res)=>{
+            console.log(res) 
+                this.billingForm.controls['phone'].setValue(res.insurance.cellPhone);
+                 this.billingForm.controls['id'].setValue(res.insurance.ruc);
+                 this.billingForm.controls['address'].setValue(res.insurance.address);
+                 
+         })
+     }        
+         
+     }
+     getRecipient(model,id){
+        return  this.http.get(`${config.url}${model}/view/${id}?access_token=${this.local.getUser().token}`)
+             
+         .map((res: Response) => res.json())
+         .catch(this.handleError);
+         
+     }
+     afterDetailClient(val){
+        if( this.billingForm.controls['typeBilling'].value == '99097f2c1f'){
+            this.loadClients()
+        }else if( this.billingForm.controls['typeBilling'].value == '99097f2c1d'){
+            this.loadInsurances()
+        }else if( this.billingForm.controls['typeBilling'].value == '99097f2c1c'){
+            this.loadBusiness()
+        }
+
+        setTimeout(()=>{
+            this.billingForm.controls['idDetailsClientBilling'].setValue(val)
+            if(this.billingForm.controls['typeBilling'].value == '99097f2c1f'){
+                this.getRecipient('client',val).subscribe((res)=>{       
+                    this.billingForm.controls['phone'].setValue(res.client.cellPhone);
+                    this.billingForm.controls['id'].setValue(res.client.doc);
+                    this.billingForm.controls['address'].setValue(res.client.address);
+                    
+            })
+            }else
+                if(this.billingForm.controls['typeBilling'].value == '99097f2c1c'){
+                    this.getRecipient('business',val).subscribe((res)=>{    
+                        this.billingForm.controls['phone'].setValue(res.business.cellPhone);
+                        this.billingForm.controls['id'].setValue(res.business.ruc);
+                        this.billingForm.controls['address'].setValue(res.business.address);
+                })
+            
+            }else 
+                if(this.billingForm.controls['typeBilling'].value == '99097f2c1d'){
+                this.getRecipient('insurance',val).subscribe((res)=>{
+                    this.billingForm.controls['phone'].setValue(res.insurance.cellPhone);
+                        this.billingForm.controls['id'].setValue(res.insurance.ruc);
+                        this.billingForm.controls['address'].setValue(res.insurance.address);
+                        
+                })
+            }  
+
+        },1000)  
+     }
+     resetValues(){
+        this.billingForm.setValue({
+            typeBilling:  '',
+            billingNumber:  '',
+            billingDate: '',
+            firstPaymentDate:  '',
+            idPaymentType: '',
+            initialPayment: 0,
+            equalPayments:  0,
+            valueEqualPayments:  0,
+            observationsBilling:  '',
+            totalPrimaValue:  0,
+            totalIvaValue:  0,
+            totalBillingValue:  0,
+            phone:  '',
+            address:  '',
+            idDetailsClientBilling:  '',
+            id:'',
+            items: ''
+         });
+        
+         this.billingPolicyForm.setValue({
+            idBilling:  0,
+            idPolicy:  '',
+            policyNumber: 0,
+            idRamo:  0,
+            idPolicyAnnex:  '',
+            annexNumber: '',
+            refNumber:  0,
+            prima:  0,
+            superBank: this.sBancos,
+            segCamp: this.sCampesino,
+            issue :  0,
+            otherWithIVA1:  0,
+            otherWithIVA2:  0,
+            iva:  0,
+            others:  0,
+            totalValue: 0
+         });
+         this.edit = false;
+     }
+
+     private handleError (error: any) {
+        let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        return Observable.throw(errMsg);
+      }
 
 
 }
