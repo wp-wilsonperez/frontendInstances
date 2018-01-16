@@ -563,10 +563,7 @@ export class BillingComponent{
                     this.message = res.err.message
                 }
                 
-            })
-      
-        
-        
+            })   
         
     }
     deleteBilling(){
@@ -742,7 +739,7 @@ export class BillingComponent{
         };
         console.log('Request al Editar',request);
         console.log(request);
-         this.http.post(config.url+'billing/add/?access_token='+this.local.getUser().token,request).map((result)=>{
+         this.http.post(config.url+'billing/edit/'+this.billingId+'?access_token='+this.local.getUser().token,request).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
@@ -878,6 +875,7 @@ export class BillingComponent{
             totalValue: 0
          });
          this.edit = false;
+         this.itemPolicies = []; 
      }
 
      private handleError (error: any) {
