@@ -130,13 +130,9 @@
                                                         
             
                                                 </div>
-            
                                                 <div class="form-group">
-                                                    
                                                     <label for="exampleSelect1">Fecha Notificacion</label>
                                                     <input  type="date" formControlName="dateNotification" class="form-control">
-                                                        
-            
                                                 </div>
             
                                               
@@ -144,9 +140,7 @@
                                                     
                                                 <label for="exampleSelect1">Estado de siniestro</label>
                                                 <ng-select
-                                              
                                                     [(options)]="states"
-                                        
                                                     [multiple]="false"
                                                     formControlName="sinisterState">
                                                 </ng-select>
@@ -244,8 +238,6 @@
                                                         <ng-select
                                                             [(options)]="recipients"
                                                             [placeholder]="clientsLabel"
-                                                         
-                                                            (selected)="getType($event)"
                                                             [multiple]="false"
                                                             formControlName="idClient"
                                                             >

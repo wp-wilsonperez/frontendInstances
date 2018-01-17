@@ -382,26 +382,24 @@ export class SiniestroComponent{
 
         }
         loadDocumentationRamo(){
-            
-                        this.http.get(config.url+'sinisterDocumentationRamo/list?access_token='+this.local.getUser().token).map((res)=>{
-                            console.log('ramo doc ', res.json());
-                            
-                            return res.json();
-                            
-                        }).subscribe((result)=>{
-                                 let docs = result.sinisterDocumentationRamos;
-                                 docs.map((result)=>{
-                                    let obj = {
-                                        value: result._id,
-                                        label: result.idSinisterDocumentation
-                                    }
-                                    this.docsOptions.push(obj);
-                                    this.docs = this.docsOptions;
-                                })
-                                console.log('Clients',this.clients);
-                        })
-            
-                    }
+            this.http.get(config.url+'sinisterDocumentationRamo/list?access_token='+this.local.getUser().token).map((res)=>{
+                console.log('ramo doc ', res.json());
+                
+                return res.json();
+                
+            }).subscribe((result)=>{
+                        let docs = result.sinisterDocumentationRamos;
+                        docs.map((result)=>{
+                        let obj = {
+                            value: result._id,
+                            label: result.idSinisterDocumentation
+                        }
+                        this.docsOptions.push(obj);
+                        this.docs = this.docsOptions;
+                    })
+                    console.log('Clients',this.clients);
+            })
+        }
         loadFrecuencyOfPayment(){
 
             this.http.get(config.url+'frequencyPayment/list?access_token='+this.local.getUser().token).map((res)=>{
@@ -461,7 +459,6 @@ export class SiniestroComponent{
             })
 
         }
-
         loadPaymentTypes(){
 
             this.http.get(config.url+'paymentType/list?access_token='+this.local.getUser().token).map((res)=>{
@@ -482,7 +479,6 @@ export class SiniestroComponent{
             })
 
         }
-
         getTasa(){
 
         if(this.siniestroForm.value.idInsurance != ''&& this.siniestroForm.value.idRamo != '' ){
@@ -494,12 +490,8 @@ export class SiniestroComponent{
           
          })
 
-        }
-
-         
-
+        }    
     }
-
         saveSiniestro(event){
             let item = {
                 items : []
@@ -657,15 +649,32 @@ export class SiniestroComponent{
         let val = this.resultPolicies.find(res=>{
             return res._id == event.value
         });
+        console.log('poliza resultado',val);
         this.siniestroForm.controls['fechaInicio'].setValue(val.dateAdmission);
         this.siniestroForm.controls['fechaFin'].setValue(val.dateCancellation);
         this.siniestroForm.controls['clientInsured'].setValue(val.insured);
         this.siniestroForm.controls['beneficiary'].setValue(val.insured);
         this.siniestroForm.controls['idRamo'].setValue(val.idRamo);
+        this.siniestroForm.controls['idClient'].setValue(val.recipient._id);
+        this.siniestroForm.controls['compName'].setValue(val.insurance.bussinesName);
+        if(val.typeRecipient == "CLIENTE"){
+            this.siniestroForm.controls['nombreCliente'].setValue(val.recipient.name+' '+val.recipient.lastName);    
+            this.siniestroForm.controls['cedCliente'].setValue(val.recipient.doc);
+            this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address);    
+        }
+        if(val.typeRecipient == "BUSINESS"){
+            this.siniestroForm.controls['nombreCliente'].setValue(val.recipient.name);    
+            this.siniestroForm.controls['cedCliente'].setValue(val.recipient.ruc);
+            this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address);    
+        }
+        if(val.typeRecipient == "INSURANCE"){
+            this.siniestroForm.controls['nombreCliente'].setValue(val.recipient.bussinesName);    
+            this.siniestroForm.controls['cedCliente'].setValue(val.recipient.ruc);
+            this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address);    
+        }
         this.ramo = val.idRamo;
         console.log('result value',val);
-        this.getTasa();
-        
+        this.getTasa(); 
         this.http.get(config.url+`policyAnnex/param/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
             console.log('policy Annex',res.json()); 
             return res.json();

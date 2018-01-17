@@ -84,7 +84,6 @@ export class SiniestroRamoCarro implements OnInit {
     ngOnInit() { }
 
     loadDocumentationRamo(){
-        
                     this.http.get(config.url+'sinisterDocumentationRamo/list?access_token='+this.local.getUser().token).map((res)=>{
                         console.log('ramo doc ', res.json());
                         
@@ -95,7 +94,7 @@ export class SiniestroRamoCarro implements OnInit {
                              docs.map((result)=>{
                                 let obj = {
                                     value: result._id,
-                                    label: result.sinisterDocumentation.name
+                                    label: ''
                                 }
                                 this.docsOptions.push(obj);
                                 this.docs = this.docsOptions;
