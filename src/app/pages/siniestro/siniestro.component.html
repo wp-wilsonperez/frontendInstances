@@ -191,39 +191,39 @@
                                                 <div class="row form-group">  
                                                         <div class="col-md-6"> 
                                                                 <label for="">F. inicio</label>
-                                                                <input  formControlName="fechaInicio" type="date" class="form-control bg-light ">   
+                                                                <input [attr.disabled]="enabledForm == true ? true : null"  formControlName="fechaInicio" type="text" class="form-control bg-light ">   
                                                              </div>
                                                              <div class="col-md-6"> 
                                                                  <label for="">F. fin</label>
-                                                                    <input  type="date" formControlName="fechaFin" class="form-control bg-light ">    
+                                                                    <input [attr.disabled]="enabledForm == true ? true : null"  type="text" formControlName="fechaFin" class="form-control bg-light ">    
                                                             </div>
                                                     
                                                 </div>
                                                 <div class="form-group">
                                                         
                                                         <label for="exampleSelect1">Valor Asegurado</label>
-                                                        <input  type="number" formControlName="valorAsegurado" class="form-control bg-primary text-white">
+                                                        <input  type="number" [attr.disabled]="enabledForm == true ? true : null" formControlName="valorAsegurado" class="form-control bg-primary text-white">
                                                             
             
                                                 </div>
                                                 <div class="form-group">
                                                     
                                                     <label for="exampleSelect1">Nombre de Compania</label>
-                                                    <input type="text" formControlName="compName" class="form-control bg-warning text-white">
+                                                    <input type="text" [attr.disabled]="enabledForm == true ? true : null" formControlName="compName" class="form-control bg-warning text-white">
                                                         
             
                                             </div>
                                                 <div class="form-group">
                                                     
                                                     <label for="exampleSelect1">Cliente asegurado</label>
-                                                    <input type="text" formControlName="clientInsured" class="form-control bg-warning text-white">
+                                                    <input type="text" [attr.disabled]="enabledForm == true ? true : null" formControlName="clientInsured" class="form-control bg-warning text-white">
                                                         
             
                                             </div>
                                             <div class="form-group">
                                                 
                                                 <label for="exampleSelect1">Beneficiario</label>
-                                                <input   type="text" formControlName="beneficiary" class="form-control bg-warning text-white">
+                                                <input   type="text" [attr.disabled]="enabledForm == true ? true : null" formControlName="beneficiary" class="form-control bg-warning text-white">
                                                     
             
                                         </div>
@@ -248,21 +248,21 @@
                                                     <div class="form-group">
                                                             
                                                         <label for="exampleSelect1">Nombre Cliente</label>
-                                                        <input  type="text" formControlName="nombreCliente" class="bg-light form-control">
+                                                        <input [attr.disabled]="enabledForm == true ? true : null"  type="text" formControlName="nombreCliente" class="bg-light form-control">
                                                             
             
                                                     </div>
                                                     <div class="form-group">
                                                             
                                                         <label for="exampleSelect1">Cedula o Ruc</label>
-                                                        <input  type="text" formControlName="cedCliente" class="form-control bg-light">
+                                                        <input [attr.disabled]="enabledForm == true ? true : null"  type="text" formControlName="cedCliente" class="form-control bg-light">
                                                             
             
                                                     </div>
                                                     <div class="form-group">
                                                             
                                                     <label for="exampleSelect1">Direccion</label>
-                                                    <input  type="text" formControlName="direccionCliente" class="form-control bg-light">
+                                                    <input [attr.disabled]="enabledForm == true ? true : null"  type="text" formControlName="direccionCliente" class="form-control bg-light">
                                                         
             
                                                 </div>

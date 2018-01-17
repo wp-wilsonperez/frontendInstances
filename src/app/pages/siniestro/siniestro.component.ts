@@ -76,6 +76,7 @@ export class SiniestroComponent{
         recipients:any =[];
         clientsLabel:string ='Elegir Cliente';
         ramo ='';
+        enabledForm:boolean = true;
 
         
 
