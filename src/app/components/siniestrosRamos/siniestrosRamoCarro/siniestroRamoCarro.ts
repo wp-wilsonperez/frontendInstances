@@ -76,17 +76,19 @@ export class SiniestroRamoCarro implements OnInit {
                              
         });
         this.loadCars();
-        this.loadDocumentationRamo();
+        this.loadDocumentationRamo("599222be7f05fc0933b643f3");
        
 
     }
 
     ngOnInit() { }
 
-    loadDocumentationRamo(){
-                    this.http.get(config.url+'sinisterDocumentationRamo/list?access_token='+this.local.getUser().token).map((res)=>{
+    loadDocumentationRamo(idRamo){
+                    let request ={filter: {
+                        idRamo
+                    }};
+                    this.http.post(config.url+'sinisterDocumentationRamo/filter?access_token='+this.local.getUser().token,request).map((res)=>{
                         console.log('esta es la documentacion ', res.json());
-                        
                         return res.json();
                         
                     }).subscribe((result)=>{
