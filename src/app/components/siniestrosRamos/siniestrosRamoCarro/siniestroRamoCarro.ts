@@ -85,7 +85,7 @@ export class SiniestroRamoCarro implements OnInit {
 
     loadDocumentationRamo(){
                     this.http.get(config.url+'sinisterDocumentationRamo/list?access_token='+this.local.getUser().token).map((res)=>{
-                        console.log('ramo doc ', res.json());
+                        console.log('esta es la documentacion ', res.json());
                         
                         return res.json();
                         
@@ -94,7 +94,7 @@ export class SiniestroRamoCarro implements OnInit {
                              docs.map((result)=>{
                                 let obj = {
                                     value: result._id,
-                                    label: ''
+                                    label: result.sinisterDocumentation.name
                                 }
                                 this.docsOptions.push(obj);
                                 this.docs = this.docsOptions;
