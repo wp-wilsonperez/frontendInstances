@@ -121,7 +121,7 @@
                                                 </div>
                                                 <div class="tab-content top">
                                                     <div class="tab-pane active" id="ta">
-                                                            
+                                                           
                                                                 <car-policy-component></car-policy-component>
 
         
@@ -136,9 +136,8 @@
                                    
                                 </div>
                                 <div class="modal-footer">
-
-                                    <button *ngIf="create"  (click)="savepoliza()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
-                                    <button  *ngIf="!create" (click)="editpoliza()" type="button" class="btn btn-primary" data-dismiss="modal">Editar</button>
+                                    <button *ngIf="create" [disabled]="!carPolicy.polizaForm.valid"  (click)="savepoliza()" type="button" class="btn btn-primary" data-dismiss="modal">Crear</button>
+                                    <button  *ngIf="!create" [disabled]="!carPolicy.polizaForm.valid"  (click)="editpoliza()" type="button" class="btn btn-primary" data-dismiss="modal">Editar</button>
 
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 </div>

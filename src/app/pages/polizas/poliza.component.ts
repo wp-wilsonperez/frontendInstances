@@ -67,7 +67,7 @@ export class PolizaComponent{
                 idRecipient:[],
                 annexedNumber:[],
                 certificateNumber:[],
-                idDeductible:[],
+                idDeductible:['',Validators.required],
                 insured:[],
                 startDate:[],
                 finishDate:[],
