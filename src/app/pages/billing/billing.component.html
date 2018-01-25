@@ -318,8 +318,8 @@
 
                             <tr *ngFor="let billing of billings">
                                 <td><strong>  {{billing.billingNumber}}  </strong></td>
-                                <td>{{billing.billingDate}}</td>
-                                 <td></td>
+                                <td>{{billing.billingDate| date:'shortDate'}}</td>
+                                 <td>{{billing.detailsClientBilling.name}} {{billing.detailsClientBilling.lastName}} </td>
                                  <td>{{billing.totalBillingValue}}</td>
               
                                

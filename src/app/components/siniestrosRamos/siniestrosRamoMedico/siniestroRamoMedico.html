@@ -1,40 +1,13 @@
-<form [formGroup]="siniestroCarForm"  class="row">
+<form [formGroup]="siniestroMedicalForm"  class="row">
     
                                                     <div class="col-md-6">
-                
-                                                        <div class="form-group">
-                                                                    
-                                                            <label for="exampleSelect1">Seleccione Auto</label>
-                                                            <ng-select
-                                                                [(options)]="cars"
-                                                                [placeholder]="Autos"
-                                                                (selected)="selectCar($event)"
-                                                                [multiple]="false"
-                                                                formControlName="idCar"
-                                                                >
-                                                            </ng-select>
-                                                                
-                
-                                                        </div>
-                                                        <div class="form-group">
-                                                            
-                                                        <label for="exampleSelect1">Marca</label>
-                                                        <input type="text" formControlName="marca" class="bg-light form-control">
-                                                            
-            
-                                                    </div>
-                                                    <div class="form-group">
-                                                            
-                                                        <label for="exampleSelect1">Modelo</label>
-                                                        <input type="text" formControlName="modelo" class="bg-light form-control">
-                                                            
-            
-                                                    </div>
+
+                            
                     
                                                         <div class="form-group">
                                                                 
                                                             <label for="exampleSelect1">Diagnostico</label>
-                                                            <input  type="text" formControlName="sinisterDiagnosis" class="bg-light form-control">
+                                                            <textarea  formControlName="sinisterDiagnosis" class="bg-light form-control"></textarea>
                                                                 
                 
                                                         </div>
@@ -100,7 +73,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                                 <label for="">Lugar del siniestro</label>
-                                                                <input placeholder="" formControlName="idCar" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control address-autocomplete" #search >
+                                                                <input placeholder="" formControlName="idMedical" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control address-autocomplete" #search >
                                                        
     
                                                         </div>
@@ -186,7 +159,7 @@
                                                              
                                                         </div> 
                                                   <div class="card-block widget-body">
-                                                        <form [formGroup]="siniestroCarDocumentationForm" class="row form-inline">
+                                                        <form [formGroup]="siniestroMedicalDocumentationForm" class="row form-inline">
                                                                 
                                                             <div class="col-md-10">
                                                                         <div class="row row-input">
@@ -237,7 +210,7 @@
                                                             
                                                                 
                                                             <div class="form-group col-md-2 col-sm-6" >
-                                                                <button  [disabled]="!siniestroCarDocumentationForm.valid" (click)="addDoc()" type="submit" class="btn btn-primary">Guardar</button>
+                                                                <button  [disabled]="!siniestroMedicalDocumentationForm.valid" (click)="addDoc()" type="submit" class="btn btn-primary">Guardar</button>
                                                             </div>
                                                             
                                                            
@@ -277,4 +250,4 @@
                                                   </div> 
                                                     
                                               </div>
-                                              <button (click)="saveSiniestro()" [disabled]="!siniestroCarForm.valid " type="submit" class="btn btn-primary btn-block">Guardar Todo</button>
+                                              <button (click)="saveSiniestro()" [disabled]="!siniestroMedicalForm.valid " type="submit" class="btn btn-primary btn-block">Guardar Todo</button>

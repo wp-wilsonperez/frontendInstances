@@ -18,8 +18,8 @@ import 'rxjs/add/operator/map';
 
 export class SiniestroRamoMedico implements OnInit {
 
-    siniestroCarForm:FormGroup;
-    siniestroCarDocumentationForm:FormGroup;
+    siniestroMedicalForm:FormGroup;
+    siniestroMedicalDocumentationForm:FormGroup;
     carOptions:Array<any>=[];
     cars:Array<any>=[];
     public searchElementRef:ElementRef;
@@ -32,8 +32,7 @@ export class SiniestroRamoMedico implements OnInit {
 
     constructor(public mapsApiLoader:MapsAPILoader ,public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder, public router:Router , public select:SelectService) { 
 
-        this.siniestroCarForm = this.formBuilder.group({
-            idCar:[],
+        this.siniestroMedicalForm = this.formBuilder.group({
             sinisterDiagnosis:[],
             workshop:[],
             arrangement:[],
@@ -63,7 +62,7 @@ export class SiniestroRamoMedico implements OnInit {
             medicalExpense:[],
 
         });
-        this.siniestroCarDocumentationForm = this.formBuilder.group({
+        this.siniestroMedicalDocumentationForm = this.formBuilder.group({
             idSinisterDocumentationRamo:[''],
             sinisterDocumentationRamo:[''],
             quantity:[''],
@@ -75,7 +74,7 @@ export class SiniestroRamoMedico implements OnInit {
             receptionDate:[]
                              
         });
-        this.loadCars();
+        this.loadMedicals();
         this.loadDocumentationRamo();
        
 
@@ -105,7 +104,7 @@ export class SiniestroRamoMedico implements OnInit {
         
         }
 
-    loadCars(){
+    loadMedicals(){
         
     this.http.get(config.url+'car/list?access_token='+this.local.getUser().token).map((res)=>{
         return res.json();
@@ -122,15 +121,15 @@ export class SiniestroRamoMedico implements OnInit {
             console.log('cars',this.cars);
     })
     }
-    selectCar(event){
+    selectMedical(event){
         
                 this.http.get(config.url+`car/view/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
                     return res.json()
                 }).subscribe((result)=>{
                     let car = result.car;
-                    this.siniestroCarForm.controls['matricula'].setValue(car.placa);
-                    this.siniestroCarForm.controls['modelo'].setValue(car.carModel.name);
-                    this.siniestroCarForm.controls['marca'].setValue(car.carBrand.name);
+                    this.siniestroMedicalForm.controls['matricula'].setValue(car.placa);
+                    this.siniestroMedicalForm.controls['modelo'].setValue(car.carModel.name);
+                    this.siniestroMedicalForm.controls['marca'].setValue(car.carBrand.name);
         
                     console.log(result);
                     
@@ -138,17 +137,17 @@ export class SiniestroRamoMedico implements OnInit {
         
             }
     addDoc(){
-        this.docSiniestroRamos.push(this.siniestroCarDocumentationForm.value);
-        this.siniestroCarDocumentationForm.reset();
+        this.docSiniestroRamos.push(this.siniestroMedicalDocumentationForm.value);
+        this.siniestroMedicalDocumentationForm.reset();
     }
     setDocRamo(event){
-        this.siniestroCarDocumentationForm.controls['sinisterDocumentationRamo'].setValue(event.label);
+        this.siniestroMedicalDocumentationForm.controls['sinisterDocumentationRamo'].setValue(event.label);
     }
     deleteDoc(i){
         this.docSiniestroRamos.splice(i,1);
     }
     saveSiniestro(){
-        this.saved.emit({form: this.siniestroCarForm.value, items: this.docSiniestroRamos });
+        this.saved.emit({form: this.siniestroMedicalForm.value, items: this.docSiniestroRamos });
     }
 
 }

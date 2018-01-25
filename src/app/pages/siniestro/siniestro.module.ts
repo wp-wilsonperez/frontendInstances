@@ -14,6 +14,7 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 import { SiniestroComponent } from './siniestro.component';
 import {SelectModule} from 'angular2-select';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import { SiniestroRamoMedico } from '../../components/siniestrosRamos/siniestrosRamoMedico/siniestroRamoMedico';
 
 
 
@@ -48,7 +49,7 @@ export const routes = [
   ],
   declarations: [
 
-    SiniestroComponent,SiniestroDocRamoComponent,SiniestroDocumentationComponent,SinisterStateComponent,sinisterCarComponent,SiniestroMedicalComponent,SiniestroRamoCarro
+    SiniestroComponent,SiniestroDocRamoComponent,SiniestroDocumentationComponent,SinisterStateComponent,sinisterCarComponent,SiniestroMedicalComponent,SiniestroRamoCarro,SiniestroRamoMedico
 
   ],
   providers: []

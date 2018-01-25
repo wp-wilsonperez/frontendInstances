@@ -179,9 +179,7 @@ export class UserComponent {
                       return (res);
                   }).subscribe(result=>{
                       this.imgResult = result;
-                      console.log(this.imgResult.userImg);
                       request.userImg = this.imgResult.userImg;
-                      console.log(request);
                       this.http.post(config.url+'user/add?access_token='+this.userSession.token,request).toPromise().then(result=>{
 
                              let apiResult = result.json();

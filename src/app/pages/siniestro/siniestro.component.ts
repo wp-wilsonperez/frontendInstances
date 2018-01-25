@@ -1,4 +1,3 @@
-import { SiniestroRamoCarro } from './../../components/siniestrosRamos/siniestrosRamoCarro/siniestroRamoCarro';
 import { Observable } from 'rxjs/Observable';
 import { SelectService } from './../../providers/select.service';
 import { Router } from '@angular/router';
@@ -11,6 +10,8 @@ import { MapsAPILoader} from 'angular2-google-maps/core';
 import {} from '@types/googlemaps';
 import * as mapTypes from 'angular2-google-maps/core' ;
 
+import { SiniestroRamoCarro } from './../../components/siniestrosRamos/siniestrosRamoCarro/siniestroRamoCarro';
+import { SiniestroRamoMedico } from '../../components/siniestrosRamos/siniestrosRamoMedico/siniestroRamoMedico';
 
 
 @Component({
@@ -84,26 +85,18 @@ export class SiniestroComponent{
         constructor(public mapsApiLoader:MapsAPILoader,public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router,public select:SelectService ){
         
             this.siniestroForm = this.formBuilder.group({
-                policyNumber:[''],
-                idInsurance:[''],
                 annexedNumber:[''],
                 certificateNumber:[''],
                 idUser:[''],
                 idClient:[],
-                idPoliza:[''],
-                idDeductible:[''],
-                insured:[''],
-                startDate: [''],
-                finishDate: [''],
-                daysofValidity:[''],
-                idPolicyType:[''],
-                idFrequencyPayment:[''],
-                idCity:[''],
+                idRecipient:[],
+                recipient:[],
+                typeRecipient:[],
+                idPolicy:[''],
                 dateAdmission:[''],
                 dateCancellation:[''],
                 idPaymentType:[''],
                 percentageRamo:[''],
-                idPolicy:[''],
                 policyData:[''],//(se guardara la póliza para futuro si cambia algo tener un respaldo de que se reporte en esta fecha sin variación pro la relación)
                 idPolicyAnnex:[''],
                 annexDatar:[''],//(se guardara el anexo de la póliza para futuro si cambia algo tener un respaldo de que se reporte en esta fecha sin variación pro la relación)
@@ -123,9 +116,6 @@ export class SiniestroComponent{
                 fechaFin:[''],
                 valorAsegurado:[''],
                 sinisterState:['']
-                
-
-
             });
          
 
@@ -214,10 +204,10 @@ export class SiniestroComponent{
         }
 
         loadsiniestros(){
-            this.http.get(config.url+'policy/list?access_token='+this.local.getUser().token).map((res)=>{
+            this.http.get(config.url+'sinister/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                    this.siniestros = result.policies;
+                    this.siniestros = result.sinisters;
 
                     console.log('siniestros',this.siniestros);
             })
@@ -226,8 +216,6 @@ export class SiniestroComponent{
         loadStates(){
             this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).map((res)=>{
      
-                console.log('params',res.json());
-                
                 return res.json();
             }).subscribe((result)=>{
                     let states = result.params.sinisterState.list;
@@ -240,16 +228,13 @@ export class SiniestroComponent{
                        this.stateOptions.push(obj);
                        this.states = this.stateOptions;
                    })
-                   console.log('states',this.states);
             })
 
         }
 
         loadPolicies(){
             this.http.get(config.url+'policy/list?access_token='+this.local.getUser().token).map((res)=>{
-                this.resultPolicies = res.json().policies;
-                console.log('policies',res.json());
-                
+                this.resultPolicies = res.json().policies; 
                 return res.json();
             }).subscribe((result)=>{
                     let policies = result.policies;
@@ -261,7 +246,6 @@ export class SiniestroComponent{
                        this.policyOptions.push(obj);
                        this.policies = this.policyOptions;
                    })
-                   console.log('polizas',this.policies);
             })
             
         }
@@ -280,7 +264,6 @@ export class SiniestroComponent{
                         this.carOptions.push(obj);
                         this.cars = this.carOptions;
                     })
-                    console.log('cars',this.cars);
             })
 
             
@@ -300,7 +283,7 @@ export class SiniestroComponent{
                         this.insuranceOptions.push(obj);
                         this.insurances = this.insuranceOptions;
                     })
-                    console.log('Insurances',this.insurances);
+               
             })
             
         }
@@ -318,7 +301,6 @@ export class SiniestroComponent{
                         this.deductibleOptions.push(obj);
                         this.deductibles = this.deductibleOptions;
                     })
-                    console.log('Deductibles',this.deductibles);
             })
             
         }
@@ -336,8 +318,7 @@ export class SiniestroComponent{
                         }
                         this.ramosOptions.push(obj);
                         this.ramos = this.ramosOptions;
-                    })
-                    console.log('Ramos',this.ramos);
+                    });
             })
 
         }
@@ -356,8 +337,7 @@ export class SiniestroComponent{
                         }
                         this.usersOptions.push(obj);
                         this.users = this.usersOptions;
-                    })
-                    console.log('Usuarios',this.users);
+                    });
             })
 
         }
@@ -377,8 +357,7 @@ export class SiniestroComponent{
                         }
                         this.clientsOptions.push(obj);
                         this.clients = this.clientsOptions;
-                    })
-                    console.log('Clients',this.clients);
+                    });
             })
 
         }
@@ -398,7 +377,7 @@ export class SiniestroComponent{
                         this.docsOptions.push(obj);
                         this.docs = this.docsOptions;
                     })
-                    console.log('Clients',this.clients);
+
             })
         }
         loadFrecuencyOfPayment(){
@@ -417,7 +396,6 @@ export class SiniestroComponent{
                         this.frecuencyPaymentsOptions.push(obj);
                         this.frecuencyPayments = this.frecuencyPaymentsOptions;
                     })
-                    console.log('Frecuency',this.frecuencyPayments);
             })
 
         }
@@ -436,7 +414,7 @@ export class SiniestroComponent{
                         this.citiesOptions.push(obj);
                         this.cities = this.citiesOptions;
                     })
-                    console.log('Cities',this.cities);
+  
             })
 
 
@@ -456,7 +434,6 @@ export class SiniestroComponent{
                         this.policyTypesOptions.push(obj);
                         this.policyTypes = this.policyTypesOptions;
                     })
-                    console.log('Policy Types',this.policyTypes);
             })
 
         }
@@ -480,18 +457,7 @@ export class SiniestroComponent{
             })
 
         }
-        getTasa(){
-
-        if(this.siniestroForm.value.idInsurance != ''&& this.siniestroForm.value.idRamo != '' ){
-            this.http.get(config.url+'policy/ramoPercentageValue?access_token='+this.local.getUser().token+'&idInsurance='+this.siniestroForm.value.idInsurance+'&idRamo='+this.siniestroForm.value.idRamo)
-         .toPromise().then(result=>{
-                         let apiResult = result.json();
-                         this.siniestroForm.controls['percentageRamo'].setValue(apiResult.value);
-                      console.log('getTasa result: ',apiResult.value);
-          
-         })
-
-        }    
+        getTasa(){   
     }
         saveSiniestro(event){
             let item = {
@@ -505,7 +471,7 @@ export class SiniestroComponent{
 
             };
             request.sinister.item = item;
-            console.log(request);
+            console.log( 'este es el request ',request);
             
             this.http.post(config.url+'sinister/add?access_token='+this.local.getUser().token,request).map((result)=>{
                 
@@ -533,6 +499,45 @@ export class SiniestroComponent{
             }
         
         )
+        }
+        sinisterDetail(siniestro){
+            console.log(siniestro);
+            this.siniestroId = siniestro._id;
+            this.ramo = siniestro.idRamo;
+            this.create = true;
+            this.siniestroForm.setValue({
+                annexedNumber: '',
+                certificateNumber: '',
+                idUser: '',
+                idClient: '',
+                idRecipient: '',
+                recipient: '',
+                typeRecipient: '',
+                idPolicy: '',
+                dateAdmission: siniestro.dateAdmission || '',
+                dateCancellation: siniestro.dateCancellation || '',
+                idPaymentType: siniestro.idPaymentType || '',
+                percentageRamo: siniestro.percentageRamo || '',
+                policyData: siniestro.policyData || '',//(se guardara la póliza para futuro si cambia algo tener un respaldo de que se reporte en esta fecha sin variación pro la relación)
+                idPolicyAnnex: siniestro.idPolicyAnnex || '',
+                annexDatar: '',//(se guardara el anexo de la póliza para futuro si cambia algo tener un respaldo de que se reporte en esta fecha sin variación pro la relación)
+                clientData: '', //(no necesariamente un cliente sino peude ser un Client, Bussines o Insurance pero solo necesitamos guardar de quien reporte ese siniestro)
+                compName: '',// (Sera la compañía aseguradora osea el nombre del Insurance)
+                clientInsured: '',
+                beneficiary: '',
+                dateSinister: '',
+                dateNotification: '',
+                idRamo: '',
+                direccionCliente: '',
+                nombreCliente: '',
+                telefonoCliente: '',
+                cedCliente: '',
+                anexo: '',
+                fechaInicio: '',
+                fechaFin: '',
+                valorAsegurado: '',
+                sinisterState: ''
+            });
         }
         idAssign(siniestroId){
                 this.siniestroId = siniestroId;
@@ -571,11 +576,11 @@ export class SiniestroComponent{
     }
     deletesiniestro(){
 
-        this.http.delete(config.url+`policy/delete/${this.siniestroId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`sinister/delete/${this.siniestroId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.siniestros = res.update; 
+                        this.loadsiniestros();
                         this.toast = true;
                         this.message = "siniestro Borrado"
                 }else{
@@ -647,31 +652,52 @@ export class SiniestroComponent{
         return Observable.throw(errMsg);
       }
     selectPoliza(event){
+
         let val = this.resultPolicies.find(res=>{
             return res._id == event.value
         });
         console.log('poliza resultado',val);
+        this.siniestroForm.controls['policyData'].setValue(val);
         this.siniestroForm.controls['fechaInicio'].setValue(val.dateAdmission);
         this.siniestroForm.controls['fechaFin'].setValue(val.dateCancellation);
         this.siniestroForm.controls['clientInsured'].setValue(val.insured);
         this.siniestroForm.controls['beneficiary'].setValue(val.insured);
         this.siniestroForm.controls['idRamo'].setValue(val.idRamo);
-        this.siniestroForm.controls['idClient'].setValue(val.recipient._id);
+        this.siniestroForm.controls['idRecipient'].setValue(val.recipient._id);
         this.siniestroForm.controls['compName'].setValue(val.insurance.bussinesName);
         if(val.typeRecipient == "CLIENTE"){
+            let recipient = {
+                name : val.recipient.name+' '+val.recipient.lastName,
+                doc: val.recipient.doc,
+                address: val.recipient.address
+            };
             this.siniestroForm.controls['nombreCliente'].setValue(val.recipient.name+' '+val.recipient.lastName);    
             this.siniestroForm.controls['cedCliente'].setValue(val.recipient.doc);
-            this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address);    
+            this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address); 
+            this.siniestroForm.controls['recipient'].setValue(recipient);
+
         }
         if(val.typeRecipient == "BUSINESS"){
+            let recipient = {
+                name : val.recipient.name,
+                doc: val.recipient.ruc,
+                address: val.recipient.address
+            };
             this.siniestroForm.controls['nombreCliente'].setValue(val.recipient.name);    
             this.siniestroForm.controls['cedCliente'].setValue(val.recipient.ruc);
-            this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address);    
+            this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address); 
+            this.siniestroForm.controls['recipient'].setValue(recipient);   
         }
         if(val.typeRecipient == "INSURANCE"){
+            let recipient = {
+                name : val.recipient.bussinesName,
+                doc: val.recipient.ruc,
+                address: val.recipient.address
+            };
             this.siniestroForm.controls['nombreCliente'].setValue(val.recipient.bussinesName);    
             this.siniestroForm.controls['cedCliente'].setValue(val.recipient.ruc);
-            this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address);    
+            this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address);   
+            this.siniestroForm.controls['recipient'].setValue(recipient);   
         }
         this.ramo = val.idRamo;
         console.log('result value',val);
