@@ -27,39 +27,33 @@ export class SiniestroRamoMedico implements OnInit {
     public long=0;
     docsOptions:any =[];
     docs:any = [];
+    clients:Array<any>;
     docSiniestroRamos:any=[];
     @Output() saved = new EventEmitter();
 
     constructor(public mapsApiLoader:MapsAPILoader ,public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder, public router:Router , public select:SelectService) { 
 
         this.siniestroMedicalForm = this.formBuilder.group({
+            idClient:[],
+            dataPatient:[],
             sinisterDiagnosis:[],
-            workshop:[],
-            arrangement:[],
-            rasa:[],
             sinisterValue:[],
-            rc:[],
             deductibleValue:[],
             depreciation:[],
-            others1: [],
-            others2: [],
-            others3: [],
             notCovered: [],
             observationNotCovered: [],
             liquidation: [],
             liquidationDate: [],
             deliverDate: [],
-            carDetails: [],
-            idClient: {type: String},
             client:[],
-            dataPatient: [],
             observationLiquidation:[],
             liquidationValue: [],
             lastDocumentSent: [],
-            matricula:[],
-            marca:[],
-            modelo:[],
             medicalExpense:[],
+            rasa:[],
+            others1:[],
+            others2:[],
+            others3:[]
 
         });
         this.siniestroMedicalDocumentationForm = this.formBuilder.group({
@@ -74,8 +68,10 @@ export class SiniestroRamoMedico implements OnInit {
             receptionDate:[]
                              
         });
-        this.loadMedicals();
         this.loadDocumentationRamo();
+        this.select.loadClients().then((res)=>{
+            this.clients = res;
+        })
        
 
     }
@@ -83,59 +79,24 @@ export class SiniestroRamoMedico implements OnInit {
     ngOnInit() { }
 
     loadDocumentationRamo(){
-        
-                    this.http.get(config.url+'sinisterDocumentationRamo/list?access_token='+this.local.getUser().token).map((res)=>{
-                        console.log('ramo doc ', res.json());
-                        
-                        return res.json();
-                        
-                    }).subscribe((result)=>{
-                             let docs = result.sinisterDocumentationRamos;
-                             docs.map((result)=>{
-                                let obj = {
-                                    value: result._id,
-                                    label: result.sinisterDocumentation.name
-                                }
-                                this.docsOptions.push(obj);
-                                this.docs = this.docsOptions;
-                            })
-                            console.log('docs',this.docs);
-                    })
-        
-        }
-
-    loadMedicals(){
-        
-    this.http.get(config.url+'car/list?access_token='+this.local.getUser().token).map((res)=>{
-        return res.json();
-    }).subscribe((result)=>{
-            let cars = result.cars;
-                cars.map((result)=>{
-                let obj = {
-                    value: result._id,
-                    label: result.placa
-                }
-                this.carOptions.push(obj);
-                this.cars = this.carOptions;
-            })
-            console.log('cars',this.cars);
-    })
+        this.http.get(config.url+'sinisterDocumentationRamo/list?access_token='+this.local.getUser().token).map((res)=>{
+            console.log('ramo doc ', res.json());
+            
+            return res.json();
+            
+        }).subscribe((result)=>{
+                    let docs = result.sinisterDocumentationRamos;
+                    docs.map((result)=>{
+                    let obj = {
+                        value: result._id,
+                        label: result.sinisterDocumentation.name
+                    }
+                    this.docsOptions.push(obj);
+                    this.docs = this.docsOptions;
+                })
+                console.log('docs',this.docs);
+        })
     }
-    selectMedical(event){
-        
-                this.http.get(config.url+`car/view/${event.value}?access_token=`+this.local.getUser().token).map((res)=>{
-                    return res.json()
-                }).subscribe((result)=>{
-                    let car = result.car;
-                    this.siniestroMedicalForm.controls['matricula'].setValue(car.placa);
-                    this.siniestroMedicalForm.controls['modelo'].setValue(car.carModel.name);
-                    this.siniestroMedicalForm.controls['marca'].setValue(car.carBrand.name);
-        
-                    console.log(result);
-                    
-                });
-        
-            }
     addDoc(){
         this.docSiniestroRamos.push(this.siniestroMedicalDocumentationForm.value);
         this.siniestroMedicalDocumentationForm.reset();

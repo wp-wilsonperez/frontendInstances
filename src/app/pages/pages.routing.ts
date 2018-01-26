@@ -33,6 +33,7 @@ export const routes: Routes = [
             { path: 'siniestros', loadChildren: 'app/pages/siniestro/siniestro.module#SiniestroModule', data: { breadcrumb: 'Siniestros' } },
             { path: 'tipoClientes', loadChildren: 'app/pages/tipoCliente/tipoCliente.module#TipoClienteModule', data: { breadcrumb: 'Tipo de Clientes' } },
             { path: 'renovacion', loadChildren: 'app/pages/renovacion/renovacion.module#RenovacionModule', data: { breadcrumb: 'Renovacion' } },
+            { path: 'reportes', loadChildren: 'app/pages/reportes/reportes.module#ReportesModule', data: { breadcrumb: 'Reportes' } },
         
         ]
     }

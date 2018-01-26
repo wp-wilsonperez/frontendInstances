@@ -708,7 +708,7 @@ export const menuItems = [
 
       {
         title: 'Reporte Pólizas',
-        routerLink: '',
+        routerLink: 'reportes/poliza',
         disabled: true,
         selected: false,
         expanded: false

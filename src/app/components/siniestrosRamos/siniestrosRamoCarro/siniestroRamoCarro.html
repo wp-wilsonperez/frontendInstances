@@ -1,280 +1,280 @@
 <form [formGroup]="siniestroCarForm"  class="row">
     
-                                                    <div class="col-md-6">
-                
-                                                        <div class="form-group">
-                                                                    
-                                                            <label for="exampleSelect1">Seleccione Auto</label>
-                                                            <ng-select
-                                                                [(options)]="cars"
-                                                                [placeholder]="Autos"
-                                                                (selected)="selectCar($event)"
-                                                                [multiple]="false"
-                                                                formControlName="idCar"
-                                                                >
-                                                            </ng-select>
-                                                                
-                
-                                                        </div>
-                                                        <div class="form-group">
-                                                            
-                                                        <label for="exampleSelect1">Marca</label>
-                                                        <input type="text" formControlName="marca" class="bg-light form-control">
-                                                            
-            
-                                                    </div>
-                                                    <div class="form-group">
-                                                            
-                                                        <label for="exampleSelect1">Modelo</label>
-                                                        <input type="text" formControlName="modelo" class="bg-light form-control">
-                                                            
-            
-                                                    </div>
-                    
-                                                        <div class="form-group">
-                                                                
-                                                            <label for="exampleSelect1">Diagnostico</label>
-                                                            <input  type="text" formControlName="sinisterDiagnosis" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
+    <div class="col-md-6">
 
-      
-                                                       
-                                                    <div class="form-group">
-                                                            
-                                                            <label for="exampleSelect1">Valor del siniestro</label>
-                                                            <input  type="number" formControlName="sinisterValue" class="bg-primary text-white form-control">
-                                                                
-                
-                                                    </div>
-                                                        <div class="form-group">
-                                                            
-                                                            <label for="exampleSelect1">Otros 3 </label>
-                                                            <input  type="text" formControlName="others3" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
-                                                        <div class="form-group">
-                                                            
-                                                            <label for="exampleSelect1">No Cubiertos </label>
-                                                            <input  type="text" formControlName="notCovered" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
-                                                        <div class="form-group">
-                                                            
-                                                            <label for="exampleSelect1">Observacion no cubiertos </label>
-                                                            <input  type="text" formControlName="observationNotCovered" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
-                                                        <div class="form-group">
-                                                            
-                                                            <label for="exampleSelect1">Liquidacion </label>
-                                                            <input  type="text" formControlName="liquidation" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
-                                                        <div class="form-group">
-                                                            
-                                                            <label for="exampleSelect1">Fecha de Liquidacion</label>
-                                                            <input  type="date" formControlName="liquidationDate" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
-                                                    
-                                                        <div class="form-group">
-                                                            
-                                                            <label for="exampleSelect1">Fecha de entrega</label>
-                                                            <input  type="date" formControlName="deliverDate" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
-                                                   
-                                                        
-                                                       
-                
-                                                    </div>
-                
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                                <label for="">Lugar del siniestro</label>
-                                                                <input placeholder="" formControlName="idCar" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control address-autocomplete" #search >
-                                                       
-    
-                                                        </div>
-                                                        <div class="form-group">
-                                                                
-                                                            <label for="exampleSelect1">Taller </label>
-                                                            <input type="text" formControlName="workshop" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
-                                                        <div class="form-group">
-                                                            
-                                                            <label for="exampleSelect1">Arreglo</label>
-                                                            <input  type="text" formControlName="arrangement" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
-                                                        <div class="form-group">
-                                                            
-                                                            <label for="exampleSelect1">Rasa</label>
-                                                            <input  type="text" formControlName="rasa" class="bg-light form-control">
-                                                                
-                
-                                                        </div>
-                                                        <div class="form-group">
-                                                                
-                                                                <label for="exampleSelect1">Costo Medico</label>
-                                                                <input  type="text" formControlName="medicalExpense" class="bg-light form-control">
-                                                                    
+        <div class="form-group">
                     
-                                                            </div>
-                                                            <div class="form-group">
-                                                                    
-                                                                    <label for="exampleSelect1">RC</label>
-                                                                    <input  type="text" formControlName="rc" class="bg-light form-control">
-                                                                        
+            <label for="exampleSelect1">Seleccione Auto</label>
+            <ng-select
+                [(options)]="cars"
+                [placeholder]="Autos"
+                (selected)="selectCar($event)"
+                [multiple]="false"
+                formControlName="idCar"
+                >
+            </ng-select>
+                
+
+        </div>
+        <div class="form-group">
+            
+        <label for="exampleSelect1">Marca</label>
+        <input type="text" formControlName="marca" class="bg-light form-control">
+            
+
+    </div>
+    <div class="form-group">
+            
+        <label for="exampleSelect1">Modelo</label>
+        <input type="text" formControlName="modelo" class="bg-light form-control">
+            
+
+    </div>
+
+        <div class="form-group">
+                
+            <label for="exampleSelect1">Diagnostico</label>
+            <input  type="text" formControlName="sinisterDiagnosis" class="bg-light form-control">
+                
+
+        </div>
+
+
+        
+    <div class="form-group">
+            
+            <label for="exampleSelect1">Valor del siniestro</label>
+            <input  type="number" formControlName="sinisterValue" class="bg-primary text-white form-control">
+                
+
+    </div>
+        <div class="form-group">
+            
+            <label for="exampleSelect1">Otros 3 </label>
+            <input  type="text" formControlName="others3" class="bg-light form-control">
+                
+
+        </div>
+        <div class="form-group">
+            
+            <label for="exampleSelect1">No Cubiertos </label>
+            <input  type="text" formControlName="notCovered" class="bg-light form-control">
+                
+
+        </div>
+        <div class="form-group">
+            
+            <label for="exampleSelect1">Observacion no cubiertos </label>
+            <input  type="text" formControlName="observationNotCovered" class="bg-light form-control">
+                
+
+        </div>
+        <div class="form-group">
+            
+            <label for="exampleSelect1">Liquidacion </label>
+            <input  type="text" formControlName="liquidation" class="bg-light form-control">
+                
+
+        </div>
+        <div class="form-group">
+            
+            <label for="exampleSelect1">Fecha de Liquidacion</label>
+            <input  type="date" formControlName="liquidationDate" class="bg-light form-control">
+                
+
+        </div>
+    
+        <div class="form-group">
+            
+            <label for="exampleSelect1">Fecha de entrega</label>
+            <input  type="date" formControlName="deliverDate" class="bg-light form-control">
+                
+
+        </div>
+    
+        
+        
+
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+                <label for="">Lugar del siniestro</label>
+                <input placeholder="" formControlName="idCar" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control address-autocomplete" #search >
+        
+
+        </div>
+        <div class="form-group">
+                
+            <label for="exampleSelect1">Taller </label>
+            <input type="text" formControlName="workshop" class="bg-light form-control">
+                
+
+        </div>
+        <div class="form-group">
+            
+            <label for="exampleSelect1">Arreglo</label>
+            <input  type="text" formControlName="arrangement" class="bg-light form-control">
+                
+
+        </div>
+        <div class="form-group">
+            
+            <label for="exampleSelect1">Rasa</label>
+            <input  type="text" formControlName="rasa" class="bg-light form-control">
+                
+
+        </div>
+        <div class="form-group">
+                
+                <label for="exampleSelect1">Costo Medico</label>
+                <input  type="text" formControlName="medicalExpense" class="bg-light form-control">
+                    
+
+            </div>
+            <div class="form-group">
+                    
+                    <label for="exampleSelect1">RC</label>
+                    <input  type="text" formControlName="rc" class="bg-light form-control">
                         
-                                                                </div>
-                                                            <div class="form-group">
-                                                                    
-                                                                    <label for="exampleSelect1">Valor Deducible</label>
-                                                                    <input  type="text" formControlName="deductibleValue" class="bg-light form-control">
-                                                                        
+
+                </div>
+            <div class="form-group">
+                    
+                    <label for="exampleSelect1">Valor Deducible</label>
+                    <input  type="text" formControlName="deductibleValue" class="bg-light form-control">
                         
-                                                                </div>
-                                                            <div class="form-group">
-                                                                    
-                                                                    <label for="exampleSelect1">Depreciacion</label>
-                                                                    <input  type="text" formControlName="depreciation" class="bg-light form-control">
-                                                                        
+
+                </div>
+            <div class="form-group">
+                    
+                    <label for="exampleSelect1">Depreciacion</label>
+                    <input  type="text" formControlName="depreciation" class="bg-light form-control">
                         
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    
-                                                                    <label for="exampleSelect1">Otros 1 </label>
-                                                                    <input  type="text" formControlName="others1" class="bg-light form-control">
-                                                                        
+
+                </div>
+                <div class="form-group">
+                    
+                    <label for="exampleSelect1">Otros 1 </label>
+                    <input  type="text" formControlName="others1" class="bg-light form-control">
                         
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    
-                                                                    <label for="exampleSelect1">Otros 2 </label>
-                                                                    <input  type="text" formControlName="others2" class="bg-light form-control">
-                                                                        
+
+                </div>
+                <div class="form-group">
+                    
+                    <label for="exampleSelect1">Otros 2 </label>
+                    <input  type="text" formControlName="others2" class="bg-light form-control">
                         
-                                                                </div>
-                           
-                                                            
-                                                            
+
+                </div>
+
+            
+            
+    </div>
+    
+    
+
+
+
+
+
+</form>
+
+<div widget class="card">  
+    <div class="card-header">
+            <span>Documentacion</span>
+                
+        </div> 
+    <div class="card-block widget-body">
+        <form [formGroup]="siniestroCarDocumentationForm" class="row form-inline">
+                
+            <div class="col-md-10">
+                        <div class="row row-input">
+                        <div class="col-md-4">
+                            <label for=""> Documentacion para Ramo</label>
+                        <ng-select
+                            [(options)]="docs"
+                            [placeholder]="Origen"
+                            (selected)="setDocRamo($event)"
+                            [multiple]="false"
+                            formControlName="idSinisterDocumentationRamo">
+                        </ng-select>
+
+                        </div>
+
+                        <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                            <label for="">Cantidad</label>
+                                <input type="text" formControlName="quantity" class="form-control" placeholder="">
+                            </div>
+                        
+                    
+                        <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                            <label for="">Descripcion</label>
+                                    <input type="text" formControlName="description" class="form-control" placeholder="">
+                                </div>
+                            
+                        
+                        </div>
+                        <div class="row row-input">
+                                <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                                        <label for="">Responsable de Recepcion</label>
+                                                <input type="text" formControlName="responsibleReception" class="form-control" placeholder="">
+                                            </div>
+                                        <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                                            <label for="">Fecha de Recepcion</label>
+                                                <input type="date" formControlName="receptionDate" class="form-control" placeholder="">
+                                            </div>
+                                            <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
+                                                    <label for="">Fecha de Envio</label>
+                                                        <input type="date" formControlName="sendDate" class="form-control" placeholder="">
                                                     </div>
-                                                  
-                                                   
+                    
+                        
+            
+                        </div>
+
+            </div>
+            
                 
-                
-                                        
+            <div class="form-group col-md-2 col-sm-6" >
+                <button  [disabled]="!siniestroCarDocumentationForm.valid" (click)="addDoc()" type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+            
+            
                 
                                                 
-                                                </form>
-    
-                                              <div widget class="card">  
-                                                    <div class="card-header">
-                                                            <span>Documentacion</span>
-                                                             
-                                                        </div> 
-                                                  <div class="card-block widget-body">
-                                                        <form [formGroup]="siniestroCarDocumentationForm" class="row form-inline">
-                                                                
-                                                            <div class="col-md-10">
-                                                                        <div class="row row-input">
-                                                                        <div class="col-md-4">
-                                                                            <label for=""> Documentacion para Ramo</label>
-                                                                        <ng-select
-                                                                            [(options)]="docs"
-                                                                            [placeholder]="Origen"
-                                                                            (selected)="setDocRamo($event)"
-                                                                            [multiple]="false"
-                                                                            formControlName="idSinisterDocumentationRamo">
-                                                                        </ng-select>
-                        
-                                                                        </div>
-                        
-                                                                        <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
-                                                                            <label for="">Cantidad</label>
-                                                                                <input type="text" formControlName="quantity" class="form-control" placeholder="">
-                                                                            </div>
-                                                                        
-                                                                    
-                                                                        <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
-                                                                            <label for="">Descripcion</label>
-                                                                                    <input type="text" formControlName="description" class="form-control" placeholder="">
-                                                                                </div>
-                                                                            
-                                                                        
-                                                                        </div>
-                                                                        <div class="row row-input">
-                                                                                <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
-                                                                                        <label for="">Responsable de Recepcion</label>
-                                                                                                <input type="text" formControlName="responsibleReception" class="form-control" placeholder="">
-                                                                                            </div>
-                                                                                        <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
-                                                                                            <label for="">Fecha de Recepcion</label>
-                                                                                                <input type="date" formControlName="receptionDate" class="form-control" placeholder="">
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
-                                                                                                    <label for="">Fecha de Envio</label>
-                                                                                                        <input type="date" formControlName="sendDate" class="form-control" placeholder="">
-                                                                                                    </div>
-                                                                    
-                                                                        
-                                                            
-                                                                        </div>
-                        
-                                                            </div>
-                                                            
-                                                                
-                                                            <div class="form-group col-md-2 col-sm-6" >
-                                                                <button  [disabled]="!siniestroCarDocumentationForm.valid" (click)="addDoc()" type="submit" class="btn btn-primary">Guardar</button>
-                                                            </div>
-                                                            
-                                                           
-                                                                
-                                                                                                
-                                                                                                 
-                                                                                                
-                                                                                                
-                                                        </form> 
-                                                        <div class="table-responsive">
-                                                                <table class="table">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Siniestro Ramo</th>
-                                                                            <th>Cantidad</th>
-                                                                            <th>Descripcion</th>
-                                                                            <th>Fecha Recepcion</th>
-                                                                            <th>Acciones</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr *ngFor="let docsiniestroRamo of docSiniestroRamos; let i = index">
-                                                                            <td>{{docsiniestroRamo.sinisterDocumentationRamo}}</td>
-                                                                            <td>{{docsiniestroRamo.quantity}}</td>
-                                                                            <td>{{docsiniestroRamo.description}}</td>
-                                                                            <td>{{docsiniestroRamo.receptionDate}}</td>
-                                                                            <td><button (click)="deleteDoc(i)" class="btn btn-danger">Borrar</button></td>
-                                                                       
-                                                                   
-                                                                        </tr>
-                                                                       
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-    
-                                                 
-                                                  </div> 
                                                     
-                                              </div>
-                                              <button (click)="saveSiniestro()" [disabled]="!siniestroCarForm.valid " type="submit" class="btn btn-primary btn-block">Guardar Todo</button>
+                                                
+                                                
+        </form> 
+        <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Siniestro Ramo</th>
+                            <th>Cantidad</th>
+                            <th>Descripcion</th>
+                            <th>Fecha Recepcion</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let docsiniestroRamo of docSiniestroRamos; let i = index">
+                            <td>{{docsiniestroRamo.sinisterDocumentationRamo}}</td>
+                            <td>{{docsiniestroRamo.quantity}}</td>
+                            <td>{{docsiniestroRamo.description}}</td>
+                            <td>{{docsiniestroRamo.receptionDate}}</td>
+                            <td><button (click)="deleteDoc(i)" class="btn btn-danger">Borrar</button></td>
+                        
+                    
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+    
+    </div> 
+    
+</div>
+<button (click)="saveSiniestro()" [disabled]="!siniestroCarForm.valid " type="submit" class="btn btn-primary btn-block">Guardar Todo</button>
