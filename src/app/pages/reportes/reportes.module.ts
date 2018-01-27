@@ -11,7 +11,6 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 
 export const routes = [
     { path: '', redirectTo: '', pathMatch: 'full'},
-    { path: 'poliza', component: ReportePolizaComponent, data: { breadcrumb: 'Poliza' } },
   ];
 
 @NgModule({
