@@ -31,7 +31,6 @@ export const routes = [
 
 @NgModule({
   imports: [
- 
     DataTableModule,
     PipesModule,
     DirectivesModule,

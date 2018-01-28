@@ -1,4 +1,4 @@
-import { ReportePolizaComponent } from './polizas/reporte-poliza';
+import { ReportePolizaComponent } from './polizas/reporte-poliza.component';
 import { DataTableModule } from 'angular2-datatable';
 import { SelectModule } from 'angular2-select';
 import { PipesModule } from '../../theme/pipes/pipes.module';
@@ -11,6 +11,7 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 
 export const routes = [
     { path: '', redirectTo: '', pathMatch: 'full'},
+    { path: 'poliza', component: ReportePolizaComponent, data: { breadcrumb: 'Poliza' } },
   ];
 
 @NgModule({
@@ -25,6 +26,7 @@ export const routes = [
     SelectModule
   ],
   declarations: [
+    ReportePolizaComponent
   ],
   providers: []
 })
