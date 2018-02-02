@@ -1,7 +1,7 @@
 <div class="col">
     <div widget class="card">
         <div class="card-header">
-            <span>Listado de Polizas</span>
+            <span>Listado de Renovaciones</span>
             <div class="widget-controls">              
                 <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
                 <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
@@ -14,18 +14,18 @@
 
             <div class="row">
                 <div class="col-md-10">
-                        <form [formGroup]="polizaReportForm" class="row form-inline">
+                        <form [formGroup]="renovacionReportForm" class="row form-inline">
                                 <div class="form-group col-md-4 col-sm-6">
                                     <label for="">Fecha Inicio</label>
-                                    <input type="date" formControlName="startDate" class="form-control" placeholder="Fecha Inicio">
+                                    <input type="date" class="form-control" placeholder="Fecha Inicio">
                                 </div>
                                 <div class="form-group col-md-4 col-sm-6">
                                         <label for="">Fecha Fin</label>
-                                    <input type="date" formControlName="finishDate" class="form-control" placeholder="fecha Fin">
+                                    <input type="date" class="form-control" placeholder="fecha Fin">
                                 </div>
                                 <div class="form-group col-md-4 col-sm-6">
-                                        <label for="">Numero de Poliza</label>
-                                    <input type="number" formControlName="policyNumber" class="form-control" placeholder="Numero de Poliza">
+                                        <label for="">Numero de Renovacion</label>
+                                    <input type="number" class="form-control" placeholder="Numero de Renovacion">
                                 </div>                  
                                 <div class="form-group col-md-4 col-sm-6">
                                     <label for="exampleSelect1">Cliente</label>
@@ -54,8 +54,6 @@
                                             >
                                         </ng-select>
                                 </div>
-
-                                
                         </form>
 
                 </div>
@@ -64,42 +62,44 @@
 
                     </div>
                     <div class="row">
-                            <button (click)="submitDataRequest()" class="btn btn-primary">
+                            <button class="btn btn-primary">
                                     Enviar
                                 </button>
                     </div>
                 </div>
                 <div class="card-block widget-body">
-                        <div class="pull-right">
-                            <button (click)="submitFileRequest()" class="btn btn-primary btn-sm">Generar Excel</button>
-                        </div>
                         <div class="table-responsive datatable">
-                            <table class="table table-striped table-hover table-sm" [mfData]="results  | PolicyReportPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                            <table class="table table-striped table-hover table-sm" [mfData]="results  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                                 <thead>
                                     <tr>
-                                        <th><mfDefaultSorter by="policyNumber">Numero de Poliza</mfDefaultSorter></th>                            
-                                        <th><mfDefaultSorter by="city.name">Ciudad</mfDefaultSorter></th>
-                                        <th><mfDefaultSorter by="recipient.name">Nombre de Cliente</mfDefaultSorter></th>
-                                        <th><mfDefaultSorter by="ramo.name">Nombre de Ramo</mfDefaultSorter></th>
-                                        <th><mfDefaultSorter by="policyType.name">Estado de Poliza</mfDefaultSorter></th>
-                                        <th><mfDefaultSorter by="dateAdmission">Fecha de Inicio de Vigencia</mfDefaultSorter></th>
-                                        <th><mfDefaultSorter by="dateCancellation">Fecha de Fin de Vigencia</mfDefaultSorter></th>
+                                        <th>Id</th>                              
+                                        <th><mfDefaultSorter by="name">Ciudad</mfDefaultSorter></th>
+                                        <th><mfDefaultSorter by="info">Nombre de Cliente</mfDefaultSorter></th>
+                                        <th><mfDefaultSorter by="description">Numero de Renovacion</mfDefaultSorter></th>
+                                        <th><mfDefaultSorter by="date">Nombre de Ramo</mfDefaultSorter></th>
+                                        <th><mfDefaultSorter by="date">Estado de Renovacion</mfDefaultSorter></th>
+                                        <th><mfDefaultSorter by="date">Fecha de Inicio de Vigencia</mfDefaultSorter></th>
+                                        <th><mfDefaultSorter by="date">Fecha de Fin de Vigencia</mfDefaultSorter></th>
                                             
                                     </tr>
                                 </thead>
                                 <tbody>                           
-                                    <tr *ngFor="let poliza of results">
-                                        <td>{{poliza.policyNumber}}</td>
-                                        <td><strong>{{poliza.city.name}}</strong></td>
+                                    <tr *ngFor="let person of results">
+                                        <td>{{person.id}}</td>
+                                        <td><strong>{{person.name}}</strong></td>
                                         <td>
-                                            <strong>{{poliza.recipient.name}}</strong>
+                                            <small><b>Type:</b> &nbsp; {{person.info.type}}</small>
+                                            <br>
+                                            <small><b>Dimensions:</b>&nbsp; {{person.info.dimensions}}</small>
                                         </td>
-                                        <td>{{poliza.ramo.name}}</td>
-                                        <td>{{poliza.policyType.name}}</td>
-                                        <td>{{poliza.dateAdmission}}</td>
-                                        <td>{{poliza.dateCancellation}}</td>
-                                    </tr>
-                                                              
+                                        <td><a href="javascript:void(0);">{{person.description}}</a></td>
+                                        <td>{{person.date}}</td>
+                                        </tr>
+                                        <tr *ngIf="(results | SearchPipe : searchText).length === 0">
+                                        <td colspan="100">
+                                            No hay Resultados
+                                        </td>
+                                    </tr>                          
                                 </tbody>
                                 <tfoot>
                                     <tr>

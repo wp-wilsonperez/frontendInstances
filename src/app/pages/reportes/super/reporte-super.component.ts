@@ -8,12 +8,12 @@ import { config } from '../../../../config/project-config';
 @Component({
     selector:'reporte-component',
     encapsulation:  ViewEncapsulation.None,
-    templateUrl:'./reporte-poliza.component.html',
-    styleUrls:['./reporte-poliza.component.scss']
+    templateUrl:'./reporte-super.component.html',
+    styleUrls:['./reporte-super.component.scss']
 })
 
-export class ReportePolizaComponent{
-    public polizaReportForm:FormGroup
+export class ReporteSuperComponent{
+    public superReportForm:FormGroup
     public recipients:any;
     public ramos:any;
     public aseguradoras:any;
@@ -22,12 +22,12 @@ export class ReportePolizaComponent{
     public file:string ='';
 
     constructor(public fb:FormBuilder, public select:SelectService,public http:Http,public local:UserSessionService) { 
-        this.polizaReportForm = fb.group({
+        this.superReportForm = fb.group({
             startDate:null,
             finishDate:null,  
             idInsurance:null,
             idRecipient:null,
-            policyNumber:null,
+            superNumber:null,
             idRamo:null,
             idBranch:null,
             
@@ -51,11 +51,11 @@ export class ReportePolizaComponent{
             filter:[],
             excel: false
         };
-        for (const key in this.polizaReportForm.value) {
-            this.polizaReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.polizaReportForm.value[key] }) :null; 
+        for (const key in this.superReportForm.value) {
+            this.superReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.superReportForm.value[key] }) :null; 
         }
         console.log(request);
-        this.http.post(`${config.url}policy/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
+        this.http.post(`${config.url}super/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
             return res.json();
         }).subscribe((res)=>{
             console.log(res);
@@ -67,11 +67,11 @@ export class ReportePolizaComponent{
             filter:[],
             excel: true
         };
-        for (const key in this.polizaReportForm.value) {
-            this.polizaReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.polizaReportForm.value[key] }) :null; 
+        for (const key in this.superReportForm.value) {
+            this.superReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.superReportForm.value[key] }) :null; 
         }
         console.log(request);
-        this.http.post(`${config.url}policy/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
+        this.http.post(`${config.url}super/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
             return res.json();
         }).subscribe((res)=>{
             this.file = res.doc_name;

@@ -1,3 +1,6 @@
+import { ReporteBillingComponent } from './billing/reporte-billing.component';
+import { ReporteSuperComponent } from './super/reporte-super.component';
+import { ReporteRenovacionComponent } from './renovaciones/reporte-renovacion.component';
 import { ReportePolizaComponent } from './polizas/reporte-poliza.component';
 import { DataTableModule } from 'angular2-datatable';
 import { SelectModule } from 'angular2-select';
@@ -12,6 +15,9 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 export const routes = [
     { path: '', redirectTo: '', pathMatch: 'full'},
     { path: 'poliza', component: ReportePolizaComponent, data: { breadcrumb: 'Poliza' } },
+    { path: 'renovacion', component: ReporteRenovacionComponent, data: { breadcrumb: 'renovacion' } },
+    { path: 'super', component: ReporteSuperComponent, data: { breadcrumb: 'Super de Companias' } },
+    { path: 'billing', component: ReporteBillingComponent, data: { breadcrumb: 'Facturas' } },
   ];
 
 @NgModule({
@@ -26,7 +32,10 @@ export const routes = [
     SelectModule
   ],
   declarations: [
-    ReportePolizaComponent
+    ReportePolizaComponent,
+    ReporteRenovacionComponent,
+    ReporteSuperComponent,
+    ReporteBillingComponent
   ],
   providers: []
 })

@@ -6,6 +6,7 @@ import { AppPicturePipe } from './appPicture/appPicture.pipe';
 import { ProfilePicturePipe } from './profilePicture/profilePicture.pipe';
 import { MailSearchPipe } from './search/mail-search.pipe';
 import { SearchPipe } from './search/search.pipe';
+import { PolicyReportPipe } from './search/policy-report.pipe';
 
 @NgModule({
     imports: [ 
@@ -16,6 +17,7 @@ import { SearchPipe } from './search/search.pipe';
         ProfilePicturePipe,
         MailSearchPipe,
         SearchPipe,
+        PolicyReportPipe,
         SafePipe
     ],
     exports: [
@@ -23,6 +25,7 @@ import { SearchPipe } from './search/search.pipe';
         ProfilePicturePipe,
         MailSearchPipe,
         SearchPipe,
+        PolicyReportPipe,
         SafePipe
     ]
 })

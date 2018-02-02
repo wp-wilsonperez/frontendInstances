@@ -715,14 +715,14 @@ export const menuItems = [
       },
       {
         title: 'Reporte Renovaciones',
-        routerLink: 'siniestros/medicos',
+        routerLink: 'reportes/renovacion',
         disabled: true,
         selected: false,
         expanded: false
       },
       {
         title: 'Reporte Facturación',
-        routerLink: '',
+        routerLink: 'reportes/billing',
         disabled: true,
         selected: false,
         expanded: false
@@ -743,7 +743,7 @@ export const menuItems = [
       },
       {
         title: 'Reporte Super Compañias',
-        routerLink: '',
+        routerLink: 'reportes/super',
         disabled: true,
         selected: false,
         expanded: false
