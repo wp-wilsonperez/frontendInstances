@@ -20,6 +20,7 @@ export class ReportePolizaComponent{
     public searchText:any='';
     public results:any =[];
     public file:string ='';
+    public branchs:Array<any>;
 
     constructor(public fb:FormBuilder, public select:SelectService,public http:Http,public local:UserSessionService) { 
         this.polizaReportForm = fb.group({
@@ -45,6 +46,9 @@ export class ReportePolizaComponent{
         this.select.loadInsurances().then((aseguradoras)=>{
             this.aseguradoras = aseguradoras;
         })
+        this.select.loadBranchs().then((branchs)=>{
+            this.branchs = branchs;
+        });
     }
     submitDataRequest(){
         let request = {

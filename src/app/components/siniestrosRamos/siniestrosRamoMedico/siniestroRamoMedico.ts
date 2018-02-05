@@ -102,7 +102,7 @@ export class SiniestroRamoMedico implements OnInit {
         this.siniestroMedicalDocumentationForm.reset();
     }
     setDocRamo(event){
-        this.siniestroMedicalDocumentationForm.controls['sinisterDocumentationRamo'].setValue(event.label);
+        this.siniestroMedicalDocumentationForm.controls['sinisterDocumentationRamo'].setValue(event.value);
     }
     deleteDoc(i){
         this.docSiniestroRamos.splice(i,1);

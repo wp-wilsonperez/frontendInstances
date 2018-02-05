@@ -26,7 +26,16 @@
                                 <div class="form-group col-md-4 col-sm-6">
                                         <label for="">Numero de Poliza</label>
                                     <input type="number" formControlName="policyNumber" class="form-control" placeholder="Numero de Poliza">
-                                </div>                  
+                                </div>
+                                <div class="form-group col-md-4 col-sm-6">
+                                        <label for="exampleSelect1">Sucursal</label>
+                                        <ng-select
+                                            [(options)]="branchs"
+                                            [multiple]="false"
+                                            formControlName="idBranch"
+                                            >
+                                        </ng-select>
+                                    </div>                  
                                 <div class="form-group col-md-4 col-sm-6">
                                     <label for="exampleSelect1">Cliente</label>
                                     <ng-select

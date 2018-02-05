@@ -78,12 +78,7 @@ export class SiniestroComponent{
         clientsLabel:string ='Elegir Cliente';
         ramo ='';
         enabledForm:boolean = true;
-
-        
-
-
         constructor(public mapsApiLoader:MapsAPILoader,public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router,public select:SelectService ){
-        
             this.siniestroForm = this.formBuilder.group({
                 annexedNumber:[''],
                 certificateNumber:[''],
@@ -463,9 +458,10 @@ export class SiniestroComponent{
             let item = {
                 items : []
             };
+            delete event.form.sinisterDocumentationnRamo;
             Object.assign(item , event.form);
             item.items = event.items;
-           
+            
             let request = {
                 sinister:this.siniestroForm.value,
 
@@ -539,6 +535,7 @@ export class SiniestroComponent{
                 sinisterState: siniestro.sinisterState || ''
             });
             this.ramo = siniestro.idRamo || '';
+
             this.selectPoliza(siniestro.idPolicy);
         }
         idAssign(siniestroId){

@@ -1,7 +1,7 @@
 import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
 import { SelectService } from './../../../providers/select.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, ViewEncapsulation  } from '@angular/core';
 import { config } from '../../../../config/project-config';
 
@@ -17,19 +17,21 @@ export class ReporteSuperComponent{
     public recipients:any;
     public ramos:any;
     public aseguradoras:any;
+    public estados : any;
     public searchText:any='';
     public results:any =[];
     public file:string ='';
 
     constructor(public fb:FormBuilder, public select:SelectService,public http:Http,public local:UserSessionService) { 
         this.superReportForm = fb.group({
-            startDate:null,
-            finishDate:null,  
+            startDate:[null,Validators.required],
+            finishDate:[null,Validators.required],
             idInsurance:null,
             idRecipient:null,
             superNumber:null,
             idRamo:null,
             idBranch:null,
+            idState:null
             
         });
         this.select.loadClientsRecipient().then(clients=>{
@@ -45,6 +47,9 @@ export class ReporteSuperComponent{
         this.select.loadInsurances().then((aseguradoras)=>{
             this.aseguradoras = aseguradoras;
         })
+        this.select.loadPolicyTypes().then((estados)=>{
+            this.estados =estados;
+        });
     }
     submitDataRequest(){
         let request = {

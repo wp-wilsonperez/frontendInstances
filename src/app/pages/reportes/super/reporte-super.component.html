@@ -1,7 +1,7 @@
 <div class="col">
         <div widget class="card">
             <div class="card-header">
-                <span>Listado de Supers</span>
+                <span>Listado de Super de Companias</span>
                 <div class="widget-controls">              
                     <a data-widgster="expand" href="#" class="transition"><i class="fa fa-chevron-down"></i></a>
                     <a data-widgster="collapse" href="#" class="transition"><i class="fa fa-chevron-up"></i></a>
@@ -22,20 +22,7 @@
                                     <div class="form-group col-md-4 col-sm-6">
                                             <label for="">Fecha Fin</label>
                                         <input type="date" formControlName="finishDate" class="form-control" placeholder="fecha Fin">
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-6">
-                                            <label for="">Numero de Super</label>
-                                        <input type="number" formControlName="superNumber" class="form-control" placeholder="Numero de Super">
-                                    </div>                  
-                                    <div class="form-group col-md-4 col-sm-6">
-                                        <label for="exampleSelect1">Cliente</label>
-                                        <ng-select
-                                            [(options)]="recipients"
-                                            [multiple]="false"
-                                            formControlName="idRecipient"
-                                            >
-                                        </ng-select>
-                                    </div>
+                                    </div>                 
                                     <div class="form-group col-md-4 col-sm-6">
                                             <label for="exampleSelect1">Ramo</label>
                                             <ng-select
@@ -64,7 +51,7 @@
     
                         </div>
                         <div class="row">
-                                <button (click)="submitDataRequest()" class="btn btn-primary">
+                                <button [disabled]="!superReportForm.valid" (click)="submitDataRequest()" class="btn btn-primary">
                                         Enviar
                                     </button>
                         </div>
@@ -77,27 +64,21 @@
                                 <table class="table table-striped table-hover table-sm" [mfData]="results  | PolicyReportPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                                     <thead>
                                         <tr>
-                                            <th><mfDefaultSorter by="superNumber">Numero de Super</mfDefaultSorter></th>                            
-                                            <th><mfDefaultSorter by="city.name">Ciudad</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="recipient.name">Nombre de Cliente</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="ramo.name">Nombre de Ramo</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="superType.name">Estado de Super</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="dateAdmission">Fecha de Inicio de Vigencia</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="dateCancellation">Fecha de Fin de Vigencia</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="">Nombre de Aseguradora</mfDefaultSorter></th>                            
+                                            <th><mfDefaultSorter by="">Ramo</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="">Valor Prima</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="">Valor Comision</mfDefaultSorter></th>
+                                           
                                                 
                                         </tr>
                                     </thead>
                                     <tbody>                           
                                         <tr *ngFor="let super of results">
                                             <td>{{super.superNumber}}</td>
-                                            <td><strong>{{super.city.name}}</strong></td>
-                                            <td>
-                                                <strong>{{super.recipient.name}}</strong>
-                                            </td>
-                                            <td>{{super.ramo.name}}</td>
-                                            <td>{{super.superType.name}}</td>
-                                            <td>{{super.dateAdmission}}</td>
-                                            <td>{{super.dateCancellation}}</td>
+                                            <td>{{super.superNumber}}</td>
+                                            <td>{{super.superNumber}}</td>
+                                            <td>{{super.superNumber}}</td>
+                                          
                                         </tr>
                                                                   
                                     </tbody>

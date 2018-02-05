@@ -19,6 +19,7 @@ export class ReporteBillingComponent{
     public searchText:any='';
     public results:any =[];
     public file:string ='';
+    public branches:any;
 
     constructor(public fb:FormBuilder, public select:SelectService,public http:Http,public local:UserSessionService) { 
         this.billingReportForm = fb.group({
@@ -43,6 +44,9 @@ export class ReporteBillingComponent{
         });
         this.select.loadInsurances().then((aseguradoras)=>{
             this.aseguradoras = aseguradoras;
+        })
+        this.select.loadBranchs().then((branches)=>{
+            this.branches = branches;
         })
     }
     submitDataRequest(){

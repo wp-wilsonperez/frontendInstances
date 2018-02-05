@@ -20,6 +20,8 @@ export class ReporteRenovacionComponent{
     public searchText:any;
     public results:any =[];
     public file:string ='';
+    public branches:any;
+    public estados:any;
     constructor(public fb:FormBuilder, public select:SelectService,public http:Http,public local:UserSessionService) { 
         this.renovacionReportForm = fb.group({
             startDate:[],
@@ -28,7 +30,8 @@ export class ReporteRenovacionComponent{
             idRecipient:[],
             policyNumber:[],
             idRamo:[],
-            idBranch:[]
+            idBranch:[],
+            idState:[]
 
         });
         this.select.loadClientsRecipient().then(clients=>{
@@ -43,6 +46,12 @@ export class ReporteRenovacionComponent{
         });
         this.select.loadInsurances().then((aseguradoras)=>{
             this.aseguradoras = aseguradoras;
+        });
+        this.select.loadBranchs().then((branches)=>{
+            this.branches = branches;
+        })
+        this.select.loadPolicyTypes().then((estados)=>{
+            this.estados = estados;
         })
     }
     submitDataRequest(){

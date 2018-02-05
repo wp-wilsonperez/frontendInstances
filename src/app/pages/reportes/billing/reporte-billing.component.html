@@ -24,6 +24,15 @@
                                         <input type="date" formControlName="finishDate" class="form-control" placeholder="fecha Fin">
                                     </div>
                                     <div class="form-group col-md-4 col-sm-6">
+                                            <label for="exampleSelect1">Sucursal</label>
+                                            <ng-select
+                                                [(options)]="branches"
+                                                [multiple]="false"
+                                                formControlName="idBranch"
+                                                >
+                                            </ng-select>
+                                        </div>
+                                    <div class="form-group col-md-4 col-sm-6">
                                             <label for="">Numero de Factura</label>
                                         <input type="number" formControlName="billingNumber" class="form-control" placeholder="Numero de Billing">
                                     </div>                  
@@ -90,12 +99,12 @@
                                     <tbody>                           
                                         <tr *ngFor="let billing of results">
                                             <td>{{billing.billingNumber}}</td>
-                                            <td><strong>{{billing.city.name}}</strong></td>
+                                            <td><strong>//fix</strong></td>
                                             <td>
-                                                <strong>{{billing.recipient.name}}</strong>
+                                                <strong>{{billing.detailsClientBilling.name}}</strong>
                                             </td>
-                                            <td>{{billing.ramo.name}}</td>
-                                            <td>{{billing.billingType.name}}</td>
+                                            <td>//fix</td>
+                                            <td>//fix</td>
                                             <td>{{billing.dateAdmission}}</td>
                                             <td>{{billing.dateCancellation}}</td>
                                         </tr>
