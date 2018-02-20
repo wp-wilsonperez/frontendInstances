@@ -12,6 +12,7 @@ import { PolizaMedicalComponent } from './polizaMedical/poliza-medical.component
 import { PolizaAnnexComponent } from './polizaAnnex/polizaAnnex.component';
 import { FrecuencyComponent } from './frecuency/frecuency.component';
 import { IngresoComponent } from './ingresos/ingresos.component';
+import { EnvioComponent } from './envios/envios.component';
 import { RutaComponent } from './ruta/ruta.component';
 import { DataTableModule } from "angular2-datatable";
 import { PipesModule } from '../../theme/pipes/pipes.module';
@@ -34,6 +35,7 @@ export const routes = [
   { path: 'tipo-polizas', component: TipoPolizaComponent, data: { breadcrumb: 'Tipo de Polizas' } },
   { path: 'rutas', component: RutaComponent, data: { breadcrumb: 'Rutas' } },
   { path: 'ingresos', component: IngresoComponent, data: { breadcrumb: 'Ingresos' } },
+  { path: 'envios', component: EnvioComponent, data: { breadcrumb: 'Envios' } },
   { path: 'frecuencias', component: FrecuencyComponent, data: { breadcrumb: 'Frecuencias' } },
   { path: 'anexos/:id', component: PolizaAnnexComponent, data: { breadcrumb: 'Anexos' } }
 ];
@@ -52,7 +54,7 @@ export const routes = [
   ],
   declarations: [
 
-    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent,ItemAnnexCar,ItemAnnexFire,ItemAnnexProfit,ItemAnnexRc,ItemAnnexTransport,ItemAnnexStandart
+    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,EnvioComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent,ItemAnnexCar,ItemAnnexFire,ItemAnnexProfit,ItemAnnexRc,ItemAnnexTransport,ItemAnnexStandart
 
   ],
   providers: [ItemService]

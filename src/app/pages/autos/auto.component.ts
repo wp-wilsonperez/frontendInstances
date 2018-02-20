@@ -20,6 +20,10 @@ export class AutoComponent{
         public autos:any;
         public helpLinkId:any;
         public autoId:any;
+        public searchChasis = null
+        public searchPlaca =  null
+        public searchStart =  null
+        public searchEnd =  null
         error:any;
         toast:boolean = false;
         message:string;

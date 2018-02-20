@@ -60,14 +60,23 @@ export class ReporteRenovacionComponent{
             excel: false
         };
         for (const key in this.renovacionReportForm.value) {
-            this.renovacionReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.renovacionReportForm.value[key] }) :null; 
+            if(this.renovacionReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.renovacionReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.renovacionReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.renovacionReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}renewal/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
             return res.json();
         }).subscribe((res)=>{
-            console.log(res);
-            this.results = res.renewals;
+           this.results = res.policies
         })
     }
     submitFileRequest(){
@@ -76,7 +85,17 @@ export class ReporteRenovacionComponent{
             excel: true
         };
         for (const key in this.renovacionReportForm.value) {
-            this.renovacionReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.renovacionReportForm.value[key] }) :null; 
+            if(this.renovacionReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.renovacionReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.renovacionReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.renovacionReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}renewal/report?access_token=${this.local.getUser().token}`,request).map((res)=>{

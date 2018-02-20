@@ -1588,6 +1588,7 @@ export class RolsListComponent {
         this.policyDelete?requestTwo.policy['delete'] = true:null;
         this.policyEnable?requestTwo.policy['enable'] = true:null
         this.policyReport?requestTwo.policy['report'] = true:null
+        this.policyReport?requestTwo.policy['reportsupercompany'] = true:null
         this.policyList?requestTwo.policy['ramoPercentageValue'] = true:null
 
         this.policyList?requestTwo.policyMedicalBusiness['list'] = true:null;

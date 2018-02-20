@@ -1,3 +1,5 @@
+import { ReporteSinisterComponent } from './sinister/reporte-sinister.component';
+import { ReporteWalletComponent } from './wallet/reporte-wallet.component';
 import { ReporteBillingComponent } from './billing/reporte-billing.component';
 import { ReporteSuperComponent } from './super/reporte-super.component';
 import { ReporteRenovacionComponent } from './renovaciones/reporte-renovacion.component';
@@ -18,6 +20,8 @@ export const routes = [
     { path: 'renovacion', component: ReporteRenovacionComponent, data: { breadcrumb: 'renovacion' } },
     { path: 'super', component: ReporteSuperComponent, data: { breadcrumb: 'Super de Companias' } },
     { path: 'billing', component: ReporteBillingComponent, data: { breadcrumb: 'Facturas' } },
+    { path: 'wallet', component: ReporteWalletComponent, data: { breadcrumb: 'Carteras' } },
+    { path: 'sinister', component: ReporteSinisterComponent, data: { breadcrumb: 'Siniestros' } },
   ];
 
 @NgModule({
@@ -35,7 +39,9 @@ export const routes = [
     ReportePolizaComponent,
     ReporteRenovacionComponent,
     ReporteSuperComponent,
-    ReporteBillingComponent
+    ReporteBillingComponent,
+    ReporteSinisterComponent,
+    ReporteWalletComponent
   ],
   providers: []
 })

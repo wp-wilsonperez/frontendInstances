@@ -31,6 +31,11 @@ export class ClienteComponent implements OnInit{
         public cities:any;
         public helpLinkId:any;
         public clientId:any;
+        public searchName = null
+        public searchRuc =  null
+        public searchCedula =  null
+        public searchStart =  null
+        public searchEnd =  null
         error:any;
         toast:boolean = false;
         message:string;

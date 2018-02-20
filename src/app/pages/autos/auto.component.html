@@ -30,13 +30,17 @@
                             <strong>{{message}}</strong> 
                         </div>
                 
-                <div class="w-200 pull-right bottom-15">
-                    <div class="input-group input-group-sm">
+                <button data-toggle="collapse" data-target="#filters" class="btn btn-primary"><i class="fa fa-filter"></i></button>
 
-
-                        
+                <div class="collapse" id="filters" style="margin: 20px;">
+                    <div class="row form-group" >
+                        <div class="col-md-3"><label for="">Fecha Inicio</label><input class="form-control" type="date"></div>
+                        <div class="col-md-3"><label for="">Fecha Fin</label><input class="form-control" type="date"></div>
+                        <div class="col-md-2"> <label for="">Placa</label>  <input class="form-control" type="text" name="" id=""></div>
+                        <div class="col-md-2"><label for="">Chasis</label><input class="form-control" type="text" name="" id=""></div>
+                        <div class="col-md-1"><button class="btn btn-primary"><i class="fa fa-search"></i></button></div>
                     </div>
-                </div> 
+                </div>
                 <div class="table-responsive datatable">
                     <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                         <thead>

@@ -57,14 +57,24 @@ export class ReporteSuperComponent{
             excel: false
         };
         for (const key in this.superReportForm.value) {
-            this.superReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.superReportForm.value[key] }) :null; 
+            if(this.superReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.superReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.superReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.superReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
-        this.http.post(`${config.url}super/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
+        this.http.post(`${config.url}policy/reportsupercompany?access_token=${this.local.getUser().token}`,request).map((res)=>{
             return res.json();
         }).subscribe((res)=>{
             console.log(res);
-            this.results = res.policies;
+             this.results = res.policies;
         })
     }
     submitFileRequest(){
@@ -73,10 +83,20 @@ export class ReporteSuperComponent{
             excel: true
         };
         for (const key in this.superReportForm.value) {
-            this.superReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.superReportForm.value[key] }) :null; 
+            if(this.superReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.superReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.superReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.superReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
-        this.http.post(`${config.url}super/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
+        this.http.post(`${config.url}policy/reportsupercompany?access_token=${this.local.getUser().token}`,request).map((res)=>{
             return res.json();
         }).subscribe((res)=>{
             this.file = res.doc_name;

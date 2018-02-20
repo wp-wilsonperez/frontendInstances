@@ -334,6 +334,13 @@ export const menuItems = [
         disabled: true,
         selected: false,
         expanded: false
+      }, 
+      {
+        title: 'Envios',
+        routerLink: 'polizas/envios',
+        disabled: true,
+        selected: false,
+        expanded: false
       },   
     ]
   },
@@ -729,14 +736,14 @@ export const menuItems = [
       },
       {
         title: 'Reporte Siniestros',
-        routerLink: '',
+        routerLink: 'reportes/sinister',
         disabled: true,
         selected: false,
         expanded: false
       },
       {
         title: 'Reporte Cartera',
-        routerLink: '',
+        routerLink: 'reportes/wallet',
         disabled: true,
         selected: false,
         expanded: false
