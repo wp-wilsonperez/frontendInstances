@@ -83,30 +83,32 @@
                                 <button (click)="submitFileRequest()" class="btn btn-primary btn-sm">Generar Excel</button>
                             </div>
                             <div class="table-responsive datatable">
-                                <table class="table table-striped table-hover table-sm" [mfData]="results  | WalletReportPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
+                                <table class="table table-striped table-hover table-sm" [mfData]="results  | PolicyReportPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                                     <thead>
                                         <tr>
-                                            <th><mfDefaultSorter by="walletNumber">Numero de Wallet</mfDefaultSorter></th>                            
+                                            <th><mfDefaultSorter by="walletNumber">Agencia</mfDefaultSorter></th>                            
                                             <th><mfDefaultSorter by="city.name">Ciudad</mfDefaultSorter></th>
                                             <th><mfDefaultSorter by="recipient.name">Nombre de Cliente</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="ramo.name">Nombre de Ramo</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="walletType.name">Estado de Wallet</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="dateAdmission">Fecha de Inicio de Vigencia</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="ramo.name">Numero de Factura</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="walletType.name">Numero de Poliza</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="dateAdmission">Nombre de Ramo</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="dateCancellation">Fecha de Inicio de Vigencia</mfDefaultSorter></th>
                                             <th><mfDefaultSorter by="dateCancellation">Fecha de Fin de Vigencia</mfDefaultSorter></th>
                                                 
                                         </tr>
                                     </thead>
                                     <tbody>                           
                                         <tr *ngFor="let wallet of results">
-                                            <td>{{wallet.walletNumber}}</td>
+                                            <td>fix</td>
                                             <td><strong>//fix</strong></td>
                                             <td>
-                                                <strong>{{wallet.detailsClientWallet.name}}</strong>
+                                                <strong *ngIf="wallet.DetailsBillingData"> <span *ngIf="wallet.DetailsBillingData.detailsClientBilling">{{wallet.DetailsBillingData.detailsClientBilling.name}}  {{wallet.DetailsBillingData.detailsClientBilling.lastName}}</span></strong>
                                             </td>
+                                            <td>{{wallet.DetailsBillingData.billingNumber}}</td>
                                             <td>//fix</td>
                                             <td>//fix</td>
-                                            <td>{{wallet.dateAdmission}}</td>
-                                            <td>{{wallet.dateCancellation}}</td>
+                                            <td>{{wallet.dateCreate | date: 'short'}}</td>
+                                            <td>{{wallet.expirationDate | date: 'short'}}</td>
                                         </tr>
                                                                   
                                     </tbody>
@@ -125,3 +127,12 @@
         </div>
     </div><div class="col">
 </div>
+
+<!-- Agencia
+Ciudad
+Nombre Cliente
+Numero de Factura
+Numero de Póliza
+Nombre Ramo
+Fecha de Inicio de Vigencia -> Vigencia de la póliza esto tanto para el item de abajo
+Fecha de fin de Vigencia -->

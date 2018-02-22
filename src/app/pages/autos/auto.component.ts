@@ -239,5 +239,18 @@ export class AutoComponent{
     resetForm(){
         this.autoForm.reset();
     }
+    search(){
+       let request = {filter: {}}
+       this.searchChasis ? request.filter['chasis'] = this.searchChasis: null
+       this.searchStart ? request.filter['dateCreate'] = this.searchStart: null
+       this.searchEnd ? request.filter['dateCreate'] = this.searchStart: null 
+       this.searchPlaca ? request.filter['placa'] = this.searchPlaca: null 
+
+       this.http.post(config.url+'car/filter?access_token='+this.local.getUser().token,request).map((res)=>{
+        return res.json();
+        }).subscribe((result)=>{
+            this.autos = result.cars
+        })
+    }
 
 }

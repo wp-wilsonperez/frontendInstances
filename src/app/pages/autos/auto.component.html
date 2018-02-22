@@ -34,11 +34,11 @@
 
                 <div class="collapse" id="filters" style="margin: 20px;">
                     <div class="row form-group" >
-                        <div class="col-md-3"><label for="">Fecha Inicio</label><input class="form-control" type="date"></div>
-                        <div class="col-md-3"><label for="">Fecha Fin</label><input class="form-control" type="date"></div>
-                        <div class="col-md-2"> <label for="">Placa</label>  <input class="form-control" type="text" name="" id=""></div>
-                        <div class="col-md-2"><label for="">Chasis</label><input class="form-control" type="text" name="" id=""></div>
-                        <div class="col-md-1"><button class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+                        <div class="col-md-3"><label for="">Fecha Inicio</label><input [(ngModel)]="searchStart" class="form-control" type="date"></div>
+                        <div class="col-md-3"><label for="">Fecha Fin</label><input [(ngModel)]="searchEnd" class="form-control" type="date"></div>
+                        <div class="col-md-2"> <label for="">Placa</label>  <input [(ngModel)]="searchPlaca" class="form-control" type="text" name="" id=""></div>
+                        <div class="col-md-2"><label for="">Chasis</label><input [(ngModel)]="searchChasis" class="form-control" type="text" name="" id=""></div>
+                        <div class="col-md-1"><button style="margin-top: 20px;" (click)="search()" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
                     </div>
                 </div>
                 <div class="table-responsive datatable">

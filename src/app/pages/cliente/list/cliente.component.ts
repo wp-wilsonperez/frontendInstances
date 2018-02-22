@@ -541,6 +541,20 @@ restartValues(){
         xhr.send(formData)
     }));
 }
+filter(){
+    let request = {filter: {}}
+    this.searchCedula ? request.filter['doc'] = this.searchCedula: null
+    this.searchStart ? request.filter['dateCreate'] = this.searchStart: null
+    this.searchEnd ? request.filter['dateCreate'] = this.searchEnd: null 
+    this.searchRuc ? request.filter['doc'] = this.searchRuc: null 
+    this.searchName ? request.filter['name'] = this.searchName: null 
+
+    this.http.post(config.url+'client/filter?access_token='+this.local.getUser().token,request).map((res)=>{
+     return res.json();
+     }).subscribe((result)=>{
+         this.clients = result.clients
+     })
+ }
 
 
 

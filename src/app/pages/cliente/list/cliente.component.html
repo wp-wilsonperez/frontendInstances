@@ -37,16 +37,16 @@
                         <div class="row form-group" >
                             <div class="col-md-11">
                                 <div class="row">
-                                        <div class="col-md-6"><label for="">Fecha Inicio</label><input class="form-control" type="date"></div>
-                                        <div class="col-md-6"><label for="">Fecha Fin</label><input class="form-control" type="date"></div>
+                                        <div class="col-md-6"><label for="">Fecha Inicio</label><input [(ngModel)]="searchStart" class="form-control" type="date"></div>
+                                        <div class="col-md-6"><label for="">Fecha Fin</label><input [(ngModel)]="searchEnd" class="form-control" type="date"></div>
                                 </div>
                                 <div class="row">
-                                        <div class="col-md-4"> <label for="">Nombre</label>  <input class="form-control" type="text" name="" id=""></div>
-                                        <div class="col-md-4"> <label for="">Cedula</label>  <input class="form-control" type="text" name="" id=""></div>
-                                        <div class="col-md-4"><label for="">Ruc</label><input class="form-control" type="text" name="" id=""></div>
+                                        <div class="col-md-4"> <label for="">Nombre</label>  <input [(ngModel)]="searchName" class="form-control" type="text" name="" id=""></div>
+                                        <div class="col-md-4"> <label for="">Cedula</label>  <input [(ngModel)]="searchCedula" class="form-control" type="text" name="" id=""></div>
+                                        <div class="col-md-4"><label for="">Ruc</label><input [(ngModel)]="searchRuc" class="form-control" type="text" name="" id=""></div>
                                 </div>
                             </div>
-                            <div style="margin-top: 40px;" class="col-md-1"><button class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+                            <div style="margin-top: 40px;" class="col-md-1"><button (click)="filter()" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
                         </div>
                     </div>
                 <div class="table-responsive datatable">

@@ -6,7 +6,9 @@ export class PolicyReportPipe implements PipeTransform {
     if (value) {
       return value.filter(policy=> {
         if (policy.policyNumber) {
+          console.log(policy)
           return policy.policyNumber.toString().search(searchText) !== -1;
+
         }
       });
     }

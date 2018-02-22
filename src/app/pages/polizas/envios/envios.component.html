@@ -28,28 +28,30 @@
                                              <div class="row row-input">
 
                                             <div class="col-md-3">
-                                                    
-                                                <ng-select
-                                                    [(options)]="recipients"
-                                                    [placeholder]="userSendLabel"
-                                                    [multiple]="false"
-                                                    (selected)="getType($event)"
-                                                    formControlName="idSend">
-                                                </ng-select>
-                
-                                                </div>
-                                               
-
-                                                <div class="col-md-3">
-
-                                                <ng-select
+                                                    <ng-select
                                                     [(options)]="opt"
-                                                    [placeholder]="receiveLabel"
+                                                    [placeholder]="userSendLabel"
                                                     [multiple]="false"
                                                    
 
                                                     formControlName="idUserAddress">
                                                 </ng-select>
+                                                    
+                                                
+                
+                                                </div>
+                                               
+
+                                                <div class="col-md-3">
+                                                <ng-select
+                                                    [(options)]="recipients"
+                                                    [placeholder]="receiveLabel"
+                                                    [multiple]="false"
+                                                    (selected)="getType($event)"
+                                                    formControlName="idSend">
+                                                </ng-select>
+
+                                                
 
                                                 </div>
                                             

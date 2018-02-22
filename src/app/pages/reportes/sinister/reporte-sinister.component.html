@@ -86,27 +86,35 @@
                                 <table class="table table-striped table-hover table-sm" [mfData]="results  | BillingReportPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                                     <thead>
                                         <tr>
-                                            <th><mfDefaultSorter by="sinisterNumber">Numero de Billing</mfDefaultSorter></th>                            
+                                            <th><mfDefaultSorter by="sinisterNumber">Agencia</mfDefaultSorter></th>                            
                                             <th><mfDefaultSorter by="city.name">Ciudad</mfDefaultSorter></th>
                                             <th><mfDefaultSorter by="recipient.name">Nombre de Cliente</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="ramo.name">Nombre de Ramo</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="sinisterType.name">Estado de Billing</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="dateAdmission">Fecha de Inicio de Vigencia</mfDefaultSorter></th>
-                                            <th><mfDefaultSorter by="dateCancellation">Fecha de Fin de Vigencia</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="ramo.name">Numero de F.</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="sinisterType.name">Numero de P.</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="dateAdmission">Numero de S.</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="dateCancellation">Ramo</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="dateCancellation">Fecha de Inicio</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="dateCancellation">Fecha de Siniestro</mfDefaultSorter></th>
+                                            <th><mfDefaultSorter by="dateCancellation">Fecha de Notificacion</mfDefaultSorter></th>
                                                 
                                         </tr>
                                     </thead>
                                     <tbody>                           
                                         <tr *ngFor="let sinister of results">
-                                            <td>{{sinister.sinisterNumber}}</td>
+                                            <td>//fix</td>
                                             <td><strong>//fix</strong></td>
                                             <td>
-                                                <strong>{{sinister.detailsClientBilling.name}}</strong>
+                                                <strong>{{sinister.recipient.name}}</strong>
                                             </td>
                                             <td>//fix</td>
-                                            <td>//fix</td>
-                                            <td>{{sinister.dateAdmission}}</td>
-                                            <td>{{sinister.dateCancellation}}</td>
+                                            <td>{{sinister.policyData.policyNumber}}</td>
+                                            <td>{{sinister.policyData.policyNumber}}</td>
+                                            <td>{{sinister.policyData.ramo.name}}</td>
+                                            <td>{{sinister.dateCreate}}</td>
+                                            <td>{{sinister.dateSinister}}</td>
+                                            <td>{{sinister.dateNotification}}</td>
+                             
+                                            
                                         </tr>
                                                                   
                                     </tbody>
