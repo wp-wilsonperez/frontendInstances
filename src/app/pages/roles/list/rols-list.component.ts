@@ -351,6 +351,16 @@ export class RolsListComponent {
     public incomeEnable:boolean = false;
     public incomeReport:boolean = false;
 
+    //sending
+
+    public sendingTypeList="";
+    public sendingList:boolean = false;
+    public sendingCreate:boolean = false;
+    public sendingEdit:boolean = false;
+    public sendingDelete:boolean = false;
+    public sendingEnable:boolean = false;
+    public sendingReport:boolean = false;
+
      //frequencyPayment
      public frequencyPaymentTypeList="";
     public frequencyPaymentList:boolean = false;
@@ -698,6 +708,15 @@ export class RolsListComponent {
                 this.incomeDelete = false;
                 this.incomeEnable = false;
                 this.incomeReport = false;
+
+              //sending
+                
+              this.sendingList = false; 
+              this.sendingCreate = false;
+              this.sendingEdit = false;
+              this.sendingDelete = false;
+              this.sendingEnable = false;
+              this.sendingReport = false;
 
              //frequency payment
                 
@@ -1122,6 +1141,17 @@ export class RolsListComponent {
                
              }
 
+               //sending
+               if(this.grant.sending != undefined){
+                this.sendingTypeList  = this.grant.sending.typeList;
+                  this.grant.sending.list == true ?   this.sendingList = true:    this.sendingList = false;
+                  this.grant.sending.add   == true ?  this.sendingCreate = true:  this.sendingCreate = false; 
+                  this.grant.sending.edit  == true ?  this.sendingEdit = true:    this.sendingEdit = false;
+                  this.grant.sending.delete  == true? this.sendingDelete = true:  this.sendingDelete = false; 
+                  this.grant.sending.report  == true? this.sendingReport = true:  this.sendingReport = false; 
+                 
+               }
+
                //route
              if(this.grant.route != undefined){
               this.routeTypeList  = this.grant.route.typeList;
@@ -1282,7 +1312,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},authorizationTime:{},noRenewal:{},noRenewalRamo:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{}, sending:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},authorizationTime:{},noRenewal:{},noRenewalRamo:{}};
 
         requestTwo.user['typeList'] = this.userTypeList;
         this.userList?requestTwo.user['list'] = true:null;
@@ -1561,6 +1591,16 @@ export class RolsListComponent {
         this.incomeDelete?requestTwo.income['delete'] = true:null;
         this.incomeEnable?requestTwo.income['enable'] = true:null
         this.incomeReport?requestTwo.income['report'] = true:null
+
+        //sending
+        requestTwo.sending['typeList'] = this.sendingTypeList;     
+        this.sendingList?requestTwo.sending['list'] = true:null;
+        this.sendingList?requestTwo.sending['dateReception'] = true:null;
+        this.sendingCreate?requestTwo.sending['add'] = true:null;
+        this.sendingEdit?requestTwo.sending['edit'] = true:null;
+        this.sendingDelete?requestTwo.sending['delete'] = true:null;
+        this.sendingEnable?requestTwo.sending['enable'] = true:null
+        this.sendingReport?requestTwo.sending['report'] = true:null
 
           //route
 

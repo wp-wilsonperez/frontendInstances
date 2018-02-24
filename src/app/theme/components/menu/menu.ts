@@ -30,6 +30,13 @@ export const menuItems = [
             disabled: true,
             selected: false,
             expanded: false
+          },
+          {
+            title: 'Depreciaciones',
+            routerLink: 'sucursales/depreciacion',
+            disabled: true,
+            selected: false,
+            expanded: false
           }
         ]
       },

@@ -1,4 +1,6 @@
+import { DepreciacionComponent } from './depreciacion/depreciacion.component';
 import { NgModule } from '@angular/core';
+import { SelectModule } from 'angular2-select';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,6 +14,7 @@ export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
   { path: 'crear', component: BranchComponent, data: { breadcrumb: 'Nueva Sucursal' } },
   { path: 'listado', component: BranchListComponent, data: { breadcrumb: 'Ver Sucursales' } },
+  { path: 'depreciacion', component: DepreciacionComponent, data: { breadcrumb: 'Depreciaciones' } },
 
 
 ];
@@ -25,11 +28,12 @@ export const routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    SelectModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
 
-    BranchComponent,ImageUploaderComponent,BranchListComponent
+    BranchComponent,ImageUploaderComponent,BranchListComponent,DepreciacionComponent
 
   ],
   providers: []

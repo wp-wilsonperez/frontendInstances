@@ -87,35 +87,7 @@
                                 
                 </form>               
                 <div class="col-md-6">
-                    <div class="row">
-                            <div class="col">
-                                    <div class="form-group">
-                                        <select [(ngModel)]="statusSelect" (change)="filterenvio()" class="form-control" name="" id="">
-                                            <option value="0" >Todos</option>
-                                            <option value="1" >Enviados</option>
-                                            <option value="2" >Recibidos</option>
-                              
-                                        </select>
-        
-                                    </div>
-                               
-        
-                            </div>
-                            <div class="col">
-                                   <button [disabled]="incomesList.length == 0" (click)="changeStatus(statusSelect)" class="btn btn-warning ">
-                                    <i class="fa fa-envelope-o "></i> <span *ngIf="statusSelect == 0"> Cambiar Estatus</span> <span *ngIf="statusSelect == 1"> Cambiar a Recibido</span>  
-                                   </button>
-        
-                            </div>
-
-                    </div>
-                    
-                    
-                           
-
-
-                        
-                    
+                
                 </div> 
                
                 <div class="table-responsive datatable">
@@ -128,15 +100,14 @@
                                    <td><strong>   Quien Recibe </strong></td>
                                     <td><strong>   Detalles </strong></td>
                                     <td><strong>  Observaciones  </strong></td>
-                                    <td><strong>   Estatus de envio </strong></td>
-                                    <th>Seleccionar</th>   
+                                    <td><strong>   Estatus de envio </strong></td>  
                                 <th>Acciones</th>      
                             </tr>
                         </thead>
                         <tbody>                           
 
                             <tr *ngFor="let envio of envios">
-                                <td><strong>   {{envio.incomeNumber}}  </strong></td>
+                                <td><strong>   {{envio.sendingNumber}}  </strong></td>
 
                               
                                   <td><strong>   {{envio.dateCreate | date: 'dd/MM/yyyy'}} </strong></td>
@@ -144,22 +115,7 @@
                                    <td><strong>  {{envio.userAddress.name}}  </strong></td>
                                     <td><strong>  {{envio.details}}  </strong></td>
                                     <td><strong> {{envio.observations}}    </strong></td>
-                                    <td><strong>  <div *ngIf="envio.incomeStatus == 1"> <i class="fa fa-paper-plane"></i> Enviado </div>     <div *ngIf="envio.incomeStatus == 2"> <i class="fa fa-check"></i> Recibido </div>   </strong></td>
-                         
-                                     <td>      
-                                         <div class="form-group">
-                                        <div class="custom-controls-stacked">
-                                        
-                                            <label *ngIf="filtered" class="custom-control custom-checkbox">
-                                                <input (click)="addincome($event,envio)" type="checkbox" class="custom-control-input checkbox-primary">
-                                                <span class="custom-control-indicator"></span>
-                                               
-                                            </label>
-                                  
-                                        </div>
-                                    </div>
-                                
-                                </td>
+                                    <td><strong>  <div *ngIf="envio.sendingStatus == '99097f2c1c'"> <i class="fa fa-paper-plane"></i> Enviado </div> </strong></td>
                                  
                          
               
@@ -171,7 +127,7 @@
                                                 <div class="row">
 
 
-                                                        <button type="button" *ngIf="envio.incomeStatus == 1" (click)="envioDetail(envio)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
+                                                        <button type="button" *ngIf="envio.incomeStatus == '99097f2c1c'" (click)="envioDetail(envio)" class="btn btn-primary" data-toggle="modal" data-target="#edit-modal">Editar</button>
 
                                                                 
                         

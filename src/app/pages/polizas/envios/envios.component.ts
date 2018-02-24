@@ -44,9 +44,6 @@ export class EnvioComponent  {
         incomesList= [];
         messages = messages;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public select:SelectService ){
-            
-            
-        
             this.envioForm = this.formBuilder.group({
                 dateincome:[''],
                 dateReception:[''],
@@ -55,13 +52,11 @@ export class EnvioComponent  {
                 dateReturn:[''],
                 details:[''] ,
                 observations:[''] ,
-                incomeStatus:[''],
+                sendingStatus:[''],
                 typeSend:[''],
                 send:[''],
                 idSend:[''],
                 idUserAddress:['']
-                
-             
             });
 
             this.loadUsers();
@@ -80,15 +75,13 @@ export class EnvioComponent  {
    
             
         }
-
-   
-
         loadenvios(){
-            this.http.get(config.url+'income/list?access_token='+this.local.getUser().token).map((res)=>{
+            this.http.get(config.url+'sending/list?access_token='+this.local.getUser().token).map((res)=>{
                 
                 return res.json();
             }).subscribe((result)=>{
-                    this.envios = result.incomes;
+                    this.envios = result.sendings;
+                    console.log('envios',this.envios)
                     this.enviosCopy = this.envios;
                     
                     console.log('envios',this.envios);
@@ -179,14 +172,12 @@ export class EnvioComponent  {
 
         }
         saveenvio(){
-        
-            
-             this.envioForm.controls['incomeStatus'].setValue(1);
+             this.envioForm.controls['sendingStatus'].setValue("99097f2c1c");
              let date = new Date('');
              this.envioForm.controls['dateReception'].setValue(date);
             console.log('form value ',this.envioForm.value);
             
-            this.http.post(config.url+'income/add?access_token='+this.local.getUser().token,this.envioForm.value).map((result)=>{
+            this.http.post(config.url+'sending/add?access_token='+this.local.getUser().token,this.envioForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
@@ -263,13 +254,13 @@ export class EnvioComponent  {
     }
     deleteenvio(){
 
-        this.http.delete(config.url+`income/delete/${this.envioId}?access_token=`+this.local.getUser().token,this.envioForm.value).map((result)=>{
+        this.http.delete(config.url+`sending/delete/${this.envioId}?access_token=`+this.local.getUser().token,this.envioForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
                         this.envios = res.update; 
                         this.toast = true;
-                        this.message = "envio Borrada"
+                        this.message = "Envio Borrado"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"
