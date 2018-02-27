@@ -361,6 +361,16 @@ export class RolsListComponent {
     public sendingEnable:boolean = false;
     public sendingReport:boolean = false;
 
+    //pickup
+
+    public pickupTypeList="";
+    public pickupList:boolean = false;
+    public pickupCreate:boolean = false;
+    public pickupEdit:boolean = false;
+    public pickupDelete:boolean = false;
+    public pickupEnable:boolean = false;
+    public pickupReport:boolean = false;
+
      //frequencyPayment
      public frequencyPaymentTypeList="";
     public frequencyPaymentList:boolean = false;
@@ -718,6 +728,15 @@ export class RolsListComponent {
               this.sendingEnable = false;
               this.sendingReport = false;
 
+              //pickup
+                
+              this.pickupList = false; 
+              this.pickupCreate = false;
+              this.pickupEdit = false;
+              this.pickupDelete = false;
+              this.pickupEnable = false;
+              this.pickupReport = false;
+
              //frequency payment
                 
                 this.frequencyPaymentList = false; 
@@ -826,6 +845,7 @@ export class RolsListComponent {
                 this.grant.user.add  == true? this.userCreate = true:this.userCreate = false; 
                 this.grant.user.edit == true? this.userEdit = true:this.userEdit = false;
                 this.grant.user.delete  == true? this.userDelete = true:this.userDelete = false; 
+                
 
 
             }
@@ -1141,6 +1161,17 @@ export class RolsListComponent {
                
              }
 
+               //pickup
+               if(this.grant.pickup != undefined){
+                this.pickupTypeList  = this.grant.pickup.typeList;
+                  this.grant.pickup.list == true ?   this.pickupList = true:    this.pickupList = false;
+                  this.grant.pickup.add   == true ?  this.pickupCreate = true:  this.pickupCreate = false; 
+                  this.grant.pickup.edit  == true ?  this.pickupEdit = true:    this.pickupEdit = false;
+                  this.grant.pickup.delete  == true? this.pickupDelete = true:  this.pickupDelete = false; 
+                  this.grant.pickup.report  == true? this.pickupReport = true:  this.pickupReport = false; 
+                 
+               }
+
                //sending
                if(this.grant.sending != undefined){
                 this.sendingTypeList  = this.grant.sending.typeList;
@@ -1312,13 +1343,14 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{}, sending:{},route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},authorizationTime:{},noRenewal:{},noRenewalRamo:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{}, sending:{}, pickup: {}, route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},authorizationTime:{},noRenewal:{},noRenewalRamo:{}};
 
         requestTwo.user['typeList'] = this.userTypeList;
         this.userList?requestTwo.user['list'] = true:null;
         this.userCreate?requestTwo.user['add'] = true:null;
         this.userEdit?requestTwo.user['edit'] = true:null;
         this.userDelete?requestTwo.user['delete'] = true:null;
+        requestTwo.user['view'] = true
 
 
         requestTwo.role['typeList'] = this.rolTypeList;
@@ -1601,6 +1633,16 @@ export class RolsListComponent {
         this.sendingDelete?requestTwo.sending['delete'] = true:null;
         this.sendingEnable?requestTwo.sending['enable'] = true:null
         this.sendingReport?requestTwo.sending['report'] = true:null
+
+        //pickup
+        requestTwo.pickup['typeList'] = this.pickupTypeList;     
+        this.pickupList?requestTwo.pickup['list'] = true:null;
+        this.pickupList?requestTwo.pickup['dateReception'] = true:null;
+        this.pickupCreate?requestTwo.pickup['add'] = true:null;
+        this.pickupEdit?requestTwo.pickup['edit'] = true:null;
+        this.pickupDelete?requestTwo.pickup['delete'] = true:null;
+        this.pickupEnable?requestTwo.pickup['enable'] = true:null
+        this.pickupReport?requestTwo.pickup['report'] = true:null
 
           //route
 

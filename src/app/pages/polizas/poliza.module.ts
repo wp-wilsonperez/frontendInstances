@@ -1,3 +1,4 @@
+import { PickupComponent } from './pickup/pickup.component';
 import { ItemService } from './../../providers/items.service';
 import { ItemAnnexStandart } from './../../components/itemAnnexs/itemAnnexStandart/itemAnnexStandart';
 import { ItemAnnexRc } from './../../components/itemAnnexs/itemAnnexRc/item-annex-rc';
@@ -35,6 +36,7 @@ export const routes = [
   { path: 'tipo-polizas', component: TipoPolizaComponent, data: { breadcrumb: 'Tipo de Polizas' } },
   { path: 'rutas', component: RutaComponent, data: { breadcrumb: 'Rutas' } },
   { path: 'ingresos', component: IngresoComponent, data: { breadcrumb: 'Ingresos' } },
+  { path: 'pickup', component: PickupComponent, data: { breadcrumb: 'Recogidas' } },
   { path: 'envios', component: EnvioComponent, data: { breadcrumb: 'Envios' } },
   { path: 'frecuencias', component: FrecuencyComponent, data: { breadcrumb: 'Frecuencias' } },
   { path: 'anexos/:id', component: PolizaAnnexComponent, data: { breadcrumb: 'Anexos' } }
@@ -54,7 +56,7 @@ export const routes = [
   ],
   declarations: [
 
-    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,EnvioComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent,ItemAnnexCar,ItemAnnexFire,ItemAnnexProfit,ItemAnnexRc,ItemAnnexTransport,ItemAnnexStandart
+    PolizaComponent,TipoPolizaComponent,RutaComponent,FrecuencyComponent,IngresoComponent,EnvioComponent,PolizaAnnexComponent,PolizaMedicalComponent,PolizaMedicalAnnexComponent,CarPolicyComponent,MedicalPolicyComponent,FirePolicyComponent,ItemAnnexCar,ItemAnnexFire,ItemAnnexProfit,ItemAnnexRc,ItemAnnexTransport,ItemAnnexStandart, PickupComponent
 
   ],
   providers: [ItemService]

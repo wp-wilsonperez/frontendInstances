@@ -1490,6 +1490,48 @@
                                                                                                          
                                                                                                        
                                                                                                     </div>
+
+                                                                                                    <div  class="list-group-item list-group-item-action"> 
+                                                                                                        
+                                                                                                        
+                                                                                                        <div  class="col-md-2"> <h5 class="list-group-item-heading">Recogidas</h5></div>
+
+                                                                                                        <select class="form-control"  [(ngModel)]="pickupTypeList" name="" id="">
+                                                                                                                <option *ngFor="let list of typeList" value="{{list.value}}">{{list.label}}</option>    
+                                                                                                        </select> 
+                                                                                                       
+                                                                                                        <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="pickupList" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Listado</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="pickupCreate" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Crear</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="pickupEdit" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Editar</span>
+                                                                                                                        
+                                                                                                         </div>
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                         <input [(ngModel)]="pickupDelete" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                            <span class="custom-control-description">Borrar</span>
+                                                                                                                        
+                                                                                                         </div>
+
+                                                                                                     
+                                                                                                         <div   class="col-md-2"> 
+                                                                                                                <input [(ngModel)]="pickupReport" type="checkbox" class="checkbox-circle">                                                                                                                           
+                                                                                                                   <span class="custom-control-description">Reportes</span>
+                                                                                                               
+                                                                                                                 </div>
+                                                                                                        
+                                                                                                     
+                                                                                                         
+                                                                                                       
+                                                                                                    </div>
                                                                                                     
                                                                                                     <div  class="list-group-item list-group-item-action"> 
                                                                                                         

@@ -348,6 +348,13 @@ export const menuItems = [
         disabled: true,
         selected: false,
         expanded: false
+      },
+      {
+        title: 'Recogida',
+        routerLink: 'polizas/pickup',
+        disabled: true,
+        selected: false,
+        expanded: false
       },   
     ]
   },
