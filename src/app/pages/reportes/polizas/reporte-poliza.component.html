@@ -88,6 +88,7 @@
                                     <tr>
                                         <th><mfDefaultSorter by="policyNumber">Numero de Poliza</mfDefaultSorter></th>                            
                                         <th><mfDefaultSorter by="city.name">Ciudad</mfDefaultSorter></th>
+                                        <th><mfDefaultSorter by="branchCreate.name">Agencia</mfDefaultSorter></th>
                                         <th><mfDefaultSorter by="recipient.name">Nombre de Cliente</mfDefaultSorter></th>
                                         <th><mfDefaultSorter by="ramo.name">Nombre de Ramo</mfDefaultSorter></th>
                                         <th><mfDefaultSorter by="policyType.name">Estado de Poliza</mfDefaultSorter></th>
@@ -101,7 +102,11 @@
                                         <td>{{poliza.policyNumber}}</td>
                                         <td><strong>{{poliza.city.name}}</strong></td>
                                         <td>
-                                            <strong>{{poliza.recipient.name}}</strong>
+                                            <strong>{{poliza.branchCreate.name}}</strong>
+                                        </td>
+                                        <td>
+                                            <strong *ngIf="poliza.recipient.name">{{poliza.recipient.name}}</strong>
+                                            <strong *ngIf="poliza.recipient.bussinesName">{{poliza.recipient.bussinesName}}</strong>
                                         </td>
                                         <td>{{poliza.ramo.name}}</td>
                                         <td>{{poliza.policyType.name}}</td>

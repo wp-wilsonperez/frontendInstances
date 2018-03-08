@@ -604,5 +604,10 @@ export class WalletComponent{
         this.list = value;
     }
 
+    borrarItem (index) {
+        console.log(index)
+        this.itemPolicies.splice( index, 1)
+    }
+
 
 }

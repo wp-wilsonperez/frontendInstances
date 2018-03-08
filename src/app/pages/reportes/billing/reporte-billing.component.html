@@ -86,7 +86,8 @@
                                 <table class="table table-striped table-hover table-sm" [mfData]="results  | BillingReportPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
                                     <thead>
                                         <tr>
-                                            <th><mfDefaultSorter by="billingNumber">Numero de Billing</mfDefaultSorter></th>                            
+                                            <th><mfDefaultSorter by="billingNumber">Numero de Billing</mfDefaultSorter></th> 
+                                            <th><mfDefaultSorter by="branchCreate.name">Agencia</mfDefaultSorter></th>                           
                                             <th><mfDefaultSorter by="city.name">Ciudad</mfDefaultSorter></th>
                                             <th><mfDefaultSorter by="recipient.name">Nombre de Cliente</mfDefaultSorter></th>
                                             <th><mfDefaultSorter by="ramo.name">Nombre de Ramo</mfDefaultSorter></th>
@@ -99,7 +100,7 @@
                                     <tbody>                           
                                         <tr *ngFor="let billing of results">
                                             <td>{{billing.billingNumber}}</td>
-                                            <td><strong>//fix</strong></td>
+                                            <td><strong *ngIf="billing.branchCreate">{{billing.branchCreate.name}}</strong></td>
                                             <td>
                                                 <strong>{{billing.detailsClientBilling.name}}</strong>
                                             </td>

@@ -236,7 +236,7 @@
                         </thead>
                         <tbody>                           
 
-                            <tr *ngFor="let policy of itemPolicies">
+                            <tr *ngFor="let policy of itemPolicies; let i = index">
                                 <td><strong>  {{policy.annexNumber}}  </strong></td>
                                 <td>{{policy.prima}}</td>
                                  <td>{{policy.totalValue}}</td>
@@ -249,7 +249,7 @@
                                                 <div class="row">
                         
 
-                                                        <button type="button btn-sm" (click)="borrarItem()" class="btn btn-danger" >Borrar</button>
+                                                        <button type="button btn-sm" (click)="borrarItem(i)" class="btn btn-danger" >Borrar</button>
 
 
                                                 </div>

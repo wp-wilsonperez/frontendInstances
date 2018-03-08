@@ -175,17 +175,12 @@ export class QuoteComponent implements OnInit{
                             this.quoteForm.controls['iva'].setValue(this.iva);
                             console.log('iva: ',this.iva);
                     })
-               
-              }
-
+            }
           loadPaymentTypes(){
-
             this.http.get(config.url+'param/list?access_token='+this.local.getUser().token).toPromise().then(result=>{
              let apiResult = result.json();
              this.paymentTypes = apiResult.params.paymentType.list;
              console.log("payment types::",this.paymentTypes);
-             
-             
          })
 
         }

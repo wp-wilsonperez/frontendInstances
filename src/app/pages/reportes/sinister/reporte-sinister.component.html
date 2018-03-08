@@ -101,12 +101,12 @@
                                     </thead>
                                     <tbody>                           
                                         <tr *ngFor="let sinister of results">
-                                            <td>//fix</td>
-                                            <td><strong>//fix</strong></td>
+                                            <td><strong *ngIf="sinister.branchCreate">{{sinister.branchCreate.name}}</strong></td>
+                                            <td><strong *ngIf="sinister.city">{{sinister.city.name}}</strong></td>
                                             <td>
                                                 <strong>{{sinister.recipient.name}}</strong>
                                             </td>
-                                            <td>//fix</td>
+                                            <td><strong *ngIf="sinister.billings">{{sinister.billings[0].billing.billingNumberp}}</strong></td>
                                             <td>{{sinister.policyData.policyNumber}}</td>
                                             <td>{{sinister.policyData.policyNumber}}</td>
                                             <td>{{sinister.policyData.ramo.name}}</td>
