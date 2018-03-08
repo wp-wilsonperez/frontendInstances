@@ -310,13 +310,10 @@
                         <tbody>                           
 
                             <tr *ngFor="let wallet of wallets">
-                                <td><strong>  {{wallet.walletNumber}}  </strong></td>
-                                <td>{{wallet.walletDate}}</td>
-                                 <td></td>
-                                 <td>{{wallet.totalwalletValue}}</td>
-              
-                               
-
+                                <td><strong *ngIf="wallet.DetailsBillingData">  {{wallet.DetailsBillingData.billingNumber}}  </strong></td>
+                                <td>{{wallet.dateCreate | date: 'shortDate'}}</td>
+                                 <td><strong *ngIf="wallet.DetailsBillingData.detailsClientBilling.bussinesName">{{wallet.DetailsBillingData.detailsClientBilling.bussinesName}} </strong><strong *ngIf="wallet.DetailsBillingData.detailsClientBilling.name">{{wallet.DetailsBillingData.detailsClientBilling.name}} </strong></td>
+                                 <td>{{wallet.paymentValue}}</td>
                                 <td class="row col  bottom-15">
                                   
                                       <div class="d-inline-block">

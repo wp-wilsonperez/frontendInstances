@@ -45,9 +45,9 @@ export class WalletComponent{
         public citiesOptions:any = [];
         public cities:any;
         public policyOptions:any = [];
-        public policies:any;
         public annexOptions:any = [];
         public annexs:any;
+        public policies:any;
 
         error:any;
         toast:boolean = false;
@@ -178,8 +178,7 @@ export class WalletComponent{
             this.http.get(config.url+'wallet/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                    this.wallets = result.wallets;
-
+                    this.wallets = result.wallets
                     console.log('wallets',this.wallets);
             })
             
@@ -382,7 +381,7 @@ export class WalletComponent{
         loadPolicies(){
 
             this.http.get(config.url+'policy/list?access_token='+this.local.getUser().token).map((res)=>{
-                console.log('policiessss',res.json());
+                console.log('pol',res.json());
                 
                 return res.json();
             }).subscribe((result)=>{
@@ -395,7 +394,7 @@ export class WalletComponent{
                         this.policyOptions.push(obj);
                         this.policies = this.policyOptions;
                     })
-                    console.log('Polizas',this.policies);
+                    console.log('Polizas',this.wallets);
             })
 
         }
