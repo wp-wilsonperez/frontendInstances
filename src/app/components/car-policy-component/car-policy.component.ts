@@ -41,6 +41,7 @@ export class CarPolicyComponent implements OnInit {
             idDeductible:['',Validators.compose([Validators.required])],
             insured:[''],
             startDate:[''],
+            futureYears: [],
             finishDate:[''],
             daysofValidity:[''],
             idPolicyType:[''],

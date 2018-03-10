@@ -80,6 +80,7 @@ export class PolizaComponent{
                 idPaymentType:[],
                 percentageRamo:[],
                 recipient:[],
+                futureYears: [],
                 typeRecipient:[],
                 
             });
@@ -459,7 +460,8 @@ export class PolizaComponent{
                         typeRecipient:poliza.typeRecipient || '',
                         idUser: poliza.idUser || '',
                         idClient: poliza.idClient || '',
-                        idPlan:poliza.idPlan || ''
+                        idPlan:poliza.idPlan || '',
+                        futureYears: poliza.futureYears || ''
         });
         this.carPolicy.getTasa();
         this.carPolicy.getPlan();

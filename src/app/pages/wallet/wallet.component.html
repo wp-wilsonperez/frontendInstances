@@ -312,19 +312,15 @@
                             <tr *ngFor="let wallet of wallets">
                                 <td><strong *ngIf="wallet.DetailsBillingData">  {{wallet.DetailsBillingData.billingNumber}}  </strong></td>
                                 <td>{{wallet.dateCreate | date: 'shortDate'}}</td>
-                                 <td><strong *ngIf="wallet.DetailsBillingData.detailsClientBilling.bussinesName">{{wallet.DetailsBillingData.detailsClientBilling.bussinesName}} </strong><strong *ngIf="wallet.DetailsBillingData.detailsClientBilling.name">{{wallet.DetailsBillingData.detailsClientBilling.name}} </strong></td>
+                                 <td><strong *ngIf="wallet.DetailsBillingData.detailsClientBilling">{{wallet.DetailsBillingData.detailsClientBilling.bussinesName}} </strong><strong *ngIf="wallet.DetailsBillingData.detailsClientBilling">{{wallet.DetailsBillingData.detailsClientBilling.name}} </strong></td>
                                  <td>{{wallet.paymentValue}}</td>
                                 <td class="row col  bottom-15">
                                   
                                       <div class="d-inline-block">
                                                 <div class="row">
-                        
-
-                                                        <button type="button btn-sm" (click)="borrarItem()" class="btn btn-danger" >Borrar</button>
-
-
-                                                </div>
-                                                
+                                                        <button (click)="idAssign(wallet._id)" type="button btn-sm" data-toggle="modal" data-target="#edit-modal" class="btn btn-primary" >Editar</button>
+                                                        <button (click)="idAssign(wallet._id)" type="button btn-sm" data-toggle="modal" data-target="#delete-modal" class="btn btn-danger" >Borrar</button>
+                                                </div>  
                                             </div>
                                 </td>
                                 </tr>
@@ -345,5 +341,42 @@
     
     </div>
 </div>
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header state modal-danger">                                    
+                <h4 class="modal-title" id="modal-error-label"><i class="fa fa-exclamation-triangle"></i>Estas Seguro?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+               <!--Esta seguro-->
+               {{messages.sure_delete}}
+            </div>
+            <div class="modal-footer">
+                <button (click)="deleteWallet()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header state modal-primary">  
+                    Editar Cartera                                  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+     
+                </div>
+                <div class="modal-footer">
+                    <button (click)="editWallet()" type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 

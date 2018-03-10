@@ -4,7 +4,7 @@ import { Http, Response } from '@angular/http';
 import { config } from '../../../config/project-config';
 import { UserSessionService } from '../../providers/session.service';
 import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
-
+import { messages } from './../../../config/project-config';
 
 @Component({
     selector:'wallet-component',
@@ -15,6 +15,7 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 
 export class WalletComponent{
         public walletForm:FormGroup;
+        public walletEdit:FormGroup;
         public walletPaymentForm:FormGroup;
         public editForm:FormGroup;
         public itemForm:FormGroup;
@@ -48,6 +49,7 @@ export class WalletComponent{
         public annexOptions:any = [];
         public annexs:any;
         public policies:any;
+        public messages = messages
 
         error:any;
         toast:boolean = false;
@@ -113,6 +115,9 @@ export class WalletComponent{
                 detailsWallet:['']
                 
             });
+            this.walletEdit =this.formBuilder.group({
+
+            });
 
             this.walletPaymentForm = this.formBuilder.group({
                 idwallet:[''],
@@ -159,9 +164,7 @@ export class WalletComponent{
                 rc:[],
 
             });
-            this.editForm = this.formBuilder.group({
-               
-            });
+            this.editForm = this.formBuilder.group({});
 
             this.loadwallets();
             this.loadClients();
@@ -482,7 +485,6 @@ export class WalletComponent{
         idAssign(walletId){
                 this.walletId = walletId;
         }
-
         walletDetail(wallet){
     
         this.walletId = wallet._id;
@@ -514,13 +516,13 @@ export class WalletComponent{
         
         
     }
-    deletewallet(){
+    deleteWallet(){
 
         this.http.delete(config.url+`wallet/delete/${this.walletId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.wallets = res.update; 
+                        this.loadwallets()
                         this.toast = true;
                         this.message = "wallet Borrado"
                 }else{
