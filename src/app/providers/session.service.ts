@@ -47,7 +47,7 @@ export class UserSessionService {
             
             
             localStorage.setItem('name',user.name);
-            localStorage.setItem('id',user._id);
+            localStorage.setItem('id',user.idUser);
             localStorage.setItem('lastName',user.lastName);
             localStorage.setItem('cedula',user.cedula);
             localStorage.setItem('userImg',user.userImg);

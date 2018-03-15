@@ -98,7 +98,7 @@ export class AutoComponent{
                 }else{
                       this.error = true;
                       console.log(res);
-                    this.message = res.err
+                    this.message = res.err.message
                    
                 }
                 console.log(res);

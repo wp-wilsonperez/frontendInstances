@@ -126,92 +126,111 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 </div>
                                 <div class="modal-body">
-                                     <form  [formGroup]="autoForm"  class="row">
-                                        <div class="col-md-6">  
-                                             <label for="exampleSelect1">Cliente</label>
-                                                            <select formControlName="idClient" class="form-control">
-                                                                <option *ngFor="let client of clientes" value="{{client._id}}">{{client.name}}</option>
-                                                             </select>
-
-                                             <label for="exampleSelect1">Marca</label>
-                                                            <select formControlName="idCarBrand" class="form-control">
-                                                                <option *ngFor="let marca of carBrands" value="{{marca._id}}">{{marca.name}}</option>
-                                                             </select>
-                                            <label for="exampleSelect1">Color</label>
-                                                            <select formControlName="idCarColor" class="form-control">
-                                                                <option *ngFor="let color of carColors" value="{{color._id}}">{{color.name}}</option>
-                                                            </select>
-
-                                        <div class="form-group " [ngClass]="{'has-danger' : autoForm.get('chasis').value != '' && autoForm.get('chasis').hasError('required'), 'has-success' : !autoForm.get('chasis').hasError('required') }">
-                                                    <label class="form-control-label">Chasis*</label>
-                                                    <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-car"></i></div>
-                                                            <input formControlName="chasis" class="form-control" [ngClass]="{'form-control-danger' :  autoForm.get('chasis').hasError('required'), 'form-control-success' :  !autoForm.get('chasis').hasError('required') }" type="text"> 
+                                        <div class="col-lg-12 col-12 bottom-30">
+                                                <div class="clearfix">
+                                                    <ul class="nav nav-tabs top pull-left w-100p">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" data-toggle="tab" href="#ta">Datos de Auto</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#tb">Subir desde Excel</a>
+                                                        </li>                          
+                                                    </ul>
+                                                </div>
+                                                <div class="tab-content top">
+                                                    <div class="tab-pane active" id="ta">
+                                                            <form  [formGroup]="autoForm"  class="row">
+                                                                    <div class="col-md-6">  
+                                                                         <label for="exampleSelect1">Cliente</label>
+                                                                                        <select formControlName="idClient" class="form-control">
+                                                                                            <option *ngFor="let client of clientes" value="{{client._id}}">{{client.name}}</option>
+                                                                                         </select>
+                            
+                                                                         <label for="exampleSelect1">Marca</label>
+                                                                                        <select formControlName="idCarBrand" class="form-control">
+                                                                                            <option *ngFor="let marca of carBrands" value="{{marca._id}}">{{marca.name}}</option>
+                                                                                         </select>
+                                                                        <label for="exampleSelect1">Color</label>
+                                                                                        <select formControlName="idCarColor" class="form-control">
+                                                                                            <option *ngFor="let color of carColors" value="{{color._id}}">{{color.name}}</option>
+                                                                                        </select>
+                            
+                                                                    <div class="form-group " [ngClass]="{'has-danger' : autoForm.get('chasis').value != '' && autoForm.get('chasis').hasError('required'), 'has-success' : !autoForm.get('chasis').hasError('required') }">
+                                                                                <label class="form-control-label">Chasis*</label>
+                                                                                <div class="input-group">
+                                                                                        <div class="input-group-addon"><i class="fa fa-car"></i></div>
+                                                                                        <input formControlName="chasis" class="form-control" [ngClass]="{'form-control-danger' :  autoForm.get('chasis').hasError('required'), 'form-control-success' :  !autoForm.get('chasis').hasError('required') }" type="text"> 
+                                                                                </div>
+                                                                            
+                                                                                <span class="help-block text-danger" *ngIf="autoForm.get('chasis').value != '' && autoForm.get('chasis').hasError('required')">Chasis no puede estar vacio</span>                             
+                                                                    </div>
+                            
+                                                                     <div class="form-group " [ngClass]="{'has-danger' : autoForm.get('placa').value != '' && autoForm.get('placa').hasError('required'), 'has-success' : !autoForm.get('placa').hasError('required') }">
+                                                                                        <label class="form-control-label">Placa*</label>
+                                                                                        <div class="input-group">
+                                                                                                <div class="input-group-addon"><i class="fa fa-car"></i></div>
+                                                                                                <input formControlName="placa" class="form-control" [ngClass]="{'form-control-danger' :  autoForm.get('placa').hasError('required'), 'form-control-success' :  !autoForm.get('placa').hasError('required') }" type="text"> 
+                                                                                        </div>
+                                                                            
+                                                                                <span class="help-block text-danger" *ngIf="autoForm.get('placa').value != '' && autoForm.get('placa').hasError('required')">Placa</span>                             
+                                                                                </div>
+                                                                         <label for="exampleSelect1">Uso de Carro</label>
+                                                                                        <select formControlName="carUse" class="form-control">
+                                                                                            <option *ngFor="let uso of carUses" value="{{uso.name}}">{{uso.name}}</option>
+                                                                                         </select>
+                                                                        <div class="form-group">
+                                                                                 <label class="form-control-label">Extras*</label>
+                                                                             <div class="input-group">
+                                                                                    <div class="input-group-addon"><i class="fa fa-car"></i></div>
+                                                                                    <input formControlName="extras" type="number" class="form-control">
+                                                                                </div>
+                            
+                                                                        </div>
+                                                                            
+                            
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                            
+                                                                               <label for="exampleSelect1">Ramo</label>
+                                                                                        <select formControlName="idRamo" class="form-control">
+                                                                                            <option *ngFor="let ramo of ramos" value="{{ramo._id}}">{{ramo.name}}</option>  
+                                                                                         </select>
+                            
+                                                                                <label for="exampleSelect1">Modelo</label>
+                                                                                        <select  formControlName="idCarModel" class="form-control">
+                                                                                            <option *ngFor="let modelo of carModels" value="{{modelo._id}}">{{modelo.name}}</option>
+                                                                                         </select>
+                            
+                                                                                  <div class="form-group " [ngClass]="{'has-danger' : autoForm.get('motor').value != '' && autoForm.get('motor').hasError('required'), 'has-success' : !autoForm.get('motor').hasError('required') }">
+                                                                                        <label class="form-control-label">Motor*</label>
+                                                                                        <div class="input-group">
+                                                                                                <div class="input-group-addon"><i class="fa fa-car"></i></div>
+                                                                                                <input formControlName="motor" class="form-control" [ngClass]="{'form-control-danger' :  autoForm.get('motor').hasError('required'), 'form-control-success' :  !autoForm.get('motor').hasError('required') }" type="text"> 
+                                                                                        </div>
+                                                                            
+                                                                                <span class="help-block text-danger" *ngIf="autoForm.get('motor').value != '' && autoForm.get('motor').hasError('required')">Motor</span>                             
+                                                                                </div>
+                            
+                                                                              <div class="form-group">
+                                                                                 <label class="form-control-label">Extra Valor*</label>
+                                                                             <div class="input-group">
+                                                                                    <div class="input-group-addon"><i class="fa fa-car"></i></div>
+                                                                                    <input formControlName="extrasValue" type="text" class="form-control">
+                                                                                </div>
+                            
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                            
+                                                                
+                                                            </form>
                                                     </div>
-                                                
-                                                    <span class="help-block text-danger" *ngIf="autoForm.get('chasis').value != '' && autoForm.get('chasis').hasError('required')">Chasis no puede estar vacio</span>                             
-                                        </div>
-
-                                         <div class="form-group " [ngClass]="{'has-danger' : autoForm.get('placa').value != '' && autoForm.get('placa').hasError('required'), 'has-success' : !autoForm.get('placa').hasError('required') }">
-                                                            <label class="form-control-label">Placa*</label>
-                                                            <div class="input-group">
-                                                                    <div class="input-group-addon"><i class="fa fa-car"></i></div>
-                                                                    <input formControlName="placa" class="form-control" [ngClass]="{'form-control-danger' :  autoForm.get('placa').hasError('required'), 'form-control-success' :  !autoForm.get('placa').hasError('required') }" type="text"> 
-                                                            </div>
-                                                
-                                                    <span class="help-block text-danger" *ngIf="autoForm.get('placa').value != '' && autoForm.get('placa').hasError('required')">Placa</span>                             
+                                                    <div class="tab-pane" id="tb">
+                                                       <input type="file" name="" id="">
                                                     </div>
-                                             <label for="exampleSelect1">Uso de Carro</label>
-                                                            <select formControlName="carUse" class="form-control">
-                                                                <option *ngFor="let uso of carUses" value="{{uso.name}}">{{uso.name}}</option>
-                                                             </select>
-                                            <div class="form-group">
-                                                     <label class="form-control-label">Extras*</label>
-                                                 <div class="input-group">
-                                                        <div class="input-group-addon"><i class="fa fa-car"></i></div>
-                                                        <input formControlName="extras" type="number" class="form-control">
-                                                    </div>
-
+                                                                  
                                             </div>
-                                                
-
-                                        </div>
-                                        <div class="col-md-6">
-
-                                                   <label for="exampleSelect1">Ramo</label>
-                                                            <select formControlName="idRamo" class="form-control">
-                                                                <option *ngFor="let ramo of ramos" value="{{ramo._id}}">{{ramo.name}}</option>  
-                                                             </select>
-
-                                                    <label for="exampleSelect1">Modelo</label>
-                                                            <select  formControlName="idCarModel" class="form-control">
-                                                                <option *ngFor="let modelo of carModels" value="{{modelo._id}}">{{modelo.name}}</option>
-                                                             </select>
-
-                                                      <div class="form-group " [ngClass]="{'has-danger' : autoForm.get('motor').value != '' && autoForm.get('motor').hasError('required'), 'has-success' : !autoForm.get('motor').hasError('required') }">
-                                                            <label class="form-control-label">Motor*</label>
-                                                            <div class="input-group">
-                                                                    <div class="input-group-addon"><i class="fa fa-car"></i></div>
-                                                                    <input formControlName="motor" class="form-control" [ngClass]="{'form-control-danger' :  autoForm.get('motor').hasError('required'), 'form-control-success' :  !autoForm.get('motor').hasError('required') }" type="text"> 
-                                                            </div>
-                                                
-                                                    <span class="help-block text-danger" *ngIf="autoForm.get('motor').value != '' && autoForm.get('motor').hasError('required')">Motor</span>                             
-                                                    </div>
-
-                                                  <div class="form-group">
-                                                     <label class="form-control-label">Extra Valor*</label>
-                                                 <div class="input-group">
-                                                        <div class="input-group-addon"><i class="fa fa-car"></i></div>
-                                                        <input formControlName="extrasValue" type="text" class="form-control">
-                                                    </div>
-
-                                            </div>
-                                        </div>
-                                        
-
-                                    
-                                    </form>
-
+                                     
                                    
                                 </div>
                                 <div class="modal-footer">

@@ -46,13 +46,11 @@
                             <tr *ngFor="let log of logs">
                                   
                                 <td><strong>  {{log.log}}   </strong></td>
-                                <td>{{log.user.cedula}}</td>
+                                <td> <span *ngIf="log.user">{{log.user.name}} {{log.user.lastName}} </span></td>
                                 <td>
                                     {{log.dateLog}}
                                 </td>
-                              
-                              
-                                    </tr>
+                                </tr>
                             
                             </tbody>
                             <tfoot>
