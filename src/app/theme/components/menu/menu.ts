@@ -509,32 +509,6 @@ export const menuItems = [
     ]
   },
   {
-    title: 'Bancos',
-    routerLink: 'bancos',
-    icon: 'fa-building',
-
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Listado de Bancos',
-        routerLink: 'bancos/banco',
-        disabled: false,
-        selected: false,
-        expanded: false
-      },
-       {
-        title: 'Banco Seguro',
-        routerLink: 'bancos/banco-seguro',
-        disabled: false,
-        selected: false,
-        expanded: false
-      }
-      
-    ]
-  },
-  {
     title: 'Polizas',
     routerLink: 'polizas',
 
@@ -598,28 +572,6 @@ export const menuItems = [
       },
     ]
   },
-  
-    {
-    title: 'Cotizaciones',
-    routerLink: 'presupuestos',
-
-    icon: 'fa-building',
-
-    selected: false,
-    expanded: false,
-    order: 0,
-    subMenu: [
-      {
-        title: 'Listado',
-        routerLink: 'presupuestos/listado',
-        disabled: true,
-        selected: false,
-        expanded: false
-      },
-    ]
-  },
-
-
     {
     title: 'Facturacion',
     routerLink: 'polizas',

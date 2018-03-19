@@ -36,6 +36,7 @@ export class ClienteComponent implements OnInit{
         public searchCedula =  null
         public searchStart =  null
         public searchEnd =  null
+        fileData: any;
         error:any;
         toast:boolean = false;
         message:string;
@@ -526,7 +527,7 @@ restartValues(){
         let formData: any = new FormData()
         let xhr = new XMLHttpRequest()
    
-            formData.append("copyImg", file, file.name)
+            formData.append("file", file, file.name)
         
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
@@ -555,6 +556,33 @@ filter(){
          this.clients = result.clients
      })
  }
+ changeFile(event) {
+    console.log(event)
+    this.fileData = event.target.files[0]
+    console.log(this.fileData)
+    this.makeFileRequest(config.url+'upload/client?access_token='+this.local.getUser().token,this.fileData)
+    .map((result)=>{
+        return result
+    })
+    .subscribe((res: any) => {
+        console.log('reste es el result', res)
+        if (res.err) {
+            this.error = true
+            this.message = res.err.code
+            console.log(res.err.code)
+        }else {
+            this.toast = true
+            this.message = "Clientes cargados desde archivo correctamente"
+            this.loadclients()
+        }
+    },
+    err =>{
+        this.error = true
+        this.message = err.code
+        console.log(err.code)
+    }
+)
+}
 
 
 

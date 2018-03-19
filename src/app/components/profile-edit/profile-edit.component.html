@@ -1,0 +1,113 @@
+<div class="row mbm-20">
+    <div class="col-lg-12 col-12 bottom-30">
+        <div class="clearfix">
+            <ul class="nav nav-tabs top pull-left w-100p">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#ta">Datos Personales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tb">Imagen</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="tab" href="#tc" >Rol</a>
+
+                    
+                </li>                          
+            </ul>
+        </div>
+        <div class="tab-content top">
+            <div class="tab-pane active" id="ta">
+            <form [formGroup]="editForm" class="row">
+
+                <div class="form-group col-md-5" [ngClass]="{'has-danger' :  editForm.get('name').hasError('required'), 'has-success' : !editForm.get('name').hasError('required') }">
+                    <label class="form-control-label">Nombre</label>
+                    <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                            <input [(ngModel)]="editName" formControlName="name" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('name').hasError('required'), 'form-control-success' :  !editForm.get('name').hasError('required') }" type="text"> 
+                    </div>
+                
+                    <span class="help-block text-danger" *ngIf="editForm.get('name').hasError('required')">Nombre no puede estar vacio</span>                             
+                </div>
+
+                <div class="form-group col-md-5" [ngClass]="{'has-danger' : editForm.get('lastName').hasError('required'), 'has-success' : !editForm.get('lastName').hasError('required') }">
+                    <label class="form-control-label">Apellido</label>
+                    <div class="input-group">  
+                        <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                        <input formControlName="lastName" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('lastName').hasError('required'), 'form-control-success' :  !editForm.get('lastName').hasError('required') }" type="text"> 
+                    </div>
+                
+                    <span class="help-block text-danger" *ngIf="editForm.get('lastName').hasError('required')">Apellido no puede estar vacio</span>                             
+                </div>
+
+
+                
+                <div class="form-group col-md-5" [ngClass]="{'has-danger' : (editForm.get('cedula').hasError('required')) || (editForm.get('cedula').hasError('minlength')) || (editForm.get('cedula').hasError('invalidNumber')) || (editForm.get('cedula').hasError('invalidCedula')), 
+                                                            'has-success' : !editForm.get('cedula').hasError('required') && !editForm.get('cedula').hasError('minlength') && !editForm.get('cedula').hasError('invalidNumber') && !editForm.get('cedula').hasError('invalidCedula') }">
+                    <label class="form-control-label">Cedula</label> 
+                    <div class="input-group"> 
+                        <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>                       
+                        <input formControlName="cedula" class="form-control" [ngClass]="{'form-control-danger' : ( editForm.get('cedula').hasError('required')) || (editForm.get('cedula').hasError('minlength')) || (editForm.get('cedula').hasError('invalidNumber')) || (editForm.get('cedula').hasError('invalidCedula')),                                                                                                        
+                        'form-control-success' : !editForm.get('cedula').hasError('required') && !editForm.get('cedula').hasError('minlength') && !editForm.get('cedula').hasError('invalidNumber') && !editForm.get('cedula').hasError('invlidCedula')}" type="text" maxlength="10">
+                    </div>
+                    <span class="help-block text-danger" *ngIf="editForm.get('cedula').hasError('required')">Cedula es Necesaria</span>                              
+                    <span class="help-block text-danger" *ngIf="editForm.get('cedula').hasError('minlength')">La cedula debe tener  10 caracteres</span>                            
+                    <span class="help-block text-danger" *ngIf=" editForm.get('cedula').hasError('invalidNumber')">La cedula debe tener solo numeros</span> 
+                    <span class="help-block text-danger" *ngIf="editForm.get('cedula').hasError('invalidCedula')">Cedula Invalida</span>                            
+                </div>
+
+                <div class="form-group col-md-5" [ngClass]="{'has-danger' :  editForm.get('mail').hasError('required'), 'has-success' : !editForm.get('mail').hasError('required') }">
+                    <label class="form-control-label">Email</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                        
+                        <input formControlName="mail" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('mail').hasError('required'), 'form-control-success' :  !editForm.get('mail').hasError('required') }" type="text"> 
+                    </div>
+                    <span class="help-block text-danger" *ngIf="editForm.get('mail').hasError('required')">Email esta vacio</span>                             
+                </div>
+
+                <div class="form-group col-md-5" [ngClass]="{'has-danger' :  editForm.get('phone').hasError('required'), 'has-success' : !editForm.get('phone').hasError('required') }">
+                    <label class="form-control-label">Telefono</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-id-card-o"></i></div>
+                        
+                        <input formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' :  editForm.get('phone').hasError('required'), 'form-control-success' :  !editForm.get('phone').hasError('required') }" type="text"> 
+                    </div>
+                    <span class="help-block text-danger" *ngIf="editForm.get('phone').hasError('required')">Telefono esta vacio</span>                             
+                </div>
+
+            
+                
+                <div class="form-group col-md-5">
+                    <label for="input-12">Fecha de Nacimiento</label>
+                    <input formControlName="dateBirthday"  class="form-control" type="date" max="{{today}}" class="form-control">
+                </div>                     
+            </form>
+            </div>
+            <div class="tab-pane" id="tb">
+               <div class="col-md-4">
+                        <div class="form-group img_user">                    
+                            <h6>Imagen de Perfil</h6>
+                            <az-image-uploader></az-image-uploader>
+                        </div>
+                    </div>
+            </div>
+            <div class="tab-pane" id="tc">
+               <div class="form-group col-md-12">
+                        <label for="exampleSelect1">Rol de Usuario</label>
+
+                                <select class="form-control">
+                                    <option *ngFor="let rol of roles" value="{{rol._id}}">{{rol.name}}</option>
+                                
+                                </select>
+                        
+                            
+                        
+                      
+                    </div>
+            </div>
+     
+        </div>  
+        <button (click)="editUser()" type="button" class="btn btn-primary" data-dismiss="modal">Cambiar</button>                 
+    </div>
+
+</div>

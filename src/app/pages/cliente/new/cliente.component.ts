@@ -8,6 +8,7 @@ import { ValidationService } from '../../bussiness/new/validation.service';
 import { validacionCedula } from '../../login/login.component';
 import * as mapTypes from 'angular2-google-maps/core' ;
 import { SebmGoogleMap, MapsAPILoader } from 'angular2-google-maps/core';
+import { Observable } from 'rxjs/Observable';
 
 
 
@@ -25,6 +26,7 @@ export class ClienteComponent implements OnInit{
         public clients:any;
         public helpLinkId:any;
         public clientId:any;
+        public fileData: any;
         error:any;
         toast:boolean = false;
         message:string;
@@ -196,7 +198,51 @@ export class ClienteComponent implements OnInit{
        })
        
     }
-
-
-
+    changeFile(event) {
+        console.log(event)
+        this.fileData = event.target.files[0]
+        console.log(this.fileData)
+        this.makeFileRequest(config.url+'upload/client?access_token='+this.local.getUser().token,this.fileData)
+        .map((result)=>{
+            return result
+        })
+        .subscribe((res: any) => {
+            console.log('reste es el result', res)
+            if (res.err) {
+                this.error = true
+                this.message = res.err.code
+                console.log(res.err.code)
+            }else {
+                this.toast = true
+                this.message = "Clientes cargados desde archivo correctamente"
+                this.loadclients()
+            }
+        },
+        err =>{
+            this.error = true
+            this.message = err.code
+            console.log(err.code)
+        }
+    )
+    }
+    makeFileRequest(url: string, file: any) {
+        return Observable.fromPromise(new Promise((resolve, reject) => {
+            let formData: any = new FormData()
+            let xhr = new XMLHttpRequest()
+       
+                formData.append("data", file, file.name)
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.response))
+                    } else {
+                        reject(xhr.response)
+                    }
+                }
+            }
+            xhr.open("POST", url, true)
+            xhr.send(formData)
+        }));
+    }
 }

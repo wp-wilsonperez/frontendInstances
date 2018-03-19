@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { ProfileEditComponent } from './../../components/profile-edit/profile-edit.component';
 import { UserSessionService } from './../../providers/session.service';
 import { Http, Response } from '@angular/http';
 import { MultipleImageUploaderComponent } from './multiple-image-uploader/multiple-image-uploader.component';
@@ -21,14 +23,24 @@ export class AccountComponent{
     @ViewChild(MultipleImageUploaderComponent)
      public imagesComponent:MultipleImageUploaderComponent;
 
-    constructor(public formBuilder:FormBuilder,public http:Http ,public local:UserSessionService){
+    constructor(public formBuilder:FormBuilder,public http:Http ,public local:UserSessionService, public router:Router){
             this.user = this.local.getUser();
             this.loadAccount();
             this.formAccount = this.formBuilder.group({
                 name: [''],
                 lastName: [''],
-                phone: ['']
+                cedula: [''],
+                password: [''],
+                mail: [''],
+                phone: [''],
+                dateBirthday: [''],
+                idRole: [''],
+                role: [''],
+                idBranch: [''],
+                userImg: [''],
+                Enabled: [1]
             })
+            console.log('este es el edit' ,ProfileEditComponent)
 
     }
     loadAccount(){
@@ -43,7 +55,16 @@ export class AccountComponent{
             this.formAccount.setValue({
                     name: this.account.name || '',
                     lastName: this.account.lastName || '',
-                    phone: this.account.phone || ''
+                    phone: this.account.phone || '',
+                    cedula: this.account.cedula || '',
+                    password: this.account.password || '',
+                    mail: this.account.mail || '',
+                    dateBirthday: this.account.dateBirthdate || '',
+                    idRole: this.account.idRole || '',
+                    role: this.account.role || '',
+                    idBranch: this.account.idBranch || '',
+                    userImg: this.account.userImg || '',
+                    Enabled: this.account.Enabled || 1,
             });
           console.log(this.account);
           
@@ -72,24 +93,15 @@ export class AccountComponent{
 
     this.http.post(config.url+'user/edit/'+this.user.id+'?access_token='+this.local.getUser().token,this.formAccount.value).toPromise()
     .then(result=>{
-
         let apiResult = result.json();
-
-        console.log(apiResult.msg);
-
-        if(apiResult.msg == 'OK'){
-            this.toast = true;
-            this.message = 'Cuenta Actualizada';
-            
-        }
-        
-        
+        console.log(apiResult);
     })
     .catch(err => {
-        console.log('err', err)
+        console.log('ha habido un error', err)
     })
-
     console.log(this.formAccount.value);
+    localStorage.clear();
+    this.router.navigate(['/login']);
     
         
   }

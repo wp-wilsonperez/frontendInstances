@@ -1,3 +1,5 @@
+import { ProfileEditComponent } from './../../components/profile-edit/profile-edit.component';
+import { ComponentsModule } from './../../components/components.module';
 import { MultipleImageUploaderComponent } from './multiple-image-uploader/multiple-image-uploader.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { AccountComponent } from './account.component';
@@ -17,7 +19,6 @@ export const routes = [
 
 @NgModule({
   imports: [
- 
     DataTableModule,
     PipesModule,
     DirectivesModule,
@@ -28,7 +29,7 @@ export const routes = [
   ],
   declarations: [
 
-    AccountComponent,ImageUploaderComponent,MultipleImageUploaderComponent
+    AccountComponent,ImageUploaderComponent,MultipleImageUploaderComponent,ProfileEditComponent
 
   ],
   providers: []

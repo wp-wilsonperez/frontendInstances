@@ -32,8 +32,6 @@ import { HttpModule } from '@angular/http';
     BackTopComponent,
     SearchComponent ,
     ExternalLinkComponent
-
-
   ]
 })
 export class PagesModule { }

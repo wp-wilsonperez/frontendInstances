@@ -1,23 +1,21 @@
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ImageUploaderComponent } from './../image-uploader/image-uploader.component';
-import { UserSessionService } from './../../../providers/session.service';
+import { ImageUploaderComponent } from './../../pages/user/image-uploader/image-uploader.component';
+import { UserSessionService } from './../../providers/session.service';
 import { Http } from '@angular/http';
-import { ValidationService } from './../new/validation.service';
+import { ValidationService } from './../../pages/user/new/validation.service';
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
-import { UserService } from './dynamic-tables.service';
+import { UserService } from './../../pages/user/list/dynamic-tables.service';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {config} from './../../../../config/project-config';
+import {config} from './../../../config/project-config';
 
 
 @Component({
-  selector: 'az-dynamic-tables',
-  encapsulation: ViewEncapsulation.None,
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  selector: 'app-edit-user',
+  templateUrl: './profile-edit.component.html',
+  styleUrls: ['./profile-edit.component.scss'],
   providers: [ UserService,ValidationService,UserSessionService ]
 })
-export class UserListComponent {
+export class ProfileEditComponent {
     public data: any;
     public usersData:any;
     public toast:boolean;
@@ -38,7 +36,7 @@ export class UserListComponent {
     config = config;
     imgResult:any;
 
-    constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService, public router:Router){
+    constructor(private userService:UserService,private formBuilder: FormBuilder,public http:Http,public userSession:UserSessionService){
         this.local = this.userSession.getUser(); 
        this.loadUsers();
        this.loadRols();
@@ -53,7 +51,7 @@ export class UserListComponent {
             'idBranch':[''],
             'userImg': [''],
             'mail':['',Validators.compose([Validators.required])],
-            'Enabled':['']
+            'Enabled':[1]
         
         },{validator: ValidationService.validacionCedula('cedula')});
     }
@@ -80,42 +78,32 @@ export class UserListComponent {
     } 
     loadUsers(){
         this.userService.userList().then(result=>{
-                    this.usersData = result.users;
-                    this.listUserComplete = result.users;
-                    console.log('Users from Api: ',this.usersData);
-                    
-                    
+            this.usersData = result.users;
+            this.listUserComplete = result.users;
+            console.log('Users from Api: ',this.usersData);           
         })
 
     }
     userDetail(user){
-            var today:any = new Date();
-            var dd:any = today.getDate();
-            var mm:any = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
-            if(dd<10){
-                    dd='0'+dd
-                } 
-                if(mm<10){
-                    mm='0'+mm
-                } 
-
-            today = yyyy+'-'+mm+'-'+dd;
-            this.today  = today;
-            console.log(today);
-            this.userId = user._id;
-            console.log('user id',this.userId);
-            
-
-            this.imageComponent.placeHolderImg = config.url+'uploads/user/'+user.userImg;   
-        
-        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,dateBirthday: user.dateBirthday || '',mail:user.mail,userImg:user.userImg,idRole : user.idRole,idBranch:user.idBranch,Enabled:1});
-        
-        
-        
+        var today:any = new Date();
+        var dd:any = today.getDate();
+        var mm:any = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10){
+                dd='0'+dd
+            } 
+            if(mm<10){
+                mm='0'+mm
+            } 
+        today = yyyy+'-'+mm+'-'+dd;
+        this.today  = today;
+        console.log(today);
+        this.userId = user._id;
+        console.log('user id',this.userId);
+        this.imageComponent.placeHolderImg = config.url+'uploads/user/'+user.userImg;   
+        this.editForm.setValue({name: user.name,lastName: user.lastName,cedula:user.cedula ,phone: user.phone,dateBirthday: user.dateBirthday || '',mail:user.mail,userImg:user.userImg,idRole : user.idRole,idBranch:user.idBranch,Enabled:1});   
     }
     editUser(){
-
             if(this.imageComponent.file){
                 this.editForm.controls['Enabled'].setValue(1);
                 
@@ -129,12 +117,7 @@ export class UserListComponent {
                     this.http.post(config.url+'user/edit/'+this.userId+'?access_token='+this.local.token,this.editForm.value).toPromise().then(result=>{
 
                            let apiResult = result.json();
-                           console.log('este es el result', apiResult);
-                           if (this.userId == this.local.id ) {
-                                console.log('es el mismo user')
-                                localStorage.clear();
-                                this.router.navigate(['/login']);
-                            }
+                           console.log(apiResult);
                            
                           apiResult.msg == "OK"?  this.usersData = apiResult.update:null;
                            if(apiResult.msg == "ERR"){
@@ -143,9 +126,7 @@ export class UserListComponent {
                                this.message = apiResult.err.message;
                                console.log('hay un error');
                            }
-                    })
-                    
-                    
+                    }) 
                 })
 
             }else{
@@ -153,16 +134,10 @@ export class UserListComponent {
                 console.log(this.editForm.value)
                 console.log(this.userId);
                 this.http.post(config.url+'user/edit/'+this.userId+"?access_token="+this.local.token,this.editForm.value).toPromise().then(result=>{
-                    let apiResult = result.json();
-                           console.log('este es el result', apiResult);
+                    let apiResult = result.json(); 
     
                     if(apiResult.msg == "OK"){
                             this.usersData = apiResult.update;
-                            if (this.userId == this.local.id ) {
-                                console.log('es el mismo user')
-                                localStorage.clear();
-                                this.router.navigate(['/login']);
-                            }
                     }else{
                         this.error = true;
                         this.message = apiResult.err.message;
