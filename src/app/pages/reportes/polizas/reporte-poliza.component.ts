@@ -56,7 +56,17 @@ export class ReportePolizaComponent{
             excel: false
         };
         for (const key in this.polizaReportForm.value) {
-            this.polizaReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.polizaReportForm.value[key] }) :null; 
+            if(this.polizaReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.polizaReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.polizaReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.polizaReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}policy/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
@@ -72,7 +82,17 @@ export class ReportePolizaComponent{
             excel: true
         };
         for (const key in this.polizaReportForm.value) {
-            this.polizaReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.polizaReportForm.value[key] }) :null; 
+            if(this.polizaReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.polizaReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.polizaReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.polizaReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}policy/report?access_token=${this.local.getUser().token}`,request).map((res)=>{

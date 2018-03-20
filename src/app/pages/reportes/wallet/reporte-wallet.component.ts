@@ -55,7 +55,17 @@ export class ReporteWalletComponent{
             excel: false
         };
         for (const key in this.walletReportForm.value) {
-            this.walletReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.walletReportForm.value[key] }) :null; 
+            if(this.walletReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.walletReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.walletReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.walletReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}wallet/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
@@ -71,7 +81,17 @@ export class ReporteWalletComponent{
             excel: true
         };
         for (const key in this.walletReportForm.value) {
-            this.walletReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.walletReportForm.value[key] }) :null; 
+            if(this.walletReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.walletReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.walletReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.walletReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}wallet/report?access_token=${this.local.getUser().token}`,request).map((res)=>{

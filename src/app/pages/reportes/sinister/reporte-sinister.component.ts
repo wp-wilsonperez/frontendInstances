@@ -55,7 +55,17 @@ export class ReporteSinisterComponent{
             excel: false
         };
         for (const key in this.sinisterReportForm.value) {
-            this.sinisterReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.sinisterReportForm.value[key] }) :null; 
+            if(this.sinisterReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.sinisterReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.sinisterReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.sinisterReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}sinister/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
@@ -71,7 +81,17 @@ export class ReporteSinisterComponent{
             excel: true
         };
         for (const key in this.sinisterReportForm.value) {
-            this.sinisterReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.sinisterReportForm.value[key] }) :null; 
+            if(this.sinisterReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.sinisterReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.sinisterReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.sinisterReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}sinister/report?access_token=${this.local.getUser().token}`,request).map((res)=>{

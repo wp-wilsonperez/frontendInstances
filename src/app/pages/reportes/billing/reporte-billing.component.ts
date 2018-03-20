@@ -55,7 +55,17 @@ export class ReporteBillingComponent{
             excel: false
         };
         for (const key in this.billingReportForm.value) {
-            this.billingReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.billingReportForm.value[key] }) :null; 
+            if(this.billingReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.billingReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.billingReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.billingReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}billing/report?access_token=${this.local.getUser().token}`,request).map((res)=>{
@@ -71,7 +81,17 @@ export class ReporteBillingComponent{
             excel: true
         };
         for (const key in this.billingReportForm.value) {
-            this.billingReportForm.value[key]?  request.filter.push({condition: "=",field:key,value: this.billingReportForm.value[key] }) :null; 
+            if(this.billingReportForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.billingReportForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.billingReportForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.billingReportForm.value[key] })
+                }
+            }else{
+            }
         }
         console.log(request);
         this.http.post(`${config.url}billing/report?access_token=${this.local.getUser().token}`,request).map((res)=>{

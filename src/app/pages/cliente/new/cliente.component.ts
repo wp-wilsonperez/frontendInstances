@@ -230,7 +230,7 @@ export class ClienteComponent implements OnInit{
             let formData: any = new FormData()
             let xhr = new XMLHttpRequest()
        
-                formData.append("data", file, file.name)
+                formData.append("file", file, file.name)
             
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
