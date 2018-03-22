@@ -313,7 +313,7 @@
                                   
                                       <div class="d-inline-block">
                                                 <div class="row">
-                                                        <button (click)="idAssign(wallet._id)" type="button btn-sm" data-toggle="modal" data-target="#edit-modal" class="btn btn-primary" >Editar</button>
+                                                        <button type="button" [routerLink]="['/pages/cartera/wallet-payment',wallet._id]" class="btn btn-primary" data-toggle="modal" data-target="#anexos-modal">Pagos</button>
                                                         <button (click)="idAssign(wallet._id)" type="button btn-sm" data-toggle="modal" data-target="#delete-modal" class="btn btn-danger" >Borrar</button>
                                                 </div>  
                                             </div>

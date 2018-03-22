@@ -1,3 +1,5 @@
+import { PaymentBinnacleComponent } from './wallet-payment-binnacle/wallet-payment-binnacle.component';
+import { WalletPaymentComponent } from './wallet-payment/wallet-payment.component';
 import { WalletComponent } from './wallet.component';
 import { DataTableModule } from "angular2-datatable";
 import { PipesModule } from '../../theme/pipes/pipes.module';
@@ -11,13 +13,14 @@ import {SelectModule} from 'angular2-select';
 
 export const routes = [
   { path: '', redirectTo: '', pathMatch: 'full'},
-  { path: 'listado', component: WalletComponent, data: { breadcrumb: 'Listado' } }
+  { path: 'listado', component: WalletComponent, data: { breadcrumb: 'Listado' } },
+  { path: 'wallet-payment/:id', component: WalletPaymentComponent, data: { breadcrumb: 'Pagos de Cartera' } }
+  
 
 ];
 
 @NgModule({
   imports: [
- 
     DataTableModule,
     PipesModule,
     DirectivesModule,
@@ -28,8 +31,9 @@ export const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-
-    WalletComponent
+    WalletComponent,
+    WalletPaymentComponent,
+    PaymentBinnacleComponent
   ],
   providers: []
 })
