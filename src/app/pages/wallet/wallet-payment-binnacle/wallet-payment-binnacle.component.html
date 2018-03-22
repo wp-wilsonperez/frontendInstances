@@ -56,14 +56,9 @@
                         <tbody>                           
 
                             <tr *ngFor="let bitacora of bitacoras">
-                                <td><strong>  {{bitacora.name}}   </strong></td>
-
-                              
-                                  <td><strong>    </strong></td>
-                                   <td><strong>    </strong></td>
-                                    <td><strong>    </strong></td>
-                                     <td><strong>    </strong></td>
-                                    <td><strong>    </strong></td>
+                                <td><strong>  {{bitacora.walletPayment}}   </strong></td>
+                                   <td><strong> {{bitacora.detailsCall}}   </strong></td>
+                                    <td><strong>  {{bitacora.callDate | date:'shortDate'}}  </strong></td>
                          
               
                                
@@ -79,7 +74,7 @@
                                                                 
                         
 
-                                                        <button type="button" (click)="idAssign(bitacora._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                        <button type="button" (click)="deletebitacora(bitacora._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
 
                                                                         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                                                                             <div class="modal-dialog" role="document">

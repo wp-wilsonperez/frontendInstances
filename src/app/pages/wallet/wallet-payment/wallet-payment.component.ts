@@ -29,7 +29,7 @@ export class WalletPaymentComponent{
         message:string;
         create:boolean = true;
         messages = messages;
-        @ViewChild(PaymentBinnacleComponent)
+        @ViewChild('bitacora')
         binacle: PaymentBinnacleComponent
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder, public route:ActivatedRoute ){
             this.walletPaymentForm = this.formBuilder.group({
@@ -159,6 +159,8 @@ export class WalletPaymentComponent{
     setCurrentPayment(id) {
         console.log(id)
         this.currentPayment = id
+        this.binacle.payment = id
+        this.binacle.loadbitacoras()
     }
 
 }

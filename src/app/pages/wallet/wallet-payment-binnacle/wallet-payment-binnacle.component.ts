@@ -40,9 +40,7 @@ export class PaymentBinnacleComponent{
             });
         }
         ngAfterViewInit() {
-            this.loadbitacoras();
         }
-
         loadbitacoras(){
             let request = {
                 filter: [
@@ -63,14 +61,14 @@ export class PaymentBinnacleComponent{
             
         }
         saveBitacora(){
-
+            this.bitacoraForm.controls['idWalletPayment'].setValue(this.payment)
             this.http.post(config.url+'walletPaymentBinnacle/add?access_token='+this.local.getUser().token,this.bitacoraForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
                        this.loadbitacoras();
                         this.toast = true;
-                        this.message = "Tpo de poliza guardado"
+                        this.message = "Bitacora guardada"
                 }else{
                       this.error = true;
                     this.message = "No tiene privilegios de guardar bitacora"
@@ -78,7 +76,11 @@ export class PaymentBinnacleComponent{
                 }
                 console.log(res);
                this.loadbitacoras();
-               this.bitacoraForm.setValue({name:''});
+               this.bitacoraForm.setValue({
+                idWalletPayment: '',
+                detailsCall: '',
+                callDate: ''
+               });
                 
             })
         }
@@ -93,7 +95,13 @@ export class PaymentBinnacleComponent{
             console.log(this.bitacoraId);
             console.log(this.bitacoraId);
             
-            this.bitacoraForm.setValue({name: bitacora.name});
+            this.bitacoraForm.setValue(
+                {
+                    idWalletPayment: bitacora.idWalletPayment || '',
+                    detailsCall: bitacora.detailsCall || '',
+                    callDate: bitacora.callDate || ''
+                }
+                );
             
         
         
@@ -107,12 +115,18 @@ export class PaymentBinnacleComponent{
                 if(res.msg == "OK"){
                         this.bitacoras = res.update; 
                         this.toast = true;
-                        this.message = "tipo de poliza editado";
+                        this.message = "Bitacora editada";
                         this.create = true;
-                        this.bitacoraForm.setValue({name:''});
+                        this.bitacoraForm.setValue(
+                            {
+                                idWalletPayment: '',
+                                detailsCall: '',
+                                callDate: ''
+                            }
+                        );
                 }else{
                     this.error = true;
-                    this.message = "No tiene privilegios de editar tipo de poliza"
+                    this.message = "No tiene privilegios de editar Bitacora"
                 }
                 
             })
@@ -121,17 +135,17 @@ export class PaymentBinnacleComponent{
         
         
     }
-    deletebitacora(){
+    deletebitacora(id){
 
-        this.http.delete(config.url+`bitacora/delete/${this.bitacoraId}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
+        this.http.delete(config.url+`walletPaymentBinnacle/delete/${id}?access_token=`+this.local.getUser().token,this.editForm.value).map((result)=>{
              
                 
                 return result.json()
             }).subscribe(res=>{
                 if(res.msg == "OK"){
-                        this.bitacoras = res.update; 
+                        this.loadbitacoras()
                         this.toast = true;
-                        this.message = "bitacora Borrado"
+                        this.message = "Bitacora Borrada"
                 }else{
                     this.error = true;
                     this.message = "No tiene privilegios de borrar"

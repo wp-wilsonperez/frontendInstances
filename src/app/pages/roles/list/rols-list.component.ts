@@ -1214,6 +1214,7 @@ export class RolsListComponent {
               this.grant.wallet.edit  == true ?  this.walletEdit = true:    this.walletEdit = false;
               this.grant.wallet.delete  == true? this.walletDelete = true:  this.walletDelete = false; 
               this.grant.wallet.report  == true? this.walletReport = true:  this.walletReport = false; 
+
              
            }
 
@@ -1343,7 +1344,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{}, sending:{}, pickup: {}, route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},authorizationTime:{},noRenewal:{},noRenewalRamo:{}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{}, sending:{}, pickup: {}, route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},authorizationTime:{},noRenewal:{},noRenewalRamo:{}, walletPaymentBinnacle: {}};
 
         requestTwo.user['typeList'] = this.userTypeList;
         this.userList?requestTwo.user['list'] = true:null;
@@ -1708,6 +1709,12 @@ export class RolsListComponent {
         this.walletEdit?requestTwo.wallet['edit'] = true:null;
         this.walletDelete?requestTwo.wallet['delete'] = true:null;
         this.walletReport?requestTwo.wallet['report'] = true:null;
+        this.walletList?requestTwo.walletPaymentBinnacle['list'] = true:null;
+        this.walletList?requestTwo. walletPaymentBinnacle['add'] = true:null;
+        this.walletList?requestTwo. walletPaymentBinnacle['edit'] = true:null;
+        this.walletList?requestTwo. walletPaymentBinnacle['delete'] = true:null;
+        this.walletList?requestTwo. walletPaymentBinnacle['report'] = true:null;
+  
 
         // creditNote
         requestTwo.creditNote['typeList'] = this.creditNotesTypeList; 
