@@ -48,24 +48,6 @@
                                                         <input formControlName="lastName" type="text" class="form-control" >
                                                     </div>
                                                 <div class="col-md-6 ">
-                                                    <h6>Cedula</h6>
-                                                    <div class="form-group">
-                                                            <input formControlName="cedula" type="text" class="form-control" >
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                    <h6>Password</h6>
-                                                    <div class="form-group">
-                                                            <input formControlName="phone" type="password" class="form-control" >
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                    <h6>Repetir Password</h6>
-                                                    <div class="form-group">
-                                                            <input  type="password" class="form-control" >
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 ">
                                                     <h6>Mail</h6>
                                                     <div class="form-group">
                                                             <input formControlName="mail" type="text" class="form-control" >
@@ -94,8 +76,8 @@
                             </div>
                             <div class="tab-pane" id="tb">
 
-                                    <div class="col-md-12">
-                                                    <az-multiple-image-uploader></az-multiple-image-uploader>
+                                    <div class="col-md-6">
+                                        <az-image-uploader (changed)="formatRequest($event)"></az-image-uploader>
                                     </div>
                            
                           

@@ -65,7 +65,7 @@ export class MultipleImageUploaderComponent {
                     
                 }else{
 
-                this.makeFileRequest(config.url+'account/addaccountImg?access_token='+this.local.getUser().token,this.input[0]).map(result=>{
+                this.makeFileRequest(config.url+'user/adduserImg?access_token='+this.local.getUser().token,this.input[0]).map(result=>{
                     return result;
                 }).subscribe(res=>{
                     console.log(res);
@@ -96,7 +96,7 @@ export class MultipleImageUploaderComponent {
         let formData: any = new FormData()
         let xhr = new XMLHttpRequest()
    
-            formData.append("accountImg", file, file.name)
+            formData.append("userImg", file, file.name)
         
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {

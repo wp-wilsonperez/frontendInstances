@@ -1,3 +1,4 @@
+import { PasswordComponent } from './change-password/change-password';
 import { ProfileEditComponent } from './../../components/profile-edit/profile-edit.component';
 import { ComponentsModule } from './../../components/components.module';
 import { MultipleImageUploaderComponent } from './multiple-image-uploader/multiple-image-uploader.component';
@@ -13,7 +14,8 @@ import { NgModule } from '@angular/core';
 
 export const routes = [
     {path:'',redirectTo:'',pathMatch:'full'},
-    {path:'ver',component: AccountComponent, data:{breadcrumb:'Ver'}}
+    {path:'ver',component: AccountComponent, data:{breadcrumb:'Ver'}},
+    {path:'change',component: PasswordComponent, data:{breadcrumb:'Cambiar Contrasena'}}
 
 ];
 
@@ -29,7 +31,7 @@ export const routes = [
   ],
   declarations: [
 
-    AccountComponent,ImageUploaderComponent,MultipleImageUploaderComponent,ProfileEditComponent
+    AccountComponent,ImageUploaderComponent,MultipleImageUploaderComponent,ProfileEditComponent, PasswordComponent
 
   ],
   providers: []

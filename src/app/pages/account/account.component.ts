@@ -2,10 +2,11 @@ import { Router } from '@angular/router';
 import { ProfileEditComponent } from './../../components/profile-edit/profile-edit.component';
 import { UserSessionService } from './../../providers/session.service';
 import { Http, Response } from '@angular/http';
-import { MultipleImageUploaderComponent } from './multiple-image-uploader/multiple-image-uploader.component';
+import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
 import {config} from './../../../config/project-config';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'account',
@@ -20,8 +21,9 @@ export class AccountComponent{
     message:string='';
     formAccount:FormGroup;
     user:any;
-    @ViewChild(MultipleImageUploaderComponent)
-     public imagesComponent:MultipleImageUploaderComponent;
+    @ViewChild(ImageUploaderComponent)
+     public imagesComponent:ImageUploaderComponent;
+
 
     constructor(public formBuilder:FormBuilder,public http:Http ,public local:UserSessionService, public router:Router){
             this.user = this.local.getUser();
@@ -29,8 +31,6 @@ export class AccountComponent{
             this.formAccount = this.formBuilder.group({
                 name: [''],
                 lastName: [''],
-                cedula: [''],
-                password: [''],
                 mail: [''],
                 phone: [''],
                 dateBirthday: [''],
@@ -56,8 +56,6 @@ export class AccountComponent{
                     name: this.account.name || '',
                     lastName: this.account.lastName || '',
                     phone: this.account.phone || '',
-                    cedula: this.account.cedula || '',
-                    password: this.account.password || '',
                     mail: this.account.mail || '',
                     dateBirthday: this.account.dateBirthdate || '',
                     idRole: this.account.idRole || '',
@@ -105,6 +103,39 @@ export class AccountComponent{
     
         
   }
+  formatRequest (event) {
+    this.makeFileRequest(config.url+'user/adduserImg?access_token='+this.local.getUser().token, event)
+      .map(result => {
+        return result
+      }).subscribe((res) => {
+          let objResult = Object.assign({}, res)
+          this.setImg(objResult)
+      })
+  }
+  setImg (img) {
+    this.formAccount.controls['userImg'].setValue(img.userImg)
+    console.log(this.formAccount.value)
+  }
+  makeFileRequest(url: string, file: any) {
+    return Observable.fromPromise(new Promise((resolve, reject) => {
+        let formData: any = new FormData()
+        let xhr = new XMLHttpRequest()
+   
+            formData.append("userImg", file, file.name)
+        
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.response))
+                } else {
+                    reject(xhr.response)
+                }
+            }
+        }
+        xhr.open("POST", url, true)
+        xhr.send(formData)
+    }));
+}
 
 
 

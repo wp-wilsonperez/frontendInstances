@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'az-image-uploader',
@@ -9,6 +9,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class ImageUploaderComponent {
     public image:any;
     public file:any;
+    @Output() changed: EventEmitter<any> = new EventEmitter();
   
     fileChange(input){
         console.log(input.files[0]);
@@ -20,7 +21,8 @@ export class ImageUploaderComponent {
             reader.onload = () => {
                 this.image = reader.result;
             }
-            reader.readAsDataURL(file);           
+            reader.readAsDataURL(file);  
+            this.changed.emit(this.file)         
         }
     }
 
