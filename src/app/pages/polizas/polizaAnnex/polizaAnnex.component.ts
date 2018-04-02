@@ -73,6 +73,7 @@ export class PolizaAnnexComponent{
         planAlternativos : any = [];
         selectPlanLabel='Seleccione Plan...';
         emptyTasa:boolean = false;
+        futureYears:boolean = false;
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public route:ActivatedRoute,public selectService:SelectService,public itemService:ItemService){
         
             this.polizaAnnexForm = this.formBuilder.group({
@@ -159,6 +160,8 @@ export class PolizaAnnexComponent{
                     this.policy = result.policy;
                     this.idRamo = this.policy.idRamo;
                     this.idPlanAssociation = this.policy.idPlan || '';
+                    this.futureYears = this.policy.futureYears
+                    console.log('future years', this.futureYears)
 
                     console.log('Poliza Completa: ', result);
                     let request = {

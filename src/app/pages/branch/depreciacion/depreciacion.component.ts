@@ -42,10 +42,8 @@ export class DepreciacionComponent{
                 idBranch: [],
                 year: [],
                 value: [],
-                typeYear: [], //(depende 0 es priemr año y uno es año anterior . este seria un boolean)
-                activated: [],
-                idNoRenewal: ['',Validators.compose([Validators.required])],
-              
+                typeYear: ['',Validators.required], //(depende 0 es priemr año y uno es año anterior . este seria un boolean)
+                activated: [true]
             });
             this.editForm = this.formBuilder.group({
                 name: ['',Validators.compose([Validators.required])],
@@ -61,33 +59,28 @@ export class DepreciacionComponent{
             this.select.loadBranchs().then((res)=>{
                 this.branchs = res;
             });
-            this.select.loadNoRenewal().then((res)=>{
-                this.causas = res;
-            })
-        
-
-
-       
         }
 
         loaddepreciacions(){
-            this.http.get(config.url+'noRenewalRamo/list?access_token='+this.local.getUser().token).map((res)=>{
+            this.http.get(config.url+'deprecation/list?access_token='+this.local.getUser().token).map((res)=>{
                 console.log(res.json());
                 return res.json();
             }).subscribe((result)=>{
-                    this.depreciacions = result.noRenewalRamos;
+                    this.depreciacions = result.deprecations;
+                    console.log('depreciacions' , result.deprecations)
                    
             })
             
         }
         savedepreciacion(){
-            this.http.post(config.url+'noRenewalRamo/add?access_token='+this.local.getUser().token,this.depreciacionForm.value).map((result)=>{
+            this.http.post(config.url+'deprecation/add?access_token='+this.local.getUser().token,this.depreciacionForm.value).map((result)=>{
                 return result.json()
             }).subscribe(res=>{
                  if(res.msg == "OK"){
                        this.loaddepreciacions();
                         this.toast = true;
-                        this.message = "depreciacion guardado"
+                        this.message = "Depreciacion guardada"
+                        this.depreciacionForm.reset();
                 }else{
                       this.error = true;
                     this.message = "No tiene privilegios de guardar depreciacion"
@@ -106,14 +99,19 @@ export class DepreciacionComponent{
         this.create = false;
         this.depreciacionId = depreciacion._id;
         
-        this.depreciacionForm.setValue({idRamo: depreciacion.idRamo,idNoRenewal:depreciacion.idNoRenewal});
+        this.depreciacionForm.patchValue({
+            idRamo: depreciacion.idRamo || '',
+            idBranch: depreciacion.idBranch || '',
+            year: depreciacion.year || '',
+            value: depreciacion.value || '',
+            typeYear: depreciacion.typeYear || ''
+        });
         
         
         
     }
     editdepreciacion(){
-            
-            this.http.post(config.url+`noRenewalRamo/edit/${this.depreciacionId}?access_token=`+this.local.getUser().token,this.depreciacionForm.value).map((result)=>{
+            this.http.post(config.url+`deprecation/edit/${this.depreciacionId}?access_token=`+this.local.getUser().token,this.depreciacionForm.value).map((result)=>{
                 console.log(result.json());
                 return result.json()
                 
@@ -122,7 +120,7 @@ export class DepreciacionComponent{
                 if(res.msg == "OK"){
                        this.loaddepreciacions();
                         this.toast = true;
-                        this.message = "Causa Ramo Editado";
+                        this.message = "Deprecacion Editada";
                         this.create = true;
                         this.depreciacionForm.reset();
                 }else{
@@ -134,7 +132,7 @@ export class DepreciacionComponent{
     }
     deletedepreciacion(){
 
-        this.http.delete(config.url+`noRenewalRamo/delete/${this.depreciacionId}?access_token=`+this.local.getUser().token).map((result)=>{
+        this.http.delete(config.url+`deprecation/delete/${this.depreciacionId}?access_token=`+this.local.getUser().token).map((result)=>{
             console.log('log',result.json());
                 
             return result.json()
@@ -143,7 +141,7 @@ export class DepreciacionComponent{
                 if(res.msg == "OK"){
                         this.loaddepreciacions();
                         this.toast = true;
-                        this.message = " Causa no Renovacion Ramo Borrado";
+                        this.message = " Deprecacion Borrada";
                         this.depreciacionForm.reset();
                 }else{
                     this.error = true;

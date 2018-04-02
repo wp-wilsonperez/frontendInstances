@@ -22,6 +22,7 @@ export class ItemAnnexCar implements OnInit {
     public selectCarUseLabel = "Uso";
     @Output() saved = new EventEmitter();
     @Input() polizaAnnex:any;
+    @Input() futureYears:any;
     public itemCarAnnexs:any = [];
     public totalPrima:any;
     @Output() subtract = new EventEmitter(); 
@@ -32,6 +33,7 @@ export class ItemAnnexCar implements OnInit {
     tasa:any;
     days:any;
     deducible:any;
+    yearsValue:number = 0;
 
     constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService,public itemService:ItemService) {
         this.itemAnnexCarForm = this.fb.group({
@@ -51,7 +53,8 @@ export class ItemAnnexCar implements OnInit {
             inclusionDate: [''],
             modificationDate: [''],
             totalValueItem:[0],
-            totalValuePrimaItem:[0,Validators.compose([Validators.required])]
+            totalValuePrimaItem:[0,Validators.compose([Validators.required])],
+            years: [0]
         })
 
         this.itemExtraForm = this.fb.group({

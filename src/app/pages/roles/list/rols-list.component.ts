@@ -411,10 +411,12 @@ export class RolsListComponent {
       public authorizationTimeDelete:boolean = false;
       public authorizationTimeEnable:boolean = false;
 
-
-
-
-
+      //depreciacion
+      public deprecationList:boolean = false;
+      public deprecationCreate:boolean = false;
+      public deprecationEdit:boolean = false;
+      public deprecationDelete:boolean = false;
+      public deprecationEnable:boolean = false;
     //checkbox log
     public logList:boolean = false;
 
@@ -768,6 +770,14 @@ export class RolsListComponent {
                 this.clearenceTimeEdit = false;
                 this.clearenceTimeDelete = false;
                 this.clearenceTimeEnable = false;
+
+                //deprecation
+
+                this.deprecationList = false; 
+                this.deprecationCreate = false; 
+                this.deprecationEdit = false;
+                this.deprecationDelete = false;
+                this.deprecationEnable = false;
                
                
 
@@ -1301,6 +1311,15 @@ export class RolsListComponent {
            
          }
 
+         if(this.grant.deprecation != undefined){
+          this.grant.deprecation.list == true ?   this.deprecationList = true:    this.deprecationList = false;
+          this.grant.deprecation.add   == true ?  this.deprecationCreate = true:  this.deprecationCreate = false; 
+          this.grant.deprecation.edit  == true ?  this.deprecationEdit = true:    this.deprecationEdit = false;
+          this.grant.deprecation.delete  == true? this.deprecationDelete = true:  this.deprecationDelete = false; 
+          this.grant.deprecation.enable  == true? this.deprecationEnable = true:  this.deprecationEnable = false; 
+         
+       }
+
              //
 
 
@@ -1344,7 +1363,7 @@ export class RolsListComponent {
         console.log(this.idRol);
         
 
-        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{}, sending:{}, pickup: {}, route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},authorizationTime:{},noRenewal:{},noRenewalRamo:{}, walletPaymentBinnacle: {}};
+        let requestTwo={user:{},branch:{},role:{},license:{},city:{},account:{},setting:{},log:{},insurance:{},business:{},ramo:{},percentageRamo:{} , deductible:{},helpLink:{},bank:{},tasa:{},letterAccident:{},paymentType:{},quote:{},issue:{},client:{},maritalStatus:{},typeClient:{},car:{},carBrand:{},carModel:{},carColor:{},carType:{},policy:{},policyType:{},income:{}, sending:{}, pickup: {}, route:{},frequencyPayment:{},bankInsurance:{},policyAnnex:{},itemAnnexCar:{},itemAnnexExtra:{},billing:{},sinister:{},sinisterDocumentation:{},sinisterDocumentationRamo:{},wallet:{},dependent:{},plan:{},planAssociation:{},planAlternative:{},alternative:{},businessClient:{},policyMedicalBusiness:{},annexMedicalBusiness:{},annexMedicalBusinessItem:{},creditNote:{},clearanceTime:{},authorizationTime:{},noRenewal:{},noRenewalRamo:{}, walletPaymentBinnacle: {}, deprecation: {}};
 
         requestTwo.user['typeList'] = this.userTypeList;
         this.userList?requestTwo.user['list'] = true:null;
@@ -1827,6 +1846,13 @@ export class RolsListComponent {
            this.authorizationTimeDelete?requestTwo.authorizationTime['delete'] = true:null;
            this.authorizationTimeEnable?requestTwo.authorizationTime['enable'] = true:null;
 
+           //authorization
+           this.deprecationList?requestTwo.deprecation['list'] = true:null;
+           this.deprecationCreate?requestTwo.deprecation['add'] = true:null;
+           this.deprecationEdit?requestTwo.deprecation['edit'] = true:null;
+           this.deprecationDelete?requestTwo.deprecation['delete'] = true:null;
+           this.deprecationEnable?requestTwo.deprecation['enable'] = true:null;
+
 
           //no renewal
           requestTwo.noRenewalRamo['list'] = true
@@ -1834,6 +1860,7 @@ export class RolsListComponent {
           requestTwo.noRenewalRamo['edit'] = true
           requestTwo.noRenewalRamo['delete'] = true
           requestTwo.noRenewalRamo['enable'] = true
+
        
 
 

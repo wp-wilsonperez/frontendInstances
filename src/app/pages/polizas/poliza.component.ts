@@ -370,7 +370,7 @@ export class PolizaComponent{
             this.http.get(config.url+'policy/ramoPercentageValue?access_token='+this.local.getUser().token+'&idInsurance='+this.polizaForm.value.idInsurance+'&idRamo='+this.polizaForm.value.idRamo)
          .toPromise().then(result=>{
                          let apiResult = result.json();
-                         this.polizaForm.controls['percentageRamo'].setValue(apiResult.value);
+                         this.polizaForm.controls['percentageRamo'].patchValue(apiResult.value);
                       console.log('getTasa result: ',apiResult.value);
           
          })
@@ -437,7 +437,7 @@ export class PolizaComponent{
             this.create = false;
             this.polizaId = poliza._id;
             console.log(this.polizaId);
-            this.carPolicy.polizaForm.setValue({
+            this.carPolicy.polizaForm.patchValue({
                         policyNumber:poliza.policyNumber || '',
                         idInsurance:poliza.idInsurance || '',
                         annexedNumber:poliza.annexedNumber || '',
@@ -461,7 +461,7 @@ export class PolizaComponent{
                         idUser: poliza.idUser || '',
                         idClient: poliza.idClient || '',
                         idPlan:poliza.idPlan || '',
-                        futureYears: poliza.futureYears || ''
+                        futureYears: poliza.futureYears || false
         });
         this.carPolicy.getTasa();
         this.carPolicy.getPlan();

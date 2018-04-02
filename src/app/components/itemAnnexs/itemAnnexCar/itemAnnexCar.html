@@ -1,8 +1,8 @@
-<form [formGroup]="itemAnnexCarForm">
+<form *ngIf="futureYears" [formGroup]="itemAnnexCarForm">
         <div class="form-group col-md-12">
             <div class="row">
                 <div class="col-md-6">
-                <label for="rg-from">Carro: </label>
+                <label for="rg-from">Carro </label>
                        <ng-select
                             [(options)]="cars"
                             [placeholder]="selectCarLabel"
@@ -15,6 +15,28 @@
                 <div class="col-md-6">   <label for="rg-from">Tasa: </label><input  (blur)="calcItemCar()"  type="number" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
                
             </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="">Años</label>
+                    <select class="form-control" formControlName="years">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    </div>
+                <div class="col-md-6">   <label for="rg-from">Tasa: </label><input  (blur)="calcItemCar()"  type="number" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
+               
+            </div>
+            <div *ngFor="let year of itemAnnexCarForm.value.years" class="row">
+                {{year}}
+                   
+                </div>
             <div class="row">
                     <div class="col-md-6"> <label for="rg-from">Valor: </label>  <input (blur)="calcItemCar()"  type="number" formControlName="totalValueItem" class="form-control" placeholder="Valor"></div>
                 <div class="col-md-6">
@@ -30,6 +52,7 @@
                     </div>
               
             </div>
+
             <div class="row">
                     <div class="col-md-6">   <label for="rg-from">Amparo Patrimonial: </label> <input (blur)="calcItemCar()" type="number" formControlName="amparoPatrimonial" class="form-control" placeholder="Amparo"></div>
                     <div class="col-md-6">   <label for="rg-from">RC: </label> <input (blur)="calcItemCar()" type="number" formControlName="rc" class="form-control" placeholder="RC"></div>
@@ -63,6 +86,72 @@
       
     
       
+</form> 
+<form *ngIf="!futureYears" [formGroup]="itemAnnexCarForm">
+    <div class="form-group col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+            <label for="rg-from">Carro: </label>
+                   <ng-select
+                        [(options)]="cars"
+                        [placeholder]="selectCarLabel"
+                        [multiple]="false"
+                        formControlName="idCar"
+                        (selected)="setMatricula($event)"
+                    >
+                    </ng-select>
+                </div>
+            <div class="col-md-6">   <label for="rg-from">Tasa: </label><input  (blur)="calcItemCar()"  type="number" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
+           
+        </div>
+        <div class="row">
+                <div class="col-md-6"> <label for="rg-from">Valor: </label>  <input (blur)="calcItemCar()"  type="number" formControlName="totalValueItem" class="form-control" placeholder="Valor"></div>
+            <div class="col-md-6">
+                    <label for="rg-from">Uso del Carro: </label>
+                    <ng-select
+                        [(options)]="carUses"
+                        [placeholder]="selectCarUseLabel"
+                        [multiple]="false"
+                        formControlName="carUse"
+                        (selected)="setCarUse($event)"
+                    >
+                    </ng-select>
+                </div>
+          
+        </div>
+        <div class="row">
+                <div class="col-md-6">   <label for="rg-from">Amparo Patrimonial: </label> <input (blur)="calcItemCar()" type="number" formControlName="amparoPatrimonial" class="form-control" placeholder="Amparo"></div>
+                <div class="col-md-6">   <label for="rg-from">RC: </label> <input (blur)="calcItemCar()" type="number" formControlName="rc" class="form-control" placeholder="RC"></div>
+        </div>
+        <div class="row">
+                <div class="col-md-6">   <label for="rg-from">Otros: </label> <input (blur)="calcItemCar()" type="number" formControlName="others" class="form-control" placeholder="Otros"></div>
+                <div class="col-md-6">   <label for="rg-from">Detalles: </label> <input type="text" formControlName="detailsCar" class="form-control" placeholder="Detalle"></div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">  </div>
+            <div class="col-md-6">   <label for="rg-from">Otros Prima: </label> <input (blur)="changeTotal()" type="text" formControlName="othersPrima" class="form-control" placeholder="Otros Prima"></div>
+
+    </div>
+            <div class="row">
+           
+                        <div class="col-md-6"><label for="rg-from">F. Inclusion: </label> <input type="date" formControlName="inclusionDate" class="form-control" placeholder="Inclusion Date"></div>
+                        
+                        <div class="col-md-6"><label for="rg-from">F. Exclusion: </label> <input type="date" formControlName="exclusionDate" class="form-control" placeholder="Inclusion Date"></div>
+                </div>
+            <div class="row">
+                
+                                <div class="col-md-6">    </div>
+                                
+                                <div class="col-md-6"><label for="rg-from">Total: </label> <input type="text" formControlName="totalValuePrimaItem" class="form-control" placeholder="Valor Total"></div>
+            </div>
+    </div>
+    <div class="form-group col-md-2 col-sm-6">
+        <button [disabled]="!itemAnnexCarForm.valid" (click)="saveItemAnnexCar()" type="submit" class="btn btn-primary btn-sm transition">Agregar</button>
+    </div>
+  
+
+  
 </form> 
 
 

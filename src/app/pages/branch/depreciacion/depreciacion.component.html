@@ -46,23 +46,30 @@
 
                                            <div class="col-md-4"> 
                                                 <label for="">Valor</label>
-                                                <input type="text" formControlName="value" class="form-control"> 
+                                                <input type="number" formControlName="value" class="form-control"> 
                                                </div>
                                          
                                             <div class="col-md-4"> 
                                                     <label for="">Año</label>
-                                                       <input type="text" formControlName="year" class="form-control">
+                                                       <input type="number" formControlName="year" class="form-control">
                                             </div>
                                            
-                                            <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                                    <label class="form-check-label" for="defaultCheck1">
-                                                      Tipo Año
-                                                    </label>
-                                                  </div>
-
+                                            <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="custom-control custom-radio">
+                                                    <input name="typeYear" class="custom-control-input" formControlName="typeYear" type="radio" value="first_year">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">Primer Año</span>
+                                                </label>
+                                                <label class="custom-control custom-radio">
+                                                    <input name="typeYear" class="custom-control-input" formControlName="typeYear" type="radio" value="last_year">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">Ultimo Año</span>
+                                                </label>
+                                            </div>
                                             
-                                    
+                                
+                                            </div>
                                     </div>
                                  
                                 
@@ -97,17 +104,11 @@
                         <tbody>                           
 
                             <tr *ngFor="let depreciacion of depreciacions">
-                                <td><strong>  {{depreciacion.noRenewal.name}}   </strong></td>
-                                <td><strong>  {{depreciacion.ramo.name}}   </strong></td>
-                          
-                                   <td><strong>    </strong></td>
-                                    <td><strong>    </strong></td>
-                                     <td><strong>    </strong></td>
-                                    <td><strong>    </strong></td>
-                         
-              
-                               
-
+                                <td><strong *ngIf="depreciacion.branch"> {{depreciacion.branch.name}}  </strong></td>
+                                <td><strong *ngIf="depreciacion.ramo">{{depreciacion.ramo.name}}</strong></td>
+                                   <td><strong>  {{depreciacion.value}}  </strong></td>
+                                    <td><strong>  {{depreciacion.year}}  </strong></td>
+                                     <td><strong> {{depreciacion.typeYear}}    </strong></td>
                                 <td class="row col  bottom-15">
                                   
                                       <div class="d-inline-block">
