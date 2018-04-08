@@ -18,8 +18,8 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="">Años</label>
-                    <select class="form-control" formControlName="years">
-                        <option value="2">2</option>
+                    <select (change)="passToInteger()" class="form-control" formControlName="years">
+                        <option  value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
@@ -33,10 +33,17 @@
                 <div class="col-md-6">   <label for="rg-from">Tasa: </label><input  (blur)="calcItemCar()"  type="number" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
                
             </div>
-            <div *ngFor="let year of itemAnnexCarForm.value.years" class="row">
-                {{year}}
-                   
+            <div class="col-md-6" formArrayName="yearItems" *ngFor="let item of itemAnnexCarForm.get('yearItems').controls; let i = index">
+                <div [formGroupName]='i'>
+                    <div class="row">
+                        <div class="col-md-2">{{i + 1}}.</div>
+                        <div class="col-md-3"><input class="form-control" formControlName="year" placeholder="Año"></div>
+                        <div class="col-md-3"><input class="form-control" formControlName="value" placeholder="Valor"></div>
+                        <div class="col-md-3"><input class="form-control" formControlName="prima" placeholder="Prima"></div>
+                    </div>
                 </div>
+
+            </div>
             <div class="row">
                     <div class="col-md-6"> <label for="rg-from">Valor: </label>  <input (blur)="calcItemCar()"  type="number" formControlName="totalValueItem" class="form-control" placeholder="Valor"></div>
                 <div class="col-md-6">

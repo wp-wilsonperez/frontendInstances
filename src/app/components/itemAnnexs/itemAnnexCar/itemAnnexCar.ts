@@ -2,7 +2,7 @@ import { ItemService } from './../../../providers/items.service';
 import { SelectService } from './../../../providers/select.service';
 import { UserSessionService } from './../../../providers/session.service';
 import { Http } from '@angular/http';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { config } from '../../../../config/project-config';
 
@@ -33,7 +33,9 @@ export class ItemAnnexCar implements OnInit {
     tasa:any;
     days:any;
     deducible:any;
-    yearsValue:number = 0;
+    numberYears = null;
+    itemsDeprecation: any = [] 
+    deprecationValue: any = 0
 
     constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService,public itemService:ItemService) {
         this.itemAnnexCarForm = this.fb.group({
@@ -54,7 +56,8 @@ export class ItemAnnexCar implements OnInit {
             modificationDate: [''],
             totalValueItem:[0],
             totalValuePrimaItem:[0,Validators.compose([Validators.required])],
-            years: [0]
+            years: [0],
+            yearItems: this.fb.array([])
         })
 
         this.itemExtraForm = this.fb.group({
@@ -73,14 +76,42 @@ export class ItemAnnexCar implements OnInit {
         this.selectService.loadCarUse().then((result)=>{
             this.carUses = result;
         })
-
+        this.getDeprecation();
         this.loadItemAnnexCar();
         this.itemAnnexCarForm.controls['tasa'].setValue(this.itemService.getTasa());
        
         
      }
-
-
+    createItem(val, prima, year): FormGroup {
+    return this.fb.group({
+        value: new FormControl({value: val, disabled: true}),
+        prima: new FormControl({value: prima, disabled: true}),
+        year: new FormControl({value:  year, disabled: true})
+    });
+    }
+    addItem (): void {
+        this.itemsDeprecation = this.itemAnnexCarForm.get('yearItems') as FormArray;
+        this.itemsDeprecation.push(this.createItem(this.deprecationValue, this.deprecationValue, this.deprecationValue))
+    }
+    passToInteger () {
+        this.itemsDeprecation = this.fb.array([]);
+        let items = <FormArray>this.itemAnnexCarForm.controls.yearItems;
+        items.controls = []
+        for (let index = 0; index < parseInt(this.itemAnnexCarForm.value.years); index++) {
+            this.addItem()   
+        }
+    }
+    getDeprecation () {
+        // get branch id 
+        this.http.post(config.url+`deprecation/filter?access_token=`+this.local.getUser().token, {idRamo: '599222be7f05fc0933b643f3'}).map((res)=>{
+            return res.json();
+        }).subscribe((result)=>{
+            if (result.deprecations.length > 0) {
+                this.deprecationValue = result.deprecations[0].value
+            }
+            console.log('resultado de filter en deprecation', result)        
+        }) 
+    }
     saveItemAnnexCar(){
        this.saved.emit({value:this.itemAnnexCarForm.value});
         this.itemAnnexs.push(this.itemAnnexCarForm.value);
@@ -98,9 +129,7 @@ export class ItemAnnexCar implements OnInit {
         this.http.get(config.url+`itemAnnexCar/param/${this.polizaAnnex}?access_token=`+this.local.getUser().token).map((res)=>{
             return res.json();
         }).subscribe((result)=>{
-                
-                
-            
+                     
         })  
     }
     subtractPrima(){
