@@ -36,6 +36,8 @@ export class ItemAnnexCar implements OnInit {
     numberYears = null;
     itemsDeprecation: any = [] 
     deprecationValue: any = 0
+    alertDisplay: boolean = false
+    alertMsg: string = ''
 
     constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService,public itemService:ItemService) {
         this.itemAnnexCarForm = this.fb.group({
@@ -89,16 +91,26 @@ export class ItemAnnexCar implements OnInit {
         year: new FormControl({value:  year, disabled: true})
     });
     }
-    addItem (): void {
+    addItem (deprecation): void {
+        let primaValor = ((this.itemAnnexCarForm.value.totalValueItem * deprecation) / 100) * this.itemAnnexCarForm.value.tasa
         this.itemsDeprecation = this.itemAnnexCarForm.get('yearItems') as FormArray;
-        this.itemsDeprecation.push(this.createItem(this.deprecationValue, this.deprecationValue, this.deprecationValue))
+        this.itemsDeprecation.push(this.createItem(primaValor, primaValor, primaValor))
     }
     passToInteger () {
         this.itemsDeprecation = this.fb.array([]);
         let items = <FormArray>this.itemAnnexCarForm.controls.yearItems;
         items.controls = []
-        for (let index = 0; index < parseInt(this.itemAnnexCarForm.value.years); index++) {
-            this.addItem()   
+        if (this.itemAnnexCarForm.value.totalValueItem !== 0){
+            this.alertDisplay = false
+            let deprecationIterable = 0
+
+            for (let index = 0; index < parseInt(this.itemAnnexCarForm.value.years); index++) {
+                this.addItem(deprecationIterable)
+                deprecationIterable += 10 
+            }
+        } else {
+            this.alertDisplay = true
+            this.alertMsg = "Usted debe asignar Valor y Tasa para Calcular Depreciaciones"
         }
     }
     getDeprecation () {

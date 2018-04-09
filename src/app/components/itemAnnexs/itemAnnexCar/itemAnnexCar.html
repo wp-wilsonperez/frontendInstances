@@ -30,22 +30,27 @@
                         <option value="10">10</option>
                     </select>
                     </div>
-                <div class="col-md-6">   <label for="rg-from">Tasa: </label><input  (blur)="calcItemCar()"  type="number" formControlName="tasa" class="form-control" placeholder="Tasa"></div>
+            
+            <div class="col-md-6"> <label for="rg-from">Valor: </label>  <input (blur)="calcItemCar()"  type="number" formControlName="totalValueItem" class="form-control" placeholder="Valor"></div>
                
             </div>
-            <div class="col-md-6" formArrayName="yearItems" *ngFor="let item of itemAnnexCarForm.get('yearItems').controls; let i = index">
-                <div [formGroupName]='i'>
-                    <div class="row">
-                        <div class="col-md-2">{{i + 1}}.</div>
-                        <div class="col-md-3"><input class="form-control" formControlName="year" placeholder="Año"></div>
-                        <div class="col-md-3"><input class="form-control" formControlName="value" placeholder="Valor"></div>
-                        <div class="col-md-3"><input class="form-control" formControlName="prima" placeholder="Prima"></div>
+            <div class="col-md-6">
+                <label for="">Calculo de Depreciaciones (seleccionar años y valor )</label>
+                <div class="danger-deprecacion" style="color: red;" *ngIf="alertDisplay">Valor o Tasa Vacios</div>
+                <div formArrayName="yearItems" *ngFor="let item of itemAnnexCarForm.get('yearItems').controls; let i = index">
+                    <div [formGroupName]='i'>
+                            <div class="row">
+                                <div class="col-md-2">{{i + 1}}.</div>
+                                <div class="col-md-3"><input class="form-control" formControlName="year" placeholder="Año"></div>
+                                <div class="col-md-3"><input class="form-control" formControlName="value" placeholder="Valor"></div>
+                                <div class="col-md-3"><input class="form-control" formControlName="prima" placeholder="Prima"></div>
+                            </div>
                     </div>
                 </div>
 
             </div>
             <div class="row">
-                    <div class="col-md-6"> <label for="rg-from">Valor: </label>  <input (blur)="calcItemCar()"  type="number" formControlName="totalValueItem" class="form-control" placeholder="Valor"></div>
+                    <div class="col-md-6"> </div>
                 <div class="col-md-6">
                         <label for="rg-from">Uso del Carro: </label>
                         <ng-select
