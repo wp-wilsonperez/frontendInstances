@@ -554,7 +554,7 @@ export class PolizaComponent{
     }
     resetForm(){
         this.create = true;
-        this.carPolicy.polizaForm.setValue({
+        this.carPolicy.polizaForm.patchValue({
             policyNumber:'',
             idInsurance:'',
             annexedNumber:'',

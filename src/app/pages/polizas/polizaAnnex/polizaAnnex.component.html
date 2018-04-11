@@ -183,7 +183,7 @@
                         <div class="tab-content top">
                             <div class="tab-pane active" id="ta">
                                    
-                                        <item-annex-car [futureYears]= 'futureYears' *ngIf="idRamo == '599222be7f05fc0933b643f3' "  (saved)="saveItem($event)" (subtract)="subtractPrima($event)" ></item-annex-car>
+                                        <item-annex-car [poliza]="policyId" [futureYears]= 'futureYears' *ngIf="idRamo == '599222be7f05fc0933b643f3' "  (saved)="saveItem($event)" (subtract)="subtractPrima($event)" ></item-annex-car>
 
                                         <item-annex-transport *ngIf="idRamo == '599223147f05fc0933b643fb' || idRamo == '599223147f05fc0933b643fc'  || idRamo == '599223147f05fc0933b643fc' "  (saved)="saveItem($event)" (subtract)="subtractPrima($event)"></item-annex-transport>
 

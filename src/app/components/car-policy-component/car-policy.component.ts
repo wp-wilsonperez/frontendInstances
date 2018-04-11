@@ -60,6 +60,7 @@ export class CarPolicyComponent implements OnInit {
         });
         this.selectService.loadUsers().then((res)=>{
             this.users = res;
+            console.log('estos son los users en policy', this.users)
         })
         this.selectService.loadClients().then((res)=>{
             this.clients = res;

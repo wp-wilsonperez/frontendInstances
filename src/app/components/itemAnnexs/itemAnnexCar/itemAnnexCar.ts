@@ -26,7 +26,8 @@ export class ItemAnnexCar implements OnInit {
     public itemCarAnnexs:any = [];
     public totalPrima:any;
     @Output() subtract = new EventEmitter(); 
-    @Input() poliza ;
+    @Input() poliza:any ;
+    idBranch:any;
     itemAnnexs:Array<any> = [];
     extraIndex:number;
     subItems:Array<any> = [];
@@ -62,8 +63,7 @@ export class ItemAnnexCar implements OnInit {
             yearItems: this.fb.array([])
         })
 
-        this.itemExtraForm = this.fb.group({
-            
+        this.itemExtraForm = this.fb.group({ 
                 idItemAnnexCar:[],
                 extraDetails:[],
                 extraValue:[],
@@ -71,19 +71,15 @@ export class ItemAnnexCar implements OnInit {
                 exclusionDate:[],
                 inclusionDate:[]
             });
-
         this.selectService.loadCars().then((result)=>{
             this.cars = result;
         });
         this.selectService.loadCarUse().then((result)=>{
             this.carUses = result;
         })
-        this.getDeprecation();
-        this.loadItemAnnexCar();
         this.itemAnnexCarForm.controls['tasa'].setValue(this.itemService.getTasa());
-       
-        
      }
+    
     createItem(val, prima, year): FormGroup {
     return this.fb.group({
         value: new FormControl({value: val, disabled: true}),
@@ -92,6 +88,7 @@ export class ItemAnnexCar implements OnInit {
     });
     }
     addItem (deprecation): void {
+        console.log('lo que recibo en depreciacion', deprecation)
         let primaValor = ((this.itemAnnexCarForm.value.totalValueItem * deprecation) / 100) * this.itemAnnexCarForm.value.tasa
         this.itemsDeprecation = this.itemAnnexCarForm.get('yearItems') as FormArray;
         this.itemsDeprecation.push(this.createItem(primaValor, primaValor, primaValor))
@@ -104,29 +101,57 @@ export class ItemAnnexCar implements OnInit {
             this.alertDisplay = false
             let deprecationIterable = 0
 
-            for (let index = 0; index < parseInt(this.itemAnnexCarForm.value.years); index++) {
-                this.addItem(deprecationIterable)
-                deprecationIterable += 10 
+            for (let index = 0; index < parseInt(this.itemAnnexCarForm.value.years); index++) { 
+                this.getDeprecation(index)
+                .subscribe((result)=>{
+                    this.addItem(result.deprecations[0].value)
+                }) 
             }
         } else {
             this.alertDisplay = true
             this.alertMsg = "Usted debe asignar Valor y Tasa para Calcular Depreciaciones"
         }
     }
-    getDeprecation () {
-        // get branch id 
-        this.http.post(config.url+`deprecation/filter?access_token=`+this.local.getUser().token, {idRamo: '599222be7f05fc0933b643f3'}).map((res)=>{
+    getAgentBranch(){
+        console.log(' esta es la poliza', this.poliza, 'futureyears', this.futureYears) 
+        this.http.get(config.url+`policy/view/${this.poliza}?access_token=`+this.local.getUser().token).map((res)=>{
             return res.json();
         }).subscribe((result)=>{
-            if (result.deprecations.length > 0) {
-                this.deprecationValue = result.deprecations[0].value
-            }
-            console.log('resultado de filter en deprecation', result)        
+            console.log('resultado de poliza', result)  
+            this.http.get(config.url+`user/view/${result.policy.idUser}?access_token=`+this.local.getUser().token).map(res =>{
+                return res.json()
+            }).subscribe ((result) => {
+                this.idBranch = result.user.idBranch
+            })
         }) 
+    }
+    getDeprecation (year) {
+        let request ={
+            filter: [
+                {
+                    condition: "=",
+                    field: "year",
+                    value: year
+                },
+                {
+                    condition: "=",
+                    field: "idRamo",
+                    value: '599222be7f05fc0933b643f3'  
+                },
+                {
+                    condition: "=",
+                    field: "idBranch",
+                    value: this.idBranch
+                }
+            ]
+        };
+        return this.http.post(config.url+`deprecation/filter?access_token=`+this.local.getUser().token, request).map((res)=>{
+            return res.json();
+        })
     }
     saveItemAnnexCar(){
        this.saved.emit({value:this.itemAnnexCarForm.value});
-        this.itemAnnexs.push(this.itemAnnexCarForm.value);
+       this.itemAnnexs.push(this.itemAnnexCarForm.value);
        this.itemAnnexCarForm.reset();
        this.itemAnnexCarForm.controls['tasa'].setValue(this.itemService.getTasa());
        this.itemAnnexCarForm.controls['totalValueItem'].setValue(0);
@@ -136,13 +161,6 @@ export class ItemAnnexCar implements OnInit {
        this.itemAnnexCarForm.controls['prima'].setValue(0);
        this.itemAnnexCarForm.controls['othersPrima'].setValue(0);
        this.itemAnnexCarForm.controls['totalValueItem'].setValue(0);
-    }
-    loadItemAnnexCar(){
-        this.http.get(config.url+`itemAnnexCar/param/${this.polizaAnnex}?access_token=`+this.local.getUser().token).map((res)=>{
-            return res.json();
-        }).subscribe((result)=>{
-                     
-        })  
     }
     subtractPrima(){
         this.subtract.emit(this.itemAnnexCarForm.value.othersPrima);
@@ -179,12 +197,9 @@ export class ItemAnnexCar implements OnInit {
                  result =  ( (this.itemAnnexCarForm.value.tasa + this.itemAnnexCarForm.value.amparoPatrimonial + this.itemAnnexCarForm.value.rc + this.itemAnnexCarForm.value.others) * this.itemAnnexCarForm.value.totalValueItem) /(100); 
             }
             else{
-                 result =  ( (this.itemAnnexCarForm.value.tasa ) * this.itemAnnexCarForm.value.totalValueItem) /(100); 
-
+                 result =  ( (this.itemAnnexCarForm.value.tasa ) * this.itemAnnexCarForm.value.totalValueItem) /(100);
             }
-            
-            this.itemAnnexCarForm.controls['totalValuePrimaItem'].setValue(result.toFixed(2))  
-
+            this.itemAnnexCarForm.controls['totalValuePrimaItem'].setValue(result.toFixed(2))
         }
        
     }
@@ -195,15 +210,15 @@ export class ItemAnnexCar implements OnInit {
             result =  ( ( Number(this.itemAnnexCarForm.value.tasa) + Number(this.itemAnnexCarForm.value.amparoPatrimonial) + Number(this.itemAnnexCarForm.value.rc) + Number(this.itemAnnexCarForm.value.others)) * Number(this.itemAnnexCarForm.value.totalValueItem)) /(100); 
             }
             else{
-                    result =  ( ( Number(this.itemAnnexCarForm.value.tasa) ) * Number(this.itemAnnexCarForm.value.totalValuePrimaItem)) /(100); 
-
+                    result =  ( ( Number(this.itemAnnexCarForm.value.tasa) ) * Number(this.itemAnnexCarForm.value.totalValuePrimaItem)) /(100);
             }
 
             let total = Number(this.itemAnnexCarForm.value.othersPrima) + result;
             this.itemAnnexCarForm.controls['totalValuePrimaItem'].setValue((total).toFixed(2));
-
     }
 
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.getAgentBranch()
+     }
 }

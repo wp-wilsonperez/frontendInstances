@@ -28,8 +28,8 @@ export class SelectService {
         let policyOptions = [];
       return   this.http.get(config.url+'user/list?access_token='+this.local.getUser().token).toPromise().then((result)=>{
             let res = result.json();
-            let policies = res.users;
-             policies.map((result)=>{
+            let users = res.users;
+             users.map((result)=>{
                 let obj = {
                     value: result._id,
                     label: result.name +' '+result.lastName
