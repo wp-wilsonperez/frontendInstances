@@ -41,9 +41,9 @@
                     <div [formGroupName]='i'>
                             <div class="row">
                                 <div class="col-md-2">{{i + 1}}.</div>
-                                <div class="col-md-3"><input class="form-control" formControlName="year" placeholder="Año"></div>
-                                <div class="col-md-3"><input class="form-control" formControlName="value" placeholder="Valor"></div>
-                                <div class="col-md-3"><input class="form-control" formControlName="prima" placeholder="Prima"></div>
+                                <div class="col-md-3"> <label for="">Ano</label><input type="number" value="{{i}}" class="form-control" formControlName="year" placeholder="Año"></div>
+                                <div class="col-md-3"><label for="">Valor</label><input class="form-control" formControlName="value" placeholder="Valor"></div>
+                                <div class="col-md-3"><label for="">Prima</label><input class="form-control" formControlName="prima" placeholder="Prima"></div>
                             </div>
                     </div>
                 </div>

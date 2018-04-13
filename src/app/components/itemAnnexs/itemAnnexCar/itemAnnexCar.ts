@@ -39,6 +39,7 @@ export class ItemAnnexCar implements OnInit {
     deprecationValue: any = 0
     alertDisplay: boolean = false
     alertMsg: string = ''
+    yearsMapped:Array<any> = []
 
     constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService,public itemService:ItemService) {
         this.itemAnnexCarForm = this.fb.group({
@@ -87,11 +88,20 @@ export class ItemAnnexCar implements OnInit {
         year: new FormControl({value:  year, disabled: true})
     });
     }
-    addItem (deprecation): void {
-        console.log('lo que recibo en depreciacion', deprecation)
-        let primaValor = ((this.itemAnnexCarForm.value.totalValueItem * deprecation) / 100) * this.itemAnnexCarForm.value.tasa
+    addItem (index): void {
+        let totalDeprecations = 1
+        console.log('valor del ano',this.yearsMapped[index].value)
+        if (index != 0) {
+            for (var i = index - 1; i >= 0; i--)
+            {
+               totalDeprecations += (this.yearsMapped[i].value / 100) * totalDeprecations
+            }
+        }
+        console.log('yotal deprecation in', index, totalDeprecations)
+        
+        let primaValor = this.itemAnnexCarForm.value.totalValueItem * totalDeprecations * this.itemAnnexCarForm.value.tasa
         this.itemsDeprecation = this.itemAnnexCarForm.get('yearItems') as FormArray;
-        this.itemsDeprecation.push(this.createItem(primaValor, primaValor, primaValor))
+        this.itemsDeprecation.push(this.createItem(this.yearsMapped[index].value, primaValor, index))
     }
     passToInteger () {
         this.itemsDeprecation = this.fb.array([]);
@@ -102,10 +112,8 @@ export class ItemAnnexCar implements OnInit {
             let deprecationIterable = 0
 
             for (let index = 0; index < parseInt(this.itemAnnexCarForm.value.years); index++) { 
-                this.getDeprecation(index)
-                .subscribe((result)=>{
-                    this.addItem(result.deprecations[0].value)
-                }) 
+
+                    this.addItem(index)
             }
         } else {
             this.alertDisplay = true
@@ -122,8 +130,26 @@ export class ItemAnnexCar implements OnInit {
                 return res.json()
             }).subscribe ((result) => {
                 this.idBranch = result.user.idBranch
+                this.getListYearsDeprecation()
+                    .subscribe((deprecations) => {
+
+                        console.log('deprecaciones filtradas', deprecations)
+                        let yearsMapped = deprecations.deprecations.map((res) => {
+                            return {value: res.value, year: res.year}
+                        })
+                        .sort(this.compare)
+                        this.yearsMapped = yearsMapped
+                        console.log('years mapped and sorted', yearsMapped)
+                    })
             })
         }) 
+    }
+    compare(a,b) {
+        if (a.year < b.year)
+           return -1;
+        if (a.year > b.year)
+          return 1;
+        return 0;
     }
     getDeprecation (year) {
         let request ={
@@ -133,6 +159,25 @@ export class ItemAnnexCar implements OnInit {
                     field: "year",
                     value: year
                 },
+                {
+                    condition: "=",
+                    field: "idRamo",
+                    value: '599222be7f05fc0933b643f3'  
+                },
+                {
+                    condition: "=",
+                    field: "idBranch",
+                    value: this.idBranch
+                }
+            ]
+        };
+        return this.http.post(config.url+`deprecation/filter?access_token=`+this.local.getUser().token, request).map((res)=>{
+            return res.json();
+        })
+    }
+    getListYearsDeprecation () {
+        let request ={
+            filter: [
                 {
                     condition: "=",
                     field: "idRamo",
