@@ -40,6 +40,7 @@ export class ItemAnnexCar implements OnInit {
     alertDisplay: boolean = false
     alertMsg: string = ''
     yearsMapped:Array<any> = []
+    deprecationsMode:any = ''
 
     constructor(public fb:FormBuilder,public http:Http,public local:UserSessionService,public selectService:SelectService,public itemService:ItemService) {
         this.itemAnnexCarForm = this.fb.group({
@@ -83,25 +84,35 @@ export class ItemAnnexCar implements OnInit {
     
     createItem(val, prima, year): FormGroup {
     return this.fb.group({
-        value: new FormControl({value: val, disabled: true}),
+        value: new FormControl({value: val + '%', disabled: true}),
         prima: new FormControl({value: prima, disabled: true}),
-        year: new FormControl({value:  year, disabled: true})
+        year: new FormControl({})
     });
     }
     addItem (index): void {
-        let totalDeprecations = 1
+        let totalDeprecations = 0
+        let lastVal = this.itemAnnexCarForm.value.totalValueItem
         console.log('valor del ano',this.yearsMapped[index].value)
-        if (index != 0) {
-            for (var i = index - 1; i >= 0; i--)
-            {
-               totalDeprecations += (this.yearsMapped[i].value / 100) * totalDeprecations
+        if (this.deprecationsMode === 'first_year') {
+            if (index != 0) {
+                for (var i = index - 1; i >= 0; i--)
+                {
+                   totalDeprecations += (this.itemAnnexCarForm.value.totalValueItem * this.yearsMapped[i].value / 100) +  totalDeprecations
+                }
+            }
+        } else {
+            if (index != 0) {
+                for (var i = index - 1; i >= 0; i--)
+                {
+                   lastVal= (lastVal * this.yearsMapped[i].value / 100)
+                   totalDeprecations = lastVal
+                }
             }
         }
-        console.log('yotal deprecation in', index, totalDeprecations)
-        
-        let primaValor = this.itemAnnexCarForm.value.totalValueItem * totalDeprecations * this.itemAnnexCarForm.value.tasa
+        console.log('yotal deprecation in', index + 1, totalDeprecations)
+        let primaValor = this.itemAnnexCarForm.value.totalValueItem - totalDeprecations * (this.itemAnnexCarForm.value.tasa)
         this.itemsDeprecation = this.itemAnnexCarForm.get('yearItems') as FormArray;
-        this.itemsDeprecation.push(this.createItem(this.yearsMapped[index].value, primaValor, index))
+        this.itemsDeprecation.push(this.createItem(this.yearsMapped[index].value, primaValor, index + 1))
     }
     passToInteger () {
         this.itemsDeprecation = this.fb.array([]);
@@ -138,8 +149,10 @@ export class ItemAnnexCar implements OnInit {
                             return {value: res.value, year: res.year}
                         })
                         .sort(this.compare)
+                        this.deprecationsMode = deprecations.deprecations[0].typeYear
                         this.yearsMapped = yearsMapped
                         console.log('years mapped and sorted', yearsMapped)
+                        console.log('modo de depreciacion', this.deprecationsMode)
                     })
             })
         }) 

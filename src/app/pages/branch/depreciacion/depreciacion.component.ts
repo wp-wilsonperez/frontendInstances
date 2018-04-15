@@ -42,7 +42,7 @@ export class DepreciacionComponent{
                 idBranch: [],
                 year: [],
                 value: [],
-                typeYear: ['',Validators.required], //(depende 0 es priemr año y uno es año anterior . este seria un boolean)
+                typeYear: ['',Validators.required],
                 activated: [true]
             });
             this.editForm = this.formBuilder.group({
