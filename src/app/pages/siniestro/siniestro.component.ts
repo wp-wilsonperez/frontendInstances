@@ -12,8 +12,7 @@ import * as mapTypes from 'angular2-google-maps/core' ;
 
 import { SiniestroRamoCarro } from './../../components/siniestrosRamos/siniestrosRamoCarro/siniestroRamoCarro';
 import { SiniestroRamoMedico } from '../../components/siniestrosRamos/siniestrosRamoMedico/siniestroRamoMedico';
-
-
+import { SiniestroOtros } from '../../components/siniestrosRamos/siniestroOtros/siniestroOtros';
 @Component({
     selector:'siniestro-component',
     encapsulation:  ViewEncapsulation.None,
@@ -66,6 +65,12 @@ export class SiniestroComponent{
         message:string;
         @ViewChild("search")
         public searchElementRef:ElementRef;
+        @ViewChild("carComponent")
+        public carComponent:ElementRef;
+        @ViewChild("medicComponent")
+        public medicComponent:ElementRef;
+        @ViewChild("otrosComponent")
+        public otrosComponent:ElementRef;
         public lat=0;
         public long=0;
         event:any;
@@ -76,7 +81,7 @@ export class SiniestroComponent{
         docSiniestroRamos:any=[];
         recipients:any =[];
         clientsLabel:string ='Elegir Cliente';
-        ramo ='';
+        ramo = null;
         enabledForm:boolean = true;
         constructor(public mapsApiLoader:MapsAPILoader,public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router,public select:SelectService ){
             this.siniestroForm = this.formBuilder.group({
@@ -455,23 +460,16 @@ export class SiniestroComponent{
         getTasa(){   
     }
         saveSiniestro(event){
-            let item = {
-                items : []
-            };
-            delete event.form.sinisterDocumentationnRamo;
-            Object.assign(item , event.form);
-            item.items = event.items;
-            
-            let request = {
-                sinister:this.siniestroForm.value,
-
-            };
-            request.sinister.item = item;
-            console.log( 'este es el request ',request);
-            
+         console.log(event)
+         console.log(this.siniestroForm)
+         let request = {
+             sinister: Object.assign({}, this.siniestroForm.value),
+         }
+         delete event.form.sinisterDocumentationnRamo;
+         request.sinister.item = event.form
+         request.sinister.item.items = event.items
+         console.log('siniestro request', request)
             this.http.post(config.url+'sinister/add?access_token='+this.local.getUser().token,request).map((result)=>{
-                
-                
                 return result.json()
             }).subscribe(
                 res=>{
@@ -480,6 +478,7 @@ export class SiniestroComponent{
                         this.toast = true;
                         this.message = "Siniestro guardado"
                         this.resetFields();
+                        this.ramo = ''
                 }else{
                       this.error = true;
                     this.message = "No tiene privilegios de guardar siniestro"
@@ -501,7 +500,7 @@ export class SiniestroComponent{
             this.siniestroId = siniestro._id;
             this.ramo = siniestro.idRamo;
             this.create = true;
-            this.siniestroForm.setValue({
+            this.siniestroForm.patchValue({
                 annexedNumber: '',
                 certificateNumber: '',
                 idUser: '',
@@ -548,7 +547,7 @@ export class SiniestroComponent{
         console.log(this.siniestroId);
         console.log(this.siniestroId);
         
-        this.editForm.setValue({name: siniestro.name,month:siniestro.month,interest:siniestro.interest,totalMonths:siniestro.totalMonths});
+        this.editForm.patchValue({name: siniestro.name,month:siniestro.month,interest:siniestro.interest,totalMonths:siniestro.totalMonths});
         
         
         
@@ -749,7 +748,8 @@ export class SiniestroComponent{
             this.siniestroForm.controls['direccionCliente'].setValue(val.recipient.address);   
             this.siniestroForm.controls['recipient'].setValue(recipient);   
         }
-        this.ramo = val.idRamo;
+            this.ramo = val.idRamo;
+
         console.log('result value',val);
         this.getTasa(); 
         
@@ -796,7 +796,7 @@ export class SiniestroComponent{
      }
      resetFields(){
 
-        this.siniestroForm.setValue({
+        this.siniestroForm.patchValue({
             annexedNumber: '',
             certificateNumber: '',
             idUser: '',
