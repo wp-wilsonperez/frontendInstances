@@ -167,11 +167,6 @@ export class WalletComponent{
             this.editForm = this.formBuilder.group({});
 
             this.loadwallets();
-            this.loadClients();
-            this.loadBusiness();
-            this.loadInsurances();
-            this.loadPaymentTypes();
-            this.loadPolicies();
         
             
     
@@ -181,67 +176,10 @@ export class WalletComponent{
             this.http.get(config.url+'wallet/list?access_token='+this.local.getUser().token).map((res)=>{
                 return res.json();
             }).subscribe((result)=>{
-                    this.wallets = result.wallets
-                    console.log('wallets',this.wallets);
+                    this.wallets = result.walletPayments
+                    console.log('resultado de la vida de wallets',this.wallets);
             })
             
-        }
-       
-        loadCars(){
-
-              this.http.get(config.url+'car/list?access_token='+this.local.getUser().token).map((res)=>{
-                return res.json();
-            }).subscribe((result)=>{
-                    let cars = result.cars;
-                     cars.map((result)=>{
-                        let obj = {
-                            value: result._id,
-                            label: result.placa
-                        }
-                        this.carOptions.push(obj);
-                        this.cars = this.carOptions;
-                    })
-                    console.log('cars',this.cars);
-            })
-
-            
-
-        }
-
-        loadInsurances(){
-            this.http.get(config.url+'insurance/list?access_token='+this.local.getUser().token).map((res)=>{
-                return res.json();
-            }).subscribe((result)=>{
-                    let insurances = result.insurances;
-                     insurances.map((result)=>{
-                        let obj = {
-                            value: result._id,
-                            label: result.bussinesName
-                        }
-                        this.insuranceOptions.push(obj);
-                        this.clients = this.insuranceOptions;
-                    })
-                    console.log('Insurances clients',this.clients);
-            })
-            
-        }
-        loadRamo(){
-
-            this.http.get(config.url+'ramo/list?access_token='+this.local.getUser().token).map((res)=>{
-                return res.json();
-            }).subscribe((result)=>{
-                    let ramos = result.ramos;
-                     ramos.map((result)=>{
-                        let obj = {
-                            value: result._id,
-                            label: result.name
-                        }
-                        this.ramosOptions.push(obj);
-                        this.ramos = this.ramosOptions;
-                    })
-                    console.log('Ramos',this.ramos);
-            })
-
         }
 
         loadUser(){
@@ -297,7 +235,6 @@ export class WalletComponent{
                         this.businessOptions.push(obj);
                         this.clients = this.businessOptions;
                     })
-                    console.log('business clients',this.clients);
             })
 
         }
@@ -317,7 +254,6 @@ export class WalletComponent{
                         this.frecuencyPaymentsOptions.push(obj);
                         this.frecuencyPayments = this.frecuencyPaymentsOptions;
                     })
-                    console.log('Frecuency',this.frecuencyPayments);
             })
 
         }
@@ -336,7 +272,6 @@ export class WalletComponent{
                         this.citiesOptions.push(obj);
                         this.cities = this.citiesOptions;
                     })
-                    console.log('Cities',this.cities);
             })
 
 
@@ -356,15 +291,12 @@ export class WalletComponent{
                         this.walletTypesOptions.push(obj);
                         this.walletTypes = this.walletTypesOptions;
                     })
-                    console.log('wallet Types',this.walletTypes);
             })
 
         }
 
         loadPaymentTypes(){
-
             this.http.get(config.url+'paymentType/list?access_token='+this.local.getUser().token).map((res)=>{
-                console.log('payment types',res.json());
                 
                 return res.json();
             }).subscribe((result)=>{
@@ -377,12 +309,10 @@ export class WalletComponent{
                         this.paymentTypesOptions.push(obj);
                         this.paymentTypes = this.paymentTypesOptions;
                     })
-                    console.log('Payment Types',this.paymentTypes);
             })
 
         }
         loadPolicies(){
-
             this.http.get(config.url+'policy/list?access_token='+this.local.getUser().token).map((res)=>{
                 console.log('pol',res.json());
                 
@@ -535,7 +465,6 @@ export class WalletComponent{
     }
     changeType(type){
         type.value == 1? this.loadClients():null;
-        type.value == 2? this.loadInsurances():null;
         type.value == 3? this.loadBusiness():null;
         
     }
@@ -608,6 +537,13 @@ export class WalletComponent{
     borrarItem (index) {
         console.log(index)
         this.itemPolicies.splice( index, 1)
+    }
+    factura (id) {
+        this.http.get(config.url+`walletPayment/bill/${id}?access_token=`+this.local.getUser().token).map((res)=>{
+            return res.json()
+        }).subscribe((result)=>{
+            console.log('result del file', result)
+        });
     }
 
 

@@ -294,40 +294,24 @@
                         <thead>
                             <tr>
                                                        
-                                <th><mfDefaultSorter by="phone">N. Factura</mfDefaultSorter></th>
-                                 <th><mfDefaultSorter by="phone">Fecha</mfDefaultSorter></th> 
-                                 <th><mfDefaultSorter by="phone">Cliente</mfDefaultSorter></th>
-                                 <th><mfDefaultSorter by="phone">Total</mfDefaultSorter></th>
-
+                                <th><mfDefaultSorter by="phone">N. Comprobante</mfDefaultSorter></th>
+                                <th><mfDefaultSorter by="phone">Numero de Factura</mfDefaultSorter></th> 
+                                 <th><mfDefaultSorter by="phone">Valor de Pago</mfDefaultSorter></th> 
+                                 <th><mfDefaultSorter by="phone">Fecha de Vencimiento</mfDefaultSorter></th>
                                 <th>Acciones</th>      
                             </tr>
                         </thead>
                         <tbody>                           
 
                             <tr *ngFor="let wallet of wallets">
-                                <td><strong *ngIf="wallet.DetailsBillingData">  {{wallet.DetailsBillingData.billingNumber}}  </strong></td>
-                                <td>{{wallet.dateCreate | date: 'shortDate'}}</td>
-                                 <td><strong *ngIf="wallet.DetailsBillingData.detailsClientBilling">{{wallet.DetailsBillingData.detailsClientBilling.bussinesName}} </strong><strong *ngIf="wallet.DetailsBillingData.detailsClientBilling">{{wallet.DetailsBillingData.detailsClientBilling.name}} </strong></td>
-                                 <td>{{wallet.paymentValue}}</td>
-                                <td class="row col  bottom-15">
-                                  
-                                      <div class="d-inline-block">
-                                                <div class="row">
-                                                        <button type="button" [routerLink]="['/pages/cartera/wallet-payment',wallet._id]" class="btn btn-primary" data-toggle="modal" data-target="#anexos-modal">Pagos</button>
-                                                        <button (click)="idAssign(wallet._id)" type="button btn-sm" data-toggle="modal" data-target="#delete-modal" class="btn btn-danger" >Borrar</button>
-                                                </div>  
-                                            </div>
-                                </td>
+                                <td>{{wallet.compPayment}}</td>
+                                <td><span *ngIf="wallet.wallet">{{wallet.wallet.DetailsBillingData.billingNumber}}</span></td>
+                                <td><strong>{{wallet.paymentValue}}</strong></td>
+                                <td>{{wallet.expirationDate | date: 'short'}}</td>
+                                <td><button (click)="factura(wallet._id)" class="btn btn-primary "> Pagos </button></td>
                                 </tr>
                           
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="12">
-                                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
-                                </td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
 

@@ -8,7 +8,7 @@
     </div>
     <div class="form-group"> 
         <label for="exampleSelect1">Valor de Siniestro</label>
-        <input  type="text" formControlName="sinisterValue" class="bg-light form-control">
+        <input  type="number" formControlName="sinisterValue" class="bg-light form-control">
     </div>
     <div class="form-group"> 
         <label for="exampleSelect1">Otros 3</label>
@@ -100,7 +100,7 @@
 
                         <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
                             <label for="">Cantidad</label>
-                                <input type="text" formControlName="quantity" class="form-control" placeholder="">
+                                <input type="number" formControlName="quantity" class="form-control" placeholder="">
                             </div>
                         
                     
@@ -153,7 +153,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let docsiniestroRamo of docSiniestroRamos; let i = index">
-                            <td>{{docsiniestroRamo.sinisterDocumentationRamo}}</td>
+                            <td>{{docsiniestroRamo.sinisterDocumentationRamoLabel}}</td>
                             <td>{{docsiniestroRamo.quantity}}</td>
                             <td>{{docsiniestroRamo.description}}</td>
                             <td>{{docsiniestroRamo.receptionDate}}</td>

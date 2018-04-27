@@ -58,6 +58,7 @@ export class SiniestroOtros implements OnInit {
         this.siniestroOtrosDocumentationForm = this.formBuilder.group({
             idSinisterDocumentationRamo:[''],
             sinisterDocumentationRamo:[''],
+            sinisterDocumentationRamoLabel:[''],
             quantity:[''],
             description:[''],
             numberAllBilling:[''],
@@ -97,11 +98,15 @@ export class SiniestroOtros implements OnInit {
         })
     }
     addDoc(){
+        let docObj = Object.assign({},this.siniestroOtrosDocumentationForm.value)
         this.docSiniestroRamos.push(this.siniestroOtrosDocumentationForm.value);
+        console.log('valosres de array', this.docSiniestroRamos)
         this.siniestroOtrosDocumentationForm.reset();
     }
     setDocRamo(event){
+        console.log('este es el value', event)
         this.siniestroOtrosDocumentationForm.controls['sinisterDocumentationRamo'].setValue(event.value);
+        this.siniestroOtrosDocumentationForm.controls['sinisterDocumentationRamoLabel'].setValue(event.label);
     }
     deleteDoc(i){
         this.docSiniestroRamos.splice(i,1);

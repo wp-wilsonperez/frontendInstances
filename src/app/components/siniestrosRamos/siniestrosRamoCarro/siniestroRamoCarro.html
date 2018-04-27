@@ -128,42 +128,42 @@
         <div class="form-group">
                 
                 <label for="exampleSelect1">Costo Medico</label>
-                <input  type="text" formControlName="medicalExpense" class="bg-light form-control">
+                <input  type="number" formControlName="medicalExpense" class="bg-light form-control">
                     
 
             </div>
             <div class="form-group">
                     
                     <label for="exampleSelect1">RC</label>
-                    <input  type="text" formControlName="rc" class="bg-light form-control">
+                    <input  type="number" formControlName="rc" class="bg-light form-control">
                         
 
                 </div>
             <div class="form-group">
                     
                     <label for="exampleSelect1">Valor Deducible</label>
-                    <input  type="text" formControlName="deductibleValue" class="bg-light form-control">
+                    <input  type="number" formControlName="deductibleValue" class="bg-light form-control">
                         
 
                 </div>
             <div class="form-group">
                     
                     <label for="exampleSelect1">Depreciacion</label>
-                    <input  type="text" formControlName="depreciation" class="bg-light form-control">
+                    <input  type="number" formControlName="depreciation" class="bg-light form-control">
                         
 
                 </div>
                 <div class="form-group">
                     
                     <label for="exampleSelect1">Otros 1 </label>
-                    <input  type="text" formControlName="others1" class="bg-light form-control">
+                    <input  type="number" formControlName="others1" class="bg-light form-control">
                         
 
                 </div>
                 <div class="form-group">
                     
                     <label for="exampleSelect1">Otros 2 </label>
-                    <input  type="text" formControlName="others2" class="bg-light form-control">
+                    <input  type="number" formControlName="others2" class="bg-light form-control">
                         
 
                 </div>
@@ -204,7 +204,7 @@
 
                         <div class="form-group col-md-4 col-sm-6" [ngClass]="{}">
                             <label for="">Cantidad</label>
-                                <input type="text" formControlName="quantity" class="form-control" placeholder="">
+                                <input type="number" formControlName="quantity" class="form-control" placeholder="">
                             </div>
                         
                     
@@ -260,7 +260,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let docsiniestroRamo of docSiniestroRamos; let i = index">
-                            <td>{{docsiniestroRamo.sinisterDocumentationRamo}}</td>
+                            <td>{{docsiniestroRamo.sinisterDocumentationRamoLabel}}</td>
                             <td>{{docsiniestroRamo.quantity}}</td>
                             <td>{{docsiniestroRamo.description}}</td>
                             <td>{{docsiniestroRamo.receptionDate}}</td>

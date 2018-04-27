@@ -832,6 +832,15 @@ export class SiniestroComponent{
         this.ramo = '';
 
      }
+     createFile (id) {
+        this.http.get(config.url+`letterDocx/sinisterNotice/${id}?access_token=`+this.local.getUser().token).map((res)=>{
+            return res.json()
+        }).subscribe((result)=>{
+            console.log('result del file', result)
+            let doc = result.doc_name
+            window.open(`${config.url}download/${doc}`,"_blank");
+        });
+     }
     
 
 

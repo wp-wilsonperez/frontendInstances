@@ -59,6 +59,7 @@ export class SiniestroRamoMedico implements OnInit {
         this.siniestroMedicalDocumentationForm = this.formBuilder.group({
             idSinisterDocumentationRamo:[''],
             sinisterDocumentationRamo:[''],
+            sinisterDocumentationRamoLabel:[''],
             quantity:[''],
             description:[''],
             numberAllBilling:[''],
@@ -102,6 +103,8 @@ export class SiniestroRamoMedico implements OnInit {
         this.siniestroMedicalDocumentationForm.reset();
     }
     setDocRamo(event){
+        console.log('este es el value', event)
+        this.siniestroMedicalDocumentationForm.controls['sinisterDocumentationRamoLabel'].setValue(event.label);
         this.siniestroMedicalDocumentationForm.controls['sinisterDocumentationRamo'].setValue(event.value);
     }
     deleteDoc(i){

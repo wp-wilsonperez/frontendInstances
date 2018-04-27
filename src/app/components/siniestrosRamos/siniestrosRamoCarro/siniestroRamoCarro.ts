@@ -65,6 +65,8 @@ export class SiniestroRamoCarro implements OnInit {
         });
         this.siniestroCarDocumentationForm = this.formBuilder.group({
             idSinisterDocumentationRamo:[''],
+            sinisterDocumentationRamo:[''],
+            sinisterDocumentationRamoLabel:[''],
             quantity:[''],
             description:[''],
             numberAllBilling:[''],
@@ -142,6 +144,8 @@ export class SiniestroRamoCarro implements OnInit {
         this.siniestroCarDocumentationForm.reset();
     }
     setDocRamo(event){
+        console.log('este es el value', event)
+        this.siniestroCarDocumentationForm.controls['sinisterDocumentationRamoLabel'].setValue(event.label);
         this.siniestroCarDocumentationForm.controls['sinisterDocumentationRamo'].setValue(event.value);
     }
     deleteDoc(i){
