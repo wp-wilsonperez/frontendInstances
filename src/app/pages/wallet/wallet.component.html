@@ -288,6 +288,16 @@
                 </div>        
             </div>
              <div class="card-block widget-body">
+                <button data-toggle="collapse" data-target="#filters" class="btn btn-primary"><i class="fa fa-filter"></i></button>
+                    <div class="collapse" id="filters" style="margin: 20px;">
+                        <div class="row form-group" >
+                            <div class="col-md-3"><label for="">Fecha Inicio</label><input [(ngModel)]="searchStart" class="form-control" type="date"></div>
+                            <div class="col-md-3"><label for="">Fecha Fin</label><input [(ngModel)]="searchEnd" class="form-control" type="date"></div>
+                            <div class="col-md-2"> <label for="">Placa</label>  <input [(ngModel)]="searchPlaca" class="form-control" type="text" name="" id=""></div>
+                            <div class="col-md-2"><label for="">Chasis</label><input [(ngModel)]="searchChasis" class="form-control" type="text" name="" id=""></div>
+                            <div class="col-md-1"><button style="margin-top: 20px;" (click)="search()" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+                        </div>
+                    </div>
 
                 <div class="table-responsive datatable table-margin">
                     <table class="table table-striped table-hover table-sm" [mfData]="branchData  | SearchPipe : searchText" #mf="mfDataTable" [mfRowsOnPage]="10">
@@ -308,7 +318,7 @@
                                 <td><span *ngIf="wallet.wallet">{{wallet.wallet.DetailsBillingData.billingNumber}}</span></td>
                                 <td><strong>{{wallet.paymentValue}}</strong></td>
                                 <td>{{wallet.expirationDate | date: 'short'}}</td>
-                                <td><button (click)="factura(wallet._id)" class="btn btn-primary "> Pagos </button></td>
+                                <td><button (click)="factura(wallet._id)" class="btn btn-primary btn-sm "> Imprimir Recibo </button></td>
                                 </tr>
                           
                         </tbody>

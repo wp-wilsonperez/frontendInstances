@@ -21,6 +21,7 @@ import { FormGroup, FormBuilder, Validator, Validators } from '@angular/forms';
 export class PolizaComponent{
         public polizaForm:FormGroup;
          public editForm:FormGroup;
+         public searchForm:FormGroup;
          public itemForm:FormGroup;
          public cityForm:FormGroup;
         public helpLinks:any;
@@ -59,7 +60,6 @@ export class PolizaComponent{
         messages = messages;
         recipients:any =[];
         constructor(public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router,public select:SelectService ){
-        
             this.polizaForm = this.formBuilder.group({
                 policyNumber:[],
                 idInsurance:[],
@@ -83,6 +83,11 @@ export class PolizaComponent{
                 futureYears: [],
                 typeRecipient:[],
                 
+            });
+            this.searchForm = this.formBuilder.group({
+                startDate: [''],
+                finishDate: [''],
+                policyNumber: ['']
             });
             this.cityForm = this.formBuilder.group({
                 name: ['',Validators.compose([Validators.required])],
@@ -581,6 +586,31 @@ export class PolizaComponent{
 });
         
 
+    }
+    search(){
+        let request = {
+            filter:[]
+        };
+        for (const key in this.searchForm.value) {
+            if(this.searchForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"startDate",value: this.searchForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"startDate",value: this.searchForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.searchForm.value[key] })
+                }
+            }else{
+            }
+        }
+        console.log(request);
+        this.http.post(`${config.url}policy/filter?access_token=${this.local.getUser().token}`,request).map((res)=>{
+            return res.json();
+        }).subscribe((res)=>{
+            console.log('esta es la respuesta del filter',res);
+            this.polizas = res.policies
+        })
     }
 
 

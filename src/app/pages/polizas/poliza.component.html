@@ -27,6 +27,15 @@
                             </button>
                             <strong>{{message}}</strong> 
                         </div>
+                        <button data-toggle="collapse" data-target="#filters" class="btn btn-primary"><i class="fa fa-filter"></i></button>
+                            <div class="collapse" id="filters" style="margin: 20px;">
+                                <div [formGroup]="searchForm" class="row form-group" >
+                                    <div class="col-md-3"><label for="">Fecha Desde</label><input formControlName="startDate" class="form-control" type="date"></div>
+                                    <div class="col-md-3"><label for="">Fecha Hasta</label><input formControlName="finishDate" class="form-control" type="date"></div>
+                                    <div class="col-md-3"><label for="">Numero de Poliza</label><input formControlName="policyNumber" class="form-control" type="number"></div>
+                                    <div class="col-md-1"><button style="margin-top: 20px;" (click)="search()" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+                                </div>
+                            </div>
                         <div class="clearfix">
                                 <ul class="nav nav-tabs top pull-left w-100p">
                                     <li class="nav-item">
@@ -66,11 +75,11 @@
                                                                       <div class="d-inline-block">
                                                                                 <div class="row">
                                 
-                                                                                        <button (click)="polizaDetail(poliza)" type="button"  class="btn btn-warning" data-toggle="modal" data-target="#new-city">Editar</button>
+                                                                                        <button (click)="polizaDetail(poliza)" type="button"  class="btn btn-warning btn-xs" data-toggle="modal" data-target="#new-city">Editar</button>
 
-                                                                                        <button type="button" [routerLink]="['/pages/polizas/anexos',poliza._id]" class="btn btn-primary" data-toggle="modal" data-target="#anexos-modal">Anexos</button>
+                                                                                        <button type="button" [routerLink]="['/pages/polizas/anexos',poliza._id]" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#anexos-modal">Anexos</button>
     
-                                                                                        <button type="button" (click)="idAssign(poliza._id)" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">Borrar</button>
+                                                                                        <button type="button" (click)="idAssign(poliza._id)" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete-modal">Borrar</button>
                                 
                                 
                                                                                 </div>

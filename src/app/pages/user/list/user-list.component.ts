@@ -24,6 +24,7 @@ export class UserListComponent {
     public message:string;
     public userInfo:any;
     public editForm: FormGroup;
+    public searchForm: FormGroup;
     public userId;
     public searchTxt:any;
     public resultData:any;
@@ -56,6 +57,12 @@ export class UserListComponent {
             'Enabled':['']
         
         },{validator: ValidationService.validacionCedula('cedula')});
+
+        this.searchForm = this.formBuilder.group({
+            startDate: [''],
+            finishDate: [''],
+            noPoliza: ['']
+        });
     }
     borrar(id){
 
@@ -235,6 +242,31 @@ export class UserListComponent {
                 xhr.send(formData)
             }));
         }
+    search(){
+        let request = {
+            filter:[]
+        };
+        for (const key in this.searchForm.value) {
+            if(this.searchForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"dateCreate",value: this.searchForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"dateCreate",value: this.searchForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.searchForm.value[key] })
+                }
+            }else{
+            }
+        }
+        console.log(request);
+        this.http.post(`${config.url}sinister/filter?access_token=${this.local.getUser().token}`,request).map((res)=>{
+            return res.json();
+        }).subscribe((res)=>{
+            console.log('esta es la respuesta del filter',res);
+            this.usersData = res.users
+        })
+    }
      
 }
 

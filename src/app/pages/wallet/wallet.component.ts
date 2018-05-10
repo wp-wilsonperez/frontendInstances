@@ -543,6 +543,8 @@ export class WalletComponent{
             return res.json()
         }).subscribe((result)=>{
             console.log('result del file', result)
+            let doc = result.doc_name
+            window.open(`${config.url}download/${doc}`,"_blank");
         });
     }
 

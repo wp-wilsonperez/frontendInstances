@@ -26,6 +26,7 @@ export class SiniestroComponent{
         public siniestroCarDocumentationForm:FormGroup;
          public editForm:FormGroup;
          public itemForm:FormGroup;
+         public searchForm:FormGroup;
         public helpLinks:any;
         public siniestros:any;
         public helpLinkId:any;
@@ -82,6 +83,10 @@ export class SiniestroComponent{
         recipients:any =[];
         clientsLabel:string ='Elegir Cliente';
         ramo = null;
+        searchStart =  null;
+        searchEnd = null
+        searchNoPoliza = null;
+        searchInsured = null;
         enabledForm:boolean = true;
         constructor(public mapsApiLoader:MapsAPILoader,public ngZone:NgZone  ,public http:Http,public local:UserSessionService,public formBuilder:FormBuilder,public router:Router,public select:SelectService ){
             this.siniestroForm = this.formBuilder.group({
@@ -117,8 +122,11 @@ export class SiniestroComponent{
                 valorAsegurado:[''],
                 sinisterState:['']
             });
-         
-
+            this.searchForm = this.formBuilder.group({
+                startDate: [''],
+                finishDate: [''],
+                noPoliza: ['']
+            });
             this.itemForm = this.formBuilder.group({
             
                 idPolicyAnnex:[],
@@ -829,6 +837,7 @@ export class SiniestroComponent{
             valorAsegurado: '',
             sinisterState: ''
         });
+        
         this.ramo = '';
 
      }
@@ -841,6 +850,31 @@ export class SiniestroComponent{
             window.open(`${config.url}download/${doc}`,"_blank");
         });
      }
+     search(){
+        let request = {
+            filter:[]
+        };
+        for (const key in this.searchForm.value) {
+            if(this.searchForm.value[key]){
+                if(key == "startDate"){
+                    request.filter.push({condition: ">=",field:"dateCreate",value: this.searchForm.value[key]+' 23:59:59' })      
+                }else if(key == "finishDate" ){
+                    request.filter.push({condition: "<=",field:"dateCreate",value: this.searchForm.value[key]+' 00:00:00' })         
+                }
+                else{
+                    request.filter.push({condition: "=",field:key,value: this.searchForm.value[key] })
+                }
+            }else{
+            }
+        }
+        console.log(request);
+        this.http.post(`${config.url}sinister/filter?access_token=${this.local.getUser().token}`,request).map((res)=>{
+            return res.json();
+        }).subscribe((res)=>{
+            console.log('esta es la respuesta del filter',res);
+            this.siniestros = res.sinisters
+        })
+    }
     
 
 
